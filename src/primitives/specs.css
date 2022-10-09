@@ -1,0 +1,561 @@
+/* Declaratives */
+:root {
+    /* guru-green */
+    --guru-green: #33b863;
+    --guru-green-trp: 51, 184, 99;
+    --guru-green-900: #0a8a39;
+    --guru-green-900-trp: 10, 138, 57;
+    --guru-green-800: #119943;
+    --guru-green-800-trp: 17, 153, 67;
+    --guru-green-700: #17ad4e;
+    --guru-green-700-trp: 23, 173, 78;
+    --guru-green-600: #25bd5d;
+    --guru-green-600-trp: 37, 189, 93;
+    --guru-green-500: #33b863;
+    --guru-green-500-trp: 51, 184, 99;
+    --guru-green-400: #3fca72;
+    --guru-green-400-trp: 63, 202, 114;
+    --guru-green-300: #49d97e;
+    --guru-green-300-trp: 73, 217, 126;
+    --guru-green-200: #56e48a;
+    --guru-green-200-trp: 86, 228, 138;
+    --guru-green-100: #66f29a; 
+    --guru-green-100-trp: 102, 242, 154;
+
+    /* tomato */
+    --tomato: #f45654;
+    --tomato-trp: 244, 86, 84;
+    --tomato-900: #c42522;
+    --tomato-900-trp: 196, 37, 34;
+    --tomato-800: #d9322f;
+    --tomato-800-trp: 217, 50, 47;
+    --tomato-700: #e34441;
+    --tomato-700-trp: 227, 68, 65;
+    --tomato-600: #ef4644;
+    --tomato-600-trp: 239, 70, 68;
+    --tomato-500: #f45654; 
+    --tomato-500-trp: 244, 86, 84;
+    --tomato-400: #f1625f;
+    --tomato-400-trp: 241, 98, 95;
+    --tomato-300: #ef6765;
+    --tomato-300-trp: 239, 103, 101;
+    --tomato-200: #ed7775;
+    --tomato-200-trp: 237, 119, 117;
+    --tomato-100: #f48a88; 
+    --tomato-100-trp: 244, 138, 136;
+
+    /* gold */
+    --gold: #C9B457;
+    --gold-trp: 201, 180, 87;
+    --gold-900: #e6be11;
+    --gold-900-trp: 230, 190, 17;
+    --gold-800: #dab928;
+    --gold-800-trp: 218, 185, 40;
+    --gold-700: #d8bc3e;
+    --gold-700-trp: 216, 188, 62;
+    --gold-600: #ccb241;
+    --gold-600-trp: 204, 178, 65;
+    --gold-500: #CAB554;
+    --gold-500-trp: 202, 181, 84;
+    --gold-400: #D3C274;
+    --gold-400-trp: 211, 194, 116;
+    --gold-300: #DED093;
+    --gold-300-trp: 222, 208, 147;
+    --gold-200: #E6DCB1;
+    --gold-200-trp: 230, 220, 177;
+    --gold-100: #F0EAD0;
+    --gold-100-trp: 240, 234, 208;
+
+    /* salmon */
+    --salmon: #fa8072;
+    --salmon-trp: 250, 128, 114;
+    --salmon-900: #f74d3a;
+    --salmon-900-trp: 247, 77, 58;
+    --salmon-800: #f55644;
+    --salmon-800-trp: 245, 86, 68;
+    --salmon-700: #f86453;
+    --salmon-700-trp: 248, 100, 83;
+    --salmon-600: #f87162;
+    --salmon-600-trp: 248, 113, 98;
+    --salmon-500: #fa8072;
+    --salmon-500-trp: 250, 128, 114;
+    --salmon-400: #fc8e81;
+    --salmon-400-trp: 252, 142, 129;
+    --salmon-300: #fa9b90;
+    --salmon-300-trp: 250, 155, 144;
+    --salmon-200: #faa9a0;
+    --salmon-200-trp: 250, 169, 160;
+    --salmon-100: #fabab3;
+    --salmon-100-trp: 250, 186, 179;
+
+    /* steel-blue */
+    --steel-blue: #1e75bd;
+    --steel-blue-trp: 30, 117, 189;
+    --steel-blue-900: #024b86;
+    --steel-blue-900-trp: 2, 75, 134;
+    --steel-blue-800: #095593;
+    --steel-blue-800-trp: 9, 85, 147;
+    --steel-blue-700: #0c5a9a;
+    --steel-blue-700-trp: 12, 90, 154;
+    --steel-blue-600: #1468ad;
+    --steel-blue-600-trp: 20, 104, 173;
+    --steel-blue-500: #1e75bd;
+    --steel-blue-500-trp: 30, 117, 189;
+    --steel-blue-400: #267ec5;
+    --steel-blue-400-trp: 38, 126, 197;
+    --steel-blue-300: #3089d3;
+    --steel-blue-300-trp: 48, 137, 211;
+    --steel-blue-200: #3b8ed3;
+    --steel-blue-200-trp: 59, 142, 211;
+    --steel-blue-100: #489ce1;
+    --steel-blue-100-trp: 72, 156, 225;
+
+    /* sun */
+    --sun: #FFC300;
+    --sun-trp: 255, 195, 0;
+    --sun-900: #c29503;
+    --sun-900-trp: 194, 149, 3;
+    --sun-800: #d1a101;
+    --sun-800-trp: 209, 161, 1;
+    --sun-700: #e6b000;
+    --sun-700-trp: 230, 176, 0;
+    --sun-600: #f7bd00;
+    --sun-600-trp: 247, 189, 0;
+    --sun-500: #FFC300;
+    --sun-500-trp: 255, 195, 0;
+    --sun-400: #fac822;
+    --sun-400-trp: 250, 200, 34;
+    --sun-300: #f8cd3f;
+    --sun-300-trp: 248, 205, 63;
+    --sun-200: #f8d664;
+    --sun-200-trp: 248, 214, 100;
+    --sun-100: #fadc7c;
+    --sun-100-trp: 250, 220, 124;
+
+    /* malachite */
+    --malachite: #0BDA51;
+    --malachite-trp: 11, 218, 81;
+    --malachite-900: #03bd41;
+    --malachite-900-trp: 3, 189, 65;
+    --malachite-800: #03c544;
+    --malachite-800-trp: 3, 197, 68;
+    --malachite-700: #01ce45;
+    --malachite-700-trp: 1, 206, 69;
+    --malachite-600: #01d448;
+    --malachite-600-trp: 1, 212, 72;
+    --malachite-500: #0BDA51;
+    --malachite-500-trp: 11, 218, 81;
+    --malachite-400: #39d66d;
+    --malachite-400-trp: 57, 214, 109;
+    --malachite-300: #52d47d;
+    --malachite-300-trp: 82, 212, 125;
+    --malachite-200: #6ed18f;
+    --malachite-200-trp: 110, 209, 143;
+    --malachite-100: #7cca96;
+    --malachite-100-trp: 124, 202, 150;
+
+    /* bright-blue */
+    --bright-blue: #0096FF;
+    --bright-blue-trp: 0, 150, 255;
+    --bright-blue-900: #0072c4;
+    --bright-blue-900-trp: 0, 114, 196;
+    --bright-blue-800: #017ed8;
+    --bright-blue-800-trp: 1, 126, 216;
+    --bright-blue-700: #0185e4;
+    --bright-blue-700-trp: 1, 133, 228;
+    --bright-blue-600: #038ef1;
+    --bright-blue-600-trp: 3, 142, 241;
+    --bright-blue-500: #0096FF;
+    --bright-blue-500-trp: 0, 150, 255;
+    --bright-blue-400: #109afc;
+    --bright-blue-400-trp: 16, 154, 252;
+    --bright-blue-300: #20a1fd;
+    --bright-blue-300-trp: 32, 161, 253;
+    --bright-blue-200: #2fa9ff;
+    --bright-blue-200-trp: 47, 169, 255;
+    --bright-blue-100: #46affa;
+    --bright-blue-100-trp: 70, 175, 250;
+
+    /* ocean-blue */
+    --ocean-blue: #4183C4;
+    --ocean-blue-trp: 65, 131, 196;
+    --ocean-blue-900: #0b6bca;
+    --ocean-blue-900-trp: 11, 107, 202;
+    --ocean-blue-800: #1a72c9;
+    --ocean-blue-800-trp: 26, 114, 201;
+    --ocean-blue-700: #2b77c4;
+    --ocean-blue-700-trp: 43, 119, 196;
+    --ocean-blue-600: #377dc4;
+    --ocean-blue-600-trp: 55, 125, 196;
+    --ocean-blue-500: #4183C4;
+    --ocean-blue-500-trp: 65, 131, 196;
+    --ocean-blue-400: #4a87c4;
+    --ocean-blue-400-trp: 74, 135, 196;
+    --ocean-blue-300: #5b8dc0;
+    --ocean-blue-300-trp: 91, 141, 192;
+    --ocean-blue-200: #6d97c0;
+    --ocean-blue-200-trp: 109, 151, 192;
+    --ocean-blue-100: #829bb4;
+    --ocean-blue-100-trp: 130, 155, 180;
+
+    /* clay */
+    --clay: #8A5656;
+    --clay-900: #7a3535;
+    --clay-900-trp: 122, 53, 53;
+    --clay-800: #833c3c;
+    --clay-800-trp: 131, 60, 60;
+    --clay-700: #8b4444;
+    --clay-700-trp: 139, 68, 68;
+    --clay-600: #8d4e4e;
+    --clay-600-trp: 141, 78, 78;
+    --clay-500: #8A5656;
+    --clay-500-trp: 138, 86, 86;
+    --clay-400: #996B6B;
+    --clay-400-trp: 153, 107, 107;
+    --clay-300: #A78080;
+    --clay-300-trp: 167, 128, 128;
+    --clay-200: #B59595;
+    --clay-200-trp: 181, 149, 149;
+    --clay-100: #C4AAAA;
+    --clay-100-trp: 196, 170, 170;
+
+    /* white */
+    --white: #FFFFFF;
+    --white-trp: 255, 255, 255;
+    --white-900: #FFFFFF;
+    --white-900-trp: 255, 255, 255;
+    --white-800: #FFFFFF;
+    --white-800-trp: 255, 255, 255;
+    --white-700: #FFFFFF;
+    --white-700-trp: 255, 255, 255;
+    --white-600: #FFFFFF;
+    --white-600-trp: 255, 255, 255;
+    --white-500: #FFFFFF;
+    --white-500-trp: 255, 255, 255;
+    --white-400: #FFFFFF;
+    --white-400-trp: 255, 255, 255;
+    --white-300: #FFFFFF;
+    --white-300-trp: 255, 255, 255;
+    --white-200: #FFFFFF;
+    --white-200-trp: 255, 255, 255;
+    --white-100: #FFFFFF;
+    --white-100-trp: 255, 255, 255;
+
+    /* black */
+    --black: #000000;
+    --black-trp: 0, 0, 0;
+    --black-900: #000000;
+    --black-900-trp: 0, 0, 0;
+    --black-800: #000000;
+    --black-800-trp: 0, 0, 0;
+    --black-700: #000000;
+    --black-700-trp: 0, 0, 0;
+    --black-600: #000000;
+    --black-600-trp: 0, 0, 0;
+    --black-500: #000000;
+    --black-500-trp: 0, 0, 0;
+    --black-400: #111111;
+    --black-400-trp: 17, 17, 17;
+    --black-300: #1d1d1d;
+    --black-300-trp: 29, 29, 29;
+    --black-200: #202020;
+    --black-200-trp: 32, 32, 32;
+    --black-100: #252525;
+    --black-100-trp: 37, 37, 37;
+
+    /* off white */
+    --off-white: #F8F8F8;
+    --off-white-trp: 248, 248, 248;
+    --off-white-900: #d6d5d5;
+    --off-white-900-trp: 214, 213, 213;
+    --off-white-800: #dfdddd;
+    --off-white-800-trp: 223, 221, 221;
+    --off-white-700: #e4e3e3;
+    --off-white-700-trp: 228, 227, 227;
+    --off-white-600: #f0efef;
+    --off-white-600-trp: 240, 239, 239;
+    --off-white-500: #F8F8F8;
+    --off-white-500-trp: 248, 248, 248;
+    --off-white-400: #f7f3f3;
+    --off-white-400-trp: 247, 243, 243;
+    --off-white-300: #fffafa;
+    --off-white-300-trp: 255, 250, 250;
+    --off-white-200: #fff8f8;
+    --off-white-200-trp: 255, 248, 248;
+    --off-white-100: #fff7f7;
+    --off-white-100-trp: 255, 247, 247;
+
+    /* off-off-white */
+    --off-off-white: #EAEAEA;
+    --off-off-white-trp: 234, 234, 234;
+    --off-off-white-900: #d6d5d5;
+    --off-off-white-900-trp: 214, 213, 213;
+    --off-off-white-800: #dfdddd;
+    --off-off-white-800-trp: 223, 221, 221;
+    --off-off-white-700: #e4e3e3;
+    --off-off-white-700-trp: 228, 227, 227;
+    --off-off-white-600: #f0efef;
+    --off-off-white-600-trp: 240, 239, 239;
+    --off-off-white-500: #EAEAEA;
+    --off-off-white-500-trp: 248, 248, 248;
+    --off-off-white-400: #f7f3f3;
+    --off-off-white-400-trp: 247, 243, 243;
+    --off-off-white-300: #fffafa;
+    --off-off-white-300-trp: 255, 250, 250;
+    --off-off-white-200: #fff8f8;
+    --off-off-white-200-trp: 255, 248, 248;
+    --off-off-white-100: #fff7f7;
+    --off-off-white-100-trp: 255, 247, 247;
+
+    /* vry-light-gray */
+    --vry-light-gray: #CCCCCC;
+    --vry-light-gray-trp: 204, 204, 204;
+    --vry-light-gray-900: #636363;
+    --vry-light-gray-900-trp: 99, 99, 99;
+    --vry-light-gray-800: #7a7a7a;
+    --vry-light-gray-800-trp: 122, 122, 122;
+    --vry-light-gray-700: #8f8f8f;
+    --vry-light-gray-700-trp: 143, 143, 143;
+    --vry-light-gray-600: #bebdbd;
+    --vry-light-gray-600-trp: 190, 189, 189;
+    --vry-light-gray-500: #CCCCCC;
+    --vry-light-gray-500-trp: 204, 204, 204;
+    --vry-light-gray-400: #d8d7d7;
+    --vry-light-gray-400-trp: 216, 215, 215;
+    --vry-light-gray-300: #e0e0e0;
+    --vry-light-gray-300-trp: 224, 224, 224;
+    --vry-light-gray-200: #e6e6e6;
+    --vry-light-gray-200-trp: 230, 230, 230;
+    --vry-light-gray-100: #f1f0f0;
+    --vry-light-gray-100-trp: 241, 240, 240;
+
+    /* light-gray */
+    --light-gray: #929497;
+    --light-gray-trp: 146, 148, 151;
+    --light-gray-900: #636363;
+    --light-gray-900-trp: 99, 99, 99;
+    --light-gray-800: #7a7a7a;
+    --light-gray-800-trp: 122, 122, 122;
+    --light-gray-700: #8f8f8f;
+    --light-gray-700-trp: 143, 143, 143;
+    --light-gray-600: #bebdbd;
+    --light-gray-600-trp: 190, 189, 189;
+    --light-gray-500: #CCCCCC;
+    --light-gray-500-trp: 204, 204, 204;
+    --light-gray-400: #d8d7d7;
+    --light-gray-400-trp: 216, 215, 215;
+    --light-gray-300: #e0e0e0;
+    --light-gray-300-trp: 224, 224, 224;
+    --light-gray-200: #e6e6e6;
+    --light-gray-200-trp: 230, 230, 230;
+    --light-gray-100: #f1f0f0;
+    --light-gray-100-trp: 241, 240, 240;
+
+    /* mid-gray */
+    --mid-gray: #808080;
+    --mid-gray-trp: 128, 128, 128;
+    --mid-gray-900: #636363;
+    --mid-gray-900-trp: 99, 99, 99;
+    --mid-gray-800: #7a7a7a;
+    --mid-gray-800-trp: 122, 122, 122;
+    --mid-gray-700: #8f8f8f;
+    --mid-gray-700-trp: 143, 143, 143;
+    --mid-gray-600: #bebdbd;
+    --mid-gray-600-trp: 190, 189, 189;
+    --mid-gray-500: #CCCCCC;
+    --mid-gray-500-trp: 204, 204, 204;
+    --mid-gray-400: #d8d7d7;
+    --mid-gray-400-trp: 216, 215, 215;
+    --mid-gray-300: #e0e0e0;
+    --mid-gray-300-trp: 224, 224, 224;
+    --mid-gray-200: #e6e6e6;
+    --mid-gray-200-trp: 230, 230, 230;
+    --mid-gray-100: #f1f0f0;
+    --mid-gray-100-trp: 241, 240, 240;
+
+    /* drk-gray */
+    --drk-gray: #666666;
+    --drk-gray-trp: 102, 102, 102;
+    --drk-gray-900: #636363;
+    --drk-gray-900-trp: 99, 99, 99;
+    --drk-gray-800: #7a7a7a;
+    --drk-gray-800-trp: 122, 122, 122;
+    --drk-gray-700: #8f8f8f;
+    --drk-gray-700-trp: 143, 143, 143;
+    --drk-gray-600: #bebdbd;
+    --drk-gray-600-trp: 190, 189, 189;
+    --drk-gray-500: #CCCCCC;
+    --drk-gray-500-trp: 204, 204, 204;
+    --drk-gray-400: #d8d7d7;
+    --drk-gray-400-trp: 216, 215, 215;
+    --drk-gray-300: #e0e0e0;
+    --drk-gray-300-trp: 224, 224, 224;
+    --drk-gray-200: #e6e6e6;
+    --drk-gray-200-trp: 230, 230, 230;
+    --drk-gray-100: #f1f0f0;
+    --drk-gray-100-trp: 241, 240, 240;
+
+    /* vry-drk-gray*/
+    --vry-drk-gray: #333333;
+    --vry-drk-gray-trp: 51, 51, 51;
+    --vry-drk-gray-900: #636363;
+    --vry-drk-gray-900-trp: 99, 99, 99;
+    --vry-drk-gray-800: #7a7a7a;
+    --vry-drk-gray-800-trp: 122, 122, 122;
+    --vry-drk-gray-700: #8f8f8f;
+    --vry-drk-gray-700-trp: 143, 143, 143;
+    --vry-drk-gray-600: #bebdbd;
+    --vry-drk-gray-600-trp: 190, 189, 189;
+    --vry-drk-gray-500: #CCCCCC;
+    --vry-drk-gray-500-trp: 204, 204, 204;
+    --vry-drk-gray-400: #d8d7d7;
+    --vry-drk-gray-400-trp: 216, 215, 215;
+    --vry-drk-gray-300: #e0e0e0;
+    --vry-drk-gray-300-trp: 224, 224, 224;
+    --vry-drk-gray-200: #e6e6e6;
+    --vry-drk-gray-200-trp: 230, 230, 230;
+    --vry-drk-gray-100: #f1f0f0;
+    --vry-drk-gray-100-trp: 241, 240, 240;
+
+}
+
+/* Semantics */
+:root {
+
+    /* error */
+    --error: var(--tomato);
+    --error-trp: var(--tomato-trp);
+    --error-900: var(--tomato-900);
+    --error-900-trp: var(--tomato-900-trp);
+    --error-800: var(--tomato-800);
+    --error-800-trp: var(--tomato-800-trp);
+    --error-700: var(--tomato-700);
+    --error-700-trp: var(--tomato-700-trp);
+    --error-600: var(--tomato-600);
+    --error-600-trp: var(--tomato-600-trp);
+    --error-500: var(--tomato-500);
+    --error-500-trp: var(--tomato-500-trp);
+    --error-400: var(--tomato-400);
+    --error-400-trp: var(--tomato-400-trp);
+    --error-300: var(--tomato-300);
+    --error-300-trp: var(--tomato-300-trp);
+    --error-200: var(--tomato-200);
+    --error-200-trp: var(--tomato-200-trp);
+    --error-100: var(--tomato-100);
+    --error-100-trp: var(--tomato-100-trp); 
+
+
+    /* submit */
+    --submit: var(--steel-blue);
+    --submit-900: var(--steel-blue-900);
+    --submit-900-trp: var(--steel-blue-900-trp);
+    --submit-800: var(--steel-blue-800);
+    --submit-800-trp: var(--steel-blue-800-trp);
+    --submit-700: var(--steel-blue-700);
+    --submit-700-trp: var(--steel-blue-700-trp);
+    --submit-600: var(--steel-blue-600);
+    --submit-600-trp: var(--steel-blue-600-trp);
+    --submit-500: var(--steel-blue-500);
+    --submit-500-trp: var(--steel-blue-500-trp);
+    --submit-400: var(--steel-blue-400);
+    --submit-400-trp: var(--steel-blue-400-trp);
+    --submit-300: var(--steel-blue-300);
+    --submit-300-trp: var(--steel-blue-300-trp);
+    --submit-200: var(--steel-blue-200);
+    --submit-200-trp: var(--steel-blue-200-trp);
+    --submit-100: var(--steel-blue-100);
+    --submit-100-trp: var(--steel-blue-100-trp);
+
+    /*error 2*/
+    --error-2: var(--salmon-100-trp);
+    /* warning */
+    --warning: var(--sun);
+    --warning-trp: var(--sun-trp);
+    --warning-900: var(--sun-900);
+    --warning-900-trp: var(--sun-trp-900);
+    --warning-800: var(--sun-800);
+    --warning-800-trp: var(--sun-trp-800);
+    --warning-700: var(--sun-700);
+    --warning-700-trp: var(--sun-trp-700);
+    --warning-600: var(--sun-600);
+    --warning-600-trp: var(--sun-trp-600);
+    --warning-500: var(--sun-500);
+    --warning-500-trp: var(--sun-trp-500);
+    --warning-400: var(--sun-400);
+    --warning-400-trp: var(--sun-trp-400);
+    --warning-300: var(--sun-300);
+    --warning-300-trp: var(--sun-trp-300);
+    --warning-200: var(--sun-200);
+    --warning-200-trp: var(--sun-trp-200);
+    --warning-100: var(--sun-100);
+    --warning-100-trp: var(--sun-trp-100); 
+
+
+    /* success */
+    --success: var(--malachite);
+    --success-trp: var(--malachite-trp);
+    --success-900: var(--malachite-900);
+    --success-900-trp: var(--malachite-trp-900);
+    --success-800: var(--malachite-800);
+    --success-800-trp: var(--malachite-trp-800);
+    --success-700: var(--malachite-700);
+    --success-700-trp: var(--malachite-trp-700);
+    --success-600: var(--malachite-600);
+    --success-600-trp: var(--malachite-trp-600);
+    --success-500: var(--malachite-500);
+    --success-500-trp: var(--malachite-trp-500);
+    --success-400: var(--malachite-400);
+    --success-400-trp: var(--malachite-trp-400);
+    --success-300: var(--malachite-300);
+    --success-300-trp: var(--malachite-trp-300);
+    --success-200: var(--malachite-200);
+    --success-200-trp: var(--malachite-trp-200);
+    --success-100: var(--malachite-100);
+    --success-100-trp: var(--malachite-trp-100); 
+
+
+    /* info */
+    --info: var(--bright-blue);
+    --info-trp: var(--bright-blue-trp);
+    --info-900: var(--bright-blue-900);
+    --info-900-trp: var(--bright-blue-trp-900);
+    --info-800: var(--bright-blue-800);
+    --info-800-trp: var(--bright-blue-trp-800);
+    --info-700: var(--bright-blue-700);
+    --info-700-trp: var(--bright-blue-trp-700);
+    --info-600: var(--bright-blue-600);
+    --info-600-trp: var(--bright-blue-trp-600);
+    --info-500: var(--bright-blue-500);
+    --info-500-trp: var(--bright-blue-trp-500);
+    --info-400: var(--bright-blue-400);
+    --info-400-trp: var(--bright-blue-trp-400);
+    --info-300: var(--bright-blue-300);
+    --info-300-trp: var(--bright-blue-trp-300);
+    --info-200: var(--bright-blue-200);
+    --info-200-trp: var(--bright-blue-trp-200);
+    --info-100: var(--bright-blue-100);
+    --info-100-trp: var(--bright-blue-trp-100); 
+
+    /* link */
+    --link: var(--ocean-blue);
+    --link-trp: var(--ocean-blue-trp);
+    --link-900: var(--ocean-blue-900);
+    --link-900-trp: var(--ocean-blue-trp-900);
+    --link-800: var(--ocean-blue-800);
+    --link-800-trp: var(--ocean-blue-trp-800);
+    --link-700: var(--ocean-blue-700);
+    --link-700-trp: var(--ocean-blue-trp-700);
+    --link-600: var(--ocean-blue-600);
+    --link-600-trp: var(--ocean-blue-trp-600);
+    --link-500: var(--ocean-blue-500);
+    --link-500-trp: var(--ocean-blue-trp-500);
+    --link-400: var(--ocean-blue-400);
+    --link-400-trp: var(--ocean-blue-trp-400);
+    --link-300: var(--ocean-blue-300);
+    --link-300-trp: var(--ocean-blue-trp-300);
+    --link-200: var(--ocean-blue-200);
+    --link-200-trp: var(--ocean-blue-trp-200);
+    --link-100: var(--ocean-blue-100);
+    --link-100-trp: var(--ocean-blue-trp-100); 
+
+}
