@@ -16,7 +16,7 @@ export default defineConfig({
           entry: path.resolve(__dirname, 'src/index.ts'),
           name: 'gdg',
           formats: ['es', 'umd'],
-          fileName: (format) => `gdg.${format}.js`,
+          fileName: (format) => `gdg-clib.${format}.js`,
       },
       rollupOptions: {
           external: ['react', 'react-dom', 'styled-components'],

@@ -97,7 +97,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
     const [textColor, textEmphasis] = getReadableTextColor([primaryColor, primaryEmphasis])
 
     return (
-        <div
+        <button
         // pass through
         {...props}
         // used props
@@ -139,7 +139,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
                 { vistate === "err" && <AnimatedError size={40}/> }
                 { vistate === "success" && <AnimatedCheck size={40}/> }
             </div>}
-        </div>
+        </button>
     )
 };
 
