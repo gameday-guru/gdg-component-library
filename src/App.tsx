@@ -31,7 +31,7 @@ function App() {
       <CheckProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login/>}/>
+            <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/home" element={<Home/>}/>
             <Route path="/models" element={<div></div>}/>

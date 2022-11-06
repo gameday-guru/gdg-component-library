@@ -18,6 +18,8 @@ export const ViusageMap : ColorViusageMaplike = {
     install : "bright-blue",
     getHelp : "warning",
     comment : "success",
+    wrap : "drk-gray",
+    wrapInvert : "white"
 }
 
 export const getViusageColor = 

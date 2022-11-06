@@ -7,4 +7,6 @@ export type Viusagelike = "do"
     | "sort" 
     | "install" 
     | "comment" 
-    | "getHelp";
+    | "getHelp"
+    | "wrap"
+    | "wrapInvert";

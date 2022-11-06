@@ -23,6 +23,8 @@ export type WrapperProps = {
     viusage ? : viusage.primary.Viusagelike;
     /** Invert the color? */
     invert ? : boolean;
+    /** */
+    hoverAnimate ? : boolean;
 };
 
 export const Wrapper : FC<WrapperProps>  = (props) =>{
@@ -46,9 +48,9 @@ export const Wrapper : FC<WrapperProps>  = (props) =>{
             ...[
                 // `border-${primaryColor}-${secondaryEmphasis}`,
                 `bg-${primaryColor}-${primaryEmphasis}`,
-                `hover:bg-${primaryColor}-${primaryEmphasis - 200}`,
+                props.hoverAnimate && `hover:bg-${primaryColor}-${primaryEmphasis - 200}`,
                 `text-${textColor}-${textEmphasis}`,
-                `hover:text-${textColor}-${textEmphasis + 100}`,
+                props.hoverAnimate && `hover:text-${textColor}-${textEmphasis + 100}`,
                 `fill-${primaryColor}-${secondaryEmphasis}`
             ]
         ].join(" ")}
