@@ -1,7 +1,15 @@
 import React, {FC, ReactElement} from 'react';
+import { Wrapper } from '../../../../components';
+import { viusage } from '../../../../util';
+import { Dotousel } from '../../../../components/navigation/panels';
 
-export const NCAAB_MENS_BLOGS_CLASSNAMES : string[] = [ ];
-export const NCAAB_MENS_BLOGS_STYLE : React.CSSProperties = {
+export const NCAAB_MENS_BLOGS_CONTAINER_CLASSNAMES : string[] = [ ];
+export const NCAAB_MENS_BLOGS_CONTAINER_STYLE : React.CSSProperties = {
+};
+
+export const NCAAB_MENS_BLOGS_INNER_CLASSNAMES : string[] = [ ];
+export const NCAAB_MENS_BLOGS_INNER_STYLE : React.CSSProperties = {
+    height : "250px"
 };
 
 export type NcaabMensBlogsProps = {
@@ -11,15 +19,21 @@ export type NcaabMensBlogsProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    viusage ? : viusage.primary.Viusagelike;
 };
 
 export const NcaabMensBlogs : FC<NcaabMensBlogsProps>  = (props) =>{
 
     return (
-        <div
-        className={[...!props.overrideClasses ? NCAAB_MENS_BLOGS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? NCAAB_MENS_BLOGS_STYLE : {}, ...props.style}}>
-
-        </div>
+        <Wrapper
+            viusage={props.viusage||"wrap"}
+            classNames={[...!props.overrideClasses ? NCAAB_MENS_BLOGS_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
+            style={{...!props.overrideStyle ? NCAAB_MENS_BLOGS_CONTAINER_STYLE : {}, ...props.style}}>
+            <div
+            className={[...!props.overrideClasses ? NCAAB_MENS_BLOGS_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
+            style={{...!props.overrideStyle ? NCAAB_MENS_BLOGS_INNER_STYLE : {}, ...props.style}}>
+                <Dotousel classNames={["h-full"]} Entries={["a", "b", "c"]}/>
+            </div>
+        </Wrapper>
     )
 };

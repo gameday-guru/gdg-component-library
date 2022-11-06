@@ -30,7 +30,7 @@ export const NcaabMensGameOfTheDay : FC<NcaabMensGameOfTheDayProps>  = (props) =
             <div
             className={[...!props.overrideClasses ? NCAAB_MENS_GAME_OF_THE_DAY_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? NCAAB_MENS_GAME_OF_THE_DAY_INNER_STYLE : {}, ...props.style}}>
-
+                Game of the Day
             </div>
         </Wrapper>
     )

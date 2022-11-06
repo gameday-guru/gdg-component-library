@@ -30,7 +30,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
             <div
             className={[...!props.overrideClasses ? NCAAB_MENS_TOP25_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? NCAAB_MENS_TOP25_INNER_STYLE : {}, ...props.style}}>
-
+                Top25
             </div>
         </Wrapper>
     )

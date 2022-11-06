@@ -46,7 +46,14 @@ export const Dotousel : FC<DotouselProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? DOTOUSEL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? DOTOUSEL_STYLE : {}, ...props.style}}>
-            {props.Entries && props.Entries[index]}
+            <div style={{
+                height : "100%",   
+                display : "flex",
+                alignContent : "center",
+                alignItems : "center"             
+            }}>
+                {props.Entries && props.Entries[index]}
+            </div>
             <div className={DOTOUSEL_NVA_WRAPPER_CLASSNAMES.join(" ")}>
                 {/**TODO: this should probably be refactored out into it's own component. */}
                 {(props.Entries||[]).map((Entry, i)=>{
