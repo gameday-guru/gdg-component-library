@@ -20,7 +20,6 @@ export const DOTOUSEL_NVA_WRAPPER_CLASSNAMES : string[] = [
     "flex",
     "absolute",
     "m-auto",
-    "bottom-1/4",
     "gap-4"
 ];
 
@@ -54,7 +53,9 @@ export const Dotousel : FC<DotouselProps>  = (props) =>{
             }}>
                 {props.Entries && props.Entries[index]}
             </div>
-            <div className={DOTOUSEL_NVA_WRAPPER_CLASSNAMES.join(" ")}>
+            <div style={{
+                bottom : "15px"
+            }} className={DOTOUSEL_NVA_WRAPPER_CLASSNAMES.join(" ")}>
                 {/**TODO: this should probably be refactored out into it's own component. */}
                 {(props.Entries||[]).map((Entry, i)=>{
                     return <div 
@@ -74,7 +75,7 @@ export const Dotousel : FC<DotouselProps>  = (props) =>{
                     ].join(" ")}
                     style={{
                         height : props.size||10,
-                        width : props.size||10
+                        width : props.size||10,
                     }}>
                     </div>
                 })}
