@@ -156,3 +156,39 @@ export interface Teamlike {
     ShortDisplayName: string;
     Stadium? :Stadiumlike
 };
+
+export interface ProjectionEntrylike {
+    game_id : number
+    home_team_id : number
+    away_team_id : number
+    home_team_score : number
+    away_team_score : number
+}
+
+export interface ProjectionTablelike {
+    [key : string] : ProjectionEntrylike;
+}
+
+export interface EfficiencyEntrylike {
+    game_id : number
+    home_team_id : number
+    away_team_id : number
+    home_team_score : number
+    away_team_score : number
+}
+
+export interface EfficiencyTablelike {
+    [key : string] : EfficiencyEntrylike
+};
+
+export interface GameEfficiencyEntrylike {
+    team_id : number
+    game_id : number
+    game_oe : number
+    game_de : number
+    tempo : number
+}
+
+export interface GameEfficiencyTablelike {
+    [key : string] : GameEfficiencyEntrylike;
+}
