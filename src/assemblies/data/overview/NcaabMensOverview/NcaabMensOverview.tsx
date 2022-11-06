@@ -1,7 +1,8 @@
 import React, {FC, ReactElement} from 'react';
 
 export const NCAAB_MENS_OVERVIEW_CLASSNAMES : string[] = [
-    "grid"
+    "grid",
+    "gap-4"
  ];
 export const NCAAB_MENS_OVERVIEW_STYLE : React.CSSProperties = {
     gridTemplateColumns : "3fr 1fr"

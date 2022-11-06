@@ -5,7 +5,7 @@ export const NCAAB_MENS_BLOGS_STYLE : React.CSSProperties = {
 };
 
 export type NcaabMensBlogsProps = {
-     children ? : React.ReactNode;
+    children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
     classNames ? : string[];
