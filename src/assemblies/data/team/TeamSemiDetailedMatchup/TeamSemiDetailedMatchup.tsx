@@ -10,12 +10,15 @@ export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {
 };
 
 export const TEAM_DETAILED_MATCHUP_INNER_CLASSNAMES : string[] = [ 
-    "grid"
+    "grid",
+    "gap-4"
 ];
 export const TEAM_DETAILED_MATCHUP_INNER_STYLE : React.CSSProperties = {
     gridTemplateColumns : "1fr 2fr",
     justifyContent : "center",
-    justifyItems : "center"
+    justifyItems : "center",
+    alignContent : "center",
+    alignItems : "center"
 };
 
 export type TeamSemiDetailedMatchupProps = {

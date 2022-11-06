@@ -68,13 +68,13 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
             style={{...!props.overrideStyle ? PROJECTION_WIN_PERCENTAGE_STYLE : {}, ...props.style}}>
                 <h2 className='text-lg'>Win Projection</h2>
                 <br/>
-                <PieChart height={200} width={200}>
+                <PieChart height={125} width={125}>
                     <Pie labelLine={false} label={({
                         cx , cy, midAngle, innerRadius, outerRadius, percent, index,
                     }) => {
 
                         // TODO: open GitHub issue to type the labeler.
-                        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                        const radius = outerRadius * 1.2;
                         const x = cx + radius * Math.cos(-midAngle * RADIAN);
                         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -83,22 +83,53 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
                             {`${(percent * 100).toFixed(0)}%`}
                             </text>
                         );
-                    }} stroke='none' innerRadius={20} data={data} dataKey={"value"} nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8">
+                    }} stroke='none' innerRadius={10} data={data} dataKey={"value"} nameKey="name" cx="50%" cy="50%" outerRadius={30} fill="#8884d8">
                         {data.map((entry, index) => <Cell key={entry.name}  fill={COLORS[index % COLORS.length]}/>)}
                     </Pie>
-                    <Legend
-                            payload={
-                                data.map(
-                                (item, index) => ({
-                                    id: item.name,
-                                    type: "square",
-                                    value: `${item.name} (${item.value}%)`,
-                                    color: COLORS[index % COLORS.length]
-                                })
-                                )
-                            }
-                        />
                 </PieChart>
+                <div className='gap-4' style={{
+                    display : "grid",
+                    gridTemplateColumns : "1fr 1fr",
+                    alignContent : "center",
+                    justifyContent : "center"
+                }}>
+                    <div style={{
+                            display : "flex",
+                            fontSize : "8px",
+                            alignContent : "center",
+                            alignItems : "center"
+                        }}>
+                        <div style={{
+                            background : COLORS[0],
+                            height : "10px",
+                            width : "10px",
+                        }}>
+
+                        </div>
+                        &emsp;
+                        <div>
+                        {_home.Name}
+                        </div>
+                    </div>
+                    <div style={{
+                            display : "flex",
+                            fontSize : "8px",
+                            alignContent : "center",
+                            alignItems : "center"
+                        }}>
+                        <div style={{
+                            background : COLORS[1],
+                            height : "10px",
+                            width : "10px",
+                        }}>
+
+                        </div>
+                        &emsp;
+                        <div>
+                        {_away.Name}
+                        </div>
+                    </div>
+                </div>
             </div>
         </Wrapper>
     )
