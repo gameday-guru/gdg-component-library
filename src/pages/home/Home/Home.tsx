@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../assemblies/meta';
+import { HomeContent } from '../../../assemblies/meta/content/HomeContent/HomeContent';
 
 export const HOME_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -38,10 +39,15 @@ export const Home : FC<HomeProps>  = (props) =>{
                 <MainSidebar style={{
                     height : '100%'
                 }}/>
-                {/** TODO: MainNav sidebar */}
             </div>
-            <div>
-                {/** TODO: HomeContent */ }
+            <div style={{
+                height : '100%',
+                width : '100%'
+            }}>
+                <HomeContent style={{
+                    width : "100%",
+                    height : "100%"
+                }}/>
             </div>
         </div>
     )

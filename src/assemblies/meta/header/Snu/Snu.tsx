@@ -25,7 +25,7 @@ export const Snu : FC<SnuProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? SNU_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? SNU_STYLE : {}, ...props.style}}>
-            <SearchBar/>
+            <SearchBar classNames={["rounded-full", "text-sm"]}/>
             <Bell size={props.size}/>
             <PersonCircle size={props.size}/>
         </div>
