@@ -9,4 +9,5 @@ export type Viusagelike = "do"
     | "comment" 
     | "getHelp"
     | "wrap"
-    | "wrapInvert";
+    | "wrapInvert"
+    | "backdrop";

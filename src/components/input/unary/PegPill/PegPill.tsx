@@ -28,7 +28,7 @@ export type PegPillProps = PillProps & {
     classNames ? : string[];
     overrideClasses ? : boolean;
     pegSize ? : number;
-    Peg ? : React.ReactNode
+    Peg ? : React.ReactNode;
 };
 
 export const PegPill : FC<PegPillProps>  = (props) =>{

@@ -12,14 +12,15 @@ export const ViusageMap : ColorViusageMaplike = {
     get : "ocean-blue",
     info : "info",
     getUserInfo : "clay",
-    navigate : "success",
+    navigate : "gdg",
     find : "gold",
     sort : "drk-gray",
     install : "bright-blue",
     getHelp : "warning",
     comment : "success",
     wrap : "drk-gray",
-    wrapInvert : "white"
+    wrapInvert : "white",
+    backdrop : "black"
 }
 
 export const getViusageColor = 

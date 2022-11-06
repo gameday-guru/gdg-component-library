@@ -55,7 +55,7 @@ export const Wrapper : FC<WrapperProps>  = (props) =>{
             ]
         ].join(" ")}
         style={{...!props.overrideStyle ? WRAPPER_STYLE : {}, ...props.style}}>
-
+            {props.children}
         </div>
     )
 };

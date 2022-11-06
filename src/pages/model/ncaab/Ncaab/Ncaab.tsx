@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from 'react';
-import { Sidebar } from '../../../../assemblies/meta/universal/Sidebar';
+import { Sidebar } from '../../../../assemblies/meta/nav/LogoedSidebar';
 import { SideFeed } from '../../../../components/output/containers';
 import { Dotousel } from '../../../../components/navigation/panels/Dotousel';
 import { Logo } from '../../../../components/output/icons/Logo';

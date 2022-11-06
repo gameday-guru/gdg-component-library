@@ -1,13 +1,5 @@
 import React, {FC, ReactElement} from 'react';
-import { Sidebar } from '../../../assemblies/meta/universal/Sidebar';
-import { SideFeed } from '../../../components/output/containers';
-import { Dotousel } from '../../../components/navigation/panels/Dotousel';
-import { Logo } from '../../../components/output/icons/Logo';
-import { LeftRight } from '../../../components/output/containers/general';
-import { Snu } from '../../../assemblies/meta/universal';
-import { useNavigate } from 'react-router-dom';
-import { FilterSet } from '../../../components/output/containers/filter';
-import { useCheckStore } from '../../../components/CheckProvider';
+import { MainSidebar } from '../../../assemblies/meta';
 
 export const HOME_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -18,11 +10,11 @@ export const HOME_CLASSNAMES : string[] = [
     "text-drk-gray-900"
 ];
 export const HOME_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "1fr 4fr"
+    gridTemplateColumns : "1fr 6fr"
 };
 
 export type HomeProps = {
-     children ? : React.ReactNode;
+    children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
     classNames ? : string[];
@@ -39,8 +31,18 @@ export const Home : FC<HomeProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? HOME_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? HOME_STYLE : {}, ...props.style}}>
-            <Sidebar classNames={["h-full", "w-full"]}/>
-
+            <div style={{
+                height : '100%',
+                width : '100%'
+            }}>
+                <MainSidebar style={{
+                    height : '100%'
+                }}/>
+                {/** TODO: MainNav sidebar */}
+            </div>
+            <div>
+                {/** TODO: HomeContent */ }
+            </div>
         </div>
     )
 };
