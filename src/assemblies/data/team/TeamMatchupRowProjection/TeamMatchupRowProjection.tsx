@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
+import { StackedProjection } from '../StackedProjection';
 
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ ];
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : React.CSSProperties = {
@@ -25,6 +26,7 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
 
     return (
         <Wrapper
+            viusage={"wrap"}
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
@@ -34,7 +36,7 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
             className={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_INNER_STYLE : {}, ...props.style}}>
                 <div>   
-                    { /** TODO: StackedProjection */ }
+                    <StackedProjection/>
                 </div>
                 <div>
                     { /** TODO: GamblersTuple */ }

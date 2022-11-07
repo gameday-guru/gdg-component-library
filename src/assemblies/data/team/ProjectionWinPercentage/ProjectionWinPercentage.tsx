@@ -1,8 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
-import { PieChart, Pie, Cell, Legend } from "recharts";
+import { PieChart, Pie, Cell, Legend, RadarChart, PolarGrid, Radar } from "recharts";
 import { ontology } from '../../../../util';
-import BigNumber from "bignumber.js";
 import Decimal from "decimal.js";
 
 export const PROJECTION_WIN_PERCENTAGE_CLASSNAMES : string[] = [
@@ -24,7 +23,9 @@ export type ProjectionWinPercentageProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     homeTeam ? : ontology.Teamlike;
+    homeEff ? : ontology.EfficiencyEntrylike;
     awayTeam ? : ontology.Teamlike;
+    awayEff ? : ontology.EfficiencyEntrylike;
     gameProjection ? : ontology.ProjectionEntrylike;
 };
 
@@ -32,7 +33,9 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
 
     // defaults
     const _home = props.homeTeam||ontology.MockHome;
+    const _homeEff = props.homeTeam||ontology.MockHomeEff;
     const _away = props.awayTeam||ontology.MockAway;
+    const _awayEff = props.awayTeam||ontology.MockAwayEff;
     const _gameProjection = props.gameProjection||ontology.MockProjection;
 
     // compute pythagorean win, we ought to use Decimal for this because numbers can be bigger than 2 ^ 64
