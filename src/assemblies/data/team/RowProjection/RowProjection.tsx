@@ -3,7 +3,12 @@ import { RowTuple } from '../RowTuple';
 import { SideTeam } from '../SideTeam';
 
 export const ROW_PROJECTION_CLASSNAMES : string[] = [ 
-    "grid"
+    "grid",
+    "rounded-lg",
+    "border",
+    "border-2",
+    "border-gdg-500",
+    "p-4"
 ];
 export const ROW_PROJECTION_STYLE : React.CSSProperties = {
     gridTemplateColumns : "2fr 1fr 2fr"
