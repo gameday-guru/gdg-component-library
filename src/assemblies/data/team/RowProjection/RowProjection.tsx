@@ -11,7 +11,9 @@ export const ROW_PROJECTION_CLASSNAMES : string[] = [
     "p-4"
 ];
 export const ROW_PROJECTION_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "2fr 1fr 2fr"
+    gridTemplateColumns : "2fr 1fr 2fr",
+    alignContent : "center",
+    alignItems : "center"
 };
 
 export type RowProjectionProps = {
