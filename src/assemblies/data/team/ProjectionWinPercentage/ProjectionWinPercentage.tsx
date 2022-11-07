@@ -70,7 +70,6 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
             className={[...!props.overrideClasses ? PROJECTION_WIN_PERCENTAGE_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? PROJECTION_WIN_PERCENTAGE_STYLE : {}, ...props.style}}>
                 <h2 className='text-lg'>Win Projection</h2>
-                <br/>
                 <PieChart height={125} width={125}>
                     <Pie labelLine={false} label={({
                         cx , cy, midAngle, innerRadius, outerRadius, percent, index,
@@ -90,7 +89,7 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
                         {data.map((entry, index) => <Cell key={entry.name}  fill={COLORS[index % COLORS.length]}/>)}
                     </Pie>
                 </PieChart>
-                <div className='gap-4' style={{
+                <div className='gap-2' style={{
                     display : "grid",
                     gridTemplateColumns : "1fr 1fr",
                     alignContent : "center",

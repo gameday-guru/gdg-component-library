@@ -6,9 +6,14 @@ import { vistate, viusage } from '../../../../util';
 import { Emphasislike } from '../../../../util/color/emphasis';
 
 
-export const GRADIENT_OVERLAY_CLASSNAMES : string[] = [ ];
+export const GRADIENT_OVERLAY_CLASSNAMES : string[] = [ 
+    "rounded-lg"
+];
 export const GRADIENT_OVERLAY_STYLE : React.CSSProperties = {
-    pointerEvents : "none"
+    pointerEvents : "none",
+    position : "absolute",
+    left : 0,
+    top : 0
 };
 
 export type GradientOverlayProps = {
@@ -35,18 +40,18 @@ export const GradientOverlay : FC<GradientOverlayProps>  = (props) =>{
     const primaryColor = getViusageColor(props.viusage);
 
     return (
-        <div
-        className={[...!props.overrideClasses ? GRADIENT_OVERLAY_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{
-            backgroundColor : `linear-gradient(to right, #00000023, ${primaryColor}23)`,
-            ...!props.overrideStyle ? GRADIENT_OVERLAY_STYLE : {}, 
-            ...props.style
-        }}>
-            <div style={{
-                pointerEvents : "auto"
+        <div style={{display : "relative"}}>
+            {props.children}
+            <div
+            className={[...!props.overrideClasses ? GRADIENT_OVERLAY_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
+            style={{
+                ...!props.overrideStyle ? GRADIENT_OVERLAY_STYLE : {}, 
+                ...props.style,
+                // background : "linear-gradient(#e66465, #9198e5)"
+                background : `linear-gradient(to right, #005E4823, #005E48ff)`,
             }}>
-                {props.children}
             </div>
         </div>
+       
     )
 };

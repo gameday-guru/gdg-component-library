@@ -38,6 +38,8 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
                 <h2 className='text-lg'>Score Projection</h2>
                 <div style={{
                     display : "grid",
+                    alignContent : "center",
+                    alignItems : "center",
                     gridTemplateColumns : "1fr 1fr",
                     textAlign : "left",
                     fontSize : 10
@@ -69,6 +71,7 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
                         </div>
                     </div>
                 </div>
+                <br/>
                 <div style={{
                     textAlign : "left",
                     fontSize : 10
