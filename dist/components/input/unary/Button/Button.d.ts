@@ -27,7 +27,9 @@ export declare type ButtonProps = {
     disabled?: boolean;
     /** The emphasis for the attribute. */
     emphasis?: Emphasislike;
+    /** The class names to add. */
     classNames?: string[];
+    /** Whether or not to overrid the classes  */
     overrideClasses?: boolean;
 };
 export declare const Button: FC<ButtonProps>;

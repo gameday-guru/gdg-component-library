@@ -1,0 +1,20 @@
+import React, { FC } from 'react';
+export declare const HEAD_TO_HEAD_CLASSNAMES: string[];
+export declare const HEAD_TO_HEAD_STYLE: React.CSSProperties;
+export declare const HEAD_TO_HEAD_TITLE_CLASSNAMES: string[];
+export declare const HEAD_TO_HEAD_HEAD_CLASSNAMES: string[];
+export declare const HEAD_TO_HEAD_BODY_CLASSNAMES: string[];
+export declare type HeadToHeadProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    Title?: React.ReactNode;
+    LeftHead?: React.ReactNode;
+    LeftBody?: React.ReactNode;
+    RightHead?: React.ReactNode;
+    RightBody?: React.ReactNode;
+    Comparison?: React.ReactNode;
+};
+export declare const HeadToHead: FC<HeadToHeadProps>;

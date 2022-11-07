@@ -41,7 +41,7 @@ export const H2H : FC<H2HProps>  = (props) =>{
         }
         style={{...!props.overrideStyle ? H_2_H_STYLE : {}, ...props.style}}>
             <div>
-                {props.Home||<div style={{
+                <div style={{
                     color : "white",
                     display : "grid",
                     justifyContent : "center",
@@ -50,7 +50,7 @@ export const H2H : FC<H2HProps>  = (props) =>{
                     <img width={60} src={_home.TeamLogoUrl}/>
                     <br/>
                     {_home.Name}
-                </div>}
+                </div>
                 <h2 className='text-lg'>Home</h2>
             </div>
             <div style={{
@@ -60,7 +60,7 @@ export const H2H : FC<H2HProps>  = (props) =>{
                 <Vs/>
             </div>
             <div>
-                {props.Away||<div style={{
+                <div style={{
                     color : "white",
                     display : "grid",
                     justifyContent : "center",
@@ -69,7 +69,7 @@ export const H2H : FC<H2HProps>  = (props) =>{
                     <img width={60} src={_away.TeamLogoUrl}/>
                     <br/>
                     {_away.Name}
-                </div>}
+                </div>
                 <h2 className='text-lg'>Away</h2>
             </div>
         </div>

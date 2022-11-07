@@ -1,10 +1,10 @@
 import React, {FC, ReactElement} from 'react';
-import { Sidebar } from '../../../../assemblies/meta/nav/LogoedSidebar';
+import { Sidebar } from '../../../../components/navigation/panels';
 import { SideFeed } from '../../../../components/output/containers';
 import { Dotousel } from '../../../../components/navigation/panels/Dotousel';
 import { Logo } from '../../../../components/output/icons/Logo';
 import { LeftRight } from '../../../../components/output/containers/general';
-import { Snu } from '../../../../assemblies/meta/universal';
+import { Snu } from '../../../../assemblies/meta/header';
 import { useNavigate } from 'react-router-dom';
 import { FilterSet } from '../../../../components/output/containers/filter';
 import { Carousel } from '../../../../components/navigation/panels';
