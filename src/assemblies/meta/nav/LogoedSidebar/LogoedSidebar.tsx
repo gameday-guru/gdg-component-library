@@ -14,11 +14,12 @@ export type LogoedSidebarProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     options ? : {[key : string] : React.ReactNode}
+    which ? : string
 };
 
 export const LogoedSidebar : FC<LogoedSidebarProps>  = (props) =>{
 
     return (
-        <Sidebar Header={<Logo/>} options={props.options}/>
+        <Sidebar which={props.which} Header={<Logo/>} options={props.options}/>
     )
 };

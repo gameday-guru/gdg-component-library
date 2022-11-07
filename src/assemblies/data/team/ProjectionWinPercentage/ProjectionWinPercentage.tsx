@@ -60,8 +60,8 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
 
     // TODO: use viusage
     const COLORS = [
-        "#0BDA51",
-        "#0096FF"
+        "#00C192",
+        "#0086E6"
     ]
 
     return (

@@ -24,9 +24,27 @@ export type NcaabMensUpcomingGamesProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike
+    which ? : string
 };
 
 export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props) =>{
+
+    const options = [
+        "This Week",
+        "Big 12",
+        "ACC", 
+        "PAC 12", 
+        "On the Bubble"
+    ]
+    const selections = options
+    .map((display, i)=>{
+        return <Pill 
+            emphasis={props.which === display ? 500 : 300}
+            viusage={props.which === display || ( !props.which && i ===0 )? 'navigate' : 'wrap'}
+            key={display}>
+                {display}
+        </Pill>
+    });
 
     return (
         <Wrapper
@@ -36,19 +54,16 @@ export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props)
             <div
             className={[...!props.overrideClasses ? NCAAB_MENS_UPCOMING_GAMES_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? NCAAB_MENS_UPCOMING_GAMES_INNER_STYLE : {}, ...props.style}}>
-                <h2 className='text-lg'>Upcoming Games for Top 25</h2>
+                <h2 className='text-xl'>Upcoming Games for Top 25</h2>
                 <br/>
                 <hr/>
                 <br/>
                 <div style={{
                     gridTemplateColumns : '1fr 1fr 1fr 1fr 1fr'
                 }} className='grid gap-2 text-sm'>
-                    <Pill>This Week</Pill>
-                    <Pill>Big 12</Pill>
-                    <Pill>ACC</Pill>
-                    <Pill>Pac 12</Pill>
-                    <Pill>On the Bubble</Pill>
+                    {selections}
                 </div>
+                <br/>
                 <TeamMatchupRowProjection/>
             </div>
         </Wrapper>

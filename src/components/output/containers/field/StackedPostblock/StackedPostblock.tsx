@@ -3,10 +3,12 @@ import React, {FC, ReactElement} from 'react';
 
 export const STACKED_POSTBLOCK_CLASSNAMES : string[] = [
     "grid",
-    "text-sm"
+    "text-sm",
+    "gap-2"
 ];
 export const STACKED_POSTBLOCK_STYLE : React.CSSProperties = {
-    gridTemplateRows : "1fr 2fr",
+    gridTemplateColumns : "1fr",
+    gridTemplateRows : "1fr 1fr",
     alignContent : "center",
     alignItems  : "center",
     justifyContent : "center",
@@ -31,12 +33,12 @@ export const StackedPostblock : FC<StackedPostblockProps>  = (props) =>{
         className={[...!props.overrideClasses ? STACKED_POSTBLOCK_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? STACKED_POSTBLOCK_STYLE : {}, ...props.style}}>
             <div style={{
+                display : "grid",
                 color : "#ffffff",
                 opacity : .7,
-                alignContent : "center",
-                alignItems : "center",
+                height : "100%",
                 width : "100%",
-                height : "100%"
+                alignContent : "center"
             }}>
                 {props.Label}
             </div>
@@ -45,8 +47,8 @@ export const StackedPostblock : FC<StackedPostblockProps>  = (props) =>{
                 background : "#01987522",
                 alignContent : "center",
                 alignItems : "center",
-                width : "100%",
-                height : "100%"
+                height : "100%",
+                width : "100%"
             }}>
                 {props.Value}
             </div>

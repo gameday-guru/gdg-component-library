@@ -1,13 +1,19 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
+import { DateString } from '../../generic';
+import { GamblersTuple } from '../GamblersTuple';
 import { StackedProjection } from '../StackedProjection';
 
-export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ ];
+export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ 
+    "p-4",
+    "rounded-lg"
+];
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : React.CSSProperties = {
 };
 
 export const TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : string[] = [ 
-    "grid"
+    "grid",
+    "gap-2"
 ];
 export const TEAM_MATCHUP_ROW_PROJECTION_INNER_STYLE : React.CSSProperties = {
     gridTemplateColumns : "3fr 1fr"
@@ -26,11 +32,12 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
 
     return (
         <Wrapper
-            viusage={"wrap"}
+            viusage={"backdrop"}
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
-                {/** TODO: DateString */}
+                <DateString/>
+                <br/>
             </div>
             <div
             className={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
@@ -39,7 +46,9 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
                     <StackedProjection/>
                 </div>
                 <div>
-                    { /** TODO: GamblersTuple */ }
+                    <GamblersTuple style={{
+                        height : "100%"
+                    }}/>
                 </div>
             </div>
         </Wrapper>

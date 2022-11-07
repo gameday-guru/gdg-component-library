@@ -40,7 +40,7 @@ export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
             classNames={[...!props.overrideClasses ? SIDEBAR_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? SIDEBAR_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
-                <LogoedSidebar options={{
+                <LogoedSidebar which='home' options={{
                     "home" : <div style={{
                         display : "flex",
                         alignContent : "center",
