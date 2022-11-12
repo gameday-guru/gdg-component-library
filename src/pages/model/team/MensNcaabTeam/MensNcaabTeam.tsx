@@ -2,7 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../assemblies/meta';
 import { MensNcaabTeamContent } from '../../../../assemblies/meta/content/NcaabMensTeamContent';
 
-export const HOME_CLASSNAMES : string[] = [ 
+export const MENS_NCAAB_TEAM_CLASSNAMES : string[] = [ 
     "h-screen",
     "w-screen",
     "grid",
@@ -10,7 +10,7 @@ export const HOME_CLASSNAMES : string[] = [
     "items-center",
     "text-drk-gray-900",
 ];
-export const HOME_STYLE : React.CSSProperties = {
+export const MENS_NCAAB_TEAM_STYLE : React.CSSProperties = {
     gridTemplateColumns : "1fr 6fr"
 };
 
@@ -30,8 +30,8 @@ export const MensNcaabTeam : FC<MensNcaabTeamProps>  = (props) =>{
 
     return (
         <div
-        className={[...!props.overrideClasses ? HOME_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? HOME_STYLE : {}, ...props.style}}>
+        className={[...!props.overrideClasses ? MENS_NCAAB_TEAM_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
+        style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_STYLE : {}, ...props.style}}>
             <div style={{
                 height : '100%',
                 width : '100%'
