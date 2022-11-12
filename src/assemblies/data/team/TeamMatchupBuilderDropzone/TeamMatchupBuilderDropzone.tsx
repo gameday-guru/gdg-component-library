@@ -6,7 +6,9 @@ export const TEAM_MATCHUP_BUILDER_CONTAINER_DROPZONE_CLASSNAMES : string[] = [
     "border-gdg-500",
     "border-dashed",
     "border-2",
-    "text-gdg-500", "grid"
+    "text-gdg-500", 
+    "grid",
+    "cursor-pointer"
 ];
 export const TEAM_MATCHUP_BUILDER_CONTAINER_DROPZONE_STYLE : React.CSSProperties = {
     justifyContent : "center",
@@ -36,6 +38,7 @@ export const TeamMatchupBuilderDropzone : FC<TeamMatchupBuilderDropzoneProps>  =
     return (
         <Wrapper 
             viusage='wrap'
+            hoverAnimate
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_BUILDER_CONTAINER_DROPZONE_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_BUILDER_CONTAINER_DROPZONE_STYLE : {}, ...props.style}}>
             <div
