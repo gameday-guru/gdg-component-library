@@ -10,4 +10,6 @@ export type Viusagelike = "do"
     | "getHelp"
     | "wrap"
     | "wrapInvert"
-    | "backdrop";
+    | "backdrop"
+    | "error"
+    | "success";

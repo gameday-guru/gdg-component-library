@@ -20,7 +20,9 @@ export const ViusageMap : ColorViusageMaplike = {
     comment : "success",
     wrap : "drk-gray",
     wrapInvert : "white",
-    backdrop : "black"
+    backdrop : "black",
+    error : "error",
+    success : "success"
 }
 
 export const getViusageColor = 

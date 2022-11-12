@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { Vs } from '../../../../components/output/indicators/label/Vs';
+import { TeamEfficiencyTable } from '../TeamEfficiencyTable/TeamEfficiencyTable';
 import { TeamMatchupSelectRow } from '../TeamMatchupSelectRow/TeamMatchupSelectRow';
 
 export const TEAMS_CLASSNAMES : string[] = [
@@ -27,10 +28,10 @@ export const Teams : FC<TeamsProps>  = (props) =>{
         className={[...!props.overrideClasses ? TEAMS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAMS_STYLE : {}, ...props.style}}>
             <div>
-                <TeamMatchupSelectRow/>
+                <TeamMatchupSelectRow style={{ height : "300px"}}/>
             </div>
             <div>
-                {/** TeamsEfficiencyTable */}
+                <TeamEfficiencyTable/>
             </div>
         </div>
     )

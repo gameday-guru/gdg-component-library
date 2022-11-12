@@ -4,27 +4,19 @@ import { Vs } from '../../../../components/output/indicators/label/Vs';
 import { TeamMatchupBuilderDropzone } from '../TeamMatchupBuilderDropzone';
 
 export const TEAM_MATCHUP_BUILDER_CONTAINER_CLASSNAMES : string[] = [ 
-    "grid",
     "rounded-lg",
-    "text-lg",
     "p-4"
 ];
 export const TEAM_MATCHUP_BUILDER_CONTAINER_STYLE : React.CSSProperties = {
-  
 };
 
 export const TEAM_MATCHUP_BUILDER_INNER_CLASSNAMES : string[] = [ 
     "grid",
-    "gap-4",
-    "h-full"
+    "gap-4"
 ];
 export const TEAM_MATCHUP_BUILDER_INNER_STYLE : React.CSSProperties = {
-    gridTemplateColumns : '2fr 1fr 2fr',
-    // gridTemplateRows : "1fr",
-    justifyContent : "center",
-    justifyItems : "center",
-    alignContent : "center",
-    alignItems : "center"
+    gridTemplateColumns : "1fr",
+    gridTemplateRows : "1fr 9fr"
 };
 
 export type TeamMatchupBuilderProps = {
@@ -43,29 +35,40 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
             viusage='wrap'
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_BUILDER_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_BUILDER_CONTAINER_STYLE : {}, ...props.style}}>
-            <h2 style={{
-                textAlign : "start"
-            }}>Team Matchup Projection</h2>
-            <hr/>
-            <br/>
             <div
             className={[...!props.overrideClasses ? TEAM_MATCHUP_BUILDER_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_BUILDER_INNER_STYLE : {}, ...props.style}}>
-                <TeamMatchupBuilderDropzone style={{
-                    height : "250px"
-                }} classNames={["w-full"]}/>
                 <div>
-                    <Vs 
-                    style={{
-                        fontSize : "18px",
-                        height : "60px",
-                        width : "60px"
-                    }}
-                    classNames={["p-4", "bg-gdg-500", "rounded-full", "text-black-500", "grid", "justify-center", "content-center"]}/>
+                    <h2 className='text-lg' style={{
+                        textAlign : "start"
+                    }}>Team Matchup Projection</h2>
+                    <hr/>
                 </div>
-                <TeamMatchupBuilderDropzone style={{
-                    height : "250px"
-                }} classNames={["w-full"]}/>
+                <div className='grid' style={{
+                    gridTemplateColumns : "2fr 1fr 2fr",
+                    gridTemplateRows : "1fr",
+                    alignContent : "center",
+                    alignItems : "center",
+                    justifyItems : "center"
+                }}>
+                    <TeamMatchupBuilderDropzone style={{
+                        height : "100%",
+                        width : "100%"
+                    }}/>
+                    <div>
+                        <Vs 
+                        style={{
+                            fontSize : "18px",
+                            height : "60px",
+                            width : "60px"
+                        }}
+                        classNames={["p-4", "bg-gdg-500", "rounded-full", "text-black-500", "grid", "justify-center", "content-center"]}/>
+                    </div>
+                    <TeamMatchupBuilderDropzone style={{
+                        height : "100%",
+                        width : "100%"
+                    }}/>
+                </div>
             </div>
         </Wrapper>
     )

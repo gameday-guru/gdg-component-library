@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { TeamMatchupBuilder } from '../TeamMatchupBuilder';
+import { TopTeams } from '../../league/TopTeams';
 
 export const TEAM_MATCHUP_SELECT_ROW_CLASSNAMES : string[] = [ 
     "grid",
@@ -11,7 +12,7 @@ export const TEAM_MATCHUP_SELECT_ROW_STYLE : React.CSSProperties = {
 };
 
 export type TeamMatchupSelectRowProps = {
-     children ? : React.ReactNode;
+    children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
     classNames ? : string[];
@@ -25,14 +26,9 @@ export const TeamMatchupSelectRow : FC<TeamMatchupSelectRowProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? TEAM_MATCHUP_SELECT_ROW_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAM_MATCHUP_SELECT_ROW_STYLE : {}, ...props.style}}>
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-         
-            <TeamMatchupBuilder/>
+            <TopTeams style={{ height : "100%", overflow : "scroll"}}/>
+            <TopTeams style={{ height : "100%",  overflow : "scroll" }}/>
+            <TeamMatchupBuilder style={{ height : "100%",  overflow : "scroll" }}/>
         </div>
     )
 };
