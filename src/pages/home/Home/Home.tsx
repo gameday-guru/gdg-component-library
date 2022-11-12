@@ -24,10 +24,6 @@ export type HomeProps = {
 
 export const Home : FC<HomeProps>  = (props) =>{
 
-    // const navigate = useNavigate();
-    // const {checksCompleted} = useCheckStore();
-    // if(!checksCompleted) navigate("/");
-
     return (
         <div
         className={[...!props.overrideClasses ? HOME_CLASSNAMES : [], ...props.classNames||[]].join(" ")}

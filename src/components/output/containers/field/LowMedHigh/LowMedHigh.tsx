@@ -4,6 +4,7 @@ import { Wrapper } from '../../Wrapper';
 
 export const LOW_MED_HIGH_CLASSNAMES : string[] = [ ];
 export const LOW_MED_HIGH_STYLE : React.CSSProperties = {
+    opacity : .5
 };
 
 export type LowMedHighProps = {
