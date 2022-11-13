@@ -5,12 +5,14 @@ import { getViusageColor } from '../../../../../util/color/viusage';
 import { Emphasislike } from '../../../../../util/color/emphasis';
 import { getPairingBackground, getReadableTextColor } from '../../../../../util/color/inversion/inversion';
 import { Filter } from '../../../../input/unary/Filter/Filter';
+import { FilterTerms } from '../filter';
 
 export const FILTER_SET_CLASSNAMES : string[] = [
     "rounded-lg",
     "overflow-hidden"
  ];
 export const FILTER_SET_STYLE : React.CSSProperties = {
+
 };
 
 export type FilterSetProps = {
@@ -24,6 +26,9 @@ export type FilterSetProps = {
     viusage ? : viusage.primary.Viusagelike;
     emphasis ? : Emphasislike;
     invert ? : boolean;
+    table ? : any[];
+    filterFields ? : FilterTerms;
+    filterTems ? : FilterTerms;
 };
 
 export const FilterSet : FC<FilterSetProps>  = (props) =>{
