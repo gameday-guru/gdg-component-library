@@ -5,7 +5,7 @@ import { getViusageColor } from '../../../../../util/color/viusage';
 import { Emphasislike } from '../../../../../util/color/emphasis';
 import { getPairingBackground, getReadableTextColor } from '../../../../../util/color/inversion/inversion';
 import { Filter } from '../../../../input/unary/Filter/Filter';
-import { FilterTerms } from '../filter';
+import { FieldCase, FilterTerms } from '../filter';
 
 export const FILTER_SET_CLASSNAMES : string[] = [
     "rounded-lg",
@@ -27,8 +27,8 @@ export type FilterSetProps = {
     emphasis ? : Emphasislike;
     invert ? : boolean;
     table ? : any[];
-    filterFields ? : FilterTerms;
-    filterTems ? : FilterTerms;
+    filters ? : FilterTerms;
+    fieldCases ? : FieldCase;
 };
 
 export const FilterSet : FC<FilterSetProps>  = (props) =>{

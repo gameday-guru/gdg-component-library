@@ -1,26 +1,73 @@
-export type FilterCase = "string" | "geo" | "numeric" | "date";
-export type FilterRelationship = "AND" | "OR";
+export const FilterCaseValues = [
+    "TEXT",
+    "GEO",
+    "NUMERIC",
+    "DATE"
+] as const;
+export type FilterCase = typeof FilterCaseValues[number];
+export type FieldCase = {
+    [key : string] : FilterCase[];
+}
+
+export const FilterRelationShipValues = [
+    "AND",
+    "OR"
+] as const;
+export type FilterRelationship = typeof FilterRelationShipValues[number];
 export type FilterExpression = {};
 export type Comparison = [any, any];
 
-export type NumericFilter = FilterExpression | "lt" | "gt" | "eq" | "lte" | "gte" | "approx";
+export const NumericFilterValues = [
+    "LT",
+    "GT",
+    "EQ",
+    "LTE",
+    "GTE",
+    "APPROX"
+] as const;
+export type NumericFilter = typeof NumericFilterValues[number];
+
 export type NumericFilterPrimitive = {
-    case : "numeric",
+    case : "NUMERIC",
     filter : NumericFilter,
     right : number
 }
-export type FilterPrimitive = NumericFilterPrimitive;
+export type TextFilterPrimitive = {
+    case : "TEXT",
+    filter : NumericFilter,
+    right : string
+};
+export type GeoFilterPrimitive = {
+    case : "GEO",
+    filter : NumericFilter,
+    right : string
+};
+export type DateFilterPrimitive = {
+    case : "DATE",
+    filter : NumericFilter,
+    right : string
+};
+
+export type FilterPrimitive = NumericFilterPrimitive | TextFilterPrimitive | DateFilterPrimitive | GeoFilterPrimitive;
 
 export type FilterToken = {
+    field ? : string;
     relationship : FilterRelationship,
     terms : (FilterToken | FilterPrimitive)[]
 }
-export type FilterTerms = {
-    [key : string] : FilterToken
-}; 
+
+export type FilterTerms = FilterToken;
+
 export type ToFilterData = {
     [key : string] : (data : any)=>any;
 }
+
+export const FilterCaseToFilter = {
+    "TEXT" : [],
+    "NUMERIC" : NumericFilterValues,
+    "GEO" : [],
+    "DATE" : []
+} as const;
 
 export const isFilterToken = (obj : any) : obj is FilterToken =>{
     return (!!obj.relationship) && (!!obj.terms);
@@ -40,28 +87,28 @@ export const evaluateNumericFilterPrimitive = (left : any, filter : NumericFilte
     try {
         switch(filter.filter) {
 
-            case "eq" : {
+            case "EQ" : {
                 return left === filter.right;
             }
 
-            case "approx" : {
+            case "APPROX" : {
 
                 return Math.abs(left - filter.right) < MU;
             }
 
-            case "gt" : {
+            case "GT" : {
                 return left > filter.right;
             }
 
-            case "gte" : {
+            case "GTE" : {
                 return left >= filter.right;
             }
 
-            case "lt" : {
+            case "LT" : {
                 return left < filter.right;
             }
             
-            case "lte" : {
+            case "LTE" : {
                 return left <= filter.right;
             }
 
@@ -86,7 +133,7 @@ export const evaluateFilterPrimitive = (data : any, filter : FilterPrimitive) : 
 
     switch(filter.case){
 
-        case "numeric" : {
+        case "NUMERIC" : {
             return evaluateNumericFilterPrimitive(data, filter as NumericFilterPrimitive);
         }
 
@@ -104,14 +151,22 @@ export const evaluateFilterPrimitive = (data : any, filter : FilterPrimitive) : 
  * @param filter 
  * @returns 
  */
-export const evaluateAndFilterToken = (data : any, filter : FilterToken) : boolean =>{
+export const evaluateAndFilterToken = (data : any, filter : FilterToken, toFilterData : ToFilterData) : boolean =>{
 
     if(filter.relationship !== "AND") 
         throw new Error("Cannot evaluate AND filter token for non AND term.");
 
     for(const term of filter.terms) {
-        if(isFilterToken(term) && !evaluateFilterToken(data, term)) return false;
-        else if (!evaluateFilterPrimitive(data, term as FilterPrimitive)) return false;
+        
+        let _data = data;
+        if(isFilterToken(term) && term.field){
+            _data = data[term.field];
+            if(toFilterData[term.field]) 
+                _data = toFilterData[term.field](_data);
+        }
+
+        if(isFilterToken(term) && !evaluateFilterToken(_data, term, toFilterData)) return false;
+        else if (!evaluateFilterPrimitive(_data, term as FilterPrimitive)) return false;
     }
 
     return true;
@@ -124,14 +179,22 @@ export const evaluateAndFilterToken = (data : any, filter : FilterToken) : boole
  * @param filter 
  * @returns 
  */
- export const evaluateOrFilterToken = (data : any, filter : FilterToken) : boolean =>{
+ export const evaluateOrFilterToken = (data : any, filter : FilterToken, toFilterData : ToFilterData) : boolean =>{
 
     if(filter.relationship !== "OR") 
         throw new Error("Cannot evaluate OR filter token for non OR term.");
 
     for(const term of filter.terms) {
-        if(isFilterToken(term) && evaluateFilterToken(data, term)) return true;
-        else if (evaluateFilterPrimitive(data, term as FilterPrimitive)) return true;
+
+        let _data = data;
+        if(isFilterToken(term) && term.field){
+            _data = data[term.field];
+            if(toFilterData[term.field]) 
+                _data = toFilterData[term.field](_data);
+        }
+
+        if(isFilterToken(term) && evaluateFilterToken(_data, term, toFilterData)) return true;
+        else if (evaluateFilterPrimitive(_data, term as FilterPrimitive)) return true;
     }
 
     return false;
@@ -144,16 +207,16 @@ export const evaluateAndFilterToken = (data : any, filter : FilterToken) : boole
  * @param filter 
  * @returns 
  */
-export const evaluateFilterToken = (data : any, filter : FilterToken) : boolean =>{
+export const evaluateFilterToken = (data : any, filter : FilterToken, toFilterData : ToFilterData) : boolean =>{
 
     switch(filter.relationship) {
 
         case "AND" : {
-            return evaluateAndFilterToken(data, filter);
+            return evaluateAndFilterToken(data, filter, toFilterData);
         }
 
         case "OR" : {
-            return evaluateOrFilterToken(data, filter);
+            return evaluateOrFilterToken(data, filter, toFilterData);
         }
 
         default : {
