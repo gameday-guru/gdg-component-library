@@ -62,7 +62,7 @@ export type ToFilterData = {
     [key : string] : (data : any)=>any;
 }
 
-export const FilterCaseToFilter = {
+export const FieldCaseToFilter = {
     "TEXT" : [],
     "NUMERIC" : NumericFilterValues,
     "GEO" : [],

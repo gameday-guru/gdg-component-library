@@ -1,5 +1,5 @@
 import React, {FC, ReactElement, useState} from 'react';
-import { FieldCase, FilterTerms, FilterToken } from '../filter';
+import { FieldCase, FieldCaseToFilter, FilterTerms, FilterToken } from '../filter';
 import { FilterExpression } from '../FilterExpression/FilterExpression';
 
 export const FILTER_MODAL_CLASSNAMES : string[] = [ ];
@@ -40,13 +40,17 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
             fieldCase={props.fieldCase}/>
     });
 
+    // TODO: extract null case handling
     const handleAdd = ()=>{
-        if(!props.fieldCase || !Object.values(props.fieldCase)[0][0]) return;
+        if(
+            !props.fieldCase 
+            || !Object.values(props.fieldCase)[0][0] 
+            || !FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0]) return;
         const filtersDraftCopy = {...filtersDraft};
         filtersDraftCopy.terms.push({
             field : Object.keys(props.fieldCase)[0],
             case : Object.values(props.fieldCase)[0][0],
-            filter : "APPROX",
+            filter : FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0] as any,
             right : null as any
         });
         setFiltersDraft(filtersDraftCopy)
