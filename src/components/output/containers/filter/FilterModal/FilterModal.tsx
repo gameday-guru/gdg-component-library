@@ -1,4 +1,5 @@
 import React, {FC, ReactElement, useState} from 'react';
+import { Adder, ResetOrSubmit } from '../../../../input';
 import { FieldCase, FieldCaseToFilter, FilterTerms, FilterToken } from '../filter';
 import { FilterExpression } from '../FilterExpression/FilterExpression';
 
@@ -41,11 +42,13 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
     });
 
     // TODO: extract null case handling
-    const handleAdd = ()=>{
+    const handleAdd = async ()=>{
         if(
             !props.fieldCase 
             || !Object.values(props.fieldCase)[0][0] 
-            || !FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0]) return;
+            || !FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0]
+        ) return;
+
         const filtersDraftCopy = {...filtersDraft};
         filtersDraftCopy.terms.push({
             field : Object.keys(props.fieldCase)[0],
@@ -53,7 +56,7 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
             filter : FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0] as any,
             right : null as any
         });
-        setFiltersDraft(filtersDraftCopy)
+        setFiltersDraft(filtersDraftCopy);
 
     }
     
@@ -76,10 +79,16 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
                     {filterExpressions}
                 </div>
                 <div>
-                    {/** TODO: Adder */}
+                    <Adder onClick={handleAdd}/>
                 </div>
                 <div>
-                    {/** TODO: ClearOrSubmit */}
+                    <ResetOrSubmit
+                        resetProps={{
+                            onClick : handleClear
+                        }}
+                        submitProps={{
+                            onClick : handleClear
+                        }}/>
                 </div>
             </form>
         </div>
