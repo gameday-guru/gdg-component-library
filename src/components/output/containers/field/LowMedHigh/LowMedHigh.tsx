@@ -4,7 +4,7 @@ import { Wrapper } from '../../Wrapper';
 
 export const LOW_MED_HIGH_CLASSNAMES : string[] = [ ];
 export const LOW_MED_HIGH_STYLE : React.CSSProperties = {
-    opacity : .5
+
 };
 
 export type LowMedHighProps = {
@@ -19,26 +19,26 @@ export type LowMedHighProps = {
 
 export const LowMedHigh : FC<LowMedHighProps>  = (props) =>{
 
-    let viusage : viusage.primary.Viusagelike;
+    let backgroundColor : string | undefined;
     switch(props.which || "med") {
 
         case "low" : {
-            viusage = "error";
+            backgroundColor= "#FD353529";
             break;
         }
 
         case "med" : {
-            viusage = "backdrop";
+            backgroundColor = "inherit";
             break;
         }
 
         case "high" : {
-            viusage = "success";
+            backgroundColor = "#01987529";
             break;
         }
 
         default : {
-            viusage = "backdrop";
+            backgroundColor = "inherit";
             break;
         }
 
@@ -46,10 +46,15 @@ export const LowMedHigh : FC<LowMedHighProps>  = (props) =>{
 
     return (
         <Wrapper
-        viusage={viusage}
         classNames={[...!props.overrideClasses ? LOW_MED_HIGH_CLASSNAMES : [], ...props.classNames||[]]}
-        style={{...!props.overrideStyle ? LOW_MED_HIGH_STYLE : {}, ...props.style}}>
-            {props.children}
+        style={{
+            ...!props.overrideStyle ? LOW_MED_HIGH_STYLE : {}, 
+            backgroundColor,
+            ...props.style
+        }}>
+            <div>
+                {props.children}
+            </div>
         </Wrapper>
     )
 };

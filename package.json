@@ -24,6 +24,7 @@
     "framer-motion": "^6.5.0",
     "fs-extra": "^10.0.0",
     "gdgwep": "^0.0.3",
+    "mathjs": "^11.3.3",
     "react": "^18.1.0",
     "react-app-polyfill": "^3.0.0",
     "react-bootstrap-icons": "^1.8.4",

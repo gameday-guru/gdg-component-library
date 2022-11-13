@@ -12,4 +12,5 @@ export type Viusagelike = "do"
     | "wrapInvert"
     | "backdrop"
     | "error"
-    | "success";
+    | "success"
+    | "default";

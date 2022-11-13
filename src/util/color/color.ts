@@ -12,7 +12,8 @@ export type Colorlike = "gameday-green"
     | "light-gray" 
     | "mid-gray" 
     | "drk-gray"
-    | "gdg";
+    | "gdg"
+    | "default";
 
 export type SemanticColorlike = "error" 
     | "warning"

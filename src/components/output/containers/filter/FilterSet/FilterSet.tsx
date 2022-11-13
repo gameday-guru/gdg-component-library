@@ -28,37 +28,17 @@ export type FilterSetProps = {
 
 export const FilterSet : FC<FilterSetProps>  = (props) =>{
 
-    // backgrounds
-    const primaryColor = getViusageColor(props.viusage);
-    const primaryEmphasis = props.emphasis||500;
-    const [secondaryColor, secondaryEmphasis] = getPairingBackground([primaryColor, props.emphasis||500]);
-    const [_primaryColor, _primaryEmphasis] = props.invert ? 
-    [secondaryColor, secondaryEmphasis] : [primaryColor, primaryEmphasis];
-    const [_secondaryColor, _secondaryEmphasis] = props.invert ? 
-    [primaryColor, primaryEmphasis] : [secondaryColor, secondaryEmphasis];
-
-    // fonts
-    const [primaryFontColor, primaryFontEmphasis] = getReadableTextColor([_primaryColor, _primaryEmphasis]);
-    const [secondaryFontColor, secondaryFontEmphasis] = getReadableTextColor([_secondaryColor, _secondaryEmphasis]);
-
     return (
         <div
         className={[...!props.overrideClasses ? FILTER_SET_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? FILTER_SET_STYLE : {}, ...props.style}}>
-            <div className={[
-                `bg-${_primaryColor}-${_primaryEmphasis}`,
-                `text-${primaryFontColor}-${primaryFontEmphasis}`,
-                "p-4"
-            ].join(" ")}>
+            <div>
                 <LeftRight
                 Left={props.Title}
                 Right={<Filter/>}/>
             </div>
-            <div className={[
-                `bg-${_secondaryColor}-${_secondaryEmphasis}`,
-                `text-${secondaryFontColor}-${secondaryFontEmphasis}`,
-                "p-4"
-            ].join(" ")}>
+            <hr/>
+            <div>
                 {props.children}
             </div>
         </div>

@@ -2,12 +2,15 @@ import React, {FC, ReactElement, useState} from 'react';
 import { CaretDown, CaretUp, Dash } from 'react-bootstrap-icons';
 import { generate } from 'shortid';
 
-export const TABEL_CLASSNAMES : string[] = [ ];
+export const TABEL_CLASSNAMES : string[] = [
+    "p-4"
+];
 export const TABEL_STYLE : React.CSSProperties = {
+    height : "fit-content"
 };
 
 export interface Tablelike {
-    head : string[];
+    head ? : string[];
     data : {[key : string] : any}[];
     toReact : {[key : string] : (v : any)=>React.ReactNode};
     compare : {[key : string] : (a : any, b : any)=>number};
@@ -47,7 +50,51 @@ export const getColumns = (table : Tablelike) : string[] => {
         for(const column of Object.keys(object))
             columns.add(column);
 
-    return [...columns.values()].sort();
+    const indexMemo : {[key : string] : number} = {
+
+    };
+
+    const getIndex = (a : string)=>{
+
+        if(indexMemo[a]) return indexMemo[a];
+
+        let index : number
+
+        if(table.head) index = table.head.indexOf(a);
+        else index = -1
+
+        indexMemo[a] = index;
+
+        return index;
+
+    }
+
+    return [...columns.values()].sort((a, b)=>{
+
+        if(table.head) { // if head, use the position in th head
+
+            // we should probably memoize to optimize
+            const aIndex = getIndex(a);
+            const bIndex = getIndex(b);
+
+            return (aIndex > -1 ? aIndex : Number.MAX_SAFE_INTEGER)
+            - 
+            (bIndex > -1 ? bIndex : Number.MAX_SAFE_INTEGER);
+
+        }
+
+        return a.localeCompare(b);
+
+    });
+
+}
+
+export const getColumn = (table : Tablelike, which : string) : any[] =>{
+
+    const data = [];
+    for(const entry of table.data)
+        data.push(entry[which])
+    return data;
 
 }
 
@@ -67,7 +114,7 @@ export const Table : FC<TableProps>  = (props) =>{
         className={[...!props.overrideClasses ? TABEL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TABEL_STYLE : {}, ...props.style}}>
             <thead>
-                <tr className="bg-white-100">
+                <tr style={{ background: "inherit", opacity : .5}}>
                     {columns.map((col)=>{
                         let Caret : React.ReactNode;
                         if(sortBy[col] > 0) Caret = <CaretDown/>;
@@ -90,7 +137,7 @@ export const Table : FC<TableProps>  = (props) =>{
                         }
                             
                         return (<th key={generate()} scope="col p-2">
-                            <div className="flex gap-2 items-center content-center text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                            <div className="flex p-4 items-center content-center text-sm font-medium text-gray-900 text-left">
                                 {col}
                                 <span
                                 onClick={handleCaretClick}
@@ -105,9 +152,9 @@ export const Table : FC<TableProps>  = (props) =>{
             <tbody>
                 {sortedData.map((datum)=>{
                     return (
-                        <tr key={generate()} className="bg-drk-gray-300 odd:bg-drk-gray-100 cursor-pointer gcr">
+                        <tr key={generate()} className="bg-black-100 odd:bg-black-300 cursor-pointer gcr">
                             {columns.map((col, i)=>{
-                                return <td className='p-2' key={generate()}>
+                                return <td key={generate()}>
                                     {props.table.toReact[col] ? props.table.toReact[col](datum[col]): datum[col]}
                                 </td>
                             })}
