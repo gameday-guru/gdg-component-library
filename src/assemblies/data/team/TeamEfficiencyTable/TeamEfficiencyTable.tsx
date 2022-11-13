@@ -77,6 +77,38 @@ export const TeamEntry = (team : Teamlike) : React.ReactNode=>{
 
 }
 
+export const RecordEntry = (record ? : [number, number, number]) : React.ReactNode=>{
+
+    if(!record) return (
+        <div>
+            -
+        </div>
+    )
+
+    if(record[1] === 0) return (
+        <div>
+            {record[0]} - {record[2]}
+        </div>
+    )
+
+    return (
+        <div>
+            {record[0]} - {record[1]} - {record[2]}
+        </div>
+    )
+
+}
+
+export const compareRecord = (a ? : [number, number, number], b ? : [number, number, number])=>{
+
+    return (a ? a[0] : Number.MAX_SAFE_INTEGER) - (b ? b[0] : Number.MIN_SAFE_INTEGER)
+
+}
+
+export const compareTeam = (a : Teamlike, b : Teamlike)=>{
+    return a.Name.localeCompare(b.Name);
+}
+
 export const MockTableEntries : TeamEfficiencyTableEntrylike[] = [
     { 
         "Team Name" : MockHome, 
@@ -237,6 +269,7 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
 
     const toReact : {[key : string] : (value : any)=>React.ReactNode} = {};
     toReact["Team Name"] = TeamEntry;
+    toReact["Record"] = RecordEntry
 
     // refactor this to be provided from table component up
     const powerRatings : number[] = getColumn({
@@ -297,7 +330,10 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
                             ],
                             data : _tableEntries,
                             toReact,
-                            compare : {} // no need to modifiy the comparison
+                            compare : {
+                                "Record" : compareRecord,
+                                "Team Name" : compareTeam
+                            } // no need to modifiy the comparison
                         }}/>
                </div>
             </div>
