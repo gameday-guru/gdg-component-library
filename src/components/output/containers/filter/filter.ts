@@ -48,6 +48,7 @@ export type DateFilterPrimitive = {
     right : string
 };
 
+export type Filter = NumericFilter;
 export type FilterPrimitive = NumericFilterPrimitive | TextFilterPrimitive | DateFilterPrimitive | GeoFilterPrimitive;
 
 export type FilterToken = {
