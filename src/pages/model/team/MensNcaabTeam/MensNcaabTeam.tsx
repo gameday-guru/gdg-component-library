@@ -40,14 +40,12 @@ export const MensNcaabTeam : FC<MensNcaabTeamProps>  = (props) =>{
                     height : '100%'
                 }}/>
             </div>
-            <div style={{
+            <div className='overflow-y-scroll' style={{
                 height : '100%',
-                width : '100%'
+                width : '100%',
+                overflow : 'scroll'
             }}>
-                <MensNcaabTeamContent style={{
-                    width : "100%",
-                    height : "100%"
-                }}/>
+                <MensNcaabTeamContent/>
             </div>
         </div>
     )

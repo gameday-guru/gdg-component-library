@@ -285,6 +285,9 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
                     <Table style={{
                         width : "100%"
                     }} table={{
+                            hiddenHeads : [
+                                'Liked'
+                            ],
                             head : [
                                 "Team Name",
                                 "Conference",

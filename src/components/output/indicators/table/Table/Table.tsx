@@ -10,6 +10,7 @@ export const TABEL_STYLE : React.CSSProperties = {
 };
 
 export interface Tablelike {
+    hiddenHeads ? : string[];
     head ? : string[];
     data : {[key : string] : any}[];
     toReact : {[key : string] : (v : any)=>React.ReactNode};
@@ -135,6 +136,9 @@ export const Table : FC<TableProps>  = (props) =>{
                                 [col] : 1
                             })
                         }
+
+                        if(props.table.hiddenHeads?.includes(col))
+                            return <th key={generate()} scope="col">&emsp;&emsp;</th>
                             
                         return (<th key={generate()} scope="col p-2">
                             <div className="flex p-4 items-center content-center text-sm font-medium text-gray-900 text-left">
