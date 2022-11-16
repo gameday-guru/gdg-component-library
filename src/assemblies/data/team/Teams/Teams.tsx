@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { Vs } from '../../../../components/output/indicators/label/Vs';
 import { TeamEfficiencyTable } from '../TeamEfficiencyTable/TeamEfficiencyTable';
 import { TeamMatchupSelectRow } from '../TeamMatchupSelectRow/TeamMatchupSelectRow';
+import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 
 export const TEAMS_CLASSNAMES : string[] = [
     "grid",
@@ -29,7 +30,7 @@ export const Teams : FC<TeamsProps>  = (props) =>{
         style={{...!props.overrideStyle ? TEAMS_STYLE : {}, ...props.style}}>
             <div>
                 <TeamMatchupSelectRow style={{ height : "300px"}}/>
-            </div>
+            </div>    
             <div>
                 <TeamEfficiencyTable/>
             </div>

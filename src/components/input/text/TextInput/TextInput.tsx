@@ -10,9 +10,11 @@ import { AnimatedError } from '../../../output/indicators/error/AnimatedError';
 
 export const TEXT_INPUT_CLASSNAMES : string[] = [
     "rounded",
-    "p-2"
+    "p-2",
+    "oultine-0"
 ];
 export const TEXT_INPUT_STYLE : React.CSSProperties = {
+    outline : 0
 };
 
 export type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -63,6 +65,7 @@ export const TextInput : FC<TextInputProps>  = (props) =>{
      const handleSubmit : React.FormEventHandler = (e)=>{
 
         const value : string = (e.target as any).value;
+        console.log(value);
  
          // onClick willy only fire on specified states or default
          if(
@@ -73,17 +76,19 @@ export const TextInput : FC<TextInputProps>  = (props) =>{
                  || (props.clickableStates||["default"]).includes(vistate)
              )
          ) {
- 
-             setVistate("loading");
-             props.onSubmit(value)
-             .then(()=>setVistate("success"))
-             .catch(()=>setVistate("err"));
+            
+            console.log("loading...")
+            e.preventDefault();
+            setVistate("loading");
+            props.onSubmit(value)
+            .then(()=>setVistate("success"))
+            .catch(()=>setVistate("err"));
  
          }
      }
 
      const handleKeyDown : React.KeyboardEventHandler = (e)=>{
-        if(e.key === "Enter") props.onSubmit && props.onSubmit(e as any);
+        if(e.key === "Enter") handleSubmit(e);
      }
  
      // style
@@ -101,7 +106,7 @@ export const TextInput : FC<TextInputProps>  = (props) =>{
         <input
         {...props}
         onKeyDown={handleKeyDown}
-        onSubmit={handleSubmit}
+        // onSubmit={handleSubmit}
         type={props.inputType||"text"}
         className={[...!props.overrideClasses ? [
             ...TEXT_INPUT_CLASSNAMES, 

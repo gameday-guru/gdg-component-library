@@ -7,6 +7,7 @@ import { TopTeamEntry } from '../../league/TopTeamEntry';
 import { std, mean } from '../../../../util/stats';
 import { Wrapper } from '../../../../components';
 import { FilterSet } from '../../../../components/output/containers/filter';
+import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 
 export const TEAM_EFFICIENCY_TABLE_INNER_CLASSNAMES : string[] = [ 
     "grid",
@@ -312,7 +313,15 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
             className={[...!props.overrideClasses ? TEAM_EFFICIENCY_TABLE_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TEAM_EFFICIENCY_TABLE_INNER_STYLE : {}, ...props.style}}>
                <div>
-                    <FilterSet Title={<h2 className='text-lg underline decoration-gdg-500'>Efficiency</h2>}/>
+                    <FilterSet 
+                        fieldCase={{
+                            "Team Name" : ["TEXT"],
+                            "Conference" : ["TEXT"],
+                            "Record" : ["TEXT"],
+                            "Offensive Efficiency" : ["NUMERIC"],
+                            "Defensive Efficiency" : ["NUMERIC"]
+                        }}
+                        Title={<h2 className='text-lg underline decoration-gdg-500'>Efficiency</h2>}/>
                </div>
                <div className='p-4'>
                     <Table style={{

@@ -6,6 +6,7 @@ import { Emphasislike } from '../../../../../util/color/emphasis';
 import { getPairingBackground, getReadableTextColor } from '../../../../../util/color/inversion/inversion';
 import { Filter } from '../../../../input/unary/Filter/Filter';
 import { FieldCase, FilterTerms } from '../filter';
+import { FilterModal } from '../FilterModal';
 
 export const FILTER_SET_CLASSNAMES : string[] = [
     "rounded-lg",
@@ -28,19 +29,25 @@ export type FilterSetProps = {
     invert ? : boolean;
     table ? : any[];
     filters ? : FilterTerms;
-    fieldCases ? : FieldCase;
+    fieldCase ? : FieldCase;
 };
 
 export const FilterSet : FC<FilterSetProps>  = (props) =>{
+
+    const Right = (
+        <FilterModal fieldCase={props.fieldCase}>
+            <Filter/>
+        </FilterModal>
+    )
 
     return (
         <div
         className={[...!props.overrideClasses ? FILTER_SET_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? FILTER_SET_STYLE : {}, ...props.style}}>
             <div>
-                <LeftRight
+                <LeftRight style={{ overflow : "visible"}}
                 Left={props.Title}
-                Right={<Filter/>}/>
+                Right={Right}/>
             </div>
             <hr/>
             <div>

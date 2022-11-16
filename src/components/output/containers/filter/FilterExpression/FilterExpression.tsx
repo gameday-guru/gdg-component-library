@@ -1,12 +1,19 @@
 import React, {FC, ReactElement, useState} from 'react';
 import { Dropdown } from '../../../../input/select';
 import { FieldCase, FieldCaseToFilter, Filter, FilterCase, FilterPrimitive, FilterToken } from '../filter';
+import { TextInput } from '../../../../input/text/TextInput';
+import { X } from 'react-bootstrap-icons';
+import { Wrapper } from '../../Wrapper';
 
 export const FILTER_EXPRESSION_CLASSNAMES : string[] = [ 
-    "grid"
+    "grid",
+    "gap-2"
 ];
 export const FILTER_EXPRESSION_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "2fr 1fr 2fr"
+    gridTemplateColumns : "10fr 6fr 10fr 1fr",
+    alignContent : "center",
+    alignItems : "center",
+    borderBottom : "1px solid"
 };
 
 export type FilterExpressionProps = {
@@ -19,6 +26,7 @@ export type FilterExpressionProps = {
     fieldCase ? : FieldCase;
     filter ? : FilterToken;
     setFilter ? : (filter : FilterToken)=>Promise<void>;
+    removeFilter ? : ()=>Promise<void>;
 };
 
 export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
@@ -35,12 +43,9 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
     for(const fieldCase of _fieldCase[props.filter?.field||""])
         for(const filter of FieldCaseToFilter[fieldCase])
             fieldCaseOptions[`${fieldCase}-${filter}`] = (
-                <div className='flex'>
-                    {filter}&emsp;<span className='text-xs italic'>{filter}</span>
-                </div>
+
+                <span>{filter}&emsp;<span className='text-xs italic'>({fieldCase})</span></span>
             )
-
-
 
     // TODO: unsafe, fix
     const handleFieldOption = async (option : string)=>{
@@ -50,7 +55,7 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
         })
     }
 
-    const handleCaseOption = async (fieldCase : string)=>{
+    const handleCaseOption = async (fieldCase : string, fieldComp : string)=>{
 
         const filterCopy = {
             ...props.filter
@@ -58,12 +63,33 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
 
         const primitiveCopy = filterCopy.terms[0] as FilterPrimitive;
         primitiveCopy.case = fieldCase as any;
+        primitiveCopy.filter = fieldComp as any;
         
         filterCopy.terms = [primitiveCopy]
-        props.setFilter && await props.setFilter({
-            ...props.filter as FilterToken,
-            
-        })
+        props.setFilter && await props.setFilter(filterCopy)
+    }
+
+    const handleFieldCaseChange = (e : any)=>{
+
+        const [field, value] = e.target.value.split("-");
+        handleCaseOption(field, value)
+        .then((data)=>console.log(data))
+        .catch((err)=>console.log(err))
+
+    }
+
+    const handleComparisonValue = async (value : string)=>{
+
+        console.log("Handling comparison...")
+        const filterCopy = {
+            ...props.filter
+        } as FilterToken;
+
+        const primitiveCopy = filterCopy.terms[0] as FilterPrimitive;
+        primitiveCopy.right = value;
+        
+        filterCopy.terms = [primitiveCopy]
+        props.setFilter && await props.setFilter(filterCopy)
     }
 
     return (
@@ -71,13 +97,57 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
         className={[...!props.overrideClasses ? FILTER_EXPRESSION_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? FILTER_EXPRESSION_STYLE : {}, ...props.style}}>
             <div>
-                <Dropdown options={fieldOptions} onOption={handleFieldOption}/>
+                <Dropdown 
+                style={{
+                    width : "100%"
+                }}
+                selected={props.filter?.field as any}
+                onChange={(e)=>{
+                    handleFieldOption((e.target as any).value)
+                    .then((data)=>console.log(data))
+                    .catch((err)=>console.log(err));
+                }} options={fieldOptions} onOption={handleFieldOption}/>
             </div>
             <div>
-                <Dropdown options={fieldCaseOptions} onOption={handleCaseOption}/>
+                <Dropdown 
+                style={{
+                    width : "100%"
+                }}
+                options={fieldCaseOptions} onChange={(e)=>{
+                    handleFieldCaseChange(e);
+                }}/>
+            </div>
+            <div style={{
+                display : "flex",
+                alignContent : "center",
+                alignItems : "center"
+            }}>
+                :
+               <TextInput
+               defaultValue={(props.filter?.terms[0] as any).right} 
+               onSubmit={handleComparisonValue as any}
+               placeholder={"Comparison value"}
+               style={{
+                    width : "100%"
+               }}
+               viusage='wrap' fill/>
             </div>
             <div>
-                {/** TODO: Expression input. */}
+                <Wrapper 
+                    style={{
+                        cursor : "pointer",
+                        display : "flex",
+                        alignContent : "center",
+                        justifyContent : "center"
+                    }}
+                    hoverAnimate
+                    viusage='wrap'>
+                    <X className='fill-error-500 rounded' onClick={()=>{
+                        props.removeFilter && props.removeFilter()
+                        .then((data)=>console.log(data))
+                        .catch((e)=>console.log(e));
+                    }}/>
+                </Wrapper>
             </div>
         </div>
     )

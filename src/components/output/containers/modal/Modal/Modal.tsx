@@ -1,13 +1,14 @@
 import React, {FC, ReactElement, RefObject, useRef} from 'react';
 import { Wrapper } from '../../Wrapper';
+import { Modal as MuiModal, ModalProps as MuiModalProps } from '@mui/material';
 
 export const MODAL_CLASSNAMES : string[] = [
-    "absolute"
+    "rounded-lg"
 ];
 export const MODAL_STYLE : React.CSSProperties = {
 };
 
-export type ModalProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
+export type ModalProps = MuiModalProps & {
      children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
@@ -17,32 +18,29 @@ export type ModalProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivEle
     right ? : boolean;
     bottom ? :  boolean;
     gap ? : number;
-    Modal ? : React.ReactNode;
 };
 
 export const Modal : FC<ModalProps>  = (props) =>{
 
+    const ref = useRef<HTMLDivElement>();
+
     const horizontal : React.CSSProperties = 
     props.right ? {
-        right : -(props.gap || 10)
+        left : (ref.current?.clientLeft||0) + (ref.current?.clientWidth||0) + (props.gap|| 10)
     } : {
-        left : -(props.gap || 10)
+        right : (ref.current?.clientLeft||0) + (ref.current?.clientWidth||0) + (props.gap|| 10)
     };
     
     const vertical : React.CSSProperties =
     props.bottom ? {
-        bottom : -(props.gap || 10)
+        top : (ref.current?.clientTop||0) + (ref.current?.clientWidth||0) + (props.gap|| 10)
     } : {
         top : -(props.gap || 10)
     };
     
 
     return (
-        <div  style={{
-            position : "relative",
-            ...props.style
-        }} {...props}>
-            {props.children}
+        <MuiModal {...props}>
             <Wrapper
                 viusage='wrap'
                 classNames={[...!props.overrideClasses ? MODAL_CLASSNAMES : [], ...props.classNames||[]]}
@@ -52,8 +50,8 @@ export const Modal : FC<ModalProps>  = (props) =>{
                     ...horizontal, 
                     ...props.style
                 }}>
-                    {props.Modal}
+                    {props.children}
             </Wrapper>
-        </div>
+        </MuiModal>
     )
 };

@@ -20,7 +20,14 @@ export const Adder : FC<AdderProps>  = (props) =>{
     return (
         <Button 
             {...props}>
-            <Plus/>
+                <div style={{
+                    display : "flex",
+                    alignContent : "center",
+                    alignItems : "center"
+                }}>
+                    <Plus/>
+                    {props.children}
+                </div>
         </Button>
     )
 };

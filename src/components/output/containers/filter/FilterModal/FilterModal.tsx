@@ -1,10 +1,19 @@
 import React, {FC, ReactElement, useState} from 'react';
 import { Adder, ResetOrSubmit } from '../../../../input';
+import { Filter } from '../../../../input/unary/Filter/Filter';
+import { Modal } from '../../modal/Modal';
 import { FieldCase, FieldCaseToFilter, FilterTerms, FilterToken } from '../filter';
 import { FilterExpression } from '../FilterExpression/FilterExpression';
 
-export const FILTER_MODAL_CLASSNAMES : string[] = [ ];
+export const FILTER_MODAL_CLASSNAMES : string[] = [ 
+    "p-4",
+    "rounded",
+    "gap-2"
+];
 export const FILTER_MODAL_STYLE : React.CSSProperties = {
+    height : "300px",
+    width : "600px",
+    overflowY : "scroll",
 };
 
 export type FilterModalProps = {
@@ -27,6 +36,10 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
         terms : []
     });
 
+    const [modal, setModal] = useState(false);
+    const handleClose = ()=>setModal(false);
+    const handleOpen = ()=>setModal(true);
+
     const filterExpressions = filtersDraft.terms.map((filter, index)=>{
 
         const setFilter = async (filter : FilterToken)=>{
@@ -35,8 +48,18 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
             setFiltersDraft(filtersDraftCopy);
         }
 
+        const removeFilter = async ()=>{
+            const filtersDraftCopy = {...filtersDraft};
+            filtersDraftCopy.terms = filtersDraftCopy.terms.filter((value, i)=>{
+                return i !== index;
+            })
+            setFiltersDraft(filtersDraftCopy);
+        }
+
         return <FilterExpression 
+            filter={filter as FilterToken}
             setFilter={setFilter}
+            removeFilter={removeFilter}
             key={index}
             fieldCase={props.fieldCase}/>
     });
@@ -46,15 +69,18 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
         if(
             !props.fieldCase 
             || !Object.values(props.fieldCase)[0][0] 
-            || !FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0]
-        ) return;
+            // || !FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0]
+        ){ return;}
 
         const filtersDraftCopy = {...filtersDraft};
         filtersDraftCopy.terms.push({
             field : Object.keys(props.fieldCase)[0],
-            case : Object.values(props.fieldCase)[0][0],
-            filter : FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0] as any,
-            right : null as any
+            relationship : "AND",
+            terms : [{
+                case : Object.values(props.fieldCase)[0][0],
+                filter : FieldCaseToFilter[Object.values(props.fieldCase)[0][0]][0] as any,
+                right : null as any
+            }]
         });
         setFiltersDraft(filtersDraftCopy);
 
@@ -68,29 +94,69 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
 
     const handleSubmit = async ()=>{
         props.setFilters && props.setFilters(filtersDraft);
+        setModal(false);
     };
 
+    console.log(filtersDraft);
+
+    const InnerModal = (
+        
+            <div
+            className={[...!props.overrideClasses ? FILTER_MODAL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
+            style={{...!props.overrideStyle ? FILTER_MODAL_STYLE : {}, ...props.style}}>
+                    <div 
+                    className='border border-drk-gray-300 rounded p-2'
+                    style={{
+
+                        height : "120px",
+                        width : "100%",
+                        overflowY : "scroll"
+                    }}>
+                        {filterExpressions}
+                    </div>
+                    <br/>
+                    <div style={{
+                        display : "flex",
+                        justifyContent : "end",
+                        alignContent : "center",
+                        alignItems : "center"
+                    }}>
+                        <Adder viusage='wrap' onClick={handleAdd}>
+                            Add filter
+                        </Adder>   
+                    </div>
+                    <br/>
+                    <div style={{
+                        display : "flex",
+                        justifyContent : "end",
+                        alignContent : "center",
+                        alignItems : "center"
+                    }}>
+                        <ResetOrSubmit
+                            resetProps={{
+                                onClick : handleClear
+                            }}
+                            submitProps={{
+                                onClick : handleSubmit
+                            }}/>
+                    </div>
+            
+            </div>
+
+    )
+
     return (
-        <div
-        className={[...!props.overrideClasses ? FILTER_MODAL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? FILTER_MODAL_STYLE : {}, ...props.style}}>
-            <form onSubmit={e=>e.preventDefault()}>
-                <div>
-                    {filterExpressions}
-                </div>
-                <div>
-                    <Adder onClick={handleAdd}/>
-                </div>
-                <div>
-                    <ResetOrSubmit
-                        resetProps={{
-                            onClick : handleClear
-                        }}
-                        submitProps={{
-                            onClick : handleClear
-                        }}/>
-                </div>
-            </form>
+        <div>
+            <Filter onClick={async ()=>handleOpen()}/>
+            <Modal 
+                style={{
+                    display:'flex',
+                    alignItems:'center',
+                    justifyContent:'center',
+                }}
+                open={modal} onClose={handleClose}>
+                {InnerModal}
+            </Modal>
         </div>
     )
 };
