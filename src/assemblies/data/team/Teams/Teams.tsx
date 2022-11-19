@@ -7,10 +7,10 @@ import { FilterModal } from '../../../../components/output/containers/filter/Fil
 export const TEAMS_CLASSNAMES : string[] = [
     "grid",
     "gap-4",
-    "p-4"
+    "p-4",
  ];
 export const TEAMS_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "1fr"
+    gridTemplateColumns : "1fr",
 };
 
 export type TeamsProps = {

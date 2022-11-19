@@ -5,6 +5,7 @@ import { Pill } from '../../../../components';
 import { Logo } from '../../../../components/output/icons/Logo';
 import { Wrapper } from "../../../../components/output/containers/Wrapper";
 import { viusage } from '../../../../util';
+import { Sportsdataio } from '../../../output/icons/Sportsdataio/Sportsdataio';
 
 export const SIDEBAR_CONTAINER_CLASSNAMES : string[] = [
     "gap-4",
@@ -48,8 +49,7 @@ export const Sidebar : FC<SidebarProps>  = (props) =>{
         className={[...!props.overrideClasses ? SIDEBAR_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? SIDEBAR_INNER_STYLE : {}, ...props.style}}>
             <div style={{
-                height : "80px",
-                width : "80px",
+                width : "100%",
                 margin : "0 auto"
             }}>
                 {props.Header}

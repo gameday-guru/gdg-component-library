@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, ReactElement, useState} from 'react';
 import { LowMedHigh } from '../../../../components/output/containers/field/LowMedHigh';
 import { Table } from '../../../../components/output/indicators/table/Table';
 import { getColumns, getColumn } from '../../../../components/output/indicators/table/Table';
@@ -266,7 +266,11 @@ export const MockTableEntries : TeamEfficiencyTableEntrylike[] = [
 export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
 
     // provide mock default for table entries.
-    const _tableEntries = props.tableEntries||MockTableEntries;
+    const tableEntries = props.tableEntries||MockTableEntries;
+    // these are the filtered table entries
+    const[_tableEntries, setTableEntries] = useState(tableEntries);
+
+    console.log(_tableEntries);
 
     const toReact : {[key : string] : (value : any)=>React.ReactNode} = {};
     toReact["Team Name"] = TeamEntry;
@@ -314,6 +318,8 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
             style={{...!props.overrideStyle ? TEAM_EFFICIENCY_TABLE_INNER_STYLE : {}, ...props.style}}>
                <div>
                     <FilterSet 
+                        table={tableEntries}
+                        setTable={async (table)=>setTableEntries(table)}
                         fieldCase={{
                             "Team Name" : ["TEXT"],
                             "Conference" : ["TEXT"],

@@ -104,11 +104,12 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
             <div
             className={[...!props.overrideClasses ? FILTER_MODAL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? FILTER_MODAL_STYLE : {}, ...props.style}}>
+                    <h2 className='text-lg'>Filters</h2>
                     <div 
                     className='border border-drk-gray-300 rounded p-2'
                     style={{
 
-                        height : "120px",
+                        height : "150px",
                         width : "100%",
                         overflowY : "scroll"
                     }}>
@@ -123,15 +124,8 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
                     }}>
                         <Adder viusage='wrap' onClick={handleAdd}>
                             Add filter
-                        </Adder>   
-                    </div>
-                    <br/>
-                    <div style={{
-                        display : "flex",
-                        justifyContent : "end",
-                        alignContent : "center",
-                        alignItems : "center"
-                    }}>
+                        </Adder>
+                        &emsp;   
                         <ResetOrSubmit
                             resetProps={{
                                 onClick : handleClear

@@ -1,20 +1,27 @@
 import React, {FC, ReactElement} from 'react';
-import {ClosedBetaLogin } from "../../../assemblies/user/login/ClosedBetaLogin/ClosedBetaLogin"
-import { useNavigate } from "react-router-dom";
-import { useCheckStore } from '../../../components/CheckProvider';
+import { Wrapper } from '../../../components';
+import { Login as LoginAsm } from '../../../assemblies/user/login/Login';
+import { LoginSignup } from '../../../assemblies/user/login/LoginSignup/LoginSignup';
+import { Sportsdataio } from '../../../components/output/icons/Sportsdataio/Sportsdataio';
 
 export const LOGIN_CLASSNAMES : string[] = [ 
     "h-screen",
     "w-screen",
     "grid",
+    "align-items-center",
     "justify-items-center",
-    "items-center"
+    "justify-content-center",
+    "items-center",
+    "text-drk-gray-900",
 ];
 export const LOGIN_STYLE : React.CSSProperties = {
+    display : "grid",
+    justifyContent : "center",
+    justifyItems : "center"
 };
 
 export type LoginProps = {
-     children ? : React.ReactNode;
+    children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
     classNames ? : string[];
@@ -23,26 +30,19 @@ export type LoginProps = {
 
 export const Login : FC<LoginProps>  = (props) =>{
 
-    const navigate = useNavigate();
-    const {dispatch} = useCheckStore()
 
     return (
-        <div
-        className={[...!props.overrideClasses ? LOGIN_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? LOGIN_STYLE : {}, ...props.style}}>
-            <ClosedBetaLogin onSubmit={async (data)=>{
-
-                if(data.key && (data.key === "zV1Yh3dLe18CzbDr+ElwyQ==")){ 
-                    dispatch((state)=>({
-                        ...state,
-                        checksCompleted : true
-                    }))
-                    return navigate("/home");
-                }
-
-                throw new Error("Invalid key. Only key login is currently supported.")
-
-            }}/>
-        </div>
+        <Wrapper 
+            viusage='backdrop'
+            classNames={[...!props.overrideClasses ? LOGIN_CLASSNAMES : [], ...props.classNames||[]]}
+            style={{...!props.overrideStyle ? LOGIN_STYLE : {}, ...props.style}}>
+                <LoginSignup/>
+                <div style={{
+                    position : "absolute",
+                    bottom : "4em"
+                }}>
+                    <Sportsdataio/>
+                </div>
+        </Wrapper>
     )
 };

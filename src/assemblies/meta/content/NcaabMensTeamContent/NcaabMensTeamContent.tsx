@@ -6,13 +6,16 @@ import { NcaabMensOverview } from '../../../data/overview/NcaabMensOverview/Ncaa
 import { Teams } from '../../../data/team/Teams';
 import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 
-export const MENS_NCAAB_TEAM_CONTENT_CONTAINER_CLASSNAMES : string[] = [ ];
+export const MENS_NCAAB_TEAM_CONTENT_CONTAINER_CLASSNAMES : string[] = [
+
+ ];
 export const MENS_NCAAB_TEAM_CONTENT_CONTAINER_STYLE : React.CSSProperties = {
 };
 
-export const MENS_NCAAB_TEAM_CONTENT_INNER_CLASSNAMES : string[] = [ ];
+export const MENS_NCAAB_TEAM_CONTENT_INNER_CLASSNAMES : string[] = [
+
+];
 export const MENS_NCAAB_TEAM_CONTENT_INNER_STYLE : React.CSSProperties = {
-    
 };
 
 export type MensNcaabTeamContentProps = {

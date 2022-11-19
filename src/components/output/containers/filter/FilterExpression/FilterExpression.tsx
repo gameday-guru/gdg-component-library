@@ -80,7 +80,8 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
 
     const handleComparisonValue = async (value : string)=>{
 
-        console.log("Handling comparison...")
+        console.log("Handlig comparison value...");
+
         const filterCopy = {
             ...props.filter
         } as FilterToken;
@@ -113,6 +114,7 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
                 style={{
                     width : "100%"
                 }}
+                selected={`${(props.filter?.terms[0] as any).case}-${(props.filter?.terms[0] as any).filter}` as any}
                 options={fieldCaseOptions} onChange={(e)=>{
                     handleFieldCaseChange(e);
                 }}/>
@@ -124,6 +126,11 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
             }}>
                 :
                <TextInput
+               onChange={(e)=>[
+                    handleComparisonValue(e.target.value)
+                    .then((data)=>console.log(data))
+                    .catch((err)=>console.log(err))
+               ]}
                defaultValue={(props.filter?.terms[0] as any).right} 
                onSubmit={handleComparisonValue as any}
                placeholder={"Comparison value"}

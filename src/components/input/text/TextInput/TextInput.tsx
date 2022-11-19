@@ -77,9 +77,7 @@ export const TextInput : FC<TextInputProps>  = (props) =>{
              )
          ) {
             
-            console.log("loading...")
             e.preventDefault();
-            setVistate("loading");
             props.onSubmit(value)
             .then(()=>setVistate("success"))
             .catch(()=>setVistate("err"));
@@ -104,10 +102,10 @@ export const TextInput : FC<TextInputProps>  = (props) =>{
 
     return (
         <input
-        {...props}
-        onKeyDown={handleKeyDown}
         // onSubmit={handleSubmit}
         type={props.inputType||"text"}
+        {...props}
+        onKeyDown={handleKeyDown}
         className={[...!props.overrideClasses ? [
             ...TEXT_INPUT_CLASSNAMES, 
             ...[

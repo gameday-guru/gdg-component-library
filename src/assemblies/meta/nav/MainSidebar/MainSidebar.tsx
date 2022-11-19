@@ -7,6 +7,7 @@ import { viusage } from '../../../../util';
 import { LogoedSidebar } from '../LogoedSidebar';
 import { House, PeopleFill, Calendar } from "react-bootstrap-icons";
 import { Help } from '../Help';
+import { Sportsdataio } from '../../../../components/output/icons/Sportsdataio/Sportsdataio';
 
 export const SIDEBAR_CONTAINER_CLASSNAMES : string[] = [
     "p-4",
@@ -59,10 +60,16 @@ export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
                 }}/>
             </div>
             <div style={{
+                display : "grid",
                 alignSelf : "end",
-                justifySelf : "center"
+                justifySelf : "center",
+                justifyContent : "center",
+                justifyItems : "center"
             }}>
                 <Help/>
+                <br/>
+                <br/>
+                <Sportsdataio/>
             </div>
         </Wrapper>
     )
