@@ -1,6 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
-import { viusage } from '../../../../util';
+import { ontology, viusage } from '../../../../util';
 import { DateString } from '../../generic';
 import { NcaabMensTop25Entry } from '../NcaabMensTop25Entry';
 
@@ -26,10 +26,22 @@ export type NcaabMensTop25Props = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
-    viusage ? : viusage.primary.Viusagelike
+    viusage ? : viusage.primary.Viusagelike;
+    top25 ? : ontology.RankTrendGamelike[];
 };
 
 export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
+
+    const _top25 = (props.top25||[])
+    .map((entry)=>{
+        return (
+            <NcaabMensTop25Entry 
+                key={entry.team.TeamID}
+                team={entry.team}
+                rank={entry.rank}
+                efficiency={entry.efficiency}/>
+        )
+    })
 
     return (
         <Wrapper
@@ -56,7 +68,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
                     <DateString/>
                 </div>
                 <div>
-                    <NcaabMensTop25Entry/>
+                    {_top25}
                 </div>
             </div>
         </Wrapper>

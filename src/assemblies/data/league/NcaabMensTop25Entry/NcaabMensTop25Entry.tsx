@@ -30,6 +30,7 @@ export type NcaabMensTop25EntryProps = {
     team ? : ontology.Teamlike;
     rank ? : number;
     trend ? : boolean;
+    efficiency ? : ontology.EfficiencyEntrylike;
 };
 
 export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
@@ -88,7 +89,7 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
                     <div className='rounded p-2' style={{
                         background : "#01987528"
                     }}>
-                        <h2>22.8</h2>
+                        <h2>{props.efficiency?.oe}</h2>
                         <h2 style={{
                             color : "#ffffff65"
                         }}>Off Efficiency</h2>
@@ -96,7 +97,7 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
                     <div className='rounded p-2' style={{
                         background : "#01987528"
                     }}>
-                        <h2>22.8</h2>
+                        <h2>{props.efficiency?.de}</h2>
                         <h2 style={{
                             color : "#ffffff65"
                         }}>Def Efficiency</h2>

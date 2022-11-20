@@ -18,7 +18,8 @@ export type NcaabMensOverviewStackProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
-    gameOfTheDay ? : ontology.GameOfTheDaylike
+    gameOfTheDay ? : ontology.GameOfTheDaylike;
+    top25Games ? : ontology.ProjectedGamelike[];
 };
 
 export const NcaabMensOverviewStack : FC<NcaabMensOverviewStackProps>  = (props) =>{
@@ -39,7 +40,7 @@ export const NcaabMensOverviewStack : FC<NcaabMensOverviewStackProps>  = (props)
             </div>
             <div>
                 <NcaabMensUpcomingGames 
-                
+                top25Games={props.top25Games}
                 classNames={["rounded-lg"]}/>
             </div>
         </div>

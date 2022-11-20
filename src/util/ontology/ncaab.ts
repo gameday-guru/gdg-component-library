@@ -248,3 +248,10 @@ export interface ProjectedGamelike {
     game : GameByDatelike;
     gameProjection : ProjectionEntrylike;
 }
+
+export interface RankTrendGamelike {
+    team : Teamlike;
+    rank : number;
+    trend : boolean;
+    efficiency : EfficiencyEntrylike;
+}
