@@ -1,6 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../assemblies/meta';
 import { HomeContent } from '../../../assemblies/meta/content/HomeContent/HomeContent';
+import { ontology } from '../../../util';
 
 export const HOME_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -20,6 +21,9 @@ export type HomeProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
+    gameOfTheDay ? : ontology.GameOfTheDaylike;
+    top25Games ? : ontology.ProjectedGamelike[];
+    top25Teams ? : ontology.RankTrendGamelike[];
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -40,7 +44,11 @@ export const Home : FC<HomeProps>  = (props) =>{
                 height : '100%',
                 width : '100%'
             }}>
-                <HomeContent style={{
+                <HomeContent 
+                gameOfTheDay={props.gameOfTheDay}
+                top25Games={props.top25Games}
+                top25Teams={props.top25Teams}
+                style={{
                     width : "100%",
                     height : "100%"
                 }}/>

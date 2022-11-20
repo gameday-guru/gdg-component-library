@@ -67,7 +67,7 @@ export type TeamEfficiencyTableProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
-    tableEntries ? : TeamEfficiencyTableEntrylike[]
+    tableEntries ? : TeamEfficiencyTableEntrylike[];
 };
 
 export const TeamEntry = (team : Teamlike) : React.ReactNode=>{

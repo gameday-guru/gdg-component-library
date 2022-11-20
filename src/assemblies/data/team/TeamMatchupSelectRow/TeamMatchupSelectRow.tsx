@@ -1,6 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { TeamMatchupBuilder } from '../TeamMatchupBuilder';
 import { TopTeams } from '../../league/TopTeams';
+import { ontology } from '../../../../util';
 
 export const TEAM_MATCHUP_SELECT_ROW_CLASSNAMES : string[] = [ 
     "grid",
@@ -18,6 +19,8 @@ export type TeamMatchupSelectRowProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    topOffensiveTeams ? : ontology.Teamlike[];
+    topDefensiveTeams ? : ontology.Teamlike[];
 };
 
 export const TeamMatchupSelectRow : FC<TeamMatchupSelectRowProps>  = (props) =>{
@@ -26,9 +29,14 @@ export const TeamMatchupSelectRow : FC<TeamMatchupSelectRowProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? TEAM_MATCHUP_SELECT_ROW_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAM_MATCHUP_SELECT_ROW_STYLE : {}, ...props.style}}>
-            <TopTeams style={{ height : "100%", overflow : "scroll"}}/>
-            <TopTeams style={{ height : "100%",  overflow : "scroll" }}/>
-            <TeamMatchupBuilder style={{ height : "100%",  overflow : "scroll" }}/>
+            <TopTeams 
+            teams={props.topOffensiveTeams}
+            style={{ height : "100%", overflow : "scroll"}}/>
+            <TopTeams 
+            teams={props.topDefensiveTeams}
+            style={{ height : "100%",  overflow : "scroll" }}/>
+            <TeamMatchupBuilder 
+            style={{ height : "100%",  overflow : "scroll" }}/>
         </div>
     )
 };
