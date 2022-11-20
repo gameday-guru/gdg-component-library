@@ -1,6 +1,5 @@
-import './App.css';
-// import "./assets/gdg.css"
-import { Login } from "./tests/Login";
+import React, {FC, ReactElement} from 'react';
+import { Login as LoginPage } from "../pages";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -30,14 +29,36 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
+export const LOGIN_CLASSNAMES : string[] = [ ];
+export const LOGIN_STYLE : React.CSSProperties = {
+};
 
-function App() {
+export type LoginProps = {
+     children ? : React.ReactNode;
+    style ? : React.CSSProperties;
+    overrideStyle ? : boolean;
+    classNames ? : string[];
+    overrideClasses ? : boolean;
+    responsive ? : boolean;
+};
 
-  return (
-    <div className="App">
-      <Login/>
-    </div>
-  );
-}
+export const Login : FC<LoginProps>  = (props) =>{
 
-export default App;
+    return (
+        <LoginPage
+        onLogin={async ({ username, password })=>{
+
+          await signInWithEmailAndPassword(auth, username, password);
+
+        }}
+        onSignup={async ({username, password, passwordConfirmation})=>{
+
+          if(password !== passwordConfirmation)
+            throw new Error("Password and password confirmation do not match.");
+
+          await createUserWithEmailAndPassword(auth, username, password);
+
+        }}
+      />
+    )
+};

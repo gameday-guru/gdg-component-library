@@ -65,7 +65,6 @@ export const TextInput : FC<TextInputProps>  = (props) =>{
      const handleSubmit : React.FormEventHandler = (e)=>{
 
         const value : string = (e.target as any).value;
-        console.log(value);
  
          // onClick willy only fire on specified states or default
          if(

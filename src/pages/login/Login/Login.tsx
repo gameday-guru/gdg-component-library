@@ -1,6 +1,5 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../components';
-import { Login as LoginAsm } from '../../../assemblies/user/login/Login';
 import { LoginSignup } from '../../../assemblies/user/login/LoginSignup/LoginSignup';
 import { Sportsdataio } from '../../../components/output/icons/Sportsdataio/Sportsdataio';
 
@@ -26,6 +25,8 @@ export type LoginProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
+    onLogin ? : (params : {username : string, password : string})=>Promise<void>;
+    onSignup ? : (params : {username : string, password : string, passwordConfirmation : string})=>Promise<void>;
 };
 
 export const Login : FC<LoginProps>  = (props) =>{
@@ -36,7 +37,9 @@ export const Login : FC<LoginProps>  = (props) =>{
             viusage='backdrop'
             classNames={[...!props.overrideClasses ? LOGIN_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? LOGIN_STYLE : {}, ...props.style}}>
-                <LoginSignup/>
+                <LoginSignup
+                    onLogin={props.onLogin}
+                    onSignup={props.onSignup}/>
                 <div style={{
                     position : "absolute",
                     bottom : "4em"

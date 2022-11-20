@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, ReactElement, useState} from 'react';
 import { Wrapper } from '../../../../components';
 import { TextInput } from '../../../../components/input/text/TextInput';
 import { Button } from '../../../../components';
@@ -20,17 +20,51 @@ export type LoginProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    onLogin ? : (params : {username : string, password : string})=>Promise<void>;
 };
 
 export const Login : FC<LoginProps>  = (props) =>{
+
+    const [login, setLogin] = useState<{username : string, password : string}>({
+        username : "",
+        password : ""
+    });
+
+    const handleUsername = async (username : string)=>{
+        setLogin({
+            ...login,
+            username
+        })
+    };
+
+    const handlePassword = async (password : string)=>{
+        setLogin({
+            ...login,
+            password
+        });
+    }
+
+    const onSubmit = async ()=>{
+        props.onLogin && props.onLogin(login);
+    }
 
     return (
         <Wrapper
         viusage='wrap'
         classNames={[...!props.overrideClasses ? LOGIN_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? LOGIN_STYLE : {}, ...props.style}}>
-            <TextInput placeholder='email' fill viusage='backdrop'/>
-            <TextInput type='password' placeholder='password' fill viusage='backdrop'/>
+            <TextInput 
+                onChange={(e)=>{
+                    handleUsername(e.target.value)
+                }}
+                onSubmit={onSubmit}
+                placeholder='email' fill viusage='backdrop'/>
+            <TextInput 
+                onChange={(e)=>{
+                    handlePassword(e.target.value)
+                }}
+                onSubmit={onSubmit}
+                type='password' placeholder='password' fill viusage='backdrop'/>
             <div style={{
                 display : "flex",
                 alignItems : "center",
@@ -39,6 +73,7 @@ export const Login : FC<LoginProps>  = (props) =>{
                 justifyContent : "right"
             }}>
                 <Button
+                    onClick={onSubmit}
                     viusage='success'>Login</Button>
             </div>
         </Wrapper>
