@@ -3,6 +3,7 @@ import { Wrapper } from '../../../../components';
 import { DateString } from '../../generic';
 import { GamblersTuple } from '../GamblersTuple';
 import { StackedProjection } from '../StackedProjection';
+import { ontology } from '../../../../util';
 
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ 
     "p-4",
@@ -20,12 +21,16 @@ export const TEAM_MATCHUP_ROW_PROJECTION_INNER_STYLE : React.CSSProperties = {
 };
 
 export type TeamMatchupRowProjectionProps = {
-     children ? : React.ReactNode;
+    children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    home ? : ontology.Teamlike;
+    away ? : ontology.Teamlike;
+    game ? : ontology.GameByDatelike;
+    gameProjection ? : ontology.ProjectionEntrylike;
 };
 
 export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (props) =>{
@@ -36,17 +41,24 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
-                <DateString/>
+                <DateString date={new Date(props.game?.Date as any)}/>
                 <br/>
             </div>
             <div
             className={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_INNER_STYLE : {}, ...props.style}}>
                 <div>   
-                    <StackedProjection/>
+                    <StackedProjection 
+                        home={props.home}
+                        away={props.away}
+                        game={props.game}
+                        gameProjection={props.gameProjection}/>
                 </div>
                 <div>
-                    <GamblersTuple style={{
+                    <GamblersTuple 
+                    game={props.game}
+                    gameProjection={props.gameProjection}
+                    style={{
                         height : "100%"
                     }}/>
                 </div>

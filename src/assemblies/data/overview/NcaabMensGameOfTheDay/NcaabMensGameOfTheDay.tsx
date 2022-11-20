@@ -3,6 +3,7 @@ import { Wrapper } from '../../../../components';
 import { viusage } from '../../../../util';
 import { DateString } from '../../generic';
 import { TeamSemiDetailedMatchup } from '../../team/TeamSemiDetailedMatchup';
+import { ontology } from '../../../../util';
 
 export const NCAAB_MENS_GAME_OF_THE_DAY_CONTAINER_CLASSNAMES : string[] = [
     "grid",
@@ -19,13 +20,16 @@ export const NCAAB_MENS_GAME_OF_THE_DAY_INNER_STYLE : React.CSSProperties = {
 };
 
 export type NcaabMensGameOfTheDayProps = {
-     children ? : React.ReactNode;
+    children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
-    viusage ? : viusage.primary.Viusagelike
+    viusage ? : viusage.primary.Viusagelike;
+    home ? : ontology.Teamlike;
+    away ? : ontology.Teamlike;
+    gameProjection ? : ontology.ProjectionEntrylike;
 };
 
 export const NcaabMensGameOfTheDay : FC<NcaabMensGameOfTheDayProps>  = (props) =>{
@@ -39,7 +43,10 @@ export const NcaabMensGameOfTheDay : FC<NcaabMensGameOfTheDayProps>  = (props) =
             className={[...!props.overrideClasses ? NCAAB_MENS_GAME_OF_THE_DAY_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? NCAAB_MENS_GAME_OF_THE_DAY_INNER_STYLE : {}, ...props.style}}>
                 <h2 className="text-lg">Game of the Day</h2>
-                <TeamSemiDetailedMatchup/>
+                <TeamSemiDetailedMatchup 
+                    home={props.home}
+                    away={props.away}
+                    gameProjection={props.gameProjection}/>
             </div>
         </Wrapper>
     )

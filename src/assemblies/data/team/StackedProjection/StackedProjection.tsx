@@ -1,6 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { Vs } from '../../../../components/output/indicators/label/Vs';
 import { RowProjection } from '../RowProjection';
+import { ontology } from '../../../../util';
 
 export const STACKED_PROJECTION_CLASSNAMES : string[] = [ 
     "grid",
@@ -21,6 +22,10 @@ export type StackedProjectionProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    home ? : ontology.Teamlike;
+    away ? : ontology.Teamlike;
+    game ? : ontology.GameByDatelike;
+    gameProjection ? : ontology.ProjectionEntrylike;
 };
 
 export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
@@ -30,7 +35,11 @@ export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
         className={[...!props.overrideClasses ? STACKED_PROJECTION_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? STACKED_PROJECTION_STYLE : {}, ...props.style}}>
             <div>
-                <RowProjection/>
+                <RowProjection
+                    team={props.home}
+                    game={props.game}
+                    gameProjection={props.gameProjection}
+                    away={false}/>
             </div>
             <div style={{
                 display : "grid",
@@ -52,7 +61,11 @@ export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
                 </div>
             </div>
             <div>
-                <RowProjection/>
+                <RowProjection
+                    team={props.away}
+                    game={props.game}
+                    gameProjection={props.gameProjection}
+                    away={true}/>
             </div>
         </div>
     )

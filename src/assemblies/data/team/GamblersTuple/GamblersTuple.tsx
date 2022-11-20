@@ -1,4 +1,5 @@
 import React, {FC, ReactElement} from 'react';
+import { ontology } from '../../../../util';
 
 export const GAMBLERS_TUPLE_CLASSNAMES : string[] = [
     "grid",
@@ -20,9 +21,17 @@ export type GamblersTupleProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    game ? : ontology.GameByDatelike;
+    gameProjection ? : ontology.ProjectionEntrylike;
 };
 
 export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
+
+    const _projectedTotal = props.gameProjection ? 
+    props.gameProjection.home_team_score + props.gameProjection.away_team_score : 0;
+
+    const _ou = props.game?.OverUnder||0;
+    const _odds = props.game?.OverPayout||0;
 
     return (
         <div
@@ -40,7 +49,7 @@ export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
                 <h2 style={{
                     color : "#ffffff44"
                 }}>Projected Total</h2>
-                130
+                {_projectedTotal}
             </div>
             <div 
             className='rounded-lg'
@@ -57,7 +66,7 @@ export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
                     <h2 style={{
                         color : "#ffffff44",
                     }}>Total</h2>
-                    O/U 130
+                    O/U {_ou}
                 </div>
                 <div style={{
                     textAlign : "center"
@@ -65,7 +74,7 @@ export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
                     <h2 style={{
                         color : "#ffffff44"
                     }}>Odds</h2>
-                    -110
+                    {_odds}
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ import { DateString } from '../../generic';
 import { H2H } from '../../matchup/H2H';
 import { ProjectionZeroSum } from '../ProjectionZeroSum';
 import { ProjectionWinPercentage } from '../ProjectionWinPercentage';
+import { ontology } from '../../../../util';
 
 export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [ ];
 export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {
@@ -28,6 +29,9 @@ export type TeamSemiDetailedMatchupProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    home ? : ontology.Teamlike;
+    away ? : ontology.Teamlike;
+    gameProjection ? : ontology.ProjectionEntrylike;
 };
 
 export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (props) =>{
@@ -49,15 +53,22 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
             className={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_INNER_STYLE : {}, ...props.style}}>
                 <div className='text-sm'>   
-                    <H2H/>
+                    <H2H
+                        Home={props.home}
+                        Away={props.away}/>
                 </div>
                 <div className='gap-2' style={{
                     display : "grid",
                     alignContent : "center",
                     gridTemplateColumns : "1fr 1fr"
                 }}>
-                    <ProjectionZeroSum/>
-                    <ProjectionWinPercentage/>
+                    <ProjectionZeroSum
+                        homeScore={props.gameProjection?.home_team_score}
+                        awayScore={props.gameProjection?.away_team_score}/>
+                    <ProjectionWinPercentage 
+                        homeTeam={props.home}
+                        awayTeam={props.away}
+                        gameProjection={props.gameProjection}/>
                 </div>
             </div>
         </Wrapper>

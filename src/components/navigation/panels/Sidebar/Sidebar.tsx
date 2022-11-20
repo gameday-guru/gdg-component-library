@@ -30,6 +30,7 @@ export type SidebarProps = {
     viusage ? : viusage.primary.Viusagelike;
     Header ? : React.ReactNode;
     which ? : string;
+    onWhich ? : (which : string)=>Promise<void>;
     options ? : {[key : string] : React.ReactNode};
 };
 
@@ -38,6 +39,9 @@ export const Sidebar : FC<SidebarProps>  = (props) =>{
     const selections = Object.entries(props.options||{})
     .map(([innerName, display])=>{
         return <Pill 
+            onClick={async ()=>{
+                props.onWhich && (await props.onWhich(innerName));
+            }}
             viusage={props.which === innerName ? 'navigate' : 'wrap'}
             key={innerName}>
                 {display}

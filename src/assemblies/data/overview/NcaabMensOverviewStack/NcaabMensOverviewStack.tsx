@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { NcaabMensBlogs } from '../NcaabMensBlogs';
 import { NcaabMensGameOfTheDay } from '../NcaabMensGameOfTheDay';
 import { NcaabMensUpcomingGames } from '../NcaabMensUpcomingGames';
+import { ontology } from '../../../../util';
 
 export const NCAAB_MENS_OVERVIEW_STACK_CLASSNAMES : string[] = [ 
     "grid",
@@ -17,6 +18,7 @@ export type NcaabMensOverviewStackProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    gameOfTheDay ? : ontology.GameOfTheDaylike
 };
 
 export const NcaabMensOverviewStack : FC<NcaabMensOverviewStackProps>  = (props) =>{
@@ -29,10 +31,16 @@ export const NcaabMensOverviewStack : FC<NcaabMensOverviewStackProps>  = (props)
                 <NcaabMensBlogs classNames={["rounded-lg"]}/>
             </div>
             <div>
-                <NcaabMensGameOfTheDay classNames={["rounded-lg"]}/>
+                <NcaabMensGameOfTheDay 
+                home={props.gameOfTheDay?.home}
+                away={props.gameOfTheDay?.away}
+                gameProjection={props.gameOfTheDay?.gameProjection}
+                classNames={["rounded-lg"]}/>
             </div>
             <div>
-                <NcaabMensUpcomingGames classNames={["rounded-lg"]}/>
+                <NcaabMensUpcomingGames 
+                
+                classNames={["rounded-lg"]}/>
             </div>
         </div>
     )

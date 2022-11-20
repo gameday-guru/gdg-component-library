@@ -1,4 +1,5 @@
 import React, {FC, ReactElement} from 'react';
+import { ontology } from '../../../../util';
 import { RowTuple } from '../RowTuple';
 import { SideTeam } from '../SideTeam';
 
@@ -23,22 +24,41 @@ export type RowProjectionProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    team ? : ontology.Teamlike;
+    game ? : ontology.GameByDatelike;
+    gameProjection ? : ontology.ProjectionEntrylike
+    away ? : boolean;
 };
 
 export const RowProjection : FC<RowProjectionProps>  = (props) =>{
+
+    const _projectedScore = props.away ?
+    props.gameProjection?.away_team_score
+    : props.gameProjection?.home_team_score;
+    const _line = props.away ? 
+    0 - (props.game?.OverUnder||0) 
+    : 0 - (props.game?.OverUnder||0);
+    const _odds = props.away ?
+    props.game?.AwayTeamMoneyLine 
+    : props.game?.HomeTeamMoneyLine;
 
     return (
         <div
         className={[...!props.overrideClasses ? ROW_PROJECTION_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? ROW_PROJECTION_STYLE : {}, ...props.style}}>
             <div>
-                <SideTeam/>
+                <SideTeam
+                    team={props.team}
+                    away={props.away}/>
             </div>
             <div>
                 {/** Leave Empty */}
             </div>
             <div>
-                <RowTuple/>
+                <RowTuple 
+                    line={_line}
+                    odds={_odds}
+                    projectedScore={_projectedScore}/>
             </div>
         </div>
     )

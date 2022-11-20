@@ -235,3 +235,16 @@ export const MockProjection : ProjectionEntrylike = {
     home_team_score : 72.3,
     away_team_score : 64.1
 };
+
+export interface GameOfTheDaylike {
+    home : Teamlike;
+    away : Teamlike;
+    gameProjection : ProjectionEntrylike;
+}
+
+export interface ProjectedGamelike {
+    home : Teamlike;
+    away : Teamlike;
+    game : GameByDatelike;
+    gameProjection : ProjectionEntrylike;
+}

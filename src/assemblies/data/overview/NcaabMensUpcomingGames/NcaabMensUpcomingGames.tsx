@@ -1,6 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
-import { viusage } from '../../../../util';
+import { ontology, viusage } from '../../../../util';
 import { Pill } from '../../../../components';
 import { Stacked } from '../../../../components/output/containers/comparison';
 import { TeamMatchupRowProjection } from '../../team/TeamMatchupRowProjection';
@@ -24,7 +24,8 @@ export type NcaabMensUpcomingGamesProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike
-    which ? : string
+    which ? : string;
+    top25Games ? : ontology.ProjectedGamelike[];
 };
 
 export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props) =>{
@@ -35,7 +36,7 @@ export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props)
         "ACC", 
         "PAC 12", 
         "On the Bubble"
-    ]
+    ];
     const selections = options
     .map((display, i)=>{
         return <Pill 
@@ -44,6 +45,17 @@ export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props)
             key={display}>
                 {display}
         </Pill>
+    });
+    const gameProjections = (props.top25Games||[])
+    .map((entry, i)=>{
+        return (
+            <TeamMatchupRowProjection 
+                key={entry.game.GameID}
+                home={entry.home}
+                away={entry.away}
+                game={entry.game}
+                gameProjection={entry.gameProjection}/>
+        )
     });
 
     return (
@@ -64,7 +76,7 @@ export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props)
                     {selections}
                 </div>
                 <br/>
-                <TeamMatchupRowProjection/>
+                {gameProjections}
             </div>
         </Wrapper>
     )

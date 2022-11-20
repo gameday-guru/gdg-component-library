@@ -13,13 +13,14 @@ export type LogoedSidebarProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    onWhich ? : (which : string)=>Promise<void>;
     options ? : {[key : string] : React.ReactNode}
-    which ? : string
+    which ? : string;
 };
 
 export const LogoedSidebar : FC<LogoedSidebarProps>  = (props) =>{
 
     return (
-        <Sidebar which={props.which} Header={<Logo/>} options={props.options}/>
+        <Sidebar onWhich={props.onWhich} which={props.which} Header={<Logo/>} options={props.options}/>
     )
 };

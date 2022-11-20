@@ -1,7 +1,4 @@
 import React, {FC, ReactElement} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PegPill } from '../../../../components';
-import { Logo } from '../../../../components/output/icons/Logo';
 import { Wrapper } from "../../../../components/output/containers/Wrapper";
 import { viusage } from '../../../../util';
 import { LogoedSidebar } from '../LogoedSidebar';
@@ -30,6 +27,7 @@ export type MainSidebarProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
+    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
 };
 
 export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
@@ -41,7 +39,9 @@ export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
             classNames={[...!props.overrideClasses ? SIDEBAR_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? SIDEBAR_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
-                <LogoedSidebar which='home' options={{
+                <LogoedSidebar 
+                onWhich={props.onWhich as any} // TODO: fix subtyping
+                which='home' options={{
                     "home" : <div style={{
                         display : "flex",
                         alignContent : "center",
