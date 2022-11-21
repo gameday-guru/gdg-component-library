@@ -36,11 +36,24 @@ export const RowProjection : FC<RowProjectionProps>  = (props) =>{
     props.gameProjection?.away_team_score
     : props.gameProjection?.home_team_score;
     const _line = props.away ? 
-    0 - (props.game?.OverUnder||0) 
-    : 0 - (props.game?.OverUnder||0);
+    (
+        (props.game?.AwayTeamMoneyLine||0) > (props.game?.HomeTeamMoneyLine||0) ?
+        (props.game?.PointSpread||0)
+        : Math.abs(props.game?.PointSpread||0)
+    )
+    : (
+        
+        (props.game?.HomeTeamMoneyLine||0) > (props.game?.AwayTeamMoneyLine||0) ?
+        (props.game?.PointSpread||0)
+        : Math.abs(props.game?.PointSpread||0)
+        
+    )
+   
     const _odds = props.away ?
-    props.game?.AwayTeamMoneyLine 
-    : props.game?.HomeTeamMoneyLine;
+    props.game?.AwayPointSpreadPayout 
+    : props.game?.HomePointSpreadPayout;
+
+    console.log(props.game);
 
     return (
         <div

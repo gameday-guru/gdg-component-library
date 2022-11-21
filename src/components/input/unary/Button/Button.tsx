@@ -18,7 +18,8 @@ export const BUTTON_CLASSNAMES : string[] = [
 
 export const BUTTON_STYLE : React.CSSProperties = {
     position : "relative",
-    border : "none"
+    border : "none",
+    overflow : "hidden"
 };
 
 export type ButtonProps = {

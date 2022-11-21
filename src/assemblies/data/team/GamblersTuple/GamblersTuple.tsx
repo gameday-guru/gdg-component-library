@@ -28,7 +28,7 @@ export type GamblersTupleProps = {
 export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
 
     const _projectedTotal = props.gameProjection ? 
-    props.gameProjection.home_team_score + props.gameProjection.away_team_score : 0;
+    (props.gameProjection.home_team_score + props.gameProjection.away_team_score) : 0;
 
     const _ou = props.game?.OverUnder||0;
     const _odds = props.game?.OverPayout||0;
@@ -49,7 +49,7 @@ export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
                 <h2 style={{
                     color : "#ffffff44"
                 }}>Projected Total</h2>
-                {_projectedTotal}
+                {_projectedTotal.toFixed(0)}
             </div>
             <div 
             className='rounded-lg'

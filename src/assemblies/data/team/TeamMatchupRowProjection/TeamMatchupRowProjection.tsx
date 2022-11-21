@@ -35,13 +35,15 @@ export type TeamMatchupRowProjectionProps = {
 
 export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (props) =>{
 
+    console.log("Date: ", props.game?.Date);
+
     return (
         <Wrapper
             viusage={"backdrop"}
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
-                <DateString date={new Date(props.game?.Date as any)}/>
+                <DateString date={new Date((props.game as any).DateTime)}/>
                 <br/>
             </div>
             <div

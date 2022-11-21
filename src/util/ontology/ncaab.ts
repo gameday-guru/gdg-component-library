@@ -249,7 +249,7 @@ export interface ProjectedGamelike {
     gameProjection : ProjectionEntrylike;
 }
 
-export interface RankTrendGamelike {
+export interface RankTrendTeamlike {
     team : Teamlike;
     rank : number;
     trend : boolean;

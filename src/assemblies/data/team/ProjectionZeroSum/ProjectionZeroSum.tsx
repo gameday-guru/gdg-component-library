@@ -82,7 +82,7 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
                             width : `${Math.floor(((_homeScore + _awayScore)/250)*100)}%`,
                             padding : "2px"
                         }}>
-                        &emsp;&emsp;{_homeScore + _awayScore}
+                        &emsp;&emsp;{(_homeScore + _awayScore).toFixed(0)}
                     </div>
                 </div>
             </div>

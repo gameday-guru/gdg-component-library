@@ -27,7 +27,7 @@ export type NcaabMensTop25Props = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
-    top25 ? : ontology.RankTrendGamelike[];
+    top25 ? : ontology.RankTrendTeamlike[];
 };
 
 export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
@@ -58,16 +58,16 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
                 }}>
                     <div className='text-lg' style={{
                         borderBottom : `1px solid #019875`
-                    }}>Gameday Guru</div>
+                    }}>AP</div>
                     <div className='text-xl' style={{
             
-                    }}>AP</div>
+                    }}>Gameday Guru</div>
                 </div>
                 <hr/>
                 <div>
                     <DateString/>
                 </div>
-                <div>
+                <div className='grid gap-2 text-sm'>
                     {_top25}
                 </div>
             </div>

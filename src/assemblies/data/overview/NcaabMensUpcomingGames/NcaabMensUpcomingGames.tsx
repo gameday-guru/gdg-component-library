@@ -76,7 +76,9 @@ export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props)
                     {selections}
                 </div>
                 <br/>
-                {gameProjections}
+                <div className='grid gap-2 text-sm'>
+                    {gameProjections}
+                </div>
             </div>
         </Wrapper>
     )

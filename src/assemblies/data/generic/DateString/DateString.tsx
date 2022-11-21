@@ -44,7 +44,9 @@ export const DateString : FC<DateStringProps>  = (props) =>{
             ...props.classNames||[]
         ].join(" ")}
         style={{...!props.overrideStyle ? DATE_STRING_STYLE : {}, ...props.style}}>
-            {_date.getHours()}:{_date.toLocaleTimeString("en-us", {minute : "2-digit"})}, {dayOfWeek[_date.getDay()]}, {_date.toLocaleDateString("en-us", {month : "short"})} {_date.toLocaleDateString("en-us", {day : "numeric"})}, {_date.toLocaleDateString("en-us", {year : "numeric"})}
+           {_date.toLocaleTimeString("en-us", {
+            hour: 'numeric', minute: '2-digit'
+           })}, {dayOfWeek[_date.getDay()]}, {_date.toLocaleDateString("en-us", {month : "short"})} {_date.toLocaleDateString("en-us", {day : "numeric"})}, {_date.toLocaleDateString("en-us", {year : "numeric"})}
         </div>
     )
 };
