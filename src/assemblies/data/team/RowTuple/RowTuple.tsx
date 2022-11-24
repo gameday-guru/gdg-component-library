@@ -51,7 +51,7 @@ export const RowTuple : FC<RowTupleProps>  = (props) =>{
                     height : "100%"
                 }}
                 Label={"Projected Score"}
-                Value={_projectedScore}/>
+                Value={_projectedScore.toFixed(1)}/>
         </div>
     )
 };

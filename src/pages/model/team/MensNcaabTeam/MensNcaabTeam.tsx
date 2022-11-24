@@ -1,6 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../assemblies/meta';
 import { MensNcaabTeamContent } from '../../../../assemblies/meta/content/NcaabMensTeamContent';
+import { ontology } from '../../../../util';
 
 export const MENS_NCAAB_TEAM_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -20,6 +21,10 @@ export type MensNcaabTeamProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
+    tableEntries ? : ontology.EfficiencyEntrylike[];
+    teams ? : { [key : string] : ontology.Teamlike };
+    topOffensiveTeams ? : ontology.Teamlike[];
+    topDefensiveTeams ? : ontology.Teamlike[];
 };
 
 export const MensNcaabTeam : FC<MensNcaabTeamProps>  = (props) =>{
@@ -45,7 +50,11 @@ export const MensNcaabTeam : FC<MensNcaabTeamProps>  = (props) =>{
                 width : '100%',
                 overflow : 'scroll'
             }}>
-                <MensNcaabTeamContent/>
+                <MensNcaabTeamContent
+                topDefensiveTeams={props.topDefensiveTeams}
+                topOffensiveTeams={props.topOffensiveTeams}
+                tableEntries={props.tableEntries}
+                teams={props.teams}/>
             </div>
         </div>
     )

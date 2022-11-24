@@ -37,6 +37,9 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
 
     const _rank = props.rank|| -1;
     const _team = props.team||ontology.MockHome;
+    const _powerRating = 
+        .56 * (props.efficiency?.oe||0) 
+        - .44 * (props.efficiency?.de||0)
 
     return (
         <Wrapper
@@ -81,7 +84,7 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
                     <div className='rounded p-2' style={{
                         background : "#01987528"
                     }}>
-                        <h2>22.8</h2>
+                        <h2>{_powerRating.toFixed(1)}</h2>
                         <h2 style={{
                             color : "#ffffff65"
                         }}>Power Rating</h2>
@@ -89,7 +92,7 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
                     <div className='rounded p-2' style={{
                         background : "#01987528"
                     }}>
-                        <h2>{props.efficiency?.oe}</h2>
+                        <h2>{props.efficiency?.oe.toFixed(1)}</h2>
                         <h2 style={{
                             color : "#ffffff65"
                         }}>Off Efficiency</h2>
@@ -97,7 +100,7 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
                     <div className='rounded p-2' style={{
                         background : "#01987528"
                     }}>
-                        <h2>{props.efficiency?.de}</h2>
+                        <h2>{props.efficiency?.de.toFixed(1)}</h2>
                         <h2 style={{
                             color : "#ffffff65"
                         }}>Def Efficiency</h2>

@@ -21,7 +21,8 @@ export type NcaabMensOverviewProps = {
     responsive ? : boolean;
     gameOfTheDay ? : ontology.GameOfTheDaylike;
     top25Games ? : ontology.ProjectedGamelike[];
-    top25Teams ? : ontology.RankTrendTeamlike[];
+    apTop25Teams ? : ontology.RankTrendTeamlike[];
+    gdgTop25Teams ? : ontology.RankTrendTeamlike[];
 };
 
 export const NcaabMensOverview : FC<NcaabMensOverviewProps>  = (props) =>{
@@ -37,7 +38,8 @@ export const NcaabMensOverview : FC<NcaabMensOverviewProps>  = (props) =>{
             </div>
             <div>
                 <NcaabMensTop25 
-                    top25={props.top25Teams}
+                    apTop25={props.apTop25Teams}
+                    gdgTop25={props.gdgTop25Teams}
                     classNames={["rounded-lg"]}/>
             </div>
         </div>

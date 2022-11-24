@@ -22,9 +22,13 @@ export type TeamsProps = {
     responsive ? : boolean;
     tableEntries ? : ontology.EfficiencyEntrylike[];
     teams ? : { [key : string] : ontology.Teamlike };
+    topOffensiveTeams ? : ontology.Teamlike[];
+    topDefensiveTeams ? : ontology.Teamlike[];
 };
 
 export const Teams : FC<TeamsProps>  = (props) =>{
+
+    console.log("Table entries: ", props.tableEntries);
 
     const _tableEntries = props.tableEntries||[];
     const _teams = props.teams||{};
@@ -36,10 +40,10 @@ export const Teams : FC<TeamsProps>  = (props) =>{
             "Defensive Efficiency" : entry.de,
             "Offensive Efficiency" : entry.oe,
             "Tempo" : entry.tempo,
-            "Power Rating" : 0, // TODO: add power rating
+            "Power Rating" : .56 *entry.oe - .44 * entry.de, // TODO: add power rating
             "Record" : [
                 _teams[entry.team_id].Wins||0, 
-                0, // TODO:  why doesn't sportsdataio direct indicate ties
+                0, // TODO:  why doesn't sportsdataio indicate ties
                 _teams[entry.team_id].Losses||0, 
             ],
             "Team Name" : _teams[entry.team_id],
@@ -51,7 +55,10 @@ export const Teams : FC<TeamsProps>  = (props) =>{
         className={[...!props.overrideClasses ? TEAMS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAMS_STYLE : {}, ...props.style}}>
             <div>
-                <TeamMatchupSelectRow style={{ height : "300px"}}/>
+                <TeamMatchupSelectRow 
+                topDefensiveTeams={props.topDefensiveTeams}
+                topOffensiveTeams={props.topOffensiveTeams}
+                style={{ height : "300px"}}/>
             </div>    
             <div>
                 <TeamEfficiencyTable tableEntries={_efficiencyTableEntries}/>

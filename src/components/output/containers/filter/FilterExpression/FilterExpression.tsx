@@ -80,8 +80,6 @@ export const FilterExpression : FC<FilterExpressionProps>  = (props) =>{
 
     const handleComparisonValue = async (value : string)=>{
 
-        console.log("Handlig comparison value...");
-
         const filterCopy = {
             ...props.filter
         } as FilterToken;

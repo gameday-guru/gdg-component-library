@@ -49,13 +49,15 @@ export const FilterSet : FC<FilterSetProps>  = (props) =>{
     )
 
     useEffect(()=>{
+      
         props.setTable && props.table && props.setTable(
             props.table.filter((value)=>{
                 return evaluateFilterToken(value, filters,{})
             })
         ).then((data)=>console.log(data))
         .catch((err)=>console.log(err));
-    }, [filters])
+        
+    }, [filters, JSON.stringify(props.fieldCase), JSON.stringify(props.table)])
 
     return (
         <div

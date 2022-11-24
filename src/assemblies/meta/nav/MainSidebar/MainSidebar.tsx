@@ -46,7 +46,7 @@ export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
                         display : "flex",
                         alignContent : "center",
                         alignItems : "center",
-                    }}><House/>&emsp;&emsp;House</div>,
+                    }}><House/>&emsp;&emsp;Home</div>,
                     "team" : <div style={{
                         display : "flex",
                         alignContent : "center",

@@ -54,7 +54,7 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
                             padding : "2px",
                             background : "#00C192"
                         }}>
-                            &emsp;&emsp;{_homeScore}
+                            &emsp;&emsp;{_homeScore.toFixed(1)}
                         </div>
                     </div>
                     <div>
@@ -67,7 +67,7 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
                                 padding : "2px",
                                 background : "#0086E6"
                             }}>
-                            &emsp;{_awayScore}
+                            &emsp;{_awayScore.toFixed(1)}
                         </div>
                     </div>
                 </div>

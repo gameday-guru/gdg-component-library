@@ -53,7 +53,6 @@ export const RowProjection : FC<RowProjectionProps>  = (props) =>{
     props.game?.AwayPointSpreadPayout 
     : props.game?.HomePointSpreadPayout;
 
-    console.log(props.game);
 
     return (
         <div

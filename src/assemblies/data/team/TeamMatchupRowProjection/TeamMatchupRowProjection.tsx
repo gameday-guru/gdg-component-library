@@ -35,8 +35,6 @@ export type TeamMatchupRowProjectionProps = {
 
 export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (props) =>{
 
-    console.log("Date: ", props.game?.Date);
-
     return (
         <Wrapper
             viusage={"backdrop"}

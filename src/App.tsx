@@ -2,6 +2,7 @@ import './App.css';
 // import "./assets/gdg.css"
 import { Login } from "./tests/Login";
 import { Home } from "./tests/Home";
+import { Team } from "./tests/Team";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -36,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      <Home/>
+      <Team/>
     </div>
   );
 }

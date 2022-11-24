@@ -5,6 +5,7 @@ import { MensCollegeBasketballHeader } from '../../header';
 import { NcaabMensOverview } from '../../../data/overview/NcaabMensOverview/NcaabMensOverview';
 import { Teams } from '../../../data/team/Teams';
 import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
+import { ontology } from '../../../../util';
 
 export const MENS_NCAAB_TEAM_CONTENT_CONTAINER_CLASSNAMES : string[] = [
 
@@ -26,6 +27,10 @@ export type MensNcaabTeamContentProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
+    tableEntries ? : ontology.EfficiencyEntrylike[];
+    teams ? : { [key : string] : ontology.Teamlike };
+    topOffensiveTeams ? : ontology.Teamlike[];
+    topDefensiveTeams ? : ontology.Teamlike[];
 };
 
 export const MensNcaabTeamContent : FC<MensNcaabTeamContentProps>  = (props) =>{
@@ -42,7 +47,11 @@ export const MensNcaabTeamContent : FC<MensNcaabTeamContentProps>  = (props) =>{
                     <MensCollegeBasketballHeader/>
                 </div>
                 <div>
-                    <Teams />
+                    <Teams 
+                    topOffensiveTeams={props.topOffensiveTeams}
+                    topDefensiveTeams={props.topDefensiveTeams}
+                    tableEntries={props.tableEntries}
+                    teams={props.teams}/>
                 </div>
             </div>
         </Wrapper>

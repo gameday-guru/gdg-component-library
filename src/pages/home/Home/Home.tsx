@@ -23,7 +23,8 @@ export type HomeProps = {
     overrideClasses ? : boolean;
     gameOfTheDay ? : ontology.GameOfTheDaylike;
     top25Games ? : ontology.ProjectedGamelike[];
-    top25Teams ? : ontology.RankTrendTeamlike[];
+    apTop25Teams ? : ontology.RankTrendTeamlike[];
+    gdgTop25Teams ? : ontology.RankTrendTeamlike[];
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -48,7 +49,8 @@ export const Home : FC<HomeProps>  = (props) =>{
                 <HomeContent 
                 gameOfTheDay={props.gameOfTheDay}
                 top25Games={props.top25Games}
-                top25Teams={props.top25Teams}/>
+                apTop25Teams={props.apTop25Teams}
+                gdgTop25Teams={props.gdgTop25Teams}/>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, ReactElement, useState} from 'react';
 import { Wrapper } from '../../../../components';
 import { ontology, viusage } from '../../../../util';
 import { DateString } from '../../generic';
@@ -27,12 +27,27 @@ export type NcaabMensTop25Props = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
-    top25 ? : ontology.RankTrendTeamlike[];
+    apTop25 ? : ontology.RankTrendTeamlike[];
+    gdgTop25 ? : ontology.RankTrendTeamlike[];
+    which ? : "ap" | "gdg";
 };
 
 export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
 
-    const _top25 = (props.top25||[])
+    const [which, setWhich] = useState<"ap"|"gdg">(props.which||"ap");
+
+    const _apTop25 = (props.apTop25||[])
+    .map((entry)=>{
+        return (
+            <NcaabMensTop25Entry 
+                key={entry.team.TeamID}
+                team={entry.team}
+                rank={entry.rank}
+                efficiency={entry.efficiency}/>
+        )
+    });
+
+    const _gdgTop25 = (props.gdgTop25||[])
     .map((entry)=>{
         return (
             <NcaabMensTop25Entry 
@@ -56,11 +71,15 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
                     display : "grid",
                     gridTemplateColumns : "1fr 1fr"
                 }}>
-                    <div className='text-lg' style={{
-                        borderBottom : `1px solid #019875`
+                    <div className='text-lg cursor-pointer' 
+                    onClick={()=>setWhich('ap')}
+                    style={{
+                        borderBottom : which === "ap" ? `1px solid #019875` : undefined
                     }}>AP</div>
-                    <div className='text-xl' style={{
-            
+                    <div className='text-lg cursor-pointer' 
+                    onClick={()=>setWhich('gdg')}
+                    style={{
+                        borderBottom : which === "gdg" ? `1px solid #019875` : undefined
                     }}>Gameday Guru</div>
                 </div>
                 <hr/>
@@ -68,7 +87,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
                     <DateString/>
                 </div>
                 <div className='grid gap-2 text-sm'>
-                    {_top25}
+                    {which === "ap" ? _apTop25 : _gdgTop25}
                 </div>
             </div>
         </Wrapper>

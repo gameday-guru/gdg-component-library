@@ -1,19 +1,19 @@
 import React, {FC, ReactElement, useEffect, useState, useRef} from 'react';
-import { Home as HomePage } from "../pages";
+import { MensNcaabTeam as TeamPage } from "../pages/model";
 import { ontology } from '../util';
 import { 
     getGamesInNextWeekTable,
     getTeams,
     getTeamsTable
 } from '../util/firebase';
-import { MockHomeEff, MockProjection } from '../util/ontology';
+import { MockProjection } from '../util/ontology';
 import { getEfficiencyTable, getProjectionTable } from '../util/rpc';
 
 export const HOME_CLASSNAMES : string[] = [ ];
 export const HOME_STYLE : React.CSSProperties = {
 };
 
-export type HomeProps = {
+export type TeamProps = {
     children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
@@ -22,7 +22,7 @@ export type HomeProps = {
     responsive ? : boolean;
 };
 
-export const Home : FC<HomeProps>  = (props) =>{
+export const Team : FC<TeamProps>  = (props) =>{
 
     const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
     useEffect(()=>{
@@ -136,10 +136,8 @@ export const Home : FC<HomeProps>  = (props) =>{
     })[0];
 
     return (
-        <HomePage
-            gdgTop25Teams={_gdgTop25RankedTeams}
-            apTop25Teams={_apTop25RankedTeams}
-            top25Games={_top25ProjectedGames}
-            gameOfTheDay={_gameOfTheDay}/>
+        <TeamPage
+        tableEntries={Object.values(efficiency)}
+        teams={teams}/>
     )
 };

@@ -24,7 +24,8 @@ export type HomeContentProps = {
     viusage ? : viusage.primary.Viusagelike;
     gameOfTheDay ? : ontology.GameOfTheDaylike;
     top25Games ? : ontology.ProjectedGamelike[];
-    top25Teams ? : ontology.RankTrendTeamlike[];
+    apTop25Teams ? : ontology.RankTrendTeamlike[];
+    gdgTop25Teams ? : ontology.RankTrendTeamlike[];
 };
 
 export const HomeContent : FC<HomeContentProps>  = (props) =>{
@@ -44,7 +45,8 @@ export const HomeContent : FC<HomeContentProps>  = (props) =>{
                     <NcaabMensOverview
                         gameOfTheDay={props.gameOfTheDay}
                         top25Games={props.top25Games}
-                        top25Teams={props.top25Teams}/>
+                        apTop25Teams={props.apTop25Teams}
+                        gdgTop25Teams={props.gdgTop25Teams}/>
                 </div>
             </div>
         </Wrapper>

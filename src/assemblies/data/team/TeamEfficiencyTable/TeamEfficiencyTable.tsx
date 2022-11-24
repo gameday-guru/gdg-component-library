@@ -54,7 +54,7 @@ export const makeStdTableEntry = (arr : number[])=>(rating : number) : React.Rea
         height : "100%",
         alignContent : "center",
         alignItems : "center"
-    }} which={lowMedHigh}>{rating}</LowMedHigh>
+    }} which={lowMedHigh}>{rating.toFixed(1)}</LowMedHigh>
 
 }
 
@@ -270,8 +270,6 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
     // these are the filtered table entries
     const[_tableEntries, setTableEntries] = useState(tableEntries);
 
-    console.log(_tableEntries);
-
     const toReact : {[key : string] : (value : any)=>React.ReactNode} = {};
     toReact["Team Name"] = TeamEntry;
     toReact["Record"] = RecordEntry
@@ -319,11 +317,15 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
                <div>
                     <FilterSet 
                         table={tableEntries}
-                        setTable={async (table)=>setTableEntries(table)}
+                        setTable={async (table)=>{
+                            console.log("Setting table: ", table);
+                            setTableEntries(table);
+                        }}
                         fieldCase={{
                             "Team Name" : ["TEXT"],
                             "Conference" : ["TEXT"],
                             "Record" : ["TEXT"],
+                            "Power Rating" : ["NUMERIC"],
                             "Offensive Efficiency" : ["NUMERIC"],
                             "Defensive Efficiency" : ["NUMERIC"]
                         }}
@@ -340,6 +342,7 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
                                 "Team Name",
                                 "Conference",
                                 "Record",
+                                "Power Rating",
                                 "Offensive Efficiency",
                                 "Defensive Efficiency"
                             ],
