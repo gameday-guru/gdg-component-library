@@ -8,6 +8,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -44,11 +46,18 @@ export type LoginProps = {
 
 export const Login : FC<LoginProps>  = (props) =>{
 
+  const navigate = useNavigate();
+  const [user, loading] = useAuthState(auth);
+
+  if(user) navigate("/home");
+
     return (
         <LoginPage
         onLogin={async ({ username, password })=>{
 
           await signInWithEmailAndPassword(auth, username, password);
+          console.log("success...")
+          navigate("/home");
 
         }}
         onSignup={async ({username, password, passwordConfirmation})=>{
@@ -57,6 +66,8 @@ export const Login : FC<LoginProps>  = (props) =>{
             throw new Error("Password and password confirmation do not match.");
 
           await createUserWithEmailAndPassword(auth, username, password);
+
+          navigate("/home");
 
         }}
       />

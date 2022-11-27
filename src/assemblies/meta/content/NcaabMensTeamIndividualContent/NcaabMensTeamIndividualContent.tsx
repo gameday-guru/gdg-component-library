@@ -7,22 +7,19 @@ import { Teams } from '../../../data/team/Teams';
 import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 import { ontology } from '../../../../util';
 
-export const MENS_NCAAB_TEAM_CONTENT_CONTAINER_CLASSNAMES : string[] = [
+export const MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_CONTAINER_CLASSNAMES : string[] = [
 
  ];
-export const MENS_NCAAB_TEAM_CONTENT_CONTAINER_STYLE : React.CSSProperties = {
-    height : '100%',
-    overflow : 'scroll'
-
+export const MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_CONTAINER_STYLE : React.CSSProperties = {
 };
 
-export const MENS_NCAAB_TEAM_CONTENT_INNER_CLASSNAMES : string[] = [
+export const MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_INNER_CLASSNAMES : string[] = [
 
 ];
-export const MENS_NCAAB_TEAM_CONTENT_INNER_STYLE : React.CSSProperties = {
+export const MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_INNER_STYLE : React.CSSProperties = {
 };
 
-export type MensNcaabTeamContentProps = {
+export type MensNcaabTeamIndividualContentProps = {
     children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
@@ -36,16 +33,16 @@ export type MensNcaabTeamContentProps = {
     topDefensiveTeams ? : ontology.Teamlike[];
 };
 
-export const MensNcaabTeamContent : FC<MensNcaabTeamContentProps>  = (props) =>{
+export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentProps>  = (props) =>{
 
     return (
         <Wrapper
             viusage={props.viusage||"backdrop"}
-            classNames={[...!props.overrideClasses ? MENS_NCAAB_TEAM_CONTENT_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
-            style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_CONTENT_CONTAINER_STYLE : {}, ...props.style}}>
+            classNames={[...!props.overrideClasses ? MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
+            style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_CONTAINER_STYLE : {}, ...props.style}}>
             <div
-            className={[...!props.overrideClasses ? MENS_NCAAB_TEAM_CONTENT_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-            style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_CONTENT_INNER_STYLE : {}, ...props.style}}>
+            className={[...!props.overrideClasses ? MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
+            style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_INNER_STYLE : {}, ...props.style}}>
                 <div>
                     <MensCollegeBasketballHeader/>
                 </div>

@@ -1,9 +1,9 @@
 import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../assemblies/meta';
-import { MensNcaabTeamContent } from '../../../../assemblies/meta/content/NcaabMensTeamContent';
+import { MensNcaabTeamIndividualContent } from '../../../../assemblies/meta/content/NcaabMensTeamIndividualContent';
 import { ontology } from '../../../../util';
 
-export const MENS_NCAAB_TEAM_CLASSNAMES : string[] = [ 
+export const MENS_NCAAB_TEAM_INDIVIDUAL_CLASSNAMES : string[] = [ 
     "h-screen",
     "w-screen",
     "grid",
@@ -11,11 +11,11 @@ export const MENS_NCAAB_TEAM_CLASSNAMES : string[] = [
     "items-center",
     "text-drk-gray-900",
 ];
-export const MENS_NCAAB_TEAM_STYLE : React.CSSProperties = {
+export const MENS_NCAAB_TEAM_INDIVIDUAL_STYLE : React.CSSProperties = {
     gridTemplateColumns : "1fr 6fr"
 };
 
-export type MensNcaabTeamProps = {
+export type MensNcaabTeamIndividualProps = {
     children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
@@ -25,23 +25,24 @@ export type MensNcaabTeamProps = {
     teams ? : { [key : string] : ontology.Teamlike };
     topOffensiveTeams ? : ontology.Teamlike[];
     topDefensiveTeams ? : ontology.Teamlike[];
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
 };
 
-export const MensNcaabTeam : FC<MensNcaabTeamProps>  = (props) =>{
+export const MensNcaabTeamIndividual : FC<MensNcaabTeamIndividualProps>  = (props) =>{
+
+    // const navigate = useNavigate();
+    // const {checksCompleted} = useCheckStore();
+    // if(!checksCompleted) navigate("/");
 
     return (
         <div
-        className={[...!props.overrideClasses ? MENS_NCAAB_TEAM_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_STYLE : {}, ...props.style}}>
+        className={[...!props.overrideClasses ? MENS_NCAAB_TEAM_INDIVIDUAL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
+        style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_INDIVIDUAL_STYLE : {}, ...props.style}}>
             <div style={{
                 height : '100%',
                 width : '100%'
             }}>
-                <MainSidebar
-                onWhich={props.onWhich}
-                 which='team'
-                 style={{
+                <MainSidebar 
+                style={{
                     height : '100%'
                 }}/>
             </div>
@@ -50,7 +51,7 @@ export const MensNcaabTeam : FC<MensNcaabTeamProps>  = (props) =>{
                 width : '100%',
                 overflow : 'scroll'
             }}>
-                <MensNcaabTeamContent
+                <MensNcaabTeamIndividualContent
                 topDefensiveTeams={props.topDefensiveTeams}
                 topOffensiveTeams={props.topOffensiveTeams}
                 tableEntries={props.tableEntries}

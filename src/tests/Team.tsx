@@ -8,6 +8,35 @@ import {
 } from '../util/firebase';
 import { MockProjection } from '../util/ontology';
 import { getEfficiencyTable, getProjectionTable } from '../util/rpc';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+  } from "firebase/auth";
+  import { useNavigate } from 'react-router-dom';
+  import { useAuthState } from 'react-firebase-hooks/auth';
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDtJnJmtM8BEe3Jzgy9pT_gPIrCDpNe_Rw",
+    authDomain: "gdg-proto-f7542.firebaseapp.com",
+    databaseURL: "https://gdg-proto-f7542-default-rtdb.firebaseio.com",
+    projectId: "gdg-proto-f7542",
+    storageBucket: "gdg-proto-f7542.appspot.com",
+    messagingSenderId: "822423637214",
+    appId: "1:822423637214:web:5fa27bdc21b3f2e251c64f",
+    measurementId: "G-90P3M7PT46"
+  };
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
 
 export const HOME_CLASSNAMES : string[] = [ ];
 export const HOME_STYLE : React.CSSProperties = {
@@ -23,6 +52,9 @@ export type TeamProps = {
 };
 
 export const Team : FC<TeamProps>  = (props) =>{
+
+    const navigate = useNavigate();
+    const [user, loading, error] = useAuthState(auth);
 
     const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
     useEffect(()=>{
@@ -149,8 +181,13 @@ export const Team : FC<TeamProps>  = (props) =>{
     })
     .filter((val, i)=>i < 25);
 
+    if(!user && !loading) navigate("/");
+
     return (
         <TeamPage
+        onWhich={async (which)=>{
+            navigate("/" + which);
+        }}
         topDefensiveTeams={_topDefensiveTeams}
         topOffensiveTeams={_topOffensiveTeams}
         tableEntries={Object.values(efficiency)}

@@ -11,6 +11,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "firebase/auth";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,7 +42,14 @@ function App() {
 
   return (
     <div className="App">
-      <Team/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/home" element={<Home/>}/>
+          <Route path="/team" element={<Team/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -27,6 +27,7 @@ export type MainSidebarProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
+    which ? : "home" | "team" | "matchups";
     onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
 };
 
@@ -41,7 +42,7 @@ export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
             <div>
                 <LogoedSidebar 
                 onWhich={props.onWhich as any} // TODO: fix subtyping
-                which='home' options={{
+                which={props.which||"home"} options={{
                     "home" : <div style={{
                         display : "flex",
                         alignContent : "center",

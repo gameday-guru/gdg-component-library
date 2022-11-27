@@ -25,6 +25,7 @@ export type HomeProps = {
     top25Games ? : ontology.ProjectedGamelike[];
     apTop25Teams ? : ontology.RankTrendTeamlike[];
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];
+    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -37,7 +38,10 @@ export const Home : FC<HomeProps>  = (props) =>{
                 height : '100%',
                 width : '100%'
             }}>
-                <MainSidebar style={{
+                <MainSidebar
+                onWhich={props.onWhich} 
+                which='home'
+                style={{
                     height : '100%'
                 }}/>
             </div>
