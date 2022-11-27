@@ -46,6 +46,7 @@ export interface TeamEfficiencyTableEntrylike {
  */
 export const makeStdTableEntry = (arr : number[])=>(rating : number) : React.ReactNode =>{
 
+    console.log("Std: ", std(arr), mean(arr), arr);
     const z = (rating - mean(arr))/std(arr);
     const lowMedHigh = z < -.5 ? "low" : z > .5 ? "high" : "med";
 

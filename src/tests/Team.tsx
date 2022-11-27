@@ -135,8 +135,24 @@ export const Team : FC<TeamProps>  = (props) =>{
         )
     })[0];
 
+    const _topDefensiveTeams = Object.values(efficiency)
+    .sort((a, b)=>b.de - a.de)
+    .map((val)=>{
+        return teams[val.team_id]
+    })
+    .filter((val, i)=>i < 25);
+
+    const _topOffensiveTeams = Object.values(efficiency)
+    .sort((a, b)=>b.oe - a.oe)
+    .map((val)=>{
+        return teams[val.team_id]
+    })
+    .filter((val, i)=>i < 25);
+
     return (
         <TeamPage
+        topDefensiveTeams={_topDefensiveTeams}
+        topOffensiveTeams={_topOffensiveTeams}
         tableEntries={Object.values(efficiency)}
         teams={teams}/>
     )

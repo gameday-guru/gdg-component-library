@@ -58,6 +58,7 @@ export const Teams : FC<TeamsProps>  = (props) =>{
                 <TeamMatchupSelectRow 
                 topDefensiveTeams={props.topDefensiveTeams}
                 topOffensiveTeams={props.topOffensiveTeams}
+                teams={props.teams}
                 style={{ height : "300px"}}/>
             </div>    
             <div>

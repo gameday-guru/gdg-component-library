@@ -1,7 +1,11 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, ReactElement, useState} from 'react';
 import { Wrapper } from '../../../../components';
 import { Vs } from '../../../../components/output/indicators/label/Vs';
+import { ontology } from '../../../../util';
+import { Teamlike } from '../../../../util/ontology';
 import { TeamMatchupBuilderDropzone } from '../TeamMatchupBuilderDropzone';
+import { Modal } from '../../../../components/output/containers/modal/Modal';
+import { PickTeamLarge } from '../PickTeamLarge/PickTeamLarge';
 
 export const TEAM_MATCHUP_BUILDER_CONTAINER_CLASSNAMES : string[] = [ 
     "rounded-lg",
@@ -26,9 +30,46 @@ export type TeamMatchupBuilderProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    teams ? : {[key : string] : Teamlike}
 };
 
 export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
+
+    const _teams = props.teams||{};
+
+    const [
+        comparison,
+        setComparison
+    ] = useState<{
+        left ? : string,
+        right  ? : string
+    }>({})
+
+    const [leftModal, setLeftModal] = useState(false);
+    const handleLeftClose = ()=>{
+        setLeftModal(false);
+    }
+    const LeftInnerModal = <PickTeamLarge 
+    teams={Object.values(_teams)}
+    setWhich={async (which  : string )=>{
+        setComparison({
+            ...comparison,
+            left : which
+        })
+    }}/>
+
+    const [rightModal, setRightModal] = useState(false);
+    const handleRightClose = ()=>{
+        setLeftModal(false);
+    }
+    const RightInnerModal = <PickTeamLarge 
+    teams={Object.values(_teams)}
+    setWhich={async (which  : string )=>{
+        setComparison({
+            ...comparison,
+            left : which
+        })
+    }}/>
 
     return (
         <Wrapper 
@@ -51,7 +92,8 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     alignItems : "center",
                     justifyItems : "center"
                 }}>
-                    <TeamMatchupBuilderDropzone style={{
+                    <TeamMatchupBuilderDropzone 
+                    style={{
                         height : "100%",
                         width : "100%"
                     }}/>
@@ -70,6 +112,24 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     }}/>
                 </div>
             </div>
+            <Modal 
+                style={{
+                    display:'flex',
+                    alignItems:'center',
+                    justifyContent:'center',
+                }}
+                open={leftModal} onClose={handleLeftClose}>
+                {LeftInnerModal}
+            </Modal>
+            <Modal 
+                style={{
+                    display:'flex',
+                    alignItems:'center',
+                    justifyContent:'center',
+                }}
+                open={rightModal} onClose={handleRightClose}>
+                {RightInnerModal}
+            </Modal>
         </Wrapper>
     )
 };

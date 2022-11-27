@@ -21,6 +21,7 @@ export type TeamMatchupSelectRowProps = {
     responsive ? : boolean;
     topOffensiveTeams ? : ontology.Teamlike[];
     topDefensiveTeams ? : ontology.Teamlike[];
+    teams ? : {[key : string] : ontology.Teamlike}
 };
 
 export const TeamMatchupSelectRow : FC<TeamMatchupSelectRowProps>  = (props) =>{
@@ -30,12 +31,15 @@ export const TeamMatchupSelectRow : FC<TeamMatchupSelectRowProps>  = (props) =>{
         className={[...!props.overrideClasses ? TEAM_MATCHUP_SELECT_ROW_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAM_MATCHUP_SELECT_ROW_STYLE : {}, ...props.style}}>
             <TopTeams 
+            Label="Top Offensive Teams"
             teams={props.topOffensiveTeams}
             style={{ height : "100%", overflow : "scroll"}}/>
             <TopTeams 
+            Label="Top Defensive Teams"
             teams={props.topDefensiveTeams}
             style={{ height : "100%",  overflow : "scroll" }}/>
             <TeamMatchupBuilder 
+            teams={props.teams}
             style={{ height : "100%",  overflow : "scroll" }}/>
         </div>
     )
