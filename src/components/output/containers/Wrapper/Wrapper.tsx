@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, ReactElement, ReactPropTypes} from 'react';
 import { getInverseColorEmphasis } from '../../../../util/color/inversion/emphasis';
 import { getReadableTextColor } from '../../../../util/color/inversion/inversion';
 import { getViusageColor } from '../../../../util/color/viusage';
@@ -25,6 +25,7 @@ export type WrapperProps = {
     invert ? : boolean;
     /** */
     hoverAnimate ? : boolean;
+    onClick ? : ()=>void
 };
 
 export const Wrapper : FC<WrapperProps>  = (props) =>{
@@ -42,6 +43,7 @@ export const Wrapper : FC<WrapperProps>  = (props) =>{
 
     return (
         <div
+        onClick={props.onClick}
         className={[
             ...!props.overrideClasses ? WRAPPER_CLASSNAMES : [],
             ...props.classNames||[],

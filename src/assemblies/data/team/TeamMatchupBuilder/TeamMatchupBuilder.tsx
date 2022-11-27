@@ -1,5 +1,5 @@
 import React, {FC, ReactElement, useState} from 'react';
-import { Wrapper } from '../../../../components';
+import { Button, Wrapper } from '../../../../components';
 import { Vs } from '../../../../components/output/indicators/label/Vs';
 import { ontology } from '../../../../util';
 import { Teamlike } from '../../../../util/ontology';
@@ -49,27 +49,49 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
     const handleLeftClose = ()=>{
         setLeftModal(false);
     }
-    const LeftInnerModal = <PickTeamLarge 
-    teams={Object.values(_teams)}
-    setWhich={async (which  : string )=>{
-        setComparison({
-            ...comparison,
-            left : which
-        })
-    }}/>
+    const LeftInnerModal =
+    <Wrapper  
+    viusage='wrap'
+    classNames={['p-4', 'rounded']}
+    style={{
+        height : '400px',
+        width : '600px',
+        overflow : 'scroll'
+    }}> 
+        <PickTeamLarge 
+        teams={Object.values(_teams)}
+        setWhich={async (which  : string )=>{
+            setComparison({
+                ...comparison,
+                left : which
+            });
+            setLeftModal(false);
+        }}/>
+    </Wrapper>
 
     const [rightModal, setRightModal] = useState(false);
     const handleRightClose = ()=>{
         setLeftModal(false);
     }
-    const RightInnerModal = <PickTeamLarge 
-    teams={Object.values(_teams)}
-    setWhich={async (which  : string )=>{
-        setComparison({
-            ...comparison,
-            left : which
-        })
-    }}/>
+    const RightInnerModal = 
+    <Wrapper  
+    viusage='wrap'
+    classNames={['p-4', 'rounded']}
+    style={{
+        height : '400px',
+        width : '600px',
+        overflow : 'scroll'
+    }}> 
+        <PickTeamLarge 
+        teams={Object.values(_teams)}
+        setWhich={async (which  : string )=>{
+            setComparison({
+                ...comparison,
+                right : which
+            });
+            setRightModal(false);
+        }}/>
+    </Wrapper>
 
     return (
         <Wrapper 
@@ -93,6 +115,12 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     justifyItems : "center"
                 }}>
                     <TeamMatchupBuilderDropzone 
+                    key={'left'}
+                    team={comparison.left ? _teams[comparison.left] : undefined}
+                    onClick={()=>{
+                        setRightModal(false);
+                        setLeftModal(true);
+                    }}
                     style={{
                         height : "100%",
                         width : "100%"
@@ -105,8 +133,23 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                             width : "60px"
                         }}
                         classNames={["p-4", "bg-gdg-500", "rounded-full", "text-black-500", "grid", "justify-center", "content-center"]}/>
+                        <br/>
+                        {
+                            (comparison.left !== undefined)
+                            && (comparison.right !== undefined)
+                            && <Button viusage='backdrop'>
+                                Go
+                            </Button>
+                        }
                     </div>
-                    <TeamMatchupBuilderDropzone style={{
+                    <TeamMatchupBuilderDropzone 
+                    key={'right'}
+                    team={comparison.right ? _teams[comparison.right] : undefined}
+                    onClick={()=>{
+                        setLeftModal(false);
+                        setRightModal(true);
+                    }}
+                    style={{
                         height : "100%",
                         width : "100%"
                     }}/>

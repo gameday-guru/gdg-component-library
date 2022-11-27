@@ -1,8 +1,11 @@
 import React, {FC, ReactElement, useState} from 'react';
+import { Wrapper } from '../../../../components';
 import { TextInput } from '../../../../components/input/text/TextInput';
 import { ontology } from '../../../../util';
 
-export const PICK_TEAM_LARGE_CLASSNAMES : string[] = [ ];
+export const PICK_TEAM_LARGE_CLASSNAMES : string[] = [
+
+ ];
 export const PICK_TEAM_LARGE_STYLE : React.CSSProperties = {
 };
 
@@ -21,11 +24,13 @@ export type PickTeamLargeProps = {
 export const PickTeamLarge : FC<PickTeamLargeProps>  = (props) =>{
 
     const _teams = props.teams||[];
-    const [filteredTeams, setFilteredTeams] = useState<ontology.Teamlike[]>([])
+    const [filteredTeams, setFilteredTeams] = useState<ontology.Teamlike[]>(_teams)
 
     const handleTextSearch = (text : string)=>{
         const searchTeams = _teams.filter((team)=>{
-            return text.toLowerCase().includes(team.Name.toLowerCase());
+            return (text.length < 1) 
+            || text.toLowerCase().includes(team.Name.toLowerCase())
+            || text.toLowerCase().includes(team.School.toLowerCase());
         })
         setFilteredTeams(searchTeams);
     }
@@ -33,7 +38,7 @@ export const PickTeamLarge : FC<PickTeamLargeProps>  = (props) =>{
     const teamSelectors = filteredTeams
     .map((team)=>{
 
-        return <div 
+        return <Wrapper 
         onClick={()=>{
             props.setWhich && props.setWhich(team.TeamID.toString())
             .then(()=>{
@@ -43,34 +48,49 @@ export const PickTeamLarge : FC<PickTeamLargeProps>  = (props) =>{
                 // TODO: tie into error reporting system
             })
         }}
-        className='cursor-pointer'
+        classNames={['cursor-pointer', 'rounded', 'p-4']}
         style={{
             display : "grid",
             gridTemplateColumns : "1fr",
             justifyContent : "center",
-            alignContent : "center"
-        }}>
-            <div>
-                <img src={team.TeamLogoUrl} width="300px"/>
-            </div>
-            <div>
-                {team.Name}
-            </div>
+            alignContent : "center",
+            justifyItems : 'center',
+            alignItems : 'center'
+        }}
+        viusage='wrap'
+        hoverAnimate>
+        <div>
+            <img src={team.TeamLogoUrl} width="300px"/>
         </div>
+        <div>
+            {team.School}
+        </div>
+        </Wrapper>
 
-    }).slice(0, props.size||5)
+    })
 
     return (
         <div
         className={[...!props.overrideClasses ? PICK_TEAM_LARGE_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? PICK_TEAM_LARGE_STYLE : {}, ...props.style}}>
-            <TextInput onChange={(e)=>{
+            <TextInput 
+            placeholder='Search teams'
+            style={{
+                width : '100%'
+            }}
+            viusage='backdrop' fill
+            onChange={(e)=>{
                 handleTextSearch(e.target.value)
             }}/>
+            <br/>
+            <br/>
             <div 
-            className='gap-2'
+            className='gap-4'
             style={{
-                display : 'flex'
+                display : 'grid',
+                gridTemplateColumns : '1fr 1fr 1fr',
+                overflowY : 'scroll',
+                height : '300px'
             }}>
                 {teamSelectors}
             </div>
