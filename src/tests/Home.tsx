@@ -62,7 +62,6 @@ export const Home : FC<HomeProps>  = (props) =>{
 
         getGamesInNextWeekTable(new Date())
         .then((data)=>{
-            console.log(data);
             setGames(data);
         });
 

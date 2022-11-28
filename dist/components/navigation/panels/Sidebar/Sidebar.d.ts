@@ -13,6 +13,7 @@ export declare type SidebarProps = {
     viusage?: viusage.primary.Viusagelike;
     Header?: React.ReactNode;
     which?: string;
+    onWhich?: (which: string) => Promise<void>;
     options?: {
         [key: string]: React.ReactNode;
     };

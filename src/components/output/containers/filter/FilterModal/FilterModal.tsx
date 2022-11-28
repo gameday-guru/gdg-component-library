@@ -97,7 +97,6 @@ export const FilterModal : FC<FilterModalProps>  = (props) =>{
         setModal(false);
     };
 
-    console.log(filtersDraft);
 
     const InnerModal = (
         

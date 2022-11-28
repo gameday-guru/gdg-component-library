@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { ontology } from '../../../../util';
 export declare const NCAAB_MENS_OVERVIEW_CLASSNAMES: string[];
 export declare const NCAAB_MENS_OVERVIEW_STYLE: React.CSSProperties;
 export declare type NcaabMensOverviewProps = {
@@ -8,5 +9,9 @@ export declare type NcaabMensOverviewProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     responsive?: boolean;
+    gameOfTheDay?: ontology.GameOfTheDaylike;
+    top25Games?: ontology.ProjectedGamelike[];
+    apTop25Teams?: ontology.RankTrendTeamlike[];
+    gdgTop25Teams?: ontology.RankTrendTeamlike[];
 };
 export declare const NcaabMensOverview: FC<NcaabMensOverviewProps>;

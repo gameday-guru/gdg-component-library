@@ -14,5 +14,6 @@ export declare type NcaabMensTop25EntryProps = {
     team?: ontology.Teamlike;
     rank?: number;
     trend?: boolean;
+    efficiency?: ontology.EfficiencyEntrylike;
 };
 export declare const NcaabMensTop25Entry: FC<NcaabMensTop25EntryProps>;

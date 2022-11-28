@@ -28,8 +28,6 @@ export type TeamsProps = {
 
 export const Teams : FC<TeamsProps>  = (props) =>{
 
-    console.log("Table entries: ", props.tableEntries);
-
     const _tableEntries = props.tableEntries||[];
     const _teams = props.teams||{};
 

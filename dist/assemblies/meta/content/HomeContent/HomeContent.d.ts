@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { viusage } from '../../../../util';
+import { ontology } from '../../../../util';
 export declare const HOME_CONTENT_CONTAINER_CLASSNAMES: string[];
 export declare const HOME_CONTENT_CONTAINER_STYLE: React.CSSProperties;
 export declare const HOME_CONTENT_INNER_CLASSNAMES: string[];
@@ -12,5 +13,9 @@ export declare type HomeContentProps = {
     overrideClasses?: boolean;
     responsive?: boolean;
     viusage?: viusage.primary.Viusagelike;
+    gameOfTheDay?: ontology.GameOfTheDaylike;
+    top25Games?: ontology.ProjectedGamelike[];
+    apTop25Teams?: ontology.RankTrendTeamlike[];
+    gdgTop25Teams?: ontology.RankTrendTeamlike[];
 };
 export declare const HomeContent: FC<HomeContentProps>;

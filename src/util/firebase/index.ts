@@ -50,7 +50,6 @@ export const modelGet = httpsCallable<{
 export const getGamesByDate =  async (date : Date) : Promise<ontology.GameByDatelike[]> =>{
 
     const path = `v3/cbb/scores/json/GamesByDate/${date.getFullYear()}-${months[date.getMonth() - 1]}-${date.getDate()}`;
-    console.log(path);
     return (await sportsdataioGet({ path })).data as ontology.GameByDatelike[];
 
 }
@@ -66,7 +65,6 @@ export const getGamesByDate =  async (date : Date) : Promise<ontology.GameByDate
     const iter = new Date(date);
     const end = new Date(iter);
     end.setDate(end.getDate() + 7);
-    console.log(iter, end);
     while(iter < end){
         promises.push(getGamesByDate(iter));
         iter.setDate(iter.getDate() + 1);

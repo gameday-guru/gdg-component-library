@@ -8,7 +8,7 @@ import { EfficiencyTablelike, ProjectionTablelike } from "../ontology";
 export const getProjectionTable = async () : Promise<ProjectionTablelike> =>{
 
     return JSON.parse((await axios.post(
-    "http://localhost:8000/state/projection_table/get/a/b/UNIVERSAL"
+    "https://prod.rpc-v0.gaguru.net/gdg-ncaab-efficiency/state/projection_table/get/a/b/UNIVERSAL"
     )).data)["data"];
 
 }
@@ -16,7 +16,7 @@ export const getProjectionTable = async () : Promise<ProjectionTablelike> =>{
 export const getEfficiencyTable = async () : Promise<EfficiencyTablelike> =>{
 
     return JSON.parse((await axios.post(
-    "http://localhost:8000/state/league_effiency_table/get/a/b/UNIVERSAL"
+    "https://prod.rpc-v0.gaguru.net/gdg-ncaab-efficiency/state/league_effiency_table/get/a/b/UNIVERSAL"
     )).data)["data"];
 
 }

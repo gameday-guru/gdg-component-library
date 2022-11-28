@@ -185,7 +185,18 @@ export const ReadableText : ColorVistateInversionMaplike = {
      "gdg-600" : ["white", 500],
      "gdg-700" : ["white", 500],
      "gdg-800" : ["white", 500],
-     "gdg-900" : ["white", 500]
+     "gdg-900" : ["white", 500],
+     // default
+     // gdg
+    "default-100" : ["drk-gray", 800],
+    "default-200" : ["drk-gray", 400],
+    "default-300" : ["drk-gray", 400],
+    "default-400" : ["drk-gray", 400],
+    "default-500" : ["drk-gray", 400],
+    "default-600" : ["drk-gray", 200],
+    "default-700" : ["drk-gray", 200],
+    "default-800" : ["drk-gray", 200],
+    "default-900" : ["light-gray", 500]
 } as const;
 
 /**
@@ -380,7 +391,17 @@ export const PairingBackground : ColorVistateInversionMaplike = {
     "gdg-600" : ["drk-gray", 200],
     "gdg-700" : ["drk-gray", 200],
     "gdg-800" : ["drk-gray", 200],
-    "gdg-900" : ["light-gray", 500]
+    "gdg-900" : ["light-gray", 500],
+    // gdg
+    "default-100" : ["drk-gray", 800],
+    "default-200" : ["drk-gray", 400],
+    "default-300" : ["drk-gray", 400],
+    "default-400" : ["drk-gray", 400],
+    "default-500" : ["drk-gray", 400],
+    "default-600" : ["drk-gray", 200],
+    "default-700" : ["drk-gray", 200],
+    "default-800" : ["drk-gray", 200],
+    "default-900" : ["light-gray", 500]
 } as const;
 
 /**

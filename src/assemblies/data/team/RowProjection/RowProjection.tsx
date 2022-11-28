@@ -69,7 +69,7 @@ export const RowProjection : FC<RowProjectionProps>  = (props) =>{
             <div>
                 <RowTuple 
                     line={_line}
-                    odds={_odds}
+                    odds={_odds ? Number.parseFloat(_odds) : undefined}
                     projectedScore={_projectedScore}/>
             </div>
         </div>

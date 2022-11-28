@@ -56,7 +56,6 @@ export const Login : FC<LoginProps>  = (props) =>{
         onLogin={async ({ username, password })=>{
 
           await signInWithEmailAndPassword(auth, username, password);
-          console.log("success...")
           navigate("/home");
 
         }}

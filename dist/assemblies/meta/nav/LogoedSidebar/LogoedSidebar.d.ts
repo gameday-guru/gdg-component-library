@@ -8,6 +8,7 @@ export declare type LogoedSidebarProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     responsive?: boolean;
+    onWhich?: (which: string) => Promise<void>;
     options?: {
         [key: string]: React.ReactNode;
     };

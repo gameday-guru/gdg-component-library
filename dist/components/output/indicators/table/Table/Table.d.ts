@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 export declare const TABEL_CLASSNAMES: string[];
 export declare const TABEL_STYLE: React.CSSProperties;
 export interface Tablelike {
-    head: string[];
+    hiddenHeads?: string[];
+    head?: string[];
     data: {
         [key: string]: any;
     }[];
@@ -24,4 +25,5 @@ export declare const orderData: (table: Tablelike, sortBy: {
     [key: string]: number;
 }) => Tablelike["data"];
 export declare const getColumns: (table: Tablelike) => string[];
+export declare const getColumn: (table: Tablelike, which: string) => any[];
 export declare const Table: FC<TableProps>;

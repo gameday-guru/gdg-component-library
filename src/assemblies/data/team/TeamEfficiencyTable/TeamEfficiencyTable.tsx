@@ -319,7 +319,6 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
                     <FilterSet 
                         table={tableEntries}
                         setTable={async (table)=>{
-                            console.log("Setting table: ", table);
                             setTableEntries(table);
                         }}
                         fieldCase={{

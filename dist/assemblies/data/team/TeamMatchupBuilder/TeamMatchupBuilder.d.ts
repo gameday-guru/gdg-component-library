@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Teamlike } from '../../../../util/ontology';
 export declare const TEAM_MATCHUP_BUILDER_CONTAINER_CLASSNAMES: string[];
 export declare const TEAM_MATCHUP_BUILDER_CONTAINER_STYLE: React.CSSProperties;
 export declare const TEAM_MATCHUP_BUILDER_INNER_CLASSNAMES: string[];
@@ -10,5 +11,8 @@ export declare type TeamMatchupBuilderProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     responsive?: boolean;
+    teams?: {
+        [key: string]: Teamlike;
+    };
 };
 export declare const TeamMatchupBuilder: FC<TeamMatchupBuilderProps>;

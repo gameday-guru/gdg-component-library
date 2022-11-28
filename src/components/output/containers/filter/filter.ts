@@ -210,7 +210,6 @@ export const evaluateAndFilterToken = (data : any, filter : FilterToken, toFilte
  */
 export const evaluateFilterToken = (data : any, filter : FilterToken, toFilterData : ToFilterData) : boolean =>{
 
-    console.log("Evaluating...", data, filter);
 
     switch(filter.relationship) {
 

@@ -11,5 +11,7 @@ export declare type MainSidebarProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     viusage?: viusage.primary.Viusagelike;
+    which?: "home" | "team" | "matchups";
+    onWhich?: (which: "home" | "team" | "matchups") => Promise<void>;
 };
 export declare const MainSidebar: FC<MainSidebarProps>;

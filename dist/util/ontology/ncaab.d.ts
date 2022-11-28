@@ -186,3 +186,20 @@ export declare const MockAway: Teamlike;
 export declare const MockHomeEff: EfficiencyEntrylike;
 export declare const MockAwayEff: EfficiencyEntrylike;
 export declare const MockProjection: ProjectionEntrylike;
+export interface GameOfTheDaylike {
+    home: Teamlike;
+    away: Teamlike;
+    gameProjection: ProjectionEntrylike;
+}
+export interface ProjectedGamelike {
+    home: Teamlike;
+    away: Teamlike;
+    game: GameByDatelike;
+    gameProjection: ProjectionEntrylike;
+}
+export interface RankTrendTeamlike {
+    team: Teamlike;
+    rank: number;
+    trend: boolean;
+    efficiency: EfficiencyEntrylike;
+}

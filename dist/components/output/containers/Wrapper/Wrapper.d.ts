@@ -19,5 +19,6 @@ export declare type WrapperProps = {
     invert?: boolean;
     /** */
     hoverAnimate?: boolean;
+    onClick?: () => void;
 };
 export declare const Wrapper: FC<WrapperProps>;

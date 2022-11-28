@@ -61,7 +61,6 @@ export const Team : FC<TeamProps>  = (props) =>{
 
         getGamesInNextWeekTable(new Date())
         .then((data)=>{
-            console.log(data);
             setGames(data);
         });
 

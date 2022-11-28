@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { viusage } from '../../../../util';
+import { ontology, viusage } from '../../../../util';
 export declare const NCAAB_MENS_TOP25_CONTAINER_CLASSNAMES: string[];
 export declare const NCAAB_MENS_TOP25_CONTAINER_STYLE: React.CSSProperties;
 export declare const NCAAB_MENS_TOP25_INNER_CLASSNAMES: string[];
@@ -12,5 +12,8 @@ export declare type NcaabMensTop25Props = {
     overrideClasses?: boolean;
     responsive?: boolean;
     viusage?: viusage.primary.Viusagelike;
+    apTop25?: ontology.RankTrendTeamlike[];
+    gdgTop25?: ontology.RankTrendTeamlike[];
+    which?: "ap" | "gdg";
 };
 export declare const NcaabMensTop25: FC<NcaabMensTop25Props>;
