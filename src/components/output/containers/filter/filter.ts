@@ -147,7 +147,7 @@ export const evaluateFilterPrimitive = (data : any, filter : FilterPrimitive) : 
 }
 
 /**
- * Evaluates the term for the filter token.
+ * Evaluates an AND term for the filter token.
  * @param data 
  * @param filter 
  * @returns 
@@ -175,7 +175,7 @@ export const evaluateAndFilterToken = (data : any, filter : FilterToken, toFilte
 }
 
 /**
- * Evaluates the term for the filter token.
+ * Evaluates an OR term for the filter token.
  * @param data 
  * @param filter 
  * @returns 
@@ -203,9 +203,9 @@ export const evaluateAndFilterToken = (data : any, filter : FilterToken, toFilte
 }
 
 /**
- * 
- * @param data 
- * @param filter 
+ * Evaluates true or false for filter token.
+ * @param data is any kind of data (should pretty much always be a collection).
+ * @param filter is the FilterToken
  * @returns 
  */
 export const evaluateFilterToken = (data : any, filter : FilterToken, toFilterData : ToFilterData) : boolean =>{
@@ -222,6 +222,7 @@ export const evaluateFilterToken = (data : any, filter : FilterToken, toFilterDa
         }
 
         default : {
+            // by default, we don't want to filter anything out
             return true;
         }
 
