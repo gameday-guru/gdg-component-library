@@ -5,7 +5,7 @@ import { getViusageColor } from '../../../../../util/color/viusage';
 import { Emphasislike } from '../../../../../util/color/emphasis';
 import { getPairingBackground, getReadableTextColor } from '../../../../../util/color/inversion/inversion';
 import { Filter } from '../../../../input/unary/Filter/Filter';
-import { evaluateFilterToken, FieldCase, FilterTerms, FilterToken } from '../filter';
+import { evaluateFilterToken, FieldCase, FilterTerms, FilterToken } from '../../../../../util/filter/filter';
 import { FilterModal } from '../FilterModal';
 
 export const FILTER_SET_CLASSNAMES : string[] = [

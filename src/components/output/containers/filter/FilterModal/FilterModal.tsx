@@ -2,7 +2,7 @@ import React, {FC, ReactElement, useState} from 'react';
 import { Adder, ResetOrSubmit } from '../../../../input';
 import { Filter } from '../../../../input/unary/Filter/Filter';
 import { Modal } from '../../modal/Modal';
-import { FieldCase, FieldCaseToFilter, FilterTerms, FilterToken } from '../filter';
+import { FieldCase, FieldCaseToFilter, FilterTerms, FilterToken } from '../../../../../util/filter/filter';
 import { FilterExpression } from '../FilterExpression/FilterExpression';
 
 export const FILTER_MODAL_CLASSNAMES : string[] = [ 

@@ -1,6 +1,6 @@
 import React, {FC, ReactElement, useState} from 'react';
 import { Dropdown } from '../../../../input/select';
-import { FieldCase, FieldCaseToFilter, Filter, FilterCase, FilterPrimitive, FilterToken } from '../filter';
+import { FieldCase, FieldCaseToFilter, Filter, FilterCase, FilterPrimitive, FilterToken } from '../../../../../util/filter/filter';
 import { TextInput } from '../../../../input/text/TextInput';
 import { X } from 'react-bootstrap-icons';
 import { Wrapper } from '../../Wrapper';
