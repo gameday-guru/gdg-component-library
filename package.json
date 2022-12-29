@@ -22,6 +22,7 @@
     "camelcase": "^6.2.1",
     "chart.js": "^3.9.1",
     "decimal.js": "^10.4.2",
+    "dotenv": "^16.0.3",
     "firebase": "^9.14.0",
     "framer-motion": "^6.5.0",
     "fs-extra": "^10.0.0",
