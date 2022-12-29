@@ -2,8 +2,8 @@ import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
 import { viusage } from '../../../../util';
 import { MensCollegeBasketballHeader } from '../../header';
-import { NcaabMensOverview } from '../../../data/overview/NcaabMensOverview/NcaabMensOverview';
-import { Teams } from '../../../data/team/Teams';
+import { NcaabMensOverview } from '../../../data/ncaab/overview/NcaabMensOverview/NcaabMensOverview';
+import { Teams } from '../../../data/ncaab/team/Teams';
 import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 import { ontology } from '../../../../util';
 

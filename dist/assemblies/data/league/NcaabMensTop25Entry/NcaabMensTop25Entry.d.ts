@@ -13,7 +13,7 @@ export declare type NcaabMensTop25EntryProps = {
     responsive?: boolean;
     team?: ontology.Teamlike;
     rank?: number;
-    trend?: boolean;
+    trend?: ontology.Trend;
     efficiency?: ontology.EfficiencyEntrylike;
 };
 export declare const NcaabMensTop25Entry: FC<NcaabMensTop25EntryProps>;

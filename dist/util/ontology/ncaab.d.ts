@@ -120,6 +120,7 @@ export interface GameByDatelike {
     DateUTC?: Date;
     Stadium?: Stadiumlike;
     Periods: Periodlike[];
+    DateTimeUTC?: string;
 }
 export interface Stadiumlike {
     StadiumID: number;
@@ -197,9 +198,27 @@ export interface ProjectedGamelike {
     game: GameByDatelike;
     gameProjection: ProjectionEntrylike;
 }
+export declare enum Trend {
+    DECREASING = -1,
+    NOCHANGE = 0,
+    INCREASING = 1
+}
+export declare const getTrend: (a: number | undefined, b: number | undefined) => Trend;
 export interface RankTrendTeamlike {
     team: Teamlike;
     rank: number;
-    trend: boolean;
+    trend: Trend;
     efficiency: EfficiencyEntrylike;
+}
+export interface TrendDetaillike {
+    last_rank?: number;
+    current_rank?: number;
+}
+export interface TrendEntrylike {
+    team_id: string;
+    ap: TrendDetaillike;
+    gdg_power_rating: TrendDetaillike;
+}
+export interface TrendTablelike {
+    [key: string]: TrendEntrylike;
 }

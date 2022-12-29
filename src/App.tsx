@@ -3,6 +3,7 @@ import './App.css';
 import { Login } from "./tests/Login";
 import { Home } from "./tests/Home";
 import { Team } from "./tests/Team";
+import { Teams } from "./tests/Teams";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -38,16 +39,17 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 
-function App() {
+export function App(style : any) {
 
   return (
-    <div className="App">
+    <div style={style} className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/home" element={<Home/>}/>
-          <Route path="/team" element={<Team/>}/>
+          <Route path="/team" element={<Teams/>}/>
+          <Route path="/team/:id" element={<Team/>}/>
         </Routes>
       </BrowserRouter>
     </div>

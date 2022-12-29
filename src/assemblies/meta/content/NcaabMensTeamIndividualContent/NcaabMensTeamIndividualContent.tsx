@@ -2,10 +2,11 @@ import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
 import { viusage } from '../../../../util';
 import { MensCollegeBasketballHeader } from '../../header';
-import { NcaabMensOverview } from '../../../data/overview/NcaabMensOverview/NcaabMensOverview';
-import { Teams } from '../../../data/team/Teams';
+import { NcaabMensOverview } from '../../../data/ncaab/overview/NcaabMensOverview/NcaabMensOverview';
+import { Teams } from '../../../data/ncaab/team/Teams';
 import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 import { ontology } from '../../../../util';
+import { Team } from '../../../data/ncaab/team/Team';
 
 export const MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_CONTAINER_CLASSNAMES : string[] = [
 
@@ -27,10 +28,10 @@ export type MensNcaabTeamIndividualContentProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
-    tableEntries ? : ontology.EfficiencyEntrylike[];
     teams ? : { [key : string] : ontology.Teamlike };
-    topOffensiveTeams ? : ontology.Teamlike[];
-    topDefensiveTeams ? : ontology.Teamlike[];
+    team ? : ontology.Teamlike;
+    leagueAverages ? : ontology.LeagueAverageslike;
+    pointDistribution ? : ontology.PointDistributionlike;
 };
 
 export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentProps>  = (props) =>{
@@ -47,11 +48,8 @@ export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentP
                     <MensCollegeBasketballHeader/>
                 </div>
                 <div>
-                    <Teams 
-                    topOffensiveTeams={props.topOffensiveTeams}
-                    topDefensiveTeams={props.topDefensiveTeams}
-                    tableEntries={props.tableEntries}
-                    teams={props.teams}/>
+                    <Team
+                    team={props.team}/>
                 </div>
             </div>
         </Wrapper>

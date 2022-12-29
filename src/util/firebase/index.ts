@@ -32,7 +32,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 export const functions = getFunctions(app);
-const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"];
+const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
 export const sportsdataioGet = httpsCallable<{
     path : string
@@ -49,7 +49,7 @@ export const modelGet = httpsCallable<{
  */
 export const getGamesByDate =  async (date : Date) : Promise<ontology.GameByDatelike[]> =>{
 
-    const path = `v3/cbb/scores/json/GamesByDate/${date.getFullYear()}-${months[date.getMonth() - 1]}-${date.getDate()}`;
+    const path = `v3/cbb/scores/json/GamesByDate/${date.getFullYear()}-${months[date.getMonth()]}-${date.getDate()}`;
     return (await sportsdataioGet({ path })).data as ontology.GameByDatelike[];
 
 }

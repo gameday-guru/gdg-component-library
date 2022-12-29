@@ -7,7 +7,7 @@ import {
     getTeamsTable
 } from '../util/firebase';
 import { MockHomeEff, MockProjection } from '../util/ontology';
-import { getEfficiencyTable, getProjectionTable } from '../util/rpc';
+import { getEfficiencyTable, getProjectionTable, getTrendTable } from '../util/rpc';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -17,6 +17,7 @@ import {
 } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { DateComparison } from '../util/date';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -103,19 +104,37 @@ export const Home : FC<HomeProps>  = (props) =>{
 
     }, []);
 
+    const [trendTable, setTrendTable] = useState<ontology.TrendTablelike>(
+        {}
+    );
+    useEffect(()=>{
+
+        getTrendTable()
+        .then((data)=>{
+            setTrendTable(data);
+        });
+
+    }, []);
+
 
     const _apTop25Teams = 
     Object.values(teams)
     .filter(team=>(team.ApRank||Number.MAX_SAFE_INTEGER) < 26)
     .sort((teamA, teamB)=>(teamA.ApRank||Number.MIN_SAFE_INTEGER)-(teamB.ApRank||Number.MIN_SAFE_INTEGER));
     const _apTop25RankedTeams : ontology.RankTrendTeamlike[] = [];
-    for(const team of _apTop25Teams)
+    for(const team of _apTop25Teams){
+
         _apTop25RankedTeams.push({
             team,
             rank : team.ApRank||25,
-            trend : true,
+            trend : ontology.getTrend(
+                trendTable[team.TeamID]?.ap.current_rank,
+                trendTable[team.TeamID]?.ap.last_rank
+            ),
             efficiency : efficiency[team.TeamID]
-        })
+        });
+
+    }
 
     const _top25TeamIds =
     new Set(_apTop25Teams.map((team)=>team.TeamID));
@@ -124,20 +143,26 @@ export const Home : FC<HomeProps>  = (props) =>{
     Object.values(teams)
     .sort((teamA, teamB)=>{ 
 
-        return (
-            ((.56 * efficiency[teamB.TeamID]?.oe||0) - (.44 * efficiency[teamB.TeamID]?.de||0)) -
-           ((.56 * efficiency[teamA.TeamID]?.oe||0) - (.44 * efficiency[teamA.TeamID]?.de||0)) 
-        )
+        const trendTableEntryA = trendTable[teamA.TeamID.toString()];
+        const trendTableEntryB = trendTable[teamB.TeamID.toString()];
+        return (trendTableEntryA?.gdg_power_rating.current_rank||Number.MAX_SAFE_INTEGER)
+        - (trendTableEntryB?.gdg_power_rating.current_rank||Number.MAX_SAFE_INTEGER);
+
 
     })
     .filter((team, i)=>(i < 25))
     const _gdgTop25RankedTeams : ontology.RankTrendTeamlike[] = _gdgTop25Teams
     .map((team, i)=>{
+        const trendTableEntry = trendTable[team.TeamID.toString()];
+        console.log(trendTableEntry);
         return (
             {
                 team,
                 rank : i + 1,
-                trend : true,
+                trend : ontology.getTrend(
+                    trendTableEntry?.gdg_power_rating.current_rank,
+                    trendTableEntry?.gdg_power_rating.last_rank,
+                ),
                 efficiency : efficiency[team.TeamID]
             }
         )
@@ -145,7 +170,11 @@ export const Home : FC<HomeProps>  = (props) =>{
 
     const _top25Games =
     Object.values(games)
-    .filter(game=>_top25TeamIds.has(game.AwayTeamID)||_top25TeamIds.has(game.HomeTeamID));
+    .filter(game=>_top25TeamIds.has(game.AwayTeamID)||_top25TeamIds.has(game.HomeTeamID))
+    .sort((a, b)=>{
+        return new Date(a.DateTimeUTC||0).getTime() 
+        - new Date(b.DateTimeUTC||0).getTime()
+    });
 
     const _top25ProjectedGames : ontology.ProjectedGamelike[] = [];
     for(const game of _top25Games)
@@ -157,7 +186,15 @@ export const Home : FC<HomeProps>  = (props) =>{
         })
 
     const _gameOfTheDay =
-    _top25ProjectedGames.sort((a, b)=>{
+    _top25ProjectedGames
+    .filter(game=>{
+        console.log(game.game);
+        return DateComparison.sameDate(
+            new Date(game.game.DateTimeUTC||0),
+            new Date()
+        )
+    })
+    .sort((a, b)=>{
         return (
             a.gameProjection.home_team_score
             + a.gameProjection.away_team_score
@@ -167,6 +204,10 @@ export const Home : FC<HomeProps>  = (props) =>{
         )
     })[0];
 
+    const handleTeamClick = async (teamId : string)=>{
+        navigate(`/team/${teamId}`)
+    };
+
     if(!user && !loading) navigate("/");
 
     return (
@@ -174,6 +215,7 @@ export const Home : FC<HomeProps>  = (props) =>{
         onWhich={async (which)=>{
             navigate("/" + which);
         }}
+        onTeamClick={handleTeamClick}
         gdgTop25Teams={_gdgTop25RankedTeams}
         apTop25Teams={_apTop25RankedTeams}
         top25Games={_top25ProjectedGames}

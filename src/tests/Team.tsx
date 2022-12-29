@@ -1,5 +1,5 @@
 import React, {FC, ReactElement, useEffect, useState, useRef} from 'react';
-import { MensNcaabTeam as TeamPage } from "../pages/model";
+import { MensNcaabTeams, MensNcaabTeam } from "../pages";
 import { ontology } from '../util';
 import { 
     getGamesInNextWeekTable,
@@ -112,7 +112,7 @@ export const Team : FC<TeamProps>  = (props) =>{
         _apTop25RankedTeams.push({
             team,
             rank : team.ApRank||25,
-            trend : true,
+            trend : ontology.Trend.NOCHANGE,
             efficiency : efficiency[team.TeamID]
         })
 
@@ -136,7 +136,7 @@ export const Team : FC<TeamProps>  = (props) =>{
             {
                 team,
                 rank : i + 1,
-                trend : true,
+                trend : ontology.Trend.NOCHANGE,
                 efficiency : efficiency[team.TeamID]
             }
         )
@@ -183,10 +183,7 @@ export const Team : FC<TeamProps>  = (props) =>{
     if(!user && !loading) navigate("/");
 
     return (
-        <TeamPage
-        onWhich={async (which)=>{
-            navigate("/" + which);
-        }}
+        <MensNcaabTeam
         topDefensiveTeams={_topDefensiveTeams}
         topOffensiveTeams={_topOffensiveTeams}
         tableEntries={Object.values(efficiency)}

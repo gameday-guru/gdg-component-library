@@ -122,6 +122,7 @@ export interface GameByDatelike {
     DateUTC? : Date
     Stadium? :Stadiumlike
     Periods: Periodlike[]
+    DateTimeUTC? : string
 }
 
 export interface Stadiumlike {
@@ -249,9 +250,147 @@ export interface ProjectedGamelike {
     gameProjection : ProjectionEntrylike;
 }
 
+export const MockGame : GameByDatelike = {
+    GameID: 200,
+    Season: 2022,
+    SeasonType: 0,
+    Status: 'IP',
+    Day: new Date(),
+    AwayTeam: MockAway.Name,
+    HomeTeam: MockHome.Name,
+    AwayTeamID: MockAway.TeamID,
+    HomeTeamID: MockHome.TeamID,
+    Updated: new Date(),
+    GlobalGameID: 200,
+    GlobalAwayTeamID: MockAway.TeamID,
+    GlobalHomeTeamID: MockHome.TeamID,
+    TournamentDisplayOrderForHomeTeam: "1",
+    IsClosed: false,
+    Periods: [],
+}
+
+export const MockProjectedGame : ProjectedGamelike = {
+    home : MockHome,
+    away : MockAway,
+    game : MockGame,
+    gameProjection : MockProjection
+}
+
+export enum Trend {
+    DECREASING = -1,
+    NOCHANGE = 0,
+    INCREASING = 1,
+}
+
+export const getTrend = (a : number | undefined, b : number | undefined) : Trend =>{
+
+
+    console.log("TREND", a, b);
+
+    if(a === undefined || b === undefined) return Trend.NOCHANGE;
+
+    return b > a ? Trend.INCREASING
+    : b < a ? Trend.DECREASING 
+    : Trend.NOCHANGE;
+
+}
+
 export interface RankTrendTeamlike {
     team : Teamlike;
     rank : number;
-    trend : boolean;
+    trend : Trend;
     efficiency : EfficiencyEntrylike;
 }
+
+export interface TrendDetaillike {
+    last_rank ? : number;
+    current_rank ? : number;
+}
+
+export interface TrendEntrylike {
+    team_id : string;
+    ap : TrendDetaillike;
+    gdg_power_rating : TrendDetaillike;
+}
+
+export interface TrendTablelike {
+    [key : string] : TrendEntrylike;
+}
+
+export interface PointDistributionMemberlike {
+    freeThrow : number;
+    twoPoint : number;
+    threePoint : number;
+}
+
+export interface PointDistributionlike {
+    defense : PointDistributionMemberlike;
+    offense : PointDistributionMemberlike;
+}
+
+export const MockPointDistribution : PointDistributionlike = {
+    defense : {
+        freeThrow : 121,
+        twoPoint : 436,
+        threePoint : 180
+    },
+    offense : {
+        freeThrow : 143,
+        twoPoint : 492,
+        threePoint : 210
+    }
+}
+
+export interface LeagueAverageslike {
+    powerRating : number;
+    offensiveEfficiency : number;
+    defensiveEfficiency : number;
+}
+
+export const MockAverageDistribution : LeagueAverageslike = {
+    powerRating : 17.2,
+    offensiveEfficiency : 100.2,
+    defensiveEfficiency : 92.7
+}   
+
+export interface Playerlike {
+    PlayerID: number
+    FirstName: string
+    LastName: string
+    TeamID: number
+    Team: string
+    Jersey: number
+    Position: string
+    Class: string
+    Height: number
+    Weight: number
+    BirthCity ? : string
+    BirthState ? : string
+    HighSchool: string
+    SportRadarPlayerID ? : string
+    RotoworldPlayerID ? : string
+    RotoWirePlayerID ? : string
+    FantasyAlarmPlayerID ? : string
+    GlobalTeamID: number
+    InjuryStatus ? : string
+    InjuryBodyPart ? : string
+    InjuryNotes ? : string
+    InjuryStartDate ? : string
+}
+
+export const MockPlayer : Playerlike = {
+    PlayerID: 1,
+    FirstName: "Arthur",
+    LastName: "Merlin",
+    TeamID: 4,
+    Team: "MIT",
+    Jersey: 3,
+    Position: "F",
+    Class: "Freshman",
+    Height: 79,
+    Weight: 178,
+    BirthCity : "Chico",
+    BirthState : "CA",
+    HighSchool: "Chico Senior High School",
+    GlobalTeamID: 4
+};

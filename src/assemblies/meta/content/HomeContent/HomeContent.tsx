@@ -2,7 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
 import { viusage } from '../../../../util';
 import { MensCollegeBasketballHeader } from '../../header';
-import { NcaabMensOverview } from '../../../data/overview/NcaabMensOverview/NcaabMensOverview';
+import { NcaabMensOverview } from '../../../data/ncaab/overview/NcaabMensOverview/NcaabMensOverview';
 import { ontology } from '../../../../util';
 
 export const HOME_CONTENT_CONTAINER_CLASSNAMES : string[] = [ ];
@@ -26,6 +26,7 @@ export type HomeContentProps = {
     top25Games ? : ontology.ProjectedGamelike[];
     apTop25Teams ? : ontology.RankTrendTeamlike[];
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];
+    onTeamClick ? : (teamId : string)=>Promise<void>;
 };
 
 export const HomeContent : FC<HomeContentProps>  = (props) =>{
@@ -43,6 +44,7 @@ export const HomeContent : FC<HomeContentProps>  = (props) =>{
                 </div>
                 <div>
                     <NcaabMensOverview
+                        onTeamClick={props.onTeamClick}
                         gameOfTheDay={props.gameOfTheDay}
                         top25Games={props.top25Games}
                         apTop25Teams={props.apTop25Teams}
