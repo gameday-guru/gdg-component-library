@@ -2,10 +2,12 @@ import React, {FC, ReactElement, useState} from 'react';
 import { ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
 export const CAROUSEL_CLASSNAMES : string[] = [ 
-    "flex",
-    "items-center"
+    "grid",
+    "items-center",
+    "p-4"
 ];
 export const CAROUSEL_STYLE : React.CSSProperties = {
+    gridTemplateColumns : "1fr"
 };
 
 export const CAROUSEL_CHEVRON_CLASSNAMES : string[] = [ 
@@ -24,6 +26,8 @@ export type CarouselProps = {
     onLeft ? : (e : React.MouseEvent, oldIndex : number, newIndex : number)=>void;
     onRight ? : (e : React.MouseEvent, oldIndex : number, newIndex : number)=>void;
     size ? : number;
+    Label ? : React.ReactNode;
+    position ? : "top" | "bottom" | "middle";
 };
 
 export const Carousel : FC<CarouselProps>  = (props) =>{
@@ -51,9 +55,32 @@ export const Carousel : FC<CarouselProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? CAROUSEL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? CAROUSEL_STYLE : {}, ...props.style}}>
-            <ChevronLeft className={CAROUSEL_CHEVRON_CLASSNAMES.join(" ")} size={props.size} onClick={handleLeftChevronClick}/>
-            {(props.Entries||[])[index]}
-            <ChevronRight className={CAROUSEL_CHEVRON_CLASSNAMES.join(" ")} size={props.size} onClick={handleRightChevronClick}/>
+            <div className='grid items-center' style={{
+                width : "100%",
+                gridTemplateColumns : '1fr 8fr 1fr'
+            }}>
+                <div>
+                <ChevronLeft className={CAROUSEL_CHEVRON_CLASSNAMES.join(" ")} size={props.size} onClick={handleLeftChevronClick}/>
+                </div>
+                <div style={{
+                    display : "flex",
+                    justifyItems : "center",
+                    justifyContent : "center"
+                }}>
+                    {props.Label}
+                </div>
+                <div style={{
+                    display : "flex",
+                    justifyItems : "right",
+                    justifyContent : "right"
+                }}>
+                    <ChevronRight className={CAROUSEL_CHEVRON_CLASSNAMES.join(" ")} size={props.size} onClick={handleRightChevronClick}/>
+                </div>
+            </div>
+            <br/>
+            <div>
+                {(props.Entries||[])[index]}
+            </div>
         </div>
     )
 };

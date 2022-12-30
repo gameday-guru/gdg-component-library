@@ -319,8 +319,8 @@ export interface TrendTablelike {
 
 export interface PointDistributionMemberlike {
     freeThrow : number;
-    twoPoint : number;
-    threePoint : number;
+    twoPoint: number;
+    threePoint: number;
 }
 
 export interface PointDistributionlike {
@@ -331,13 +331,13 @@ export interface PointDistributionlike {
 export const MockPointDistribution : PointDistributionlike = {
     defense : {
         freeThrow : 121,
-        twoPoint : 436,
-        threePoint : 180
+        twoPoint: 436,
+        threePoint: 180
     },
     offense : {
-        freeThrow : 143,
-        twoPoint : 492,
-        threePoint : 210
+        freeThrow : 30,
+        twoPoint: 492,
+        threePoint: 210
     }
 }
 
@@ -394,3 +394,35 @@ export const MockPlayer : Playerlike = {
     HighSchool: "Chico Senior High School",
     GlobalTeamID: 4
 };
+
+export interface RadarDetaillike {
+    FieldGoalsMade : number;
+    FieldGoalsAttempted : number;
+    TwoPointersMade : number;
+    TwoPointersAttempted : number;
+    TwoPointersPercentage : number;
+    ThreePointersMade : number;
+    ThreePointersAttempted : number;
+    FreeThrowsMade : number;
+    FreeThrowsAttempted : number;
+    OffensiveRebounds : number;
+    DefensiveRebounds : number;
+    Rebounds : number;
+    Assists : number;
+    Steals : number;
+    BlockedShots : number;
+    Turnovers : number;
+    PersonalFouls : number;
+    Points ? : number;
+    TrueShootingAttempts : number;
+}
+
+export interface RadarEntrylike {
+    team_id : string;
+    offense : RadarDetaillike;
+    defense : RadarDetaillike;
+}
+
+export interface RadarTablelike {
+    [key : string] : RadarEntrylike;
+}

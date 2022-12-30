@@ -2,12 +2,13 @@ import React, {FC, ReactElement, useEffect, useState, useRef} from 'react';
 import { MensNcaabTeams, MensNcaabTeam } from "../pages";
 import { ontology } from '../util';
 import { 
+    getGamesInNextMonthTable,
     getGamesInNextWeekTable,
     getTeams,
     getTeamsTable
 } from '../util/firebase';
-import { MockProjection } from '../util/ontology';
-import { getEfficiencyTable, getProjectionTable } from '../util/rpc';
+import { MockProjection, PointDistributionlike } from '../util/ontology';
+import { getEfficiencyTable, getProjectionTable, getRadarTable } from '../util/rpc';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -15,7 +16,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword
   } from "firebase/auth";
-  import { useNavigate } from 'react-router-dom';
+  import { useNavigate, useParams } from 'react-router-dom';
   import { useAuthState } from 'react-firebase-hooks/auth';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -54,12 +55,13 @@ export type TeamProps = {
 export const Team : FC<TeamProps>  = (props) =>{
 
     const navigate = useNavigate();
+    const { id } = useParams();
     const [user, loading, error] = useAuthState(auth);
 
     const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
     useEffect(()=>{
 
-        getGamesInNextWeekTable(new Date())
+        getGamesInNextMonthTable(new Date())
         .then((data)=>{
             setGames(data);
         });
@@ -102,91 +104,76 @@ export const Team : FC<TeamProps>  = (props) =>{
 
     }, []);
 
+    const [radarTable, setRadarTable] = useState<ontology.RadarTablelike>(
+        {}
+    );
+    useEffect(()=>{
 
-    const _apTop25Teams = 
-    Object.values(teams)
-    .filter(team=>(team.ApRank||Number.MAX_SAFE_INTEGER) < 26)
-    .sort((teamA, teamB)=>(teamA.ApRank||Number.MIN_SAFE_INTEGER)-(teamB.ApRank||Number.MIN_SAFE_INTEGER));
-    const _apTop25RankedTeams : ontology.RankTrendTeamlike[] = [];
-    for(const team of _apTop25Teams)
-        _apTop25RankedTeams.push({
-            team,
-            rank : team.ApRank||25,
-            trend : ontology.Trend.NOCHANGE,
-            efficiency : efficiency[team.TeamID]
-        })
+        getRadarTable()
+        .then((data)=>{
+            setRadarTable(data);
+        });
 
-    const _top25TeamIds =
-    new Set(_apTop25Teams.map((team)=>team.TeamID));
+    }, []);
 
-    const _gdgTop25Teams = 
-    Object.values(teams)
-    .sort((teamA, teamB)=>{ 
+    let sumOe = 0;
+    let sumDe = 0;
+    let sumPower = 0;
+    let count = 0;
+    for(const team of Object.values(teams)){
+        const eff = efficiency[team.TeamID.toString()];
+        if(!eff) continue;
+        ++count;
+        sumOe += eff.oe;
+        sumDe += eff.de;
+        sumPower += (.56 * eff.oe) - (.44 * eff.de)
+    }
 
-        return (
-            ((.56 * efficiency[teamB.TeamID]?.oe||0) - (.44 * efficiency[teamB.TeamID]?.de||0)) -
-           ((.56 * efficiency[teamA.TeamID]?.oe||0) - (.44 * efficiency[teamA.TeamID]?.de||0)) 
-        )
+    const _leagueAverages : ontology.LeagueAverageslike = {
+        offensiveEfficiency : sumOe/count,
+        defensiveEfficiency : sumDe/count,
+        powerRating : sumPower/count
+    }
 
-    })
-    .filter((team, i)=>(i < 25))
-    const _gdgTop25RankedTeams : ontology.RankTrendTeamlike[] = _gdgTop25Teams
-    .map((team, i)=>{
-        return (
-            {
-                team,
-                rank : i + 1,
-                trend : ontology.Trend.NOCHANGE,
-                efficiency : efficiency[team.TeamID]
-            }
-        )
-    });
-
-    const _top25Games =
-    Object.values(games)
-    .filter(game=>_top25TeamIds.has(game.AwayTeamID)||_top25TeamIds.has(game.HomeTeamID));
-
-    const _top25ProjectedGames : ontology.ProjectedGamelike[] = [];
-    for(const game of _top25Games)
-        _top25ProjectedGames.push({
+    const _teamGames : ontology.ProjectedGamelike[] = [];
+    for(const game of Object.values(games))
+        if(
+            game.HomeTeamID.toString() === id
+            || game.AwayTeamID.toString() === id
+        ) _teamGames.push({
             game,
             gameProjection : projectionTable[game.GameID]||MockProjection,
-            home : teams[game.HomeTeamID],
-            away : teams[game.AwayTeamID]
+            home : teams[game.HomeTeamID.toString()],
+            away : teams[game.AwayTeamID.toString()]
         })
 
-    const _gameOfTheDay =
-    _top25ProjectedGames.sort((a, b)=>{
-        return (
-            a.gameProjection.home_team_score
-            + a.gameProjection.away_team_score
-        ) - (
-            b.gameProjection.home_team_score
-            + b.gameProjection.away_team_score
-        )
-    })[0];
-
-    const _topDefensiveTeams = Object.values(efficiency)
-    .sort((a, b)=>b.de - a.de)
-    .map((val)=>{
-        return teams[val.team_id]
-    })
-    .filter((val, i)=>i < 25);
-
-    const _topOffensiveTeams = Object.values(efficiency)
-    .sort((a, b)=>b.oe - a.oe)
-    .map((val)=>{
-        return teams[val.team_id]
-    })
-    .filter((val, i)=>i < 25);
+    const radarEntry = id ? radarTable[id] : undefined;
+    let _pointDistribution : PointDistributionlike | undefined = undefined;
+    if(radarEntry) _pointDistribution = {
+        offense : {
+            freeThrow : radarEntry.offense.FreeThrowsMade,
+            twoPoint : radarEntry.offense.TwoPointersMade * 2,
+            threePoint : radarEntry.offense.ThreePointersMade * 3
+        },
+        defense : {
+            freeThrow : radarEntry.defense.FreeThrowsMade,
+            twoPoint : radarEntry.defense.TwoPointersMade * 2,
+            threePoint : radarEntry.defense.ThreePointersMade * 3
+        }
+    }
 
     if(!user && !loading) navigate("/");
 
     return (
         <MensNcaabTeam
-        topDefensiveTeams={_topDefensiveTeams}
-        topOffensiveTeams={_topOffensiveTeams}
-        tableEntries={Object.values(efficiency)}
-        teams={teams}/>
+        onWhich={async (which)=>{
+            navigate("/" + which)
+        }}
+        efficiency={id ? efficiency[id] : undefined}
+        pointDistribution={_pointDistribution}
+        leagueAverages={_leagueAverages}
+        games={_teamGames}
+        team={id ? teams[id] : undefined}
+        tableEntries={Object.values(efficiency)}/>
     )
 };

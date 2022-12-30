@@ -1,4 +1,6 @@
 import React, {FC, ReactElement} from 'react';
+import { EfficiencyEntrylike, LeagueAverageslike, PointDistributionlike, PointDistributionMemberlike } from '../../../../../util/ontology';
+import { TeamEfficiencyTableEntrylike } from '../TeamEfficiencyTable/TeamEfficiencyTable';
 import { TeamGaguruStatsBarChart } from '../TeamGaguruStatBarChart';
 import { TeamPointDistribution } from '../TeamPointDistribution';
 
@@ -17,6 +19,9 @@ export type TeamStatTripleRowProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    pointDistribution ? : PointDistributionlike;
+    efficiency ? : EfficiencyEntrylike;
+    leagueAveragePointDistribution ? : LeagueAverageslike;
 };
 
 export const TeamStatTripleRow : FC<TeamStatTripleRowProps>  = (props) =>{
@@ -26,17 +31,22 @@ export const TeamStatTripleRow : FC<TeamStatTripleRowProps>  = (props) =>{
         className={[...!props.overrideClasses ? TEAM_STAT_TRIPLE_ROW_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAM_STAT_TRIPLE_ROW_STYLE : {}, ...props.style}}>
             <div>
-                <TeamGaguruStatsBarChart/>
+                <TeamGaguruStatsBarChart
+                teamEfficiency={props.efficiency}
+                leagueAverages={props.leagueAveragePointDistribution}/>
             </div>
             <div>
-                <TeamPointDistribution
+                <TeamPointDistribution 
+                pointDistribution={props.pointDistribution?.offense}
                 Header={<h2 className='text-lg text-white-500'>
-                    Defensive Point Distribution
+                    Offensive Point Distribution
                 </h2>}/>
             </div>
             <div>
-                <TeamPointDistribution Header={<h2 className='text-lg text-white-500'>
-                    Offensive Point Distribution
+                <TeamPointDistribution
+                pointDistribution={props.pointDistribution?.defense}
+                Header={<h2 className='text-lg text-white-500'>
+                    Defensive Point Distribution
                 </h2>}/>
             </div>
         </div>

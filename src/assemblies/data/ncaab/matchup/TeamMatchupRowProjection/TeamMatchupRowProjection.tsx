@@ -1,9 +1,10 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../../components';
-import { DateString } from '../../../ncaab/generic';
-import { GamblersTuple } from '../GamblersTuple';
-import { StackedProjection } from '../StackedProjection';
+import { DateString } from '../../generic';
+import { GamblersTuple } from '../../team/GamblersTuple';
+import { StackedProjection } from '../../team/StackedProjection';
 import { ontology } from '../../../../../util';
+import { Button } from '../../../../../components';
 
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ 
     "p-4",
@@ -32,24 +33,35 @@ export type TeamMatchupRowProjectionProps = {
     game ? : ontology.GameByDatelike;
     gameProjection ? : ontology.ProjectionEntrylike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (matchupId : string)=>Promise<void>;
+    gamblers ? : boolean;
 };
 
 export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (props) =>{
 
+    const handleMatchupClick = async ()=>{
+        if(props.game) 
+        props.onMatchupClick && await props.onMatchupClick(props.game.GameID.toString())
+    }
+
     return (
-        <Wrapper
+        <Button
+            onClick={handleMatchupClick}
             viusage={"backdrop"}
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
-                <DateString date={new Date((props.game as any).DateTime)}/>
+                <DateString date={new Date((props.game as any)?.DateTime||0)}/>
                 <br/>
             </div>
             <div
             className={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-            style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_INNER_STYLE : {}, ...props.style}}>
+            style={{...!props.overrideStyle ? {
+                gridTemplateColumns : props.gamblers !== false ? "3fr 1fr" : "1fr"
+            } : {}, ...props.style}}>
                 <div>   
                     <StackedProjection 
+                        
                         onTeamClick={props.onTeamClick}
                         home={props.home}
                         away={props.away}
@@ -57,14 +69,14 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
                         gameProjection={props.gameProjection}/>
                 </div>
                 <div>
-                    <GamblersTuple 
+                    {props.gamblers !== false && <GamblersTuple 
                     game={props.game}
                     gameProjection={props.gameProjection}
                     style={{
                         height : "100%"
-                    }}/>
+                    }}/>}
                 </div>
             </div>
-        </Wrapper>
+        </Button>
     )
 };

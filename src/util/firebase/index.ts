@@ -94,6 +94,46 @@ export const getGamesByDate =  async (date : Date) : Promise<ontology.GameByDate
 
 }
 
+/**
+ * Gets all games in the next week.
+ * @param date 
+ * @returns 
+ */
+export const getGamesInNextMonth =  async (date : Date) : Promise<ontology.GameByDatelike[]> =>{
+
+    const promises : Promise<ontology.GameByDatelike[]>[] = [];
+    const iter = new Date(date);
+    const end = new Date(iter);
+    end.setMonth(end.getMonth() + 1);
+    while(iter < end){
+        promises.push(getGamesByDate(iter));
+        iter.setDate(iter.getDate() + 1);
+    }
+
+    return (await Promise.all(promises)).flat();
+
+}
+
+/**
+ * Gets all games in the next week.
+ * @param date 
+ * @returns 
+ */
+ export const getGamesInNextMonthTable =  async (date : Date) : Promise<{
+    [key : string] : GameByDatelike
+ }> =>{
+
+    const gamesInNextWeek = await getGamesInNextMonth(date);
+    const table : {
+        [key : string] : GameByDatelike
+    } = {};
+    for(const game of gamesInNextWeek)
+        table[game.GameID] = game;
+    return table;
+
+
+}
+
 
 /**
  * 

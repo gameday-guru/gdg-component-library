@@ -1,6 +1,6 @@
 import React, {FC, ReactElement} from 'react';
-import { Wrapper } from '../../../../components';
-import { DateString } from '../../ncaab/generic';
+import { Wrapper } from '../../../../../components';
+import { DateString } from '../../../ncaab/generic';
 
 export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [ ];
 export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {

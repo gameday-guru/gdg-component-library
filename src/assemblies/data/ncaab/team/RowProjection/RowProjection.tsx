@@ -72,7 +72,8 @@ export const RowProjection : FC<RowProjectionProps>  = (props) =>{
                 <RowTuple 
                     line={_line}
                     odds={_odds ? Number.parseFloat(_odds) : undefined}
-                    projectedScore={_projectedScore}/>
+                    projectedScore={_projectedScore}
+                    actualScore={props.away ? props.game?.AwayTeamScore : props.game?.HomeTeamScore}/>
             </div>
         </div>
     )

@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { ontology } from '../../../../../util';
 import { Teamlike } from '../../../../../util/ontology';
 import { GameLogAndTeamMembers } from '../GameLogAndTeamMembers';
+import { SideTeam } from '../SideTeam';
 import { TeamStatTripleRow } from '../TeamStatTripleRow';
 
 export const TEAM_CLASSNAMES : string[] = [ 
@@ -22,8 +23,10 @@ export type TeamProps = {
     responsive ? : boolean;
     teams ? : { [key : string] : ontology.Teamlike };
     team ? : ontology.Teamlike;
-    leagueAverages ? : ontology.LeagueAverageslike;
     pointDistribution ? : ontology.PointDistributionlike;
+    efficiency ? : ontology.EfficiencyEntrylike;
+    leagueAveragePointDistribution ? : ontology.LeagueAverageslike;
+    games ? : ontology.ProjectedGamelike[];
 
 };
 
@@ -34,10 +37,19 @@ export const Team : FC<TeamProps>  = (props) =>{
         className={[...!props.overrideClasses ? TEAM_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAM_STYLE : {}, ...props.style}}>
             <div>
-                <TeamStatTripleRow/>
+                <SideTeam 
+                viusage='backdrop'
+                team={props.team}/>
             </div>
             <div>
-                <GameLogAndTeamMembers/>
+                <TeamStatTripleRow
+                    pointDistribution={props.pointDistribution}
+                    efficiency={props.efficiency}
+                    leagueAveragePointDistribution={props.leagueAveragePointDistribution}/>
+            </div>
+            <div>
+                <GameLogAndTeamMembers
+                    games={props.games}/>
             </div>
         </div>
     )

@@ -1,6 +1,8 @@
 import React, {FC, ReactElement} from 'react';
 import { Button } from '../../../../../components';
 import { ontology } from '../../../../../util';
+import { viusage } from '../../../../../util/color';
+import { Viusagelike } from '../../../../../util/viusage/primary';
 
 export const STACKED_TEAM_CLASSNAMES : string[] = [ ];
 export const STACKED_TEAM_STYLE : React.CSSProperties = {
@@ -19,6 +21,7 @@ export type StackedTeamProps = {
     responsive ? : boolean;
     Team ? : ontology.Teamlike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    viusage ? : Viusagelike
 };
 
 export const StackedTeam : FC<StackedTeamProps>  = (props) =>{
@@ -32,7 +35,7 @@ export const StackedTeam : FC<StackedTeamProps>  = (props) =>{
     return (
         <Button
         onClick={_onClick}
-        viusage='wrap'
+        viusage={props.viusage||"wrap"}
         {...props}
         classNames={[...!props.overrideClasses ? STACKED_TEAM_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? STACKED_TEAM_STYLE : {}, ...props.style}}>

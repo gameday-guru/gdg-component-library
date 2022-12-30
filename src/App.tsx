@@ -17,6 +17,8 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import { Matchups } from './tests/Matchups';
+import { Matchup } from './tests/Matchup';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -50,6 +52,8 @@ export function App(style : any) {
           <Route path="/home" element={<Home/>}/>
           <Route path="/team" element={<Teams/>}/>
           <Route path="/team/:id" element={<Team/>}/>
+          <Route path="/matchups" element={<Matchups/>}/>
+          <Route path="/matchup/:id" element={<Matchup/>}/>
         </Routes>
       </BrowserRouter>
     </div>

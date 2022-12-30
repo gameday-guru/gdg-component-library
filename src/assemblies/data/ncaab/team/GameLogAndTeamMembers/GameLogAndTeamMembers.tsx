@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
-import { NcaabMensGameLog } from '../GameLog/GameLog';
+import { ontology } from '../../../../../util';
+import { GameLog } from '../GameLog/GameLog';
 import { Players } from '../TeamPlayers/TeamPlayers';
 
 export const GAME_LOG_AND_TEAM_MEMBERS_CLASSNAMES : string[] = [
@@ -17,6 +18,7 @@ export type GameLogAndTeamMembersProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    games ? : ontology.ProjectedGamelike[];
 };
 
 export const GameLogAndTeamMembers : FC<GameLogAndTeamMembersProps>  = (props) =>{
@@ -26,7 +28,8 @@ export const GameLogAndTeamMembers : FC<GameLogAndTeamMembersProps>  = (props) =
         className={[...!props.overrideClasses ? GAME_LOG_AND_TEAM_MEMBERS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? GAME_LOG_AND_TEAM_MEMBERS_STYLE : {}, ...props.style}}>
             <div>
-                <NcaabMensGameLog/>
+                <GameLog
+                    games={props.games}/>
             </div>
             <div>
                 <Players/>

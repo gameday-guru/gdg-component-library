@@ -3,6 +3,8 @@ import { Vs } from '../../../../../components/output/indicators/label/Vs';
 import { getViusageColor } from '../../../../../util/color/viusage';
 import { ontology } from '../../../../../util';
 import { StackedTeam } from '../../team/StackedTeam/StackedTeam';
+import { viusage } from '../../../../../util/color';
+import { Viusagelike } from '../../../../../util/viusage/primary';
 
 export const H_2_H_CLASSNAMES : string[] = [
     "grid"
@@ -24,6 +26,7 @@ export type H2HProps = {
     Home ? : ontology.Teamlike;
     Away ? : ontology.Teamlike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    viusage ? : Viusagelike
 };
 
 export const H2H : FC<H2HProps>  = (props) =>{
@@ -41,6 +44,7 @@ export const H2H : FC<H2HProps>  = (props) =>{
         style={{...!props.overrideStyle ? H_2_H_STYLE : {}, ...props.style}}>
             <div>
                 <StackedTeam 
+                viusage={props.viusage}
                 onTeamClick={props.onTeamClick}
                 Team={props.Home}/>
                 <h2 className='text-lg'>Home</h2>
@@ -53,6 +57,7 @@ export const H2H : FC<H2HProps>  = (props) =>{
             </div>
             <div>
                 <StackedTeam 
+                viusage={props.viusage}
                 onTeamClick={props.onTeamClick}
                 Team={props.Away}/>
                 <h2 className='text-lg'>Away</h2>

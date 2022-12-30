@@ -3,7 +3,8 @@ import { Wrapper } from '../../../../../components';
 import { ontology, viusage } from '../../../../../util';
 import { Pill } from '../../../../../components';
 import { Stacked } from '../../../../../components/output/containers/comparison';
-import { TeamMatchupRowProjection } from '../../team/TeamMatchupRowProjection';
+import { TeamMatchupRowProjection } from '../../matchup/TeamMatchupRowProjection';
+import { UpcomingGames } from '../../matchup';
 
 export const NCAAB_MENS_UPCOMING_GAMES_CONTAINER_CLASSNAMES : string[] = [ 
     "p-4"
@@ -29,36 +30,17 @@ export type NcaabMensUpcomingGamesProps = {
     onTeamClick ? : (teamId : string)=>Promise<void>;
 };
 
+const OPTIONS = [
+    "This Week",
+    "Big 12",
+    "ACC", 
+    "PAC 12", 
+    "On the Bubble"
+];
+
 export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props) =>{
 
-    const options = [
-        "This Week",
-        "Big 12",
-        "ACC", 
-        "PAC 12", 
-        "On the Bubble"
-    ];
-    const selections = options
-    .map((display, i)=>{
-        return <Pill 
-            emphasis={props.which === display ? 500 : 300}
-            viusage={props.which === display || ( !props.which && i ===0 )? 'navigate' : 'wrap'}
-            key={display}>
-                {display}
-        </Pill>
-    });
-    const gameProjections = (props.top25Games||[])
-    .map((entry, i)=>{
-        return (
-            <TeamMatchupRowProjection 
-                onTeamClick={props.onTeamClick}
-                key={entry.game.GameID}
-                home={entry.home}
-                away={entry.away}
-                game={entry.game}
-                gameProjection={entry.gameProjection}/>
-        )
-    });
+    
 
     return (
         <Wrapper
@@ -72,15 +54,10 @@ export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props)
                 <br/>
                 <hr/>
                 <br/>
-                <div style={{
-                    gridTemplateColumns : '1fr 1fr 1fr 1fr 1fr'
-                }} className='grid gap-2 text-sm'>
-                    {selections}
-                </div>
-                <br/>
-                <div className='grid gap-2 text-sm'>
-                    {gameProjections}
-                </div>
+                <UpcomingGames
+                options={OPTIONS}
+                onTeamClick={props.onTeamClick}
+                games={props.top25Games}/>
             </div>
         </Wrapper>
     )

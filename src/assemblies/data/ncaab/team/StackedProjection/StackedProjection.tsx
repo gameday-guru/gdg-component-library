@@ -27,6 +27,7 @@ export type StackedProjectionProps = {
     game ? : ontology.GameByDatelike;
     gameProjection ? : ontology.ProjectionEntrylike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (matchupId : string)=>Promise<void>;
 };
 
 export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{

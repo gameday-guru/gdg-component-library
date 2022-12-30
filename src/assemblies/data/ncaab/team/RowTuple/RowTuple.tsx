@@ -7,7 +7,7 @@ export const ROW_TUPLE_CLASSNAMES : string[] = [
 ];
 export const ROW_TUPLE_STYLE : React.CSSProperties = {
     gridTemplateRows : "1fr",
-    gridTemplateColumns : "1fr 1fr 1fr",
+    // gridTemplateColumns : "1fr 1fr 1fr",
     alignContent : "center",
     alignItems : "center"
 };
@@ -22,6 +22,7 @@ export type RowTupleProps = {
     line ? : number;
     odds ? : number;
     projectedScore ? : number;
+    actualScore ? : number;
 };
 
 export const RowTuple : FC<RowTupleProps>  = (props) =>{
@@ -33,7 +34,9 @@ export const RowTuple : FC<RowTupleProps>  = (props) =>{
     return (
         <div
         className={[...!props.overrideClasses ? ROW_TUPLE_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? ROW_TUPLE_STYLE : {}, ...props.style}}>
+        style={{...!props.overrideStyle ? ROW_TUPLE_STYLE : {}, ...props.style, ...{
+            gridTemplateColumns : props.actualScore ? "1fr 1fr 1fr 1fr" : "1fr 1fr 1fr"
+        }}}>
             <StackedPostblock
                 style={{
                     height : "100%"
@@ -52,6 +55,12 @@ export const RowTuple : FC<RowTupleProps>  = (props) =>{
                 }}
                 Label={"Projected Score"}
                 Value={_projectedScore.toFixed(1)}/>
+            {props.actualScore && <StackedPostblock
+                style={{
+                    height : "100%"
+                }}
+                Label={"Score"}
+                Value={props.actualScore.toFixed(0)}/>}
         </div>
     )
 };

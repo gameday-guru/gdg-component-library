@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from 'react';
-import { Wrapper } from '../../../../components';
+import { Wrapper } from '../../../../../components';
 
 export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [ ];
 export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {

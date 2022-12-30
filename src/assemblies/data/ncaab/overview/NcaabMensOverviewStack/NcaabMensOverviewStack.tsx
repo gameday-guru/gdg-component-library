@@ -1,6 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { NcaabMensBlogs } from '../NcaabMensBlogs';
-import { NcaabMensGameOfTheDay } from '../NcaabMensGameOfTheDay';
+import { NcaabMensGameOfTheDay } from '../../matchup/NcaabMensGameOfTheDay';
 import { NcaabMensUpcomingGames } from '../NcaabMensUpcomingGames';
 import { ontology } from '../../../../../util';
 

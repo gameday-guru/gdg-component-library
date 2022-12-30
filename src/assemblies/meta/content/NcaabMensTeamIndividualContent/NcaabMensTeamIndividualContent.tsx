@@ -7,6 +7,7 @@ import { Teams } from '../../../data/ncaab/team/Teams';
 import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 import { ontology } from '../../../../util';
 import { Team } from '../../../data/ncaab/team/Team';
+import { SideTeam } from '../../../data/ncaab/team/SideTeam';
 
 export const MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_CONTAINER_CLASSNAMES : string[] = [
 
@@ -32,6 +33,8 @@ export type MensNcaabTeamIndividualContentProps = {
     team ? : ontology.Teamlike;
     leagueAverages ? : ontology.LeagueAverageslike;
     pointDistribution ? : ontology.PointDistributionlike;
+    games ? : ontology.ProjectedGamelike[];
+    efficiency ? : ontology.EfficiencyEntrylike;
 };
 
 export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentProps>  = (props) =>{
@@ -49,6 +52,10 @@ export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentP
                 </div>
                 <div>
                     <Team
+                    efficiency={props.efficiency}
+                    pointDistribution={props.pointDistribution}
+                    leagueAveragePointDistribution={props.leagueAverages}
+                    games={props.games}
                     team={props.team}/>
                 </div>
             </div>

@@ -1,13 +1,16 @@
 import React, {FC, ReactElement} from 'react';
 import { Button } from '../../../../../components';
 import { ontology } from '../../../../../util';
+import { Viusagelike } from '../../../../../util/viusage/primary';
 
 export const SIDE_TEAM_CLASSNAMES : string[] = [
     "grid",
     "gap-2"
 ];
 export const SIDE_TEAM_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "1fr 3fr"
+    gridTemplateColumns : "1fr 3fr",
+    alignContent : "center",
+    alignItems : "center"
 };
 
 export type SideTeamProps = {
@@ -20,6 +23,7 @@ export type SideTeamProps = {
     team ? : ontology.Teamlike
     away ? : boolean;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    viusage ? : Viusagelike;
 };
 
 export const SideTeam : FC<SideTeamProps>  = (props) =>{
@@ -32,7 +36,7 @@ export const SideTeam : FC<SideTeamProps>  = (props) =>{
     return (
         <Button
         onClick={_onClick}
-        viusage='wrap'
+        viusage={props.viusage||'wrap'}
         {...props}
         classNames={[...!props.overrideClasses ? SIDE_TEAM_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? SIDE_TEAM_STYLE : {}, ...props.style}}>

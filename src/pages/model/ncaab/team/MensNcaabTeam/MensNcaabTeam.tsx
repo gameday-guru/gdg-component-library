@@ -26,6 +26,9 @@ export type MensNcaabTeamIndividualProps = {
     team ? : ontology.Teamlike;
     leagueAverages ? : ontology.LeagueAverageslike;
     pointDistribution ? : ontology.PointDistributionlike;
+    games ? : ontology.ProjectedGamelike[];
+    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    efficiency ? : ontology.EfficiencyEntrylike;
 };
 
 export const MensNcaabTeam : FC<MensNcaabTeamIndividualProps>  = (props) =>{
@@ -39,6 +42,8 @@ export const MensNcaabTeam : FC<MensNcaabTeamIndividualProps>  = (props) =>{
                 width : '100%'
             }}>
                 <MainSidebar 
+                which='team'
+                onWhich={props.onWhich}
                 style={{
                     height : '100%'
                 }}/>
@@ -49,10 +54,11 @@ export const MensNcaabTeam : FC<MensNcaabTeamIndividualProps>  = (props) =>{
                 overflow : 'scroll'
             }}>
                 <MensNcaabTeamIndividualContent
-                topDefensiveTeams={props.topDefensiveTeams}
-                topOffensiveTeams={props.topOffensiveTeams}
-                tableEntries={props.tableEntries}
-                teams={props.teams}/>
+                efficiency={props.efficiency}
+                pointDistribution={props.pointDistribution}
+                leagueAverages={props.leagueAverages}
+                games={props.games}
+                team={props.team}/>
             </div>
         </div>
     )

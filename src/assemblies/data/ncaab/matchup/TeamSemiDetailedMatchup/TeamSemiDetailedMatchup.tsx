@@ -1,10 +1,11 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../../components';
-import { DateString } from '../../../ncaab/generic';
-import { H2H } from '../../matchup/H2H';
-import { ProjectionZeroSum } from '../ProjectionZeroSum';
-import { ProjectionWinPercentage } from '../ProjectionWinPercentage';
+import { DateString } from '../../generic';
+import { H2H } from '../H2H';
+import { ProjectionZeroSum } from '../../team/ProjectionZeroSum';
+import { ProjectionWinPercentage } from '../../team/ProjectionWinPercentage';
 import { ontology } from '../../../../../util';
+import { Viusagelike } from '../../../../../util/viusage/primary';
 
 export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [ ];
 export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {
@@ -31,15 +32,17 @@ export type TeamSemiDetailedMatchupProps = {
     responsive ? : boolean;
     home ? : ontology.Teamlike;
     away ? : ontology.Teamlike;
+    game ? : ontology.GameByDatelike;
     gameProjection ? : ontology.ProjectionEntrylike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    viusage ? : Viusagelike;
 };
 
 export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (props) =>{
 
     return (
         <Wrapper
-            viusage='wrap'
+            viusage={props.viusage||"wrap"}
             classNames={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : {}, ...props.style}}>
             <div style={{
@@ -47,7 +50,7 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
                 justifyContent : "center",
                 justifyItems : "center"
             }}>
-                <DateString/>
+                <DateString date={new Date((props.game as any)?.DateTime||0)}/>
             </div>
             <br/>
             <div
@@ -55,6 +58,7 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
             style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_INNER_STYLE : {}, ...props.style}}>
                 <div className='text-sm'>   
                     <H2H
+                        viusage={props.viusage||"wrap"}
                         onTeamClick={props.onTeamClick}
                         Home={props.home}
                         Away={props.away}/>

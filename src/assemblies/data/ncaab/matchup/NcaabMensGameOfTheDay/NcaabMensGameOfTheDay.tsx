@@ -2,7 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../../components';
 import { viusage } from '../../../../../util';
 import { DateString } from '../../generic';
-import { TeamSemiDetailedMatchup } from '../../team/TeamSemiDetailedMatchup';
+import { TeamSemiDetailedMatchup } from '../TeamSemiDetailedMatchup';
 import { ontology } from '../../../../../util';
 
 export const NCAAB_MENS_GAME_OF_THE_DAY_CONTAINER_CLASSNAMES : string[] = [
