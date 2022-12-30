@@ -28,6 +28,20 @@ export declare const getGamesInNextWeekTable: (date: Date) => Promise<{
     [key: string]: ontology.GameByDatelike;
 }>;
 /**
+ * Gets all games in the next week.
+ * @param date
+ * @returns
+ */
+export declare const getGamesInNextMonth: (date: Date) => Promise<ontology.GameByDatelike[]>;
+/**
+ * Gets all games in the next week.
+ * @param date
+ * @returns
+ */
+export declare const getGamesInNextMonthTable: (date: Date) => Promise<{
+    [key: string]: ontology.GameByDatelike;
+}>;
+/**
  *
  * @param date
  * @returns

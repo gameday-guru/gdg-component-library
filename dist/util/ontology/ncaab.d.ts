@@ -198,6 +198,8 @@ export interface ProjectedGamelike {
     game: GameByDatelike;
     gameProjection: ProjectionEntrylike;
 }
+export declare const MockGame: GameByDatelike;
+export declare const MockProjectedGame: ProjectedGamelike;
 export declare enum Trend {
     DECREASING = -1,
     NOCHANGE = 0,
@@ -221,4 +223,74 @@ export interface TrendEntrylike {
 }
 export interface TrendTablelike {
     [key: string]: TrendEntrylike;
+}
+export interface PointDistributionMemberlike {
+    freeThrow: number;
+    twoPoint: number;
+    threePoint: number;
+}
+export interface PointDistributionlike {
+    defense: PointDistributionMemberlike;
+    offense: PointDistributionMemberlike;
+}
+export declare const MockPointDistribution: PointDistributionlike;
+export interface LeagueAverageslike {
+    powerRating: number;
+    offensiveEfficiency: number;
+    defensiveEfficiency: number;
+}
+export declare const MockAverageDistribution: LeagueAverageslike;
+export interface Playerlike {
+    PlayerID: number;
+    FirstName: string;
+    LastName: string;
+    TeamID: number;
+    Team: string;
+    Jersey: number;
+    Position: string;
+    Class: string;
+    Height: number;
+    Weight: number;
+    BirthCity?: string;
+    BirthState?: string;
+    HighSchool: string;
+    SportRadarPlayerID?: string;
+    RotoworldPlayerID?: string;
+    RotoWirePlayerID?: string;
+    FantasyAlarmPlayerID?: string;
+    GlobalTeamID: number;
+    InjuryStatus?: string;
+    InjuryBodyPart?: string;
+    InjuryNotes?: string;
+    InjuryStartDate?: string;
+}
+export declare const MockPlayer: Playerlike;
+export interface RadarDetaillike {
+    FieldGoalsMade: number;
+    FieldGoalsAttempted: number;
+    TwoPointersMade: number;
+    TwoPointersAttempted: number;
+    TwoPointersPercentage: number;
+    ThreePointersMade: number;
+    ThreePointersAttempted: number;
+    FreeThrowsMade: number;
+    FreeThrowsAttempted: number;
+    OffensiveRebounds: number;
+    DefensiveRebounds: number;
+    Rebounds: number;
+    Assists: number;
+    Steals: number;
+    BlockedShots: number;
+    Turnovers: number;
+    PersonalFouls: number;
+    Points?: number;
+    TrueShootingAttempts: number;
+}
+export interface RadarEntrylike {
+    team_id: string;
+    offense: RadarDetaillike;
+    defense: RadarDetaillike;
+}
+export interface RadarTablelike {
+    [key: string]: RadarEntrylike;
 }

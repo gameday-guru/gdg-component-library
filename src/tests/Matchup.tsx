@@ -228,10 +228,6 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
     const _homeEff = _home ? efficiency[_home.TeamID.toString()] : undefined;
     const _awayEff = _away ? efficiency[_away.TeamID.toString()] : undefined;
 
-    console.log(
-        monthAgo
-    );
-
     if(!user && !loading) navigate("/");
 
     const handleTeamClick = async (teamId : string)=>{

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FieldCase, FilterToken } from '../filter';
+import { FieldCase, FilterToken } from '../../../../../util/filter/filter';
 export declare const FILTER_EXPRESSION_CLASSNAMES: string[];
 export declare const FILTER_EXPRESSION_STYLE: React.CSSProperties;
 export declare type FilterExpressionProps = {

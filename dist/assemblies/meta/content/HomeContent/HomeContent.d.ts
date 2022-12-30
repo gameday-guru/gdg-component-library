@@ -17,5 +17,7 @@ export declare type HomeContentProps = {
     top25Games?: ontology.ProjectedGamelike[];
     apTop25Teams?: ontology.RankTrendTeamlike[];
     gdgTop25Teams?: ontology.RankTrendTeamlike[];
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
 };
 export declare const HomeContent: FC<HomeContentProps>;

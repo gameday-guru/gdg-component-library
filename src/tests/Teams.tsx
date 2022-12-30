@@ -180,13 +180,28 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     })
     .filter((val, i)=>i < 25);
 
+    const handleBuildMatchup = async (home : string, away : string)=>{
+        navigate(`/mock/matchup/${home}/${away}`)
+    }
+
     if(!user && !loading) navigate("/");
+
+    const handleTeamClick = async (teamId : string)=>{
+        navigate(`/team/${teamId}`)
+    };
+
+    const handleMatchupClick = async (gameId : string)=>{
+        navigate(`/matchup/${gameId}`)
+    };
 
     return (
         <MensNcaabTeams
         onWhich={async (which)=>{
             navigate("/" + which);
         }}
+        onMatchupClick={handleMatchupClick}
+        onTeamClick={handleTeamClick}
+        onBuildMatchup={handleBuildMatchup}
         topDefensiveTeams={_topDefensiveTeams}
         topOffensiveTeams={_topOffensiveTeams}
         tableEntries={Object.values(efficiency)}

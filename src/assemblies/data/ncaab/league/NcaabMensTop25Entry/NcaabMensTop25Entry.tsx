@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../../components';
 import { ontology, viusage } from '../../../../../util';
 import { ArrowUp, ArrowDown, Dash } from 'react-bootstrap-icons';
+import { Button } from '../../../../../components';
 
 export const NCAAB_MENS_TOP25_ENTRY_CONTAINER_CLASSNAMES : string[] = [
     "p-4",
@@ -31,6 +32,7 @@ export type NcaabMensTop25EntryProps = {
     rank ? : number;
     trend ? : ontology.Trend;
     efficiency ? : ontology.EfficiencyEntrylike;
+    onTeamClick ? : (teamId : string)=>Promise<void>;
 };
 
 export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
@@ -41,10 +43,13 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
         .56 * (props.efficiency?.oe||0) 
         - .44 * (props.efficiency?.de||0)
 
-    console.log(props);
+    const handleTeamClick = async ()=>{
+        props.onTeamClick && props.onTeamClick(_team.TeamID.toString());
+    }
 
     return (
-        <Wrapper
+        <Button
+            onClick={handleTeamClick}
             viusage={"backdrop"}
             classNames={[...!props.overrideClasses ? NCAAB_MENS_TOP25_ENTRY_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? NCAAB_MENS_TOP25_ENTRY_CONTAINER_STYLE : {}, ...props.style}}>
@@ -113,6 +118,6 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
                     </div>
                 </div>
             </div>
-        </Wrapper>
+        </Button>
     )
 };

@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from 'react';
-import { ontology } from '../../../../util';
+import { ontology } from '../../../../../util';
 
 export const GAMBLERS_TUPLE_CLASSNAMES : string[] = [
     "grid",

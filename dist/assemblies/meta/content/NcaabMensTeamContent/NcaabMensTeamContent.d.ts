@@ -19,5 +19,8 @@ export declare type MensNcaabTeamContentProps = {
     };
     topOffensiveTeams?: ontology.Teamlike[];
     topDefensiveTeams?: ontology.Teamlike[];
+    onBuildMatchup?: (home: string, away: string) => Promise<void>;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
 };
 export declare const MensNcaabTeamContent: FC<MensNcaabTeamContentProps>;

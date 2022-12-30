@@ -27,6 +27,7 @@ export type HomeContentProps = {
     apTop25Teams ? : ontology.RankTrendTeamlike[];
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 export const HomeContent : FC<HomeContentProps>  = (props) =>{
@@ -45,6 +46,7 @@ export const HomeContent : FC<HomeContentProps>  = (props) =>{
                 <div>
                     <NcaabMensOverview
                         onTeamClick={props.onTeamClick}
+                        onMatchupClick={props.onMatchupClick}
                         gameOfTheDay={props.gameOfTheDay}
                         top25Games={props.top25Games}
                         apTop25Teams={props.apTop25Teams}

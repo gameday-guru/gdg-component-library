@@ -27,6 +27,8 @@ export type HomeProps = {
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];
     onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
+
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -53,6 +55,7 @@ export const Home : FC<HomeProps>  = (props) =>{
             }}>
                 <HomeContent 
                 onTeamClick={props.onTeamClick}
+                onMatchupClick={props.onMatchupClick}
                 gameOfTheDay={props.gameOfTheDay}
                 top25Games={props.top25Games}
                 apTop25Teams={props.apTop25Teams}

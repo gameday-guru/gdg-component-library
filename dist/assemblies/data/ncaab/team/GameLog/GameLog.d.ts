@@ -1,0 +1,20 @@
+import React, { FC } from 'react';
+import { ontology, viusage } from '../../../../../util';
+export declare const GAME_LOG_CONTAINER_CLASSNAMES: string[];
+export declare const GAME_LOG_CONTAINER_STYLE: React.CSSProperties;
+export declare const GAME_LOG_INNER_CLASSNAMES: string[];
+export declare const GAME_LOG_INNER_STYLE: React.CSSProperties;
+export declare type GameLogProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    viusage?: viusage.primary.Viusagelike;
+    which?: string;
+    games?: ontology.ProjectedGamelike[];
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
+};
+export declare const GameLog: FC<GameLogProps>;

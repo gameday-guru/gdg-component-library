@@ -36,7 +36,6 @@ export type MatchupComparisonProps = {
 
 export const MatchupComparison : FC<MatchupComparisonProps>  = (props) =>{
 
-     console.log(props.homeDistro, props.awayDistro);
 
     return (
         <Wrapper

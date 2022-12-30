@@ -1,2 +1,1 @@
-export * from "./team";
-export * from "./competition";
+export * from "./ncaab";

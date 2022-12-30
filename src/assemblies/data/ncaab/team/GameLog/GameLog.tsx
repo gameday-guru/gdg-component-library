@@ -28,6 +28,7 @@ export type GameLogProps = {
     which ? : string;
     games ? : ontology.ProjectedGamelike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 const OPTIONS = [
@@ -48,12 +49,13 @@ export const GameLog : FC<GameLogProps>  = (props) =>{
             <div
             className={[...!props.overrideClasses ? GAME_LOG_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? GAME_LOG_INNER_STYLE : {}, ...props.style}}>
-                <h2 className='text-xl'>Upcoming Games for Top 25</h2>
+                <h2 className='text-xl'>Upcoming Games</h2>
                 <br/>
                 <hr/>
                 <br/>
                 <UpcomingGames
                 options={OPTIONS}
+                onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
                 games={props.games}/>
             </div>

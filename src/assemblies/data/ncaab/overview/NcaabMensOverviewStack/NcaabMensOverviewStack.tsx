@@ -21,6 +21,7 @@ export type NcaabMensOverviewStackProps = {
     gameOfTheDay ? : ontology.GameOfTheDaylike;
     top25Games ? : ontology.ProjectedGamelike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 export const NcaabMensOverviewStack : FC<NcaabMensOverviewStackProps>  = (props) =>{
@@ -34,6 +35,7 @@ export const NcaabMensOverviewStack : FC<NcaabMensOverviewStackProps>  = (props)
             </div>
             <div>
                 <NcaabMensGameOfTheDay 
+                onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
                 home={props.gameOfTheDay?.home}
                 away={props.gameOfTheDay?.away}
@@ -42,6 +44,7 @@ export const NcaabMensOverviewStack : FC<NcaabMensOverviewStackProps>  = (props)
             </div>
             <div>
                 <NcaabMensUpcomingGames
+                onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick} 
                 top25Games={props.top25Games}
                 classNames={["rounded-lg"]}/>

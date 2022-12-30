@@ -27,6 +27,8 @@ export type TeamProps = {
     efficiency ? : ontology.EfficiencyEntrylike;
     leagueAveragePointDistribution ? : ontology.LeagueAverageslike;
     games ? : ontology.ProjectedGamelike[];
+    onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 
 };
 
@@ -38,6 +40,7 @@ export const Team : FC<TeamProps>  = (props) =>{
         style={{...!props.overrideStyle ? TEAM_STYLE : {}, ...props.style}}>
             <div>
                 <SideTeam 
+                onTeamClick={props.onTeamClick}
                 viusage='backdrop'
                 team={props.team}/>
             </div>
@@ -49,6 +52,8 @@ export const Team : FC<TeamProps>  = (props) =>{
             </div>
             <div>
                 <GameLogAndTeamMembers
+                    onMatchupClick={props.onMatchupClick}
+                    onTeamClick={props.onTeamClick}
                     games={props.games}/>
             </div>
         </div>

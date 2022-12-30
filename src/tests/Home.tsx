@@ -153,8 +153,7 @@ export const Home : FC<HomeProps>  = (props) =>{
     .filter((team, i)=>(i < 25))
     const _gdgTop25RankedTeams : ontology.RankTrendTeamlike[] = _gdgTop25Teams
     .map((team, i)=>{
-        const trendTableEntry = trendTable[team.TeamID.toString()];
-        console.log(trendTableEntry);
+        const trendTableEntry : ontology.TrendEntrylike = trendTable[team.TeamID.toString()];
         return (
             {
                 team,
@@ -188,7 +187,6 @@ export const Home : FC<HomeProps>  = (props) =>{
     const _gameOfTheDay =
     _top25ProjectedGames
     .filter(game=>{
-        console.log(game.game);
         return DateComparison.sameDate(
             new Date(game.game.DateTimeUTC||0),
             new Date()
@@ -204,11 +202,15 @@ export const Home : FC<HomeProps>  = (props) =>{
         )
     })[0];
 
+    if(!user && !loading) navigate("/");
+
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)
     };
 
-    if(!user && !loading) navigate("/");
+    const handleMatchupClick = async (gameId : string)=>{
+        navigate(`/matchup/${gameId}`)
+    };
 
     return (
         <HomePage
@@ -216,6 +218,7 @@ export const Home : FC<HomeProps>  = (props) =>{
             navigate("/" + which);
         }}
         onTeamClick={handleTeamClick}
+        onMatchupClick={handleMatchupClick}
         gdgTop25Teams={_gdgTop25RankedTeams}
         apTop25Teams={_apTop25RankedTeams}
         top25Games={_top25ProjectedGames}

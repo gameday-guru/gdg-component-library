@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { viusage } from '../../../../../util';
 import { Emphasislike } from '../../../../../util/color/emphasis';
-import { FieldCase } from '../filter';
+import { FieldCase } from '../../../../../util/filter/filter';
 export declare const FILTER_SET_CLASSNAMES: string[];
 export declare const FILTER_SET_STYLE: React.CSSProperties;
 export declare type FilterSetProps = {

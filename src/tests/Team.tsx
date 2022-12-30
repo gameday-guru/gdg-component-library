@@ -164,8 +164,18 @@ export const Team : FC<TeamProps>  = (props) =>{
 
     if(!user && !loading) navigate("/");
 
+    const handleTeamClick = async (teamId : string)=>{
+        navigate(`/team/${teamId}`)
+    };
+
+    const handleMatchupClick = async (gameId : string)=>{
+        navigate(`/matchup/${gameId}`)
+    };
+
     return (
         <MensNcaabTeam
+        onMatchupClick={handleMatchupClick}
+        onTeamClick={handleTeamClick}
         onWhich={async (which)=>{
             navigate("/" + which)
         }}

@@ -30,6 +30,7 @@ export type TopTeamsProps = {
     responsive ? : boolean;
     teams ? : ontology.Teamlike[];
     Label ? : React.ReactNode;
+    onTeamClick ? : (teamId : string)=>Promise<void>;
 };
 
 export const TopTeams : FC<TopTeamsProps>  = (props) =>{
@@ -37,7 +38,7 @@ export const TopTeams : FC<TopTeamsProps>  = (props) =>{
     const _Label = props.Label||<>Top Teams</>
 
     const _teams = props.teams||Array(25).fill(ontology.MockHome);
-    const teamEntries = _teams.map((team)=><TopTeamEntry team={team}/>)
+    const teamEntries = _teams.map((team)=><TopTeamEntry onTeamClick={props.onTeamClick} team={team}/>)
 
     return (
         <Wrapper

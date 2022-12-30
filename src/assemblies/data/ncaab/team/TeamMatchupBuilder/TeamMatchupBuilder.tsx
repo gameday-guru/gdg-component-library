@@ -30,6 +30,7 @@ export type TeamMatchupBuilderProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     teams ? : {[key : string] : Teamlike}
+    onBuildMatchup ? : (home : string, away : string)=>Promise<void>;
 };
 
 export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
@@ -92,6 +93,11 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
         }}/>
     </Wrapper>
 
+    const handleBuildMatchup = async ()=>{
+        if(comparison.left && comparison.right) props.onBuildMatchup 
+        && props.onBuildMatchup(comparison.left, comparison.right);
+    }
+
     return (
         <Wrapper 
             viusage='wrap'
@@ -136,7 +142,8 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                         {
                             (comparison.left !== undefined)
                             && (comparison.right !== undefined)
-                            && <Button viusage='backdrop'>
+                            && <Button viusage='backdrop'
+                            onClick={handleBuildMatchup}>
                                 Go
                             </Button>
                         }

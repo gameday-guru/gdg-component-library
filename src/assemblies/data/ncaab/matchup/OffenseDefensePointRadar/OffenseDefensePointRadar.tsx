@@ -88,9 +88,9 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                 <PolarAngleAxis dataKey="name" />
                 <PolarRadiusAxis />
                 <Radar dataKey="offense" stroke={COLORS[0]} 
-                    fill="green" fillOpacity={0.5} />
+                    fill={COLORS[0]} fillOpacity={0.5} />
                 <Radar dataKey="defense" stroke={COLORS[1]} 
-                    fill="green" fillOpacity={0.5} />
+                    fill={COLORS[1]} fillOpacity={0.5} />
                 <Label fontSize={8}/>
             </RadarChart>
             <div className='gap-2' style={{

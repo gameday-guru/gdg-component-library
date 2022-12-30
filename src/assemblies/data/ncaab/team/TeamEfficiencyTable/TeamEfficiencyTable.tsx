@@ -44,8 +44,6 @@ export interface TeamEfficiencyTableEntrylike {
  * @returns 
  */
 export const makeStdTableEntry = (arr : number[])=>(rating : number) : React.ReactNode =>{
-
-    console.log("Std: ", std(arr), mean(arr), arr);
     const z = (rating - mean(arr))/std(arr);
     const lowMedHigh = z < -.5 ? "low" : z > .5 ? "high" : "med";
 
@@ -68,12 +66,13 @@ export type TeamEfficiencyTableProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     tableEntries ? : TeamEfficiencyTableEntrylike[];
+    onTeamClick ? : (teamId : string)=>Promise<void>;
 };
 
-export const TeamEntry = (team : Teamlike) : React.ReactNode=>{
+export const TeamEntry = (onTeamClick ? : (teamId : string)=>Promise<void>)=>(team : Teamlike) : React.ReactNode=>{
 
     return (
-        <TopTeamEntry style={{ background : "inherit"}} team={team}/>
+        <TopTeamEntry style={{ background : "inherit"}} team={team} onTeamClick={onTeamClick}/>
     )
 
 }
@@ -271,7 +270,7 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
     const[_tableEntries, setTableEntries] = useState(tableEntries);
 
     const toReact : {[key : string] : (value : any)=>React.ReactNode} = {};
-    toReact["Team Name"] = TeamEntry;
+    toReact["Team Name"] = TeamEntry(props.onTeamClick);
     toReact["Record"] = RecordEntry
 
     // refactor this to be provided from table component up

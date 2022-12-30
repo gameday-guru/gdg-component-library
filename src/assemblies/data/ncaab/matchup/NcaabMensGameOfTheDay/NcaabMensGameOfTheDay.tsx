@@ -31,6 +31,7 @@ export type NcaabMensGameOfTheDayProps = {
     away ? : ontology.Teamlike;
     gameProjection ? : ontology.ProjectionEntrylike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 export const NcaabMensGameOfTheDay : FC<NcaabMensGameOfTheDayProps>  = (props) =>{
@@ -45,6 +46,7 @@ export const NcaabMensGameOfTheDay : FC<NcaabMensGameOfTheDayProps>  = (props) =
             style={{...!props.overrideStyle ? NCAAB_MENS_GAME_OF_THE_DAY_INNER_STYLE : {}, ...props.style}}>
                 <h2 className="text-lg">Game of the Day</h2>
                 <TeamSemiDetailedMatchup 
+                    onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}
                     home={props.home}
                     away={props.away}

@@ -30,6 +30,7 @@ export type NcaabMensTop25Props = {
     apTop25 ? : ontology.RankTrendTeamlike[];
     gdgTop25 ? : ontology.RankTrendTeamlike[];
     which ? : "ap" | "gdg";
+    onTeamClick ? : (teamId : string)=>Promise<void>;
 };
 
 export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
@@ -40,6 +41,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
     .map((entry)=>{
         return (
             <NcaabMensTop25Entry 
+                onTeamClick={props.onTeamClick}
                 key={entry.team.TeamID}
                 team={entry.team}
                 rank={entry.rank}
@@ -52,6 +54,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
     .map((entry)=>{
         return (
             <NcaabMensTop25Entry 
+                onTeamClick={props.onTeamClick}
                 key={entry.team.TeamID}
                 team={entry.team}
                 rank={entry.rank}

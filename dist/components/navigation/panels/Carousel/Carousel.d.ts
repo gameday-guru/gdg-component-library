@@ -12,5 +12,7 @@ export declare type CarouselProps = {
     onLeft?: (e: React.MouseEvent, oldIndex: number, newIndex: number) => void;
     onRight?: (e: React.MouseEvent, oldIndex: number, newIndex: number) => void;
     size?: number;
+    Label?: React.ReactNode;
+    position?: "top" | "bottom" | "middle";
 };
 export declare const Carousel: FC<CarouselProps>;

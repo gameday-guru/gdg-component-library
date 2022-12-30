@@ -19,6 +19,8 @@ export type GameLogAndTeamMembersProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     games ? : ontology.ProjectedGamelike[];
+    onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 export const GameLogAndTeamMembers : FC<GameLogAndTeamMembersProps>  = (props) =>{
@@ -29,6 +31,8 @@ export const GameLogAndTeamMembers : FC<GameLogAndTeamMembersProps>  = (props) =
         style={{...!props.overrideStyle ? GAME_LOG_AND_TEAM_MEMBERS_STYLE : {}, ...props.style}}>
             <div>
                 <GameLog
+                    onTeamClick={props.onTeamClick}
+                    onMatchupClick={props.onMatchupClick}
                     games={props.games}/>
             </div>
             <div>

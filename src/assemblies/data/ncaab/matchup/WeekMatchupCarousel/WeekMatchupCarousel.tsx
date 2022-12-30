@@ -34,8 +34,6 @@ export const WeekMatchupCarousel : FC<WeekMatchupCarouselProps>  = (props) =>{
 
     const entries = _weeksGames
     .reduce((agg, game, i)=>{
-
-        console.log(Math.floor(i/_groupBy));
         agg[Math.floor(i/_groupBy)].push(game);
         return agg;
 

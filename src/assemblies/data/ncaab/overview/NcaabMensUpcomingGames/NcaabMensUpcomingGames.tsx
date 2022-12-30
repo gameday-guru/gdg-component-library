@@ -28,6 +28,7 @@ export type NcaabMensUpcomingGamesProps = {
     which ? : string;
     top25Games ? : ontology.ProjectedGamelike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 const OPTIONS = [
@@ -55,8 +56,10 @@ export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props)
                 <hr/>
                 <br/>
                 <UpcomingGames
+                onMatchupClick={props.onMatchupClick}
                 options={OPTIONS}
                 onTeamClick={props.onTeamClick}
+            
                 games={props.top25Games}/>
             </div>
         </Wrapper>

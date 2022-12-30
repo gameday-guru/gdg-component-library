@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from 'react';
-import { Wrapper } from '../../../../../components';
+import { Button, Wrapper } from '../../../../../components';
 import { DateString } from '../../generic';
 import { H2H } from '../H2H';
 import { ProjectionZeroSum } from '../../team/ProjectionZeroSum';
@@ -35,23 +35,31 @@ export type TeamSemiDetailedMatchupProps = {
     game ? : ontology.GameByDatelike;
     gameProjection ? : ontology.ProjectionEntrylike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
     viusage ? : Viusagelike;
 };
 
 export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (props) =>{
 
+    const handleMatchupClick = async ()=>{
+        if(props.game) props.onMatchupClick && props.onMatchupClick(props.game.GameID.toString())
+    }
+
     return (
-        <Wrapper
+        <Button
+            onClick={handleMatchupClick}
             viusage={props.viusage||"wrap"}
             classNames={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : {}, ...props.style}}>
-            <div style={{
+            {props.game ? <div style={{
                 display : "grid",
                 justifyContent : "center",
                 justifyItems : "center"
             }}>
                 <DateString date={new Date((props.game as any)?.DateTime||0)}/>
-            </div>
+            </div> : <div>
+                <h2 className="text-gdg-500 text-lg">Projection Only</h2>    
+            </div>}
             <br/>
             <div
             className={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
@@ -77,6 +85,6 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
                         gameProjection={props.gameProjection}/>
                 </div>
             </div>
-        </Wrapper>
+        </Button>
     )
 };

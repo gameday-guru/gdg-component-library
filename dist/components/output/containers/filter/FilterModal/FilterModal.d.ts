@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FieldCase, FilterTerms } from '../filter';
+import { FieldCase, FilterTerms } from '../../../../../util/filter/filter';
 export declare const FILTER_MODAL_CLASSNAMES: string[];
 export declare const FILTER_MODAL_STYLE: React.CSSProperties;
 export declare type FilterModalProps = {

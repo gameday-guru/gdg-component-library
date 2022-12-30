@@ -26,6 +26,9 @@ export type MensNcaabTeamsProps = {
     topOffensiveTeams ? : ontology.Teamlike[];
     topDefensiveTeams ? : ontology.Teamlike[];
     onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    onBuildMatchup ? : (home : string, away : string)=>Promise<void>;
+    onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 export const MensNcaabTeams : FC<MensNcaabTeamsProps>  = (props) =>{
@@ -51,6 +54,9 @@ export const MensNcaabTeams : FC<MensNcaabTeamsProps>  = (props) =>{
                 overflow : 'scroll'
             }}>
                 <MensNcaabTeamContent
+                onMatchupClick={props.onMatchupClick}
+                onTeamClick={props.onTeamClick}
+                onBuildMatchup={props.onBuildMatchup}
                 topDefensiveTeams={props.topDefensiveTeams}
                 topOffensiveTeams={props.topOffensiveTeams}
                 tableEntries={props.tableEntries}

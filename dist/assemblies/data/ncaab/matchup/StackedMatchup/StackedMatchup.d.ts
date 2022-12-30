@@ -1,0 +1,21 @@
+import React, { FC } from 'react';
+import { ontology } from '../../../../../util';
+export declare const STACKED_MATCHUP_CONTAINER_CLASSNAMES: string[];
+export declare const STACKED_MATCHUP_CONTAINER_STYLE: React.CSSProperties;
+export declare const STACKED_MATCHUP_INNER_CLASSNAMES: string[];
+export declare const STACKED_MATCHUP_INNER_STYLE: React.CSSProperties;
+export declare type StackedMatchupProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    home?: ontology.Teamlike;
+    away?: ontology.Teamlike;
+    game?: ontology.GameByDatelike;
+    gameProjection?: ontology.ProjectionEntrylike;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (matchupId: string) => Promise<void>;
+};
+export declare const StackedMatchup: FC<StackedMatchupProps>;

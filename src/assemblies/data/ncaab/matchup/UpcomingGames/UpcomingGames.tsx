@@ -23,6 +23,7 @@ export type UpcomingGamesProps = {
     which ? : string;
     games ? : ontology.ProjectedGamelike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
     options ? : string[];
 };
 
@@ -51,6 +52,7 @@ export const UpcomingGames : FC<UpcomingGamesProps>  = (props) =>{
     .map((entry, i)=>{
         return (
             <TeamMatchupRowProjection 
+                onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
                 key={entry.game.GameID}
                 home={entry.home}
