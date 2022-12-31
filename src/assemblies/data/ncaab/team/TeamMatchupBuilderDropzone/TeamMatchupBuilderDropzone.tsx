@@ -37,7 +37,8 @@ export type TeamMatchupBuilderDropzoneProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     onClick ? : ()=>void;
-    team ? : ontology.Teamlike
+    team ? : ontology.Teamlike;
+    Label ? : React.ReactNode;
 };
 
 export const TeamMatchupBuilderDropzone : FC<TeamMatchupBuilderDropzoneProps>  = (props) =>{
@@ -52,7 +53,7 @@ export const TeamMatchupBuilderDropzone : FC<TeamMatchupBuilderDropzoneProps>  =
             {!props.team && <div
             className={[...!props.overrideClasses ? TEAM_MATCHUP_BUILDER_INNER_DROPZONE_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_BUILDER_INNER_DROPZONE_STYLE : {}, ...props.style}}>
-                Pick Team
+                {props.Label||<>Pick Team</>}
             </div>}
             {props.team && <Wrapper 
             classNames={['cursor-pointer', 'rounded', 'p-4']}

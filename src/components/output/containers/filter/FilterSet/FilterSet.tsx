@@ -97,12 +97,11 @@ export const FilterSet : FC<FilterSetProps>  = (props) =>{
                 Left={props.Title}
                 Right={Right}/>
             </div>
-            <br/>
-            {Object.keys(_presets).length && <div className='grid gap-2' style={{
+            {Object.keys(_presets).length ? <><br/><div className='grid gap-2' style={{
                 gridTemplateColumns : Array(Object.keys(_presets).length).fill("1fr").join(" ")
             }}>
                 {presetEntries}
-            </div>}
+            </div></> : <></>}
             <div>
                 {props.children}
             </div>

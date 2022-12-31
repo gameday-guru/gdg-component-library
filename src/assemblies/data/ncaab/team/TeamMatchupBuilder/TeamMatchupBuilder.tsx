@@ -95,7 +95,7 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
 
     const handleBuildMatchup = async ()=>{
         if(comparison.left && comparison.right) props.onBuildMatchup 
-        && props.onBuildMatchup(comparison.left, comparison.right);
+        && props.onBuildMatchup(comparison.right, comparison.left); // https://github.com/gameday-guru/gameday-guru/issues/16
     }
 
     return (
@@ -122,6 +122,7 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     <TeamMatchupBuilderDropzone 
                     key={'left'}
                     team={comparison.left ? _teams[comparison.left] : undefined}
+                    Label={<>Pick Away Team</>}
                     onClick={()=>{
                         setRightModal(false);
                         setLeftModal(true);
@@ -151,6 +152,7 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     <TeamMatchupBuilderDropzone 
                     key={'right'}
                     team={comparison.right ? _teams[comparison.right] : undefined}
+                    Label={<>Pick Home Team</>}
                     onClick={()=>{
                         setLeftModal(false);
                         setRightModal(true);
