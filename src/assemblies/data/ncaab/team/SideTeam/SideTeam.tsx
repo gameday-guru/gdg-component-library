@@ -29,7 +29,8 @@ export type SideTeamProps = {
 export const SideTeam : FC<SideTeamProps>  = (props) =>{
 
     const team = props.team||ontology.MockHome;
-    const _onClick = async ()=>{
+    const _onClick = async (e : React.MouseEvent)=>{
+        e.stopPropagation();
         props.onTeamClick && props.onTeamClick(team.TeamID.toString());
     }
 

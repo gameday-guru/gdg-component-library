@@ -2,7 +2,8 @@ export const FilterCaseValues = [
     "TEXT",
     "GEO",
     "NUMERIC",
-    "DATE"
+    "DATE",
+    "PRESET"
 ] as const;
 export type FilterCase = typeof FilterCaseValues[number];
 export type FieldCase = {

@@ -145,12 +145,17 @@ export const Home : FC<HomeProps>  = (props) =>{
 
         const trendTableEntryA = trendTable[teamA.TeamID.toString()];
         const trendTableEntryB = trendTable[teamB.TeamID.toString()];
-        return (trendTableEntryA?.gdg_power_rating.current_rank||Number.MAX_SAFE_INTEGER)
-        - (trendTableEntryB?.gdg_power_rating.current_rank||Number.MAX_SAFE_INTEGER);
+        
+        return (trendTableEntryA?.gdg_power_rating.current_rank !== undefined ?
+            trendTableEntryA.gdg_power_rating.current_rank + 1 
+            : Number.MAX_SAFE_INTEGER)
+        - (trendTableEntryB?.gdg_power_rating.current_rank !== undefined ?
+            trendTableEntryB.gdg_power_rating.current_rank + 1 
+            : Number.MAX_SAFE_INTEGER);
 
 
     })
-    .filter((team, i)=>(i < 25))
+    .filter((team, i)=>(i < 25));
     const _gdgTop25RankedTeams : ontology.RankTrendTeamlike[] = _gdgTop25Teams
     .map((team, i)=>{
         const trendTableEntry : ontology.TrendEntrylike = trendTable[team.TeamID.toString()];

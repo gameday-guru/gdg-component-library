@@ -285,8 +285,6 @@ export enum Trend {
 export const getTrend = (a : number | undefined, b : number | undefined) : Trend =>{
 
 
-    console.log("TREND", a, b);
-
     if(a === undefined || b === undefined) return Trend.NOCHANGE;
 
     return b > a ? Trend.INCREASING

@@ -39,6 +39,8 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
             </div>
             <div>
                 <NcaabMensAllUpcomingGames
+                onMatchupClick={props.onMatchupClick}
+                onTeamClick={props.onTeamClick}
                 allUpcomingGames={props.allUpcomingGames}/>
             </div>
         </div>

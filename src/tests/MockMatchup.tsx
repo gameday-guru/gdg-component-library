@@ -128,7 +128,6 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
 
     const _home = home ? teams[home] : undefined;
     const _away = away ? teams[away] : undefined;
-    console.log(_home, _away);
 
     let sumOe = 0;
     let sumDe = 0;

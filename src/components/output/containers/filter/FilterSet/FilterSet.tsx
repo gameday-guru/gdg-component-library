@@ -7,6 +7,7 @@ import { getPairingBackground, getReadableTextColor } from '../../../../../util/
 import { Filter } from '../../../../input/unary/Filter/Filter';
 import { evaluateFilterToken, FieldCase, FilterTerms, FilterToken } from '../../../../../util/filter/filter';
 import { FilterModal } from '../FilterModal';
+import { Pill } from '../../../../input';
 
 export const FILTER_SET_CLASSNAMES : string[] = [
     "rounded-lg",
@@ -31,13 +32,41 @@ export type FilterSetProps = {
     setTable ? : (table : any[])=>Promise<void>;
     resetTable ? : (table : any[])=>Promise<void>
     fieldCase ? : FieldCase;
+    presets ? : {
+        [key : string] : (table : any[])=>Promise<any[]>
+    }
 };
 
 export const FilterSet : FC<FilterSetProps>  = (props) =>{
 
+    const [whichPreset, setWhichPreset] = useState<string|undefined>(undefined);
+
     const [filters, setFilters] = useState<FilterToken>({
         relationship : "AND",
         terms : []
+    });
+
+    const _presets = props.presets||{};
+
+    const presetEntries = Object.entries(_presets)
+    .map(([displayKey, filter], i)=>{
+
+        const handleFilter = async ()=>{
+            if(props.setTable){
+                const filteredContent = await filter(props.table||[]);
+                console.log(filteredContent);
+                props.setTable(filteredContent);
+            }
+            setWhichPreset(displayKey);
+        }
+
+        return <Pill
+            emphasis={whichPreset === displayKey ? 500 : 300}
+            viusage={whichPreset === displayKey || ( !whichPreset && i ===0 )? 'navigate' : 'wrap'}
+            onClick={handleFilter}
+            key={displayKey}>
+                {displayKey}
+        </Pill>
     });
 
     const Right = (
@@ -68,7 +97,12 @@ export const FilterSet : FC<FilterSetProps>  = (props) =>{
                 Left={props.Title}
                 Right={Right}/>
             </div>
-            <hr/>
+            <br/>
+            {Object.keys(_presets).length && <div className='grid gap-2' style={{
+                gridTemplateColumns : Array(Object.keys(_presets).length).fill("1fr").join(" ")
+            }}>
+                {presetEntries}
+            </div>}
             <div>
                 {props.children}
             </div>
