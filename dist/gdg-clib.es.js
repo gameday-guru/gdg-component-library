@@ -10627,10 +10627,10 @@ const mb = (e, t) => e === void 0 || t === void 0 ? 0 : t > e ? 1 : t < e ? -1 :
       children: [/* @__PURE__ */ y(vb, {
         viusage: e.viusage,
         onTeamClick: e.onTeamClick,
-        Team: e.Home
+        Team: e.Away
       }), /* @__PURE__ */ y("h2", {
         className: "text-lg",
-        children: "Home"
+        children: "Away"
       })]
     }), /* @__PURE__ */ y("div", {
       style: {
@@ -10642,10 +10642,10 @@ const mb = (e, t) => e === void 0 || t === void 0 ? 0 : t > e ? 1 : t < e ? -1 :
       children: [/* @__PURE__ */ y(vb, {
         viusage: e.viusage,
         onTeamClick: e.onTeamClick,
-        Team: e.Away
+        Team: e.Home
       }), /* @__PURE__ */ y("h2", {
         className: "text-lg",
-        children: "Away"
+        children: "Home"
       })]
     })]
   });
@@ -29119,10 +29119,10 @@ const Yce = ["grid", "p-4"], Kce = {
   children: [/* @__PURE__ */ y("div", {
     children: /* @__PURE__ */ y(a_, {
       onTeamClick: e.onTeamClick,
-      team: e.home,
+      team: e.away,
       game: e.game,
       gameProjection: e.gameProjection,
-      away: !1
+      away: !0
     })
   }), /* @__PURE__ */ R("div", {
     style: {
@@ -29142,10 +29142,10 @@ const Yce = ["grid", "p-4"], Kce = {
   }), /* @__PURE__ */ y("div", {
     children: /* @__PURE__ */ y(a_, {
       onTeamClick: e.onTeamClick,
-      team: e.away,
+      team: e.home,
       game: e.game,
       gameProjection: e.gameProjection,
-      away: !0
+      away: !1
     })
   })]
 }), Sle = ["p-4", "rounded-lg"], _le = {}, Ele = ["grid", "gap-2"], b4 = (e) => {

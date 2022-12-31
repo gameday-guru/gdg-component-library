@@ -46,8 +46,8 @@ export const H2H : FC<H2HProps>  = (props) =>{
                 <StackedTeam 
                 viusage={props.viusage}
                 onTeamClick={props.onTeamClick}
-                Team={props.Home}/>
-                <h2 className='text-lg'>Home</h2>
+                Team={props.Away}/>
+                <h2 className='text-lg'>Away</h2>
             </div>
             <div style={{
                 display : "grid",
@@ -59,8 +59,8 @@ export const H2H : FC<H2HProps>  = (props) =>{
                 <StackedTeam 
                 viusage={props.viusage}
                 onTeamClick={props.onTeamClick}
-                Team={props.Away}/>
-                <h2 className='text-lg'>Away</h2>
+                Team={props.Home}/>
+                <h2 className='text-lg'>Home</h2>
             </div>
         </div>
     )
