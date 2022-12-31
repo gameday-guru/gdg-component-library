@@ -1,4 +1,5 @@
 import React, {FC, ReactElement} from 'react';
+import { ontology } from '../../../../../util';
 import { EfficiencyEntrylike, LeagueAverageslike, PointDistributionlike, PointDistributionMemberlike } from '../../../../../util/ontology';
 import { TeamEfficiencyTableEntrylike } from '../TeamEfficiencyTable/TeamEfficiencyTable';
 import { TeamGaguruStatsBarChart } from '../TeamGaguruStatBarChart';
@@ -21,6 +22,7 @@ export type TeamStatTripleRowProps = {
     responsive ? : boolean;
     pointDistribution ? : PointDistributionlike;
     efficiency ? : EfficiencyEntrylike;
+    team ? : ontology.Teamlike;
     leagueAveragePointDistribution ? : LeagueAverageslike;
 };
 
@@ -32,6 +34,7 @@ export const TeamStatTripleRow : FC<TeamStatTripleRowProps>  = (props) =>{
         style={{...!props.overrideStyle ? TEAM_STAT_TRIPLE_ROW_STYLE : {}, ...props.style}}>
             <div>
                 <TeamGaguruStatsBarChart
+                team={props.team}
                 teamEfficiency={props.efficiency}
                 leagueAverages={props.leagueAveragePointDistribution}/>
             </div>

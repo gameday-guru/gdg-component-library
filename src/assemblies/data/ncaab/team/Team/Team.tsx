@@ -47,6 +47,7 @@ export const Team : FC<TeamProps>  = (props) =>{
             </div>
             <div>
                 <TeamStatTripleRow
+                    team={props.team}
                     pointDistribution={props.pointDistribution}
                     efficiency={props.efficiency}
                     leagueAveragePointDistribution={props.leagueAveragePointDistribution}/>

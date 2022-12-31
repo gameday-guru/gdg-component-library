@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { ontology } from '../../../../../util';
 import { EfficiencyEntrylike, LeagueAverageslike, PointDistributionlike } from '../../../../../util/ontology';
 export declare const TEAM_STAT_TRIPLE_ROW_CLASSNAMES: string[];
 export declare const TEAM_STAT_TRIPLE_ROW_STYLE: React.CSSProperties;
@@ -11,6 +12,7 @@ export declare type TeamStatTripleRowProps = {
     responsive?: boolean;
     pointDistribution?: PointDistributionlike;
     efficiency?: EfficiencyEntrylike;
+    team?: ontology.Teamlike;
     leagueAveragePointDistribution?: LeagueAverageslike;
 };
 export declare const TeamStatTripleRow: FC<TeamStatTripleRowProps>;

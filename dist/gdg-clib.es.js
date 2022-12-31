@@ -31599,6 +31599,7 @@ const nfe = ["p-4"], rfe = {
     },
     children: [/* @__PURE__ */ y("div", {
       children: /* @__PURE__ */ y(hde, {
+        team: e.team,
         teamEfficiency: e.efficiency,
         leagueAverages: e.leagueAveragePointDistribution
       })
@@ -31636,6 +31637,7 @@ const nfe = ["p-4"], rfe = {
     })
   }), /* @__PURE__ */ y("div", {
     children: /* @__PURE__ */ y(yde, {
+      team: e.team,
       pointDistribution: e.pointDistribution,
       efficiency: e.efficiency,
       leagueAveragePointDistribution: e.leagueAveragePointDistribution
