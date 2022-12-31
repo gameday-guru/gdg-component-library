@@ -98,6 +98,8 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
         && props.onBuildMatchup(comparison.right, comparison.left); // https://github.com/gameday-guru/gameday-guru/issues/16
     }
 
+    // #16
+
     return (
         <Wrapper 
             viusage='wrap'
