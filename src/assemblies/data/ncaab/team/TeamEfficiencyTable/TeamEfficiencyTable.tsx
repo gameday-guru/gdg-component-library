@@ -45,7 +45,7 @@ export interface TeamEfficiencyTableEntrylike {
  */
 export const makeStdTableEntry = (arr : number[])=>(rating : number) : React.ReactNode =>{
     const z = (rating - mean(arr))/std(arr);
-    const lowMedHigh = z < -.5 ? "low" : z > .5 ? "high" : "med";
+    const lowMedHigh = z < -1 ? "low" : z > 1 ? "high" : "med";
 
     return <LowMedHigh style={{
         display : "grid",
@@ -53,6 +53,37 @@ export const makeStdTableEntry = (arr : number[])=>(rating : number) : React.Rea
         alignContent : "center",
         alignItems : "center"
     }} which={lowMedHigh}>{rating.toFixed(1)}</LowMedHigh>
+
+}
+
+/**
+ * 
+ * @param mean 
+ * @param stdev 
+ * @returns 
+ */
+export const makeReverseStdTableEntry = (arr : number[])=>(rating : number) : React.ReactNode =>{
+    const z = (rating - mean(arr))/std(arr);
+    const lowMedHigh = z < -1 ? "high" : z > 1 ? "low" : "med";
+
+    return <LowMedHigh style={{
+        display : "grid",
+        height : "100%",
+        alignContent : "center",
+        alignItems : "center"
+    }} which={lowMedHigh}>{rating.toFixed(1)}</LowMedHigh>
+
+}
+
+/**
+ * 
+ * @param mean 
+ * @param stdev 
+ * @returns 
+ */
+export const toPrecisionEntry = (precision : number)=>(rating : number) : React.ReactNode =>{
+
+    return <>{rating.toFixed(1)}</>
 
 }
 
@@ -287,7 +318,7 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
         toReact : {},
         compare : {}
     }, "Tempo");
-    toReact["Tempo"] =  makeStdTableEntry(tempos);
+    toReact["Tempo"] =  toPrecisionEntry(1);
 
     // refactor this to be provided from table component up
     const oes : number[] = getColumn({
@@ -303,7 +334,7 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
         toReact : {},
         compare : {}
     }, "Defensive Efficiency");
-    toReact["Defensive Efficiency"] = makeStdTableEntry(des);
+    toReact["Defensive Efficiency"] = makeReverseStdTableEntry(des);
 
     return (
         <Wrapper
