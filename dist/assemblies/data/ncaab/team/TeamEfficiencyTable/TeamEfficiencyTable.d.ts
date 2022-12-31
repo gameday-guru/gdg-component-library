@@ -22,6 +22,20 @@ export interface TeamEfficiencyTableEntrylike {
  * @returns
  */
 export declare const makeStdTableEntry: (arr: number[]) => (rating: number) => React.ReactNode;
+/**
+ *
+ * @param mean
+ * @param stdev
+ * @returns
+ */
+export declare const makeReverseStdTableEntry: (arr: number[]) => (rating: number) => React.ReactNode;
+/**
+ *
+ * @param mean
+ * @param stdev
+ * @returns
+ */
+export declare const toPrecisionEntry: (precision: number) => (rating: number) => React.ReactNode;
 export declare type TeamEfficiencyTableProps = {
     children?: React.ReactNode;
     style?: React.CSSProperties;

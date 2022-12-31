@@ -13,5 +13,6 @@ export declare type TeamMatchupBuilderDropzoneProps = {
     responsive?: boolean;
     onClick?: () => void;
     team?: ontology.Teamlike;
+    Label?: React.ReactNode;
 };
 export declare const TeamMatchupBuilderDropzone: FC<TeamMatchupBuilderDropzoneProps>;

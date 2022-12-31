@@ -19,5 +19,8 @@ export declare type FilterSetProps = {
     setTable?: (table: any[]) => Promise<void>;
     resetTable?: (table: any[]) => Promise<void>;
     fieldCase?: FieldCase;
+    presets?: {
+        [key: string]: (table: any[]) => Promise<any[]>;
+    };
 };
 export declare const FilterSet: FC<FilterSetProps>;

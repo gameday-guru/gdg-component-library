@@ -15,5 +15,10 @@ export declare type NcaabMensAllUpcomingGamesProps = {
     which?: string;
     allUpcomingGames?: ontology.ProjectedGamelike[];
     onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
+};
+export declare const isOnTheBubble: (team: ontology.Teamlike) => boolean;
+export declare const ALL_UPCOMING_GAMES_PRESETS: {
+    [key: string]: (table: ontology.ProjectedGamelike[]) => Promise<ontology.ProjectedGamelike[]>;
 };
 export declare const NcaabMensAllUpcomingGames: FC<NcaabMensAllUpcomingGamesProps>;

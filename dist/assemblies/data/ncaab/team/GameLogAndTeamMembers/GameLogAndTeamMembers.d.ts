@@ -12,5 +12,6 @@ export declare type GameLogAndTeamMembersProps = {
     games?: ontology.ProjectedGamelike[];
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;
+    players?: ontology.Playerlike[];
 };
 export declare const GameLogAndTeamMembers: FC<GameLogAndTeamMembersProps>;

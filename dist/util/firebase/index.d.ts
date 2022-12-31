@@ -50,3 +50,4 @@ export declare const getTeams: () => Promise<ontology.Teamlike[]>;
 export declare const getTeamsTable: () => Promise<{
     [key: string]: ontology.Teamlike;
 }>;
+export declare const getPlayers: (team: ontology.Teamlike) => Promise<ontology.Playerlike[]>;

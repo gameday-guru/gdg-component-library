@@ -166,7 +166,7 @@ export const getTeamsTable = async () : Promise<{
 export const getPlayers = async (team : ontology.Teamlike) : Promise<ontology.Playerlike[]> =>{
 
     return (await sportsdataioGet({
-        path : `v3/cbb/scores/json/Players/${team.ShortDisplayName}`
+        path : `v3/cbb/scores/json/Players/${team.Key}`
     })).data as ontology.Playerlike[];
 
 
