@@ -4,6 +4,7 @@ import { ontology } from '../util';
 import { 
     getGamesInNextMonthTable,
     getGamesInNextWeekTable,
+    getPlayers,
     getTeams,
     getTeamsTable
 } from '../util/firebase';
@@ -116,6 +117,18 @@ export const Team : FC<TeamProps>  = (props) =>{
 
     }, []);
 
+    const [players, setPlayers] = useState<ontology.Playerlike[]>([]);
+    useEffect(()=>{
+
+        if(id && teams[id]){
+            getPlayers(teams[id])
+            .then((data)=>{
+                setPlayers(data);
+            })
+        }
+
+    }, [id && teams[id]])
+
     let sumOe = 0;
     let sumDe = 0;
     let sumPower = 0;
@@ -174,6 +187,7 @@ export const Team : FC<TeamProps>  = (props) =>{
 
     return (
         <MensNcaabTeam
+        players={players}
         onMatchupClick={handleMatchupClick}
         onTeamClick={handleTeamClick}
         onWhich={async (which)=>{

@@ -37,6 +37,7 @@ export type MensNcaabTeamIndividualContentProps = {
     efficiency ? : ontology.EfficiencyEntrylike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    players ? : ontology.Playerlike[];
 };
 
 export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentProps>  = (props) =>{
@@ -54,6 +55,7 @@ export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentP
                 </div>
                 <div>
                     <Team
+                    players={props.players}
                     onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}
                     efficiency={props.efficiency}

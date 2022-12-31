@@ -21,6 +21,7 @@ export type GameLogAndTeamMembersProps = {
     games ? : ontology.ProjectedGamelike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    players ? : ontology.Playerlike[];
 };
 
 export const GameLogAndTeamMembers : FC<GameLogAndTeamMembersProps>  = (props) =>{
@@ -36,7 +37,7 @@ export const GameLogAndTeamMembers : FC<GameLogAndTeamMembersProps>  = (props) =
                     games={props.games}/>
             </div>
             <div>
-                <Players/>
+                <Players players={props.players}/>
             </div>
         </div>
     )

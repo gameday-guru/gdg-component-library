@@ -29,6 +29,7 @@ export type TeamProps = {
     games ? : ontology.ProjectedGamelike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    players ? : ontology.Playerlike[];
 
 };
 
@@ -52,6 +53,7 @@ export const Team : FC<TeamProps>  = (props) =>{
             </div>
             <div>
                 <GameLogAndTeamMembers
+                    players={props.players}
                     onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}
                     games={props.games}/>
