@@ -87,6 +87,7 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />
                 <PolarRadiusAxis />
+                {/** TODO: move to better verbeage than reverse */}
                 <Radar dataKey={props.reverse ? "defense" : "offense"} stroke={COLORS[0]} 
                     fill={COLORS[0]} fillOpacity={0.5} />
                 <Radar dataKey={props.reverse ? "offense" : "defense"} stroke={COLORS[1]} 
