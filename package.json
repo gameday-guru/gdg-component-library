@@ -1,6 +1,6 @@
 {
   "name": "gdg-clib",
-  "version": "0.1.60",
+  "version": "0.1.61",
   "main": "./dist/gdg-clib.umd.js",
   "module": "./dist/gdg-clib.es.js",
   "types": "./dist/index.d.ts",
