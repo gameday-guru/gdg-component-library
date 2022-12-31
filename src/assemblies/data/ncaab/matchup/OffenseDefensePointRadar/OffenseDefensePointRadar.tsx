@@ -53,17 +53,17 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
 
     const data = [
         {
-            name : "Free Throws",
+            name : "FT",
             offense : _offense.freeThrow/_offenseTotal,
             defense : _defense.freeThrow/_defenseTotal
         }, 
         {
-            name : "Two Point",
+            name : "2pt",
             offense : _offense.twoPoint/_offenseTotal,
             defense : _defense.twoPoint/_defenseTotal
         }, 
         {
-            name : "Three Point",
+            name : "3pt",
             offense : _offense.threePoint/_offenseTotal,
             defense : _defense.threePoint/_defenseTotal
         }
@@ -81,7 +81,7 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
         classNames={[...!props.overrideClasses ? OFFENSE_DEFENSE_POINT_RADAR_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? OFFENSE_DEFENSE_POINT_RADAR_STYLE : {}, ...props.style}}>
             <RadarChart 
-                height={300} width={200} 
+                height={300} width={300} 
                 outerRadius="80%" data={data}>
                 <Tooltip/>
                 <PolarGrid />

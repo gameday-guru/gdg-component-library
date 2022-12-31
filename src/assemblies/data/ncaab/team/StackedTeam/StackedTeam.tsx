@@ -28,7 +28,8 @@ export const StackedTeam : FC<StackedTeamProps>  = (props) =>{
 
     // defaults
     const _home = props.Team||ontology.MockHome;
-    const _onClick = async ()=>{
+    const _onClick = async (e : React.MouseEvent)=>{
+        e.stopPropagation()
         props.onTeamClick && props.onTeamClick(_home.TeamID.toString())
     }
 
