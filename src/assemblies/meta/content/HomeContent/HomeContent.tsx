@@ -22,7 +22,7 @@ export type HomeContentProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
-    gameOfTheDay ? : ontology.GameOfTheDaylike;
+    gameOfTheDay ? : ontology.ProjectedGamelike;
     top25Games ? : ontology.ProjectedGamelike[];
     apTop25Teams ? : ontology.RankTrendTeamlike[];
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];

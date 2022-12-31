@@ -27,6 +27,7 @@ export type NcaabMensGameOfTheDayProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
+    game ? : ontology.GameByDatelike;
     home ? : ontology.Teamlike;
     away ? : ontology.Teamlike;
     gameProjection ? : ontology.ProjectionEntrylike;
@@ -48,6 +49,7 @@ export const NcaabMensGameOfTheDay : FC<NcaabMensGameOfTheDayProps>  = (props) =
                 <TeamSemiDetailedMatchup 
                     onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}
+                    game={props.game}
                     home={props.home}
                     away={props.away}
                     gameProjection={props.gameProjection}/>

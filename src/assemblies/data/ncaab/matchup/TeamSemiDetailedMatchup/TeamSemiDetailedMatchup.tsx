@@ -42,6 +42,7 @@ export type TeamSemiDetailedMatchupProps = {
 export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (props) =>{
 
     const handleMatchupClick = async ()=>{
+        console.log(props.game);
         if(props.game) props.onMatchupClick && props.onMatchupClick(props.game.GameID.toString())
     }
 

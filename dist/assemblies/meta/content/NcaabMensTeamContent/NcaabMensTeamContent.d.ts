@@ -18,7 +18,9 @@ export declare type MensNcaabTeamContentProps = {
         [key: string]: ontology.Teamlike;
     };
     topOffensiveTeams?: ontology.Teamlike[];
+    topOffensiveTeamsStats?: React.ReactNode[];
     topDefensiveTeams?: ontology.Teamlike[];
+    topDefensiveTeamsStats?: React.ReactNode[];
     onBuildMatchup?: (home: string, away: string) => Promise<void>;
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;

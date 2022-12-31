@@ -12,6 +12,7 @@ export declare type TopTeamsProps = {
     overrideClasses?: boolean;
     responsive?: boolean;
     teams?: ontology.Teamlike[];
+    stats?: React.ReactNode[];
     Label?: React.ReactNode;
     onTeamClick?: (teamId: string) => Promise<void>;
 };

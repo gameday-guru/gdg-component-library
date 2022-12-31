@@ -12,6 +12,7 @@ export declare type TopTeamEntryProps = {
     overrideClasses?: boolean;
     responsive?: boolean;
     team?: ontology.Teamlike;
+    stat?: React.ReactNode;
     onTeamClick?: (teamId: string) => Promise<void>;
 };
 export declare const TopTeamEntry: FC<TopTeamEntryProps>;

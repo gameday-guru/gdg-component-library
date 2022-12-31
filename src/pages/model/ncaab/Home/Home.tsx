@@ -21,7 +21,7 @@ export type HomeProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
-    gameOfTheDay ? : ontology.GameOfTheDaylike;
+    gameOfTheDay ? : ontology.ProjectedGamelike;
     top25Games ? : ontology.ProjectedGamelike[];
     apTop25Teams ? : ontology.RankTrendTeamlike[];
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];

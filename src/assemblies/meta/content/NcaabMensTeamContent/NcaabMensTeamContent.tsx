@@ -33,7 +33,9 @@ export type MensNcaabTeamContentProps = {
     tableEntries ? : ontology.EfficiencyEntrylike[];
     teams ? : { [key : string] : ontology.Teamlike };
     topOffensiveTeams ? : ontology.Teamlike[];
+    topOffensiveTeamsStats ? : React.ReactNode[];
     topDefensiveTeams ? : ontology.Teamlike[];
+    topDefensiveTeamsStats ? : React.ReactNode[];
     onBuildMatchup ? : (home : string, away : string)=>Promise<void>;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
@@ -57,8 +59,10 @@ export const MensNcaabTeamContent : FC<MensNcaabTeamContentProps>  = (props) =>{
                     onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}
                     onBuildMatchup={props.onBuildMatchup}
-                    topOffensiveTeams={props.topOffensiveTeams}
                     topDefensiveTeams={props.topDefensiveTeams}
+                    topDefensiveTeamsStats={props.topDefensiveTeamsStats}
+                    topOffensiveTeams={props.topOffensiveTeams}
+                    topOffensiveTeamsStats={props.topOffensiveTeamsStats}
                     tableEntries={props.tableEntries}
                     teams={props.teams}/>
                 </div>

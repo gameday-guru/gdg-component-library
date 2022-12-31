@@ -22,7 +22,7 @@ export const TOP_TEAM_ENTRY_INNER_CLASSNAMES : string[] = [
 export const TOP_TEAM_ENTRY_INNER_STYLE : React.CSSProperties = {
     alignContent : "center",
     alignItems : "center",
-    gridTemplateColumns : "1fr 6fr"
+    gridTemplateColumns : "1fr 4fr 3fr"
 };
 
 export type TopTeamEntryProps = {
@@ -33,6 +33,7 @@ export type TopTeamEntryProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     team ? : ontology.Teamlike;
+    stat ? : React.ReactNode;
     onTeamClick ? : (teamId : string)=>Promise<void>;
 };
 
@@ -56,6 +57,9 @@ export const TopTeamEntry : FC<TopTeamEntryProps>  = (props) =>{
                 <img height={24} width={24} src={_team.TeamLogoUrl}/>
                 &emsp;
                 {_team.Name}
+                <span style={{
+                    opacity : .5
+                }} className='text-sm'>{props.stat}</span>
             </div>
         </Button>
     )

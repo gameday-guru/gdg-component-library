@@ -9,7 +9,7 @@ export declare type NcaabMensOverviewStackProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     responsive?: boolean;
-    gameOfTheDay?: ontology.GameOfTheDaylike;
+    gameOfTheDay?: ontology.ProjectedGamelike;
     top25Games?: ontology.ProjectedGamelike[];
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;

@@ -167,11 +167,20 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     })[0];
 
     const _topDefensiveTeams = Object.values(efficiency)
-    .sort((a, b)=>b.de - a.de)
+    .sort((a, b)=>a.de - b.de)
     .map((val)=>{
-        return teams[val.team_id]
+        return teams[val.team_id.toString()]
     })
     .filter((val, i)=>i < 25);
+    const _topDefensiveTeamsStats = _topDefensiveTeams
+    .map((team)=>{
+
+        if(!team) return undefined;
+
+        return <>
+            {efficiency[team.TeamID.toString()]?.de.toFixed(1)} DE
+        </>
+    })
 
     const _topOffensiveTeams = Object.values(efficiency)
     .sort((a, b)=>b.oe - a.oe)
@@ -179,6 +188,14 @@ export const Teams : FC<TeamsProps>  = (props) =>{
         return teams[val.team_id]
     })
     .filter((val, i)=>i < 25);
+
+    const _topOffensiveTeamsStats = _topOffensiveTeams
+    .map((team)=>{
+        if(!team) return undefined;
+        return <>
+            {efficiency[team.TeamID.toString()]?.oe.toFixed(1)} OE
+        </>
+    })
 
     const handleBuildMatchup = async (home : string, away : string)=>{
         navigate(`/mock/matchup/${home}/${away}`)
@@ -203,7 +220,9 @@ export const Teams : FC<TeamsProps>  = (props) =>{
         onTeamClick={handleTeamClick}
         onBuildMatchup={handleBuildMatchup}
         topDefensiveTeams={_topDefensiveTeams}
+        topDefensiveTeamsStats={_topDefensiveTeamsStats}
         topOffensiveTeams={_topOffensiveTeams}
+        topOffensiveTeamsStats={_topOffensiveTeamsStats}
         tableEntries={Object.values(efficiency)}
         teams={teams}/>
     )

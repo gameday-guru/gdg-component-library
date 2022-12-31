@@ -13,6 +13,7 @@ export declare type NcaabMensGameOfTheDayProps = {
     overrideClasses?: boolean;
     responsive?: boolean;
     viusage?: viusage.primary.Viusagelike;
+    game?: ontology.GameByDatelike;
     home?: ontology.Teamlike;
     away?: ontology.Teamlike;
     gameProjection?: ontology.ProjectionEntrylike;

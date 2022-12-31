@@ -10,7 +10,9 @@ export declare type TeamMatchupSelectRowProps = {
     overrideClasses?: boolean;
     responsive?: boolean;
     topOffensiveTeams?: ontology.Teamlike[];
+    topOffensiveTeamsStats?: React.ReactNode[];
     topDefensiveTeams?: ontology.Teamlike[];
+    topDefensiveTeamsStats?: React.ReactNode[];
     teams?: {
         [key: string]: ontology.Teamlike;
     };
