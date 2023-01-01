@@ -21,6 +21,8 @@ export type RowTupleProps = {
     responsive ? : boolean;
     line ? : number;
     odds ? : number;
+    home ? : boolean;
+    favored ?  : boolean;
     projectedScore ? : number;
     actualScore ? : number;
 };
@@ -30,6 +32,9 @@ export const RowTuple : FC<RowTupleProps>  = (props) =>{
     const _line = props.line||8;
     const _odds = props.odds||-110;
     const _projectedScore = props.projectedScore||70;
+
+    // let _displayLine = _line;
+    // if(props.home && props.favored) _displayLine === //
 
     return (
         <div
