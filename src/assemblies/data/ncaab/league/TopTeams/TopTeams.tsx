@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../../components';
+import { MockOver } from '../../../../../components/output/MockOver';
 import { ontology } from '../../../../../util';
 import { TopTeamEntry } from '../TopTeamEntry';
 
@@ -38,8 +39,18 @@ export const TopTeams : FC<TopTeamsProps>  = (props) =>{
 
     const _Label = props.Label||<>Top Teams</>
 
-    const _teams = props.teams||Array(25).fill(ontology.MockHome);
-    const teamEntries = _teams.map((team, i)=><TopTeamEntry stat={props.stats?.[i]} onTeamClick={props.onTeamClick} team={team}/>)
+    const _teams : ontology.Teamlike[] = !props.teams||props.teams.length < 1 ? Array(25).fill(ontology.MockHome) : props.teams;
+    const teamEntries = _teams.map((team, i)=>{
+
+        const _team = team||ontology.MockHome;
+        return (
+            <MockOver
+                key={_team.TeamID + `${i}`}
+                Content={<TopTeamEntry stat={props.stats?.[i]} onTeamClick={props.onTeamClick} team={_team}/>}
+                dependencies={[_team]}
+            />
+        )
+    })
 
     return (
         <Wrapper

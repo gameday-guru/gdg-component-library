@@ -2,12 +2,8 @@ import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
 import { viusage } from '../../../../util';
 import { MensCollegeBasketballHeader } from '../../header';
-import { NcaabMensOverview } from '../../../data/ncaab/overview/NcaabMensOverview/NcaabMensOverview';
-import { Teams } from '../../../data/ncaab/team/Teams';
-import { FilterModal } from '../../../../components/output/containers/filter/FilterModal';
 import { ontology } from '../../../../util';
 import { Team } from '../../../data/ncaab/team/Team';
-import { SideTeam } from '../../../data/ncaab/team/SideTeam';
 
 export const MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_CONTAINER_CLASSNAMES : string[] = [
 

@@ -1,4 +1,5 @@
-export interface TeamGameStatsByDatelike {
+import { Mockable } from "./mockable";
+export interface TeamGameStatsByDatelike extends Mockable {
     StatID: number;
     TeamID: number;
     SeasonType: number;
@@ -61,7 +62,7 @@ export interface TeamGameStatsByDatelike {
     FantasyPointsDraftKings?: number;
     FantasyPointsYahoo?: number;
 }
-export interface Periodlike {
+export interface Periodlike extends Mockable {
     PeriodID: number;
     GameID: number;
     Number: number;
@@ -70,7 +71,7 @@ export interface Periodlike {
     AwayScore: number;
     HomeScore: number;
 }
-export interface GameByDatelike {
+export interface GameByDatelike extends Mockable {
     GameID: number;
     Season: number;
     SeasonType: number;
@@ -122,7 +123,7 @@ export interface GameByDatelike {
     Periods: Periodlike[];
     DateTimeUTC?: string;
 }
-export interface Stadiumlike {
+export interface Stadiumlike extends Mockable {
     StadiumID: number;
     Active: boolean;
     Name: string;
@@ -135,7 +136,7 @@ export interface Stadiumlike {
     GeoLat?: number;
     GeoLong?: number;
 }
-export interface Teamlike {
+export interface Teamlike extends Mockable {
     TeamID: number;
     Key: string;
     Active: boolean;
@@ -153,7 +154,7 @@ export interface Teamlike {
     ShortDisplayName: string;
     Stadium?: Stadiumlike;
 }
-export interface ProjectionEntrylike {
+export interface ProjectionEntrylike extends Mockable {
     game_id: number;
     home_team_id: number;
     away_team_id: number;
@@ -163,7 +164,7 @@ export interface ProjectionEntrylike {
 export interface ProjectionTablelike {
     [key: string]: ProjectionEntrylike;
 }
-export interface EfficiencyEntrylike {
+export interface EfficiencyEntrylike extends Mockable {
     team_id: number;
     de: number;
     oe: number;
@@ -172,7 +173,7 @@ export interface EfficiencyEntrylike {
 export interface EfficiencyTablelike {
     [key: string]: EfficiencyEntrylike;
 }
-export interface GameEfficiencyEntrylike {
+export interface GameEfficiencyEntrylike extends Mockable {
     team_id: number;
     game_id: number;
     game_oe: number;
@@ -187,12 +188,12 @@ export declare const MockAway: Teamlike;
 export declare const MockHomeEff: EfficiencyEntrylike;
 export declare const MockAwayEff: EfficiencyEntrylike;
 export declare const MockProjection: ProjectionEntrylike;
-export interface GameOfTheDaylike {
+export interface GameOfTheDaylike extends Mockable {
     home: Teamlike;
     away: Teamlike;
     gameProjection: ProjectionEntrylike;
 }
-export interface ProjectedGamelike {
+export interface ProjectedGamelike extends Mockable {
     home: Teamlike;
     away: Teamlike;
     game: GameByDatelike;
@@ -206,17 +207,18 @@ export declare enum Trend {
     INCREASING = 1
 }
 export declare const getTrend: (a: number | undefined, b: number | undefined) => Trend;
-export interface RankTrendTeamlike {
+export interface RankTrendTeamlike extends Mockable {
     team: Teamlike;
     rank: number;
     trend: Trend;
     efficiency: EfficiencyEntrylike;
 }
-export interface TrendDetaillike {
+export declare const MockRankTrendTeam: RankTrendTeamlike;
+export interface TrendDetaillike extends Mockable {
     last_rank?: number;
     current_rank?: number;
 }
-export interface TrendEntrylike {
+export interface TrendEntrylike extends Mockable {
     team_id: string;
     ap: TrendDetaillike;
     gdg_power_rating: TrendDetaillike;
@@ -224,23 +226,23 @@ export interface TrendEntrylike {
 export interface TrendTablelike {
     [key: string]: TrendEntrylike;
 }
-export interface PointDistributionMemberlike {
+export interface PointDistributionMemberlike extends Mockable {
     freeThrow: number;
     twoPoint: number;
     threePoint: number;
 }
-export interface PointDistributionlike {
+export interface PointDistributionlike extends Mockable {
     defense: PointDistributionMemberlike;
     offense: PointDistributionMemberlike;
 }
 export declare const MockPointDistribution: PointDistributionlike;
-export interface LeagueAverageslike {
+export interface LeagueAverageslike extends Mockable {
     powerRating: number;
     offensiveEfficiency: number;
     defensiveEfficiency: number;
 }
 export declare const MockAverageDistribution: LeagueAverageslike;
-export interface Playerlike {
+export interface Playerlike extends Mockable {
     PlayerID: number;
     FirstName: string;
     LastName: string;
@@ -265,7 +267,7 @@ export interface Playerlike {
     InjuryStartDate?: string;
 }
 export declare const MockPlayer: Playerlike;
-export interface RadarDetaillike {
+export interface RadarDetaillike extends Mockable {
     FieldGoalsMade: number;
     FieldGoalsAttempted: number;
     TwoPointersMade: number;
@@ -286,7 +288,7 @@ export interface RadarDetaillike {
     Points?: number;
     TrueShootingAttempts: number;
 }
-export interface RadarEntrylike {
+export interface RadarEntrylike extends Mockable {
     team_id: string;
     offense: RadarDetaillike;
     defense: RadarDetaillike;

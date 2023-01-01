@@ -5,6 +5,7 @@ import { GamblersTuple } from '../../team/GamblersTuple';
 import { StackedProjection } from '../../team/StackedProjection';
 import { ontology } from '../../../../../util';
 import { Button } from '../../../../../components';
+import { MockOver } from '../../../../../components/output/MockOver';
 
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ 
     "p-4",
@@ -39,10 +40,22 @@ export type TeamMatchupRowProjectionProps = {
 
 export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (props) =>{
 
+    const _game = props.game||ontology.MockHome;
+    const _gameProjection = props.gameProjection||ontology.MockProjectedGame;
+
     const handleMatchupClick = async ()=>{
         if(props.game) 
         props.onMatchupClick && await props.onMatchupClick(props.game.GameID.toString())
     }
+
+    const _gamblersTuple = <MockOver
+        Content={ <GamblersTuple 
+            game={props.game}
+            gameProjection={props.gameProjection}
+            style={{
+                height : "100%"
+            }}/>}
+        dependencies={[_game, _gameProjection]}/>
 
     return (
         <Button
@@ -69,12 +82,7 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
                         gameProjection={props.gameProjection}/>
                 </div>
                 <div>
-                    {props.gamblers !== false && <GamblersTuple 
-                    game={props.game}
-                    gameProjection={props.gameProjection}
-                    style={{
-                        height : "100%"
-                    }}/>}
+                    {props.gamblers !== false && _gamblersTuple}
                 </div>
             </div>
         </Button>

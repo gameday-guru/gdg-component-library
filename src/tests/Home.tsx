@@ -58,7 +58,7 @@ export const Home : FC<HomeProps>  = (props) =>{
     const navigate = useNavigate();
     const [user, loading, error] = useAuthState(auth);
 
-    const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
+    const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}|undefined>(undefined);
     useEffect(()=>{
 
         getGamesInNextWeekTable(new Date())
@@ -118,11 +118,11 @@ export const Home : FC<HomeProps>  = (props) =>{
 
 
     const _apTop25Teams = 
-    Object.values(teams)
+    games && Object.values(teams)
     .filter(team=>(team.ApRank||Number.MAX_SAFE_INTEGER) < 26)
     .sort((teamA, teamB)=>(teamA.ApRank||Number.MIN_SAFE_INTEGER)-(teamB.ApRank||Number.MIN_SAFE_INTEGER));
     const _apTop25RankedTeams : ontology.RankTrendTeamlike[] = [];
-    for(const team of _apTop25Teams){
+    if(_apTop25Teams) for(const team of _apTop25Teams){
 
         _apTop25RankedTeams.push({
             team,
@@ -137,10 +137,10 @@ export const Home : FC<HomeProps>  = (props) =>{
     }
 
     const _top25TeamIds =
-    new Set(_apTop25Teams.map((team)=>team.TeamID));
+    _apTop25Teams && new Set(_apTop25Teams.map((team)=>team.TeamID));
 
     const _gdgTop25Teams = 
-    Object.values(teams)
+    teams && Object.values(teams)
     .sort((teamA, teamB)=>{ 
 
         const trendTableEntryA = trendTable[teamA.TeamID.toString()];
@@ -173,15 +173,15 @@ export const Home : FC<HomeProps>  = (props) =>{
     });
 
     const _top25Games =
-    Object.values(games)
+    games && _top25TeamIds && Object.values(games)
     .filter(game=>_top25TeamIds.has(game.AwayTeamID)||_top25TeamIds.has(game.HomeTeamID))
     .sort((a, b)=>{
         return new Date(a.DateTimeUTC||0).getTime() 
         - new Date(b.DateTimeUTC||0).getTime()
     });
 
-    const _top25ProjectedGames : ontology.ProjectedGamelike[] = [];
-    for(const game of _top25Games)
+    const _top25ProjectedGames : ontology.ProjectedGamelike[] | undefined = _top25Games && [];
+    if(_top25Games && _top25ProjectedGames) for(const game of _top25Games)
         _top25ProjectedGames.push({
             game,
             gameProjection : projectionTable[game.GameID]||MockProjection,
@@ -190,10 +190,11 @@ export const Home : FC<HomeProps>  = (props) =>{
         })
 
     const _gameOfTheDay =
-    _top25ProjectedGames
+    _top25ProjectedGames && _top25ProjectedGames
     .filter(game=>{
+        console.log(game);
         return DateComparison.sameDate(
-            new Date(game.game.DateTimeUTC||0),
+            new Date(game.game.Day||0),
             new Date()
         )
     })

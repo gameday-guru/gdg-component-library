@@ -171,6 +171,7 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     .map((val)=>{
         return teams[val.team_id.toString()]
     })
+    .filter((team)=>team)
     .filter((val, i)=>i < 25);
     const _topDefensiveTeamsStats = _topDefensiveTeams
     .map((team)=>{
@@ -187,6 +188,7 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     .map((val)=>{
         return teams[val.team_id]
     })
+    .filter((team)=>team)
     .filter((val, i)=>i < 25);
 
     const _topOffensiveTeamsStats = _topOffensiveTeams

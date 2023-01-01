@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { ontology } from '../../../../../util';
 import { RowTuple } from '../RowTuple';
 import { SideTeam } from '../SideTeam';
+import { MockOver } from '../../../../../components/output/MockOver';
 
 export const ROW_PROJECTION_CLASSNAMES : string[] = [ 
     "grid",
@@ -38,12 +39,30 @@ export const RowProjection : FC<RowProjectionProps>  = (props) =>{
     : props.gameProjection?.home_team_score;
 
     const _line = props.away ? 
-    Math.abs(props.game?.PointSpread||0)
+    -(props.game?.PointSpread||0)
     : (props.game?.PointSpread||0);
    
     const _odds = props.away ?
     props.game?.AwayPointSpreadPayout 
     : props.game?.HomePointSpreadPayout;
+
+    const _team = props.team||ontology.MockHome;
+    const sideTeam = <MockOver
+        Content={<SideTeam
+            viusage='backdrop'
+            onTeamClick={props.onTeamClick}
+            team={props.team}
+            away={props.away}/>}
+        dependencies={[_team]}/>
+
+    const _game = props.game||ontology.MockGame;
+    const rowTuple = <MockOver
+        Content={<RowTuple 
+            line={_line}
+            odds={_odds ? Number.parseFloat(_odds) : undefined}
+            projectedScore={_projectedScore}
+            actualScore={props.away ? props.game?.AwayTeamScore : props.game?.HomeTeamScore}/>}
+        dependencies={[_game]}/>
 
 
     return (
@@ -51,20 +70,13 @@ export const RowProjection : FC<RowProjectionProps>  = (props) =>{
         className={[...!props.overrideClasses ? ROW_PROJECTION_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? ROW_PROJECTION_STYLE : {}, ...props.style}}>
             <div>
-                <SideTeam
-                    onTeamClick={props.onTeamClick}
-                    team={props.team}
-                    away={props.away}/>
+                {sideTeam}
             </div>
             <div>
                 {/** Leave Empty */}
             </div>
             <div>
-                <RowTuple 
-                    line={_line}
-                    odds={_odds ? Number.parseFloat(_odds) : undefined}
-                    projectedScore={_projectedScore}
-                    actualScore={props.away ? props.game?.AwayTeamScore : props.game?.HomeTeamScore}/>
+                {rowTuple}
             </div>
         </div>
     )

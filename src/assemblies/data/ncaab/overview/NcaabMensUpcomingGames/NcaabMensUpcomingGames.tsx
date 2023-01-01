@@ -34,8 +34,6 @@ export type NcaabMensUpcomingGamesProps = {
 
 export const NcaabMensUpcomingGames : FC<NcaabMensUpcomingGamesProps>  = (props) =>{
 
-    
-
     return (
         <UpcomingGames
         onMatchupClick={props.onMatchupClick}

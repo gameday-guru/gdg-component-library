@@ -1,4 +1,5 @@
 import React, {FC, ReactElement} from 'react';
+import { MockOver } from '../../../../../components/output/MockOver';
 import { ontology } from '../../../../../util';
 import { Teamlike } from '../../../../../util/ontology';
 import { GameLogAndTeamMembers } from '../GameLogAndTeamMembers';
@@ -35,15 +36,21 @@ export type TeamProps = {
 
 export const Team : FC<TeamProps>  = (props) =>{
 
+    const _team = props.team||ontology.MockHome;
+
+    const sideTeam = <MockOver
+        Content={<SideTeam
+            viusage='backdrop'
+            onTeamClick={props.onTeamClick}
+            team={props.team}/>}
+        dependencies={[_team]}/>
+
     return (
         <div
         className={[...!props.overrideClasses ? TEAM_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TEAM_STYLE : {}, ...props.style}}>
             <div>
-                <SideTeam 
-                onTeamClick={props.onTeamClick}
-                viusage='backdrop'
-                team={props.team}/>
+                {sideTeam}
             </div>
             <div>
                 <TeamStatTripleRow

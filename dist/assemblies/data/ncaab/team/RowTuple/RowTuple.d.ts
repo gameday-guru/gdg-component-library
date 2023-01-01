@@ -10,6 +10,8 @@ export declare type RowTupleProps = {
     responsive?: boolean;
     line?: number;
     odds?: number;
+    home?: boolean;
+    favored?: boolean;
     projectedScore?: number;
     actualScore?: number;
 };

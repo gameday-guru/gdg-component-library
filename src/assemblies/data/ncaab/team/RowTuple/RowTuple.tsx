@@ -29,12 +29,9 @@ export type RowTupleProps = {
 
 export const RowTuple : FC<RowTupleProps>  = (props) =>{
 
-    const _line = props.line||8;
-    const _odds = props.odds||-110;
-    const _projectedScore = props.projectedScore||70;
-
-    // let _displayLine = _line;
-    // if(props.home && props.favored) _displayLine === //
+    const _line = props.line||"--";
+    const _odds = props.odds||"--";
+    const _projectedScore = props.projectedScore?.toFixed(1)||"--";
 
     return (
         <div
@@ -59,7 +56,7 @@ export const RowTuple : FC<RowTupleProps>  = (props) =>{
                     height : "100%"
                 }}
                 Label={"Projected Score"}
-                Value={_projectedScore.toFixed(1)}/>
+                Value={_projectedScore}/>
             {props.actualScore && <StackedPostblock
                 style={{
                     height : "100%"

@@ -1,0 +1,20 @@
+import React, { FC } from 'react';
+import { Mockable } from '../../../util/ontology/mockable';
+export declare const MOCK_OVER_CLASSNAMES: string[];
+export declare const MOCK_OVER_STYLE: React.CSSProperties;
+export declare type MockOverProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    Content?: React.ReactNode;
+    dependencies?: Mockable[];
+    count?: number;
+    circle?: boolean;
+    baseColor?: string;
+    highlightColor?: string;
+    Skeleton?: React.ReactNode;
+};
+export declare const MockOver: FC<MockOverProps>;

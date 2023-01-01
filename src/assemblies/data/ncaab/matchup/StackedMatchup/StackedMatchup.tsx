@@ -7,6 +7,7 @@ import { ProjectionWinPercentage } from '../../team/ProjectionWinPercentage';
 import { ontology } from '../../../../../util';
 import { MockGame, MockProjection } from '../../../../../util/ontology';
 import { Button } from '../../../../../components';
+import { MockOver } from '../../../../../components/output/MockOver';
 
 export const STACKED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [
     "rounded-lg",
@@ -51,6 +52,16 @@ export const StackedMatchup : FC<StackedMatchupProps>  = (props) =>{
         props.onMatchupClick && props.onMatchupClick(_game.GameID.toString());
     }
 
+    const _dateString = <MockOver
+        Content={<DateString date={new Date((props.game as any)?.DateTime||0)}/>}
+        dependencies={[_game]}/>
+
+    const _rowProjectionZeroSum = <MockOver
+        Content={<ProjectionZeroSum
+            homeScore={_gameProjection.home_team_score}
+            awayScore={_gameProjection.away_team_score}/>}
+        dependencies={[_gameProjection]}/>
+
     return (
         <Button
             onClick={handleMatchupClick}
@@ -62,7 +73,7 @@ export const StackedMatchup : FC<StackedMatchupProps>  = (props) =>{
                 justifyContent : "center",
                 justifyItems : "center"
             }}>
-                <DateString date={new Date((props.game as any)?.DateTime||0)}/>
+                {_dateString}
             </div>
             <br/>
             <div
@@ -80,9 +91,7 @@ export const StackedMatchup : FC<StackedMatchupProps>  = (props) =>{
                     alignContent : "center",
                     gridTemplateColumns : "1fr"
                 }}>
-                    <ProjectionZeroSum
-                        homeScore={_gameProjection.home_team_score}
-                        awayScore={_gameProjection.away_team_score}/>
+                    {_rowProjectionZeroSum}
                 </div>
             </div>
         </Button>

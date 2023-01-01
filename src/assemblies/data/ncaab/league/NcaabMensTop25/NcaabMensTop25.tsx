@@ -1,5 +1,6 @@
 import React, {FC, ReactElement, useState} from 'react';
 import { Wrapper } from '../../../../../components';
+import { MockOver } from '../../../../../components/output/MockOver';
 import { ontology, viusage } from '../../../../../util';
 import { DateString } from '../../generic';
 import { NcaabMensTop25Entry } from '../NcaabMensTop25Entry';
@@ -37,29 +38,41 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
 
     const [which, setWhich] = useState<"ap"|"gdg">(props.which||"ap");
 
-    const _apTop25 = (props.apTop25||[])
+    const _apTop25 = (
+        !props.gdgTop25||props.gdgTop25?.length < 1 ? Array(25).fill(ontology.MockRankTrendTeam) : props.gdgTop25
+    )
     .map((entry)=>{
         return (
-            <NcaabMensTop25Entry 
-                onTeamClick={props.onTeamClick}
-                key={entry.team.TeamID}
-                team={entry.team}
-                rank={entry.rank}
-                trend={entry.trend}
-                efficiency={entry.efficiency}/>
+            <MockOver
+                key={entry.team.TeamId}
+                Content={<NcaabMensTop25Entry 
+                    onTeamClick={props.onTeamClick}
+                    key={entry.team.TeamID}
+                    team={entry.team}
+                    rank={entry.rank}
+                    trend={entry.trend}
+                    efficiency={entry.efficiency}/>}
+                dependencies={[entry]}/>
+    
         )
     });
 
-    const _gdgTop25 = (props.gdgTop25||[])
+    const _gdgTop25 = (
+        !props.gdgTop25||props.gdgTop25?.length < 1 ? Array(25).fill(ontology.MockRankTrendTeam) : props.gdgTop25
+    )
     .map((entry)=>{
         return (
-            <NcaabMensTop25Entry 
-                onTeamClick={props.onTeamClick}
-                key={entry.team.TeamID}
-                team={entry.team}
-                rank={entry.rank}
-                trend={entry.trend}
-                efficiency={entry.efficiency}/>
+            <MockOver
+                key={entry.team.TeamId}
+                Content={<NcaabMensTop25Entry 
+                    onTeamClick={props.onTeamClick}
+                    key={entry.team.TeamID}
+                    team={entry.team}
+                    rank={entry.rank}
+                    trend={entry.trend}
+                    efficiency={entry.efficiency}/>}
+                dependencies={[entry]}/>
+        
         )
     })
 

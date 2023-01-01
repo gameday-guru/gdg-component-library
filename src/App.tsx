@@ -20,6 +20,7 @@ import {
 import { Matchups } from './tests/Matchups';
 import { Matchup } from './tests/Matchup';
 import { MockMatchup } from './tests/MockMatchup';
+import 'react-loading-skeleton/dist/skeleton.css'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

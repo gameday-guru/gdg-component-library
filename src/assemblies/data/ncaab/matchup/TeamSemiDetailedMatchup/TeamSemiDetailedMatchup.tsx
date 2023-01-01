@@ -6,6 +6,7 @@ import { ProjectionZeroSum } from '../../team/ProjectionZeroSum';
 import { ProjectionWinPercentage } from '../../team/ProjectionWinPercentage';
 import { ontology } from '../../../../../util';
 import { Viusagelike } from '../../../../../util/viusage/primary';
+import { MockOver } from '../../../../../components/output/MockOver';
 
 export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [ ];
 export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {
@@ -41,10 +42,27 @@ export type TeamSemiDetailedMatchupProps = {
 
 export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (props) =>{
 
+    const _home = props.home||ontology.MockHome;
+    const _away = props.away||ontology.MockAway;
+    const _gameProjection = props.gameProjection||ontology.MockProjectedGame.gameProjection;
+
     const handleMatchupClick = async ()=>{
         console.log(props.game);
         if(props.game) props.onMatchupClick && props.onMatchupClick(props.game.GameID.toString())
     }
+
+    const _rowProjectionZeroSum = <MockOver
+        Content={<ProjectionZeroSum
+            homeScore={_gameProjection.home_team_score}
+            awayScore={_gameProjection.away_team_score}/>}
+        dependencies={[_gameProjection]}/>
+
+    const _projectionWinPercentage = <MockOver
+        Content={<ProjectionWinPercentage 
+            homeTeam={_home}
+            awayTeam={_away}
+            gameProjection={_gameProjection}/>}
+            dependencies={[_home, _away, _gameProjection]}/>
 
     return (
         <Button
@@ -77,13 +95,8 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
                     alignContent : "center",
                     gridTemplateColumns : "1fr 1fr"
                 }}>
-                    <ProjectionZeroSum
-                        homeScore={props.gameProjection?.home_team_score}
-                        awayScore={props.gameProjection?.away_team_score}/>
-                    <ProjectionWinPercentage 
-                        homeTeam={props.home}
-                        awayTeam={props.away}
-                        gameProjection={props.gameProjection}/>
+                    {_rowProjectionZeroSum}
+                    {_projectionWinPercentage}
                 </div>
             </div>
         </Button>
