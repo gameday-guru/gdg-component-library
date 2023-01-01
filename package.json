@@ -1,6 +1,6 @@
 {
   "name": "gdg-clib",
-  "version": "0.1.64",
+  "version": "0.1.65",
   "main": "./dist/gdg-clib.umd.js",
   "module": "./dist/gdg-clib.es.js",
   "types": "./dist/index.d.ts",
@@ -36,6 +36,7 @@
     "react-dev-utils": "^12.0.1",
     "react-dom": "^18.1.0",
     "react-firebase-hooks": "^5.1.1",
+    "react-loading-skeleton": "^3.1.0",
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.4.3",
     "react-spinners": "^0.13.4",
