@@ -105,7 +105,7 @@ export const TeamGaguruStatsBarChart : FC<TeamGaguruStatsBarChartProps>  = (prop
                         </div>
                         &emsp;
                         <div>
-                        {_team.Name}
+                        {_team.School}
                         </div>
                     </div>
                     <div style={{

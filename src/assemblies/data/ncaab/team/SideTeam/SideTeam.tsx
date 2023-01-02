@@ -45,7 +45,7 @@ export const SideTeam : FC<SideTeamProps>  = (props) =>{
                 <img width={60} src={team.TeamLogoUrl}/>
             </div>
             <div>
-                <h2 className='text'>{team.Name}</h2>
+                <h2 className='text'>{team.School}</h2>
                 <h2 className='text-sm'>{props.away ? "Away" : "Home"}</h2>
             </div>
         </Button>

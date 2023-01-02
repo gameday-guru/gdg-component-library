@@ -81,7 +81,7 @@ export const NcaabMensTop25Entry : FC<NcaabMensTop25EntryProps>  = (props) =>{
                     }}>
                         <img height={24} width={24} src={_team.TeamLogoUrl}/>
                         &emsp;
-                        {_team.Name}
+                        {_team.School}
                     </div>
                 </div>
                 <div 

@@ -56,7 +56,7 @@ export const TopTeamEntry : FC<TopTeamEntryProps>  = (props) =>{
             style={{...!props.overrideStyle ? TOP_TEAM_ENTRY_INNER_STYLE : {}, ...props.style}}>
                 <img height={24} width={24} src={_team.TeamLogoUrl}/>
                 &emsp;
-                {_team.Name}
+                {_team.School}
                 <span style={{
                     opacity : .5
                 }} className='text-sm'>{props.stat}</span>

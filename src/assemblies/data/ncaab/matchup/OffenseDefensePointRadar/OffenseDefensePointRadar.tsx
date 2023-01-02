@@ -115,7 +115,7 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                         </div>
                         &emsp;
                         <div>
-                        {_offensiveTeam.Name} {props.reverse ? "(DEF)" : "(OFF)"}
+                        {_offensiveTeam.School} {props.reverse ? "(DEF)" : "(OFF)"}
                         </div>
                     </div>
                     <div style={{
@@ -133,7 +133,7 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                         </div>
                         &emsp;
                         <div>
-                        {_defensiveTeam.Name} {props.reverse ? "(OFF)" : "(DEF)"}
+                        {_defensiveTeam.School} {props.reverse ? "(OFF)" : "(DEF)"}
                         </div>
                     </div>
                 </div>

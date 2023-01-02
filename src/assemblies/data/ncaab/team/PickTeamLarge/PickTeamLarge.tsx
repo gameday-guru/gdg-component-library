@@ -29,7 +29,7 @@ export const PickTeamLarge : FC<PickTeamLargeProps>  = (props) =>{
     const handleTextSearch = (text : string)=>{
         const searchTeams = _teams.filter((team)=>{
             return (text.length < 1) 
-            || text.toLowerCase().includes(team.Name.toLowerCase())
+            || text.toLowerCase().includes(team.School.toLowerCase())
             || text.toLowerCase().includes(team.School.toLowerCase());
         })
         setFilteredTeams(searchTeams);

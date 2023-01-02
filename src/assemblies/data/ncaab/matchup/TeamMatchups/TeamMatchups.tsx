@@ -50,7 +50,7 @@ export const TeamMatchups : FC<TeamMatchupsProps>  = (props) =>{
         style={{...!props.overrideStyle ? TEAM_MATCHUPS_STYLE : {}, ...props.style}}>
             <h2 style={{
                 textAlign : 'left'
-            }} className='text-lg'>{_team.Name} Matchups</h2>
+            }} className='text-lg'>{_team.School} Matchups</h2>
             <hr/>
             <div className='grid gap-4'>
                 {matchupEntries}
