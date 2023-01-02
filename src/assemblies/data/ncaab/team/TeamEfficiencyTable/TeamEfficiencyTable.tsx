@@ -137,7 +137,7 @@ export const compareRecord = (a ? : [number, number, number], b ? : [number, num
 }
 
 export const compareTeam = (a : Teamlike, b : Teamlike)=>{
-    return a.Name.localeCompare(b.Name);
+    return a.School.localeCompare(b.School);
 }
 
 export const MockTableEntries : TeamEfficiencyTableEntrylike[] = [

@@ -111,7 +111,7 @@ export const MatchupComparisonStatsBarChart : FC<MatchupComparisonStatsBarChartP
                         </div>
                         &emsp;
                         <div>
-                        {_home.Name}
+                        {_home.School}
                         </div>
                     </div>
                     <div style={{
@@ -129,7 +129,7 @@ export const MatchupComparisonStatsBarChart : FC<MatchupComparisonStatsBarChartP
                         </div>
                         &emsp;
                         <div>
-                        {_away.Name}
+                        {_away.School}
                         </div>
                     </div>
                 </div>

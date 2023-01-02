@@ -50,11 +50,11 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
 
     const data = [
         {
-            name : _home.Name,
+            name : _home.School,
             value : _homePythagoreanWin
         },
         {
-            name : _away.Name,
+            name : _away.School,
             value :_awayPythagoreanWin
         }
     ];
@@ -111,7 +111,7 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
                         </div>
                         &emsp;
                         <div>
-                        {_home.Name}
+                        {_home.School}
                         </div>
                     </div>
                     <div style={{
@@ -129,7 +129,7 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
                         </div>
                         &emsp;
                         <div>
-                        {_away.Name}
+                        {_away.School}
                         </div>
                     </div>
                 </div>
