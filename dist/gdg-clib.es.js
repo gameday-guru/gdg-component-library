@@ -30291,7 +30291,7 @@ const sue = I4, cue = ["rounded-lg"], lue = {}, U0 = (e) => {
     away: s.away,
     game: s.game,
     gameProjection: s.gameProjection
-  }, s.game.GameID));
+  }, s.game.GameID + `${c}`));
   return /* @__PURE__ */ v(Ae, {
     viusage: e.viusage || "wrap",
     classNames: [...e.overrideClasses ? [] : Sue, ...e.classNames || []],

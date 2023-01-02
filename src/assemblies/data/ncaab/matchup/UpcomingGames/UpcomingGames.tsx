@@ -53,7 +53,7 @@ export const UpcomingGames : FC<UpcomingGamesProps>  = (props) =>{
             <TeamMatchupRowProjection 
                 onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
-                key={entry.game.GameID}
+                key={entry.game.GameID + `${i}`}
                 home={entry.home}
                 away={entry.away}
                 game={entry.game}
