@@ -19,6 +19,12 @@ import {
   } from "firebase/auth";
   import { useNavigate, useParams } from 'react-router-dom';
   import { useAuthState } from 'react-firebase-hooks/auth';
+  import { useLeagueAverages } from '../logic/processing/react/useLeagueAverages';
+import { useProjectedGames } from '../logic/processing/react/useProjectedGames';
+import { useTeams } from '../logic/processing/react/useTeams';
+import { usePointDistribution } from '../logic/processing/react/usePointDistribution';
+import { useEfficiency } from '../logic/processing/react/useEfficiency';
+import { usePlayers } from '../logic/processing/react/usePlayers';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -58,122 +64,46 @@ export const Team : FC<TeamProps>  = (props) =>{
     const navigate = useNavigate();
     const { id } = useParams();
     const [user, loading, error] = useAuthState(auth);
+    const now = new Date();
+    const monthAgo = new Date(now);
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    const weekFromNow = new Date(now);
+    weekFromNow.setDate(weekFromNow.getDate() + 7);
 
-    const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
-    useEffect(()=>{
+    const { 
+        getLeagueAverages
+    } = useLeagueAverages();
 
-        getGamesInNextMonthTable(new Date())
-        .then((data)=>{
-            setGames(data);
-        });
+    const {
+        getProjectedGamesTableBetween,
+        getProjectedGamesTableBetweenForTeam
+    } = useProjectedGames();
 
-    }, []);
+    const {
+        getTeamsTable
+    } = useTeams();
+    const teams = getTeamsTable();
 
-    const [teams, setTeams] = useState<{
-        [key : string] : ontology.Teamlike
-    }>({});
-    useEffect(()=>{
+    const {
+        getPointDistribution
+    } = usePointDistribution();
 
-        getTeamsTable()
-        .then((data)=>{
-            setTeams(data);
-        });
+    const {
+        getEfficiencyTable
+    } = useEfficiency();
+    const efficiency = getEfficiencyTable();
 
-    }, []);
+    const { 
+        getPlayers
+    } = usePlayers();
+    let players = undefined;
+    if(id && teams && teams[id]) players = getPlayers(teams[id]);
 
-    const [efficiency, setEfficiency] = useState<{
-        [key : string] : ontology.EfficiencyEntrylike
-    }>({});
-    useEffect(()=>{
+    let team = undefined;
+    if(id && teams) team = teams[id];
+    const teamDistro = team && getPointDistribution(team);
+    const teamGames = team && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, team);
 
-        getEfficiencyTable()
-        .then((data)=>{
-            setEfficiency(data);
-        });
-
-    }, []);
-
-    const [projectionTable, setProjectionTable] = useState<ontology.ProjectionTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getProjectionTable()
-        .then((data)=>{
-            setProjectionTable(data);
-        });
-
-    }, []);
-
-    const [radarTable, setRadarTable] = useState<ontology.RadarTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getRadarTable()
-        .then((data)=>{
-            setRadarTable(data);
-        });
-
-    }, []);
-
-    const [players, setPlayers] = useState<ontology.Playerlike[]>([]);
-    useEffect(()=>{
-
-        if(id && teams[id]){
-            getPlayers(teams[id])
-            .then((data)=>{
-                setPlayers(data);
-            })
-        }
-
-    }, [id && teams[id]])
-
-    let sumOe = 0;
-    let sumDe = 0;
-    let sumPower = 0;
-    let count = 0;
-    for(const team of Object.values(teams)){
-        const eff = efficiency[team.TeamID.toString()];
-        if(!eff) continue;
-        ++count;
-        sumOe += eff.oe;
-        sumDe += eff.de;
-        sumPower += (.56 * eff.oe) - (.44 * eff.de)
-    }
-
-    const _leagueAverages : ontology.LeagueAverageslike = {
-        offensiveEfficiency : sumOe/count,
-        defensiveEfficiency : sumDe/count,
-        powerRating : sumPower/count
-    }
-
-    const _teamGames : ontology.ProjectedGamelike[] = [];
-    for(const game of Object.values(games))
-        if(
-            game.HomeTeamID.toString() === id
-            || game.AwayTeamID.toString() === id
-        ) _teamGames.push({
-            game,
-            gameProjection : projectionTable[game.GameID]||MockProjection,
-            home : teams[game.HomeTeamID.toString()],
-            away : teams[game.AwayTeamID.toString()]
-        })
-
-    const radarEntry = id ? radarTable[id] : undefined;
-    let _pointDistribution : PointDistributionlike | undefined = undefined;
-    if(radarEntry) _pointDistribution = {
-        offense : {
-            freeThrow : radarEntry.offense.FreeThrowsMade,
-            twoPoint : radarEntry.offense.TwoPointersMade * 2,
-            threePoint : radarEntry.offense.ThreePointersMade * 3
-        },
-        defense : {
-            freeThrow : radarEntry.defense.FreeThrowsMade,
-            twoPoint : radarEntry.defense.TwoPointersMade * 2,
-            threePoint : radarEntry.defense.ThreePointersMade * 3
-        }
-    }
 
     if(!user && !loading) navigate("/");
 
@@ -193,11 +123,11 @@ export const Team : FC<TeamProps>  = (props) =>{
         onWhich={async (which)=>{
             navigate("/" + which)
         }}
-        efficiency={id ? efficiency[id] : undefined}
-        pointDistribution={_pointDistribution}
-        leagueAverages={_leagueAverages}
-        games={_teamGames}
-        team={id ? teams[id] : undefined}
-        tableEntries={Object.values(efficiency)}/>
+        efficiency={id && efficiency ? efficiency[id] : undefined}
+        pointDistribution={teamDistro}
+        leagueAverages={getLeagueAverages()}
+        games={teamGames && Object.values(teamGames)}
+        team={team}
+        tableEntries={efficiency && Object.values(efficiency)}/>
     )
 };

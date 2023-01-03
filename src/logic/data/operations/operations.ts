@@ -11,7 +11,8 @@ export interface MultiStorelike<A, T> extends Storelike<A, T> {
 
 export enum FetchPolicy {
     FIFO = "FIFO",
-    DRACE = "DRACE"
+    DRACE = "DRACE",
+    EAGER = "EAGER"
 }
 
 export enum ListenMessage {
@@ -19,10 +20,18 @@ export enum ListenMessage {
     CONTINUE = "CONTINUE"
 }
 
-export interface Listenerlike<A, T> extends Storelike<A, T> {
+export interface Listenerlike<A, T> {
     listen(path : A, cb : (data : T | undefined, msg : ListenMessage)=>void|Promise<void>, policy ? : FetchPolicy) : void;
 }
 
-export interface MultiListenerlike<A, T> extends MultiStorelike<A, T> {
-    listen(path : A, cb : (data : T | undefined, msg : ListenMessage)=>void|Promise<void>, policy ? : FetchPolicy) : void;
+export interface Monitorlike<A, T> {
+    // monitor(path : A, cb : (data : T | undefined, msg : ListenMessage)=>void|Promise<void>, policy ? : FetchPolicy) : void;
+}
+
+export interface PowerStorelike<A, T> extends Storelike<A,T>, Listenerlike<A, T>, Monitorlike<A,T> { 
+
+}
+
+export interface MultiPowerStorelike<A, T> extends MultiStorelike<A,T>, Listenerlike<A, T>, Monitorlike<A,T> { 
+
 }

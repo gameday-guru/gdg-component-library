@@ -1,7 +1,7 @@
-import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../data/cache/cache";
-import { ontology } from "../../../util";
-import { getEfficiencyTable } from "../../../util/rpc";
-import { MultiCache } from "../../data/cache/multicache";
+import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../cache/cache";
+import { ontology } from "../../../../util";
+import { getEfficiencyTable } from "../../../../util/rpc";
+import { MultiCache } from "../../../data/cache/multicache";
 
 export class GamedayGuruEfficiency implements DispositionalCachelike<undefined, ontology.EfficiencyTablelike> {
 
@@ -20,6 +20,6 @@ export class GamedayGuruEfficiency implements DispositionalCachelike<undefined, 
 
 export const EfficiencyMultiCache = new MultiCache<undefined, ontology.EfficiencyTablelike>([
     new MemCache(CacheDisposition.MUST),
-    new LocalStorageCache(CacheDisposition.AUX),
+    new LocalStorageCache("Efficiency", CacheDisposition.AUX),
     new GamedayGuruEfficiency()
 ]);

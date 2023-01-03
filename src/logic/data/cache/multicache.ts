@@ -1,7 +1,7 @@
 import { DispositionalCachelike, Cachelike, CacheDisposition } from "./cache";
-import { Listenerlike, MultiListenerlike, FetchPolicy, ListenMessage } from "../../operations";
+import { Listenerlike, MultiPowerStorelike, FetchPolicy, ListenMessage } from "../operations";
 
-export interface MultiCachelike<A, T> extends DispositionalCachelike<A, T>, MultiListenerlike<A, T> {
+export interface MultiCachelike<A, T> extends DispositionalCachelike<A, T>, MultiPowerStorelike<A, T> {
     // new (cacheOrder ? : DispositionalCachelike<A, T>[]) : MultiCachelike<A, T>;
     pushCache(...cache : DispositionalCachelike<A, T>[]) : void;
     popCache() : DispositionalCachelike<A, T>|undefined;
@@ -12,6 +12,8 @@ export interface MultiCachelike<A, T> extends DispositionalCachelike<A, T>, Mult
 export class MultiCache<A, T> implements MultiCachelike<A, T> {
 
     private cacheOrder : DispositionalCachelike<A, T>[];
+    private monitors : {[key : string] : ((data : T | undefined, msg : ListenMessage) => void | Promise<void>)[]};
+    private safeKey : Symbol = Symbol();
 
     /**
      * 
@@ -19,6 +21,7 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
      */
     constructor(cacheOrder ? : DispositionalCachelike<A, T>[]){
         this.cacheOrder = cacheOrder||[];
+        this.monitors = {};
     }
 
     /**
@@ -52,10 +55,10 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
             for(const [i, cache] of this.cacheOrder.entries()){
                 switch(cache.disposition){
 
+
                     case CacheDisposition.FINAL : {
 
                         // NO SET
-
                         cache.get(path)
                         .then((data)=>{ 
                             finalLock = true;
@@ -65,6 +68,7 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
                             // set all of those that came before
                             for(const inferiorCache of this.cacheOrder.slice(0, i))
                                 if(res) inferiorCache.set(path, res);
+                            
 
                         });
 
@@ -80,6 +84,7 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
                             if(i > this.cacheOrder.length - 2) cb(res, ListenMessage.END);
                             cb(res, ListenMessage.CONTINUE);
 
+                            
                             // set all of those that came before
                             for(const inferiorCache of this.cacheOrder.slice(0, i))
                                 if(res) inferiorCache.set(path, res);
@@ -94,6 +99,7 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
                         cache.get(path)
                         .then((data)=>{
                             res = data;
+                            if(!res) return;
                             if(i > this.cacheOrder.length - 2) cb(res, ListenMessage.END);
                             cb(res, ListenMessage.CONTINUE);
 
@@ -126,6 +132,7 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
 
         let res : T | undefined = undefined;
         for(const [i, cache] of this.cacheOrder.entries()){
+
             switch(cache.disposition){
 
                 case CacheDisposition.FINAL : {
@@ -176,6 +183,25 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
 
     }
 
+     /**
+     * 
+     * @param path 
+     * @param cb 
+     * @returns 
+     */
+     async eagerGet(path : A, cb : ((data : T | undefined, msg : ListenMessage) => void | Promise<void>)) : Promise<void> {
+
+        let res : T | undefined = undefined;
+        for(const [i, cache] of this.cacheOrder.entries()){
+
+            const res = await cache.get(path);
+            await cb(res, ListenMessage.END);
+            if(res !== undefined) return;
+
+        }
+
+    }
+
     /**
      * 
      * @param path 
@@ -187,6 +213,7 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
         cb : ((data : T | undefined, msg : ListenMessage) => void | Promise<void>),
         policy ? : FetchPolicy
     ): void {
+
 
         switch (policy) {
 
@@ -201,6 +228,14 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
             case FetchPolicy.FIFO : {
 
                 this.dispositionalFifoGet(path, cb);
+
+                break;
+
+            }
+
+            case FetchPolicy.EAGER : {
+
+                this.eagerGet(path, cb);
 
                 break;
 
@@ -286,5 +321,11 @@ export class MultiCache<A, T> implements MultiCachelike<A, T> {
         return await this.setThrough(path, value);
 
     }
+
+    /*async runMonitors(path : A, value : T){
+
+        for(const monitor of this.monitors)
+
+    }*/
 
 }

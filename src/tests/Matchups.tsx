@@ -18,6 +18,7 @@ import {
     signInWithEmailAndPassword
   } from "firebase/auth";
   import { useAuthState } from 'react-firebase-hooks/auth';
+import { useOnceProcessor } from '../logic/processing/react/reactProcessor';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -60,81 +61,10 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
 
     const [user, loading, error] = useAuthState(auth);
 
-    const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
-    useEffect(()=>{
-
-        getGamesInNextMonthTable(new Date())
-        .then((data)=>{
-            setGames(data);
-        });
-
-    }, []);
-
-    const [teams, setTeams] = useState<{
-        [key : string] : ontology.Teamlike
-    }>({});
-    useEffect(()=>{
-
-        getTeamsTable()
-        .then((data)=>{
-            setTeams(data);
-        });
-
-    }, []);
-
-    const [efficiency, setEfficiency] = useState<{
-        [key : string] : ontology.EfficiencyEntrylike
-    }>({});
-    useEffect(()=>{
-
-        getEfficiencyTable()
-        .then((data)=>{
-            setEfficiency(data);
-        });
-
-    }, []);
-
-    const [projectionTable, setProjectionTable] = useState<ontology.ProjectionTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getProjectionTable()
-        .then((data)=>{
-            setProjectionTable(data);
-        });
-
-    }, []);
-
-    const _projectedGames : ontology.ProjectedGamelike[] = [];
-    for(const game of Object.values(games))
-        if(
-            efficiency[game.HomeTeamID.toString()] 
-            && efficiency[game.AwayTeamID.toString()]
-            && new Date(game.DateTimeUTC||0).getTime() > now.getTime()
-        )
-             _projectedGames.push({
-            game,
-            gameProjection : projectionTable[game.GameID]||MockProjection,
-            home : teams[game.HomeTeamID.toString()],
-            away : teams[game.AwayTeamID.toString()]
-        });
-    
-
-    const _projectedGamesThisWeek : ontology.ProjectedGamelike[] = _projectedGames
-    .filter((game)=>{
-        const eow = new Date();
-        eow.setHours(0);
-        eow.setDate(eow.getDate() + 7)
-
-        const gameDate = new Date(game.game.DateTimeUTC||0); 
-        return gameDate.getTime() < eow.getTime()
-        && gameDate.getTime() > now.getTime()
-    })
-    .sort((gameA, gameB)=>{
-        return new Date(gameA.game.DateTimeUTC||0).getTime() 
-        - new Date(gameB.game.DateTimeUTC||0).getTime() 
-    });
+    const {
+        getProjectedGamesInNextMonthTable,
+        getProjectedGamesInNextWeekTable
+    } = useOnceProcessor();
 
     if(!user && !loading) navigate("/");
 
@@ -146,13 +76,17 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
         navigate(`/matchup/${gameId}`)
     };
 
+    const weeksGames = getProjectedGamesInNextWeekTable(now);
+    const monthsGames = getProjectedGamesInNextMonthTable(now);
+
+
     return (
         <MatchupsPage onWhich={async (which)=>{
             navigate("/" + which);
         }}
         onTeamClick={handleTeamClick}
         onMatchupClick={handleMatchupClick}
-        allUpcomingGames={_projectedGames}
-        gamesThisWeek={_projectedGamesThisWeek}/>
+        allUpcomingGames={monthsGames && Object.values(monthsGames)}
+        gamesThisWeek={weeksGames && Object.values(weeksGames)}/>
     )
 };

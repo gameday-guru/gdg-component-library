@@ -1,7 +1,7 @@
-import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../data/cache/cache";
-import { ontology } from "../../../util";
-import { getProjectionTable } from "../../../util/rpc";
-import { MultiCache } from "../../data/cache/multicache";
+import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../cache/cache";
+import { ontology } from "../../../../util";
+import { getProjectionTable } from "../../../../util/rpc";
+import { MultiCache } from "../../../data/cache/multicache";
 
 export class GamedayGuruProjection implements DispositionalCachelike<undefined, ontology.ProjectionTablelike> {
 
@@ -20,6 +20,6 @@ export class GamedayGuruProjection implements DispositionalCachelike<undefined, 
 
 export const ProjectionMultiCache = new MultiCache<undefined, ontology.ProjectionTablelike>([
     new MemCache(CacheDisposition.MUST),
-    new LocalStorageCache(CacheDisposition.AUX),
+    new LocalStorageCache("Projections", CacheDisposition.AUX),
     new GamedayGuruProjection()
 ]);

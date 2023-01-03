@@ -1,7 +1,7 @@
-import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../data/cache/cache";
-import { ontology } from "../../../util";
-import { getPlayers } from "../../../util/firebase";
-import { MultiCache } from "../../data/cache/multicache";
+import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../cache/cache";
+import { ontology } from "../../../../util";
+import { getPlayers } from "../../../../util/firebase";
+import { MultiCache } from "../../../data/cache/multicache";
 
 export class SportsDataioPlayers implements DispositionalCachelike<ontology.Teamlike, ontology.Playerlike[]> {
 
@@ -20,6 +20,6 @@ export class SportsDataioPlayers implements DispositionalCachelike<ontology.Team
 
 export const PlayersMultiCache = new MultiCache<ontology.Teamlike, ontology.Playerlike[]>([
     new MemCache(CacheDisposition.MUST),
-    new LocalStorageCache(CacheDisposition.AUX),
+    new LocalStorageCache("Players", CacheDisposition.AUX),
     new SportsDataioPlayers()
 ]);

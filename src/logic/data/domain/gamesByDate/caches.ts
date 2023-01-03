@@ -1,7 +1,7 @@
-import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../data/cache/cache";
-import { ontology } from "../../../util";
-import { getGamesByDate } from "../../../util/firebase";
-import { MultiCache } from "../../data/cache/multicache";
+import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../cache/cache";
+import { ontology } from "../../../../util";
+import { getGamesByDate } from "../../../../util/firebase";
+import { MultiCache } from "../../../data/cache/multicache";
 
 export class SportsDataioGamesByDate implements DispositionalCachelike<Date, ontology.GameByDatelike[]> {
 
@@ -20,6 +20,6 @@ export class SportsDataioGamesByDate implements DispositionalCachelike<Date, ont
 
 export const GamesByDateMultiCache = new MultiCache<Date, ontology.GameByDatelike[]>([
     new MemCache(CacheDisposition.MUST),
-    new LocalStorageCache(CacheDisposition.AUX),
+    new LocalStorageCache("GamesByDate", CacheDisposition.AUX),
     new SportsDataioGamesByDate()
 ]);

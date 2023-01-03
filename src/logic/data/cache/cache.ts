@@ -1,4 +1,5 @@
-import { Storelike } from "../../operations";
+import { Storelike } from "../operations";
+import { generate } from "shortid";
 
 export interface Cachelike<A,T> extends Storelike<A, T> {
 
@@ -47,8 +48,8 @@ export class LocalStorageCache<A, T> implements DispositionalCachelike<A, T> {
     cacheKey : string;
 
     constructor(cacheKey : string, disposition ? : CacheDisposition){
-        this.cacheKey = cacheKey;
-        this.disposition = disposition;
+        this.cacheKey = `${cacheKey}`;
+        this.disposition = disposition||CacheDisposition.AUX;
     }
 
     getKey(path : A) : string {

@@ -1,7 +1,7 @@
-import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../data/cache/cache";
-import { ontology } from "../../../util";
-import { getTrendTable } from "../../../util/rpc";
-import { MultiCache } from "../../data/cache/multicache";
+import { CacheDisposition, DispositionalCachelike, LocalStorageCache, MemCache } from "../../cache/cache";
+import { ontology } from "../../../../util";
+import { getTrendTable } from "../../../../util/rpc";
+import { MultiCache } from "../../../data/cache/multicache";
 
 export class GamedayGuruTrend implements DispositionalCachelike<undefined, ontology.TrendTablelike> {
 
@@ -20,6 +20,6 @@ export class GamedayGuruTrend implements DispositionalCachelike<undefined, ontol
 
 export const TrendMultiCache = new MultiCache<undefined, ontology.TrendTablelike>([
     new MemCache(CacheDisposition.MUST),
-    new LocalStorageCache(CacheDisposition.AUX),
+    new LocalStorageCache("Trends", CacheDisposition.AUX),
     new GamedayGuruTrend()
 ]);

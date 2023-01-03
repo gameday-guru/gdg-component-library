@@ -1,1 +1,1 @@
-export * from "./dataDependencies";
+export * from "./database";

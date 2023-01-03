@@ -18,6 +18,12 @@ import {
     signInWithEmailAndPassword
   } from "firebase/auth";
   import { useAuthState } from 'react-firebase-hooks/auth';
+import { useGames } from '../logic/processing/react/useGames';
+import { useLeagueAverages } from '../logic/processing/react/useLeagueAverages';
+import { useProjectedGames } from '../logic/processing/react/useProjectedGames';
+import { useTeams } from '../logic/processing/react/useTeams';
+import { usePointDistribution } from '../logic/processing/react/usePointDistribution';
+import { useEfficiency } from '../logic/processing/react/useEfficiency';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -59,174 +65,51 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
     const navigate = useNavigate();
     const monthAgo = new Date(now);
     monthAgo.setMonth(monthAgo.getMonth() - 1);
+    const weekFromNow = new Date(now);
+    weekFromNow.setDate(weekFromNow.getDate() + 7);
 
     const [user, loading, error] = useAuthState(auth);
 
-    const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
-    useEffect(()=>{
+    const { 
+        getLeagueAverages
+    } = useLeagueAverages();
 
-        getGamesInNextMonthTable(monthAgo)
-        .then((monthGames)=>{
-            getGamesInNextWeekTable(now)
-            .then((weekGames)=>{
-                setGames({
-                    ...monthGames,
-                    ...weekGames
-                })
-            })
-        });
+    const {
+        getProjectedGamesTableBetween,
+        getProjectedGamesTableBetweenForTeam
+    } = useProjectedGames();
 
-    }, []);
+    const gamesTable = getProjectedGamesTableBetween(monthAgo, weekFromNow);
+    let projectedGame = undefined;
+    if(id && gamesTable) projectedGame = gamesTable[id];
 
-    const [teams, setTeams] = useState<{
-        [key : string] : ontology.Teamlike
-    }>({});
-    useEffect(()=>{
+    const {
+        getTeamsTable
+    } = useTeams();
+    const teams = getTeamsTable();
 
-        getTeamsTable()
-        .then((data)=>{
-            setTeams(data);
-        });
+    const {
+        getPointDistribution
+    } = usePointDistribution();
 
-    }, []);
+    const {
+        getEfficiencyTable
+    } = useEfficiency();
+    const efficiency = getEfficiencyTable();
 
-    const [efficiency, setEfficiency] = useState<{
-        [key : string] : ontology.EfficiencyEntrylike
-    }>({});
-    useEffect(()=>{
+    let home = undefined;
+    if(projectedGame && teams) home = teams[projectedGame.home.TeamID.toString()];
+    const homeDistro = home && getPointDistribution(home);
+    const homeEff = home && efficiency && efficiency[home.TeamID.toString()];
+    const homeGames = home && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, home);
 
-        getEfficiencyTable()
-        .then((data)=>{
-            setEfficiency(data);
-        });
+    // console.log(gamesTable, home, projectedGame, homeDistro, homeEff, homeGames);
 
-    }, []);
-
-    const [projectionTable, setProjectionTable] = useState<ontology.ProjectionTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getProjectionTable()
-        .then((data)=>{
-            setProjectionTable(data);
-        });
-
-    }, []);
-
-    const [radarTable, setRadarTable] = useState<ontology.RadarTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getRadarTable()
-        .then((data)=>{
-            setRadarTable(data);
-        });
-
-    }, []);
-
-    const game = id ? games[id] : undefined;
-    const _home = game ? teams[game.HomeTeamID.toString()] : undefined;
-    const _away = game ? teams[game.AwayTeamID.toString()] : undefined;
-
-    let sumOe = 0;
-    let sumDe = 0;
-    let sumPower = 0;
-    let count = 0;
-    for(const team of Object.values(teams)){
-        const eff = efficiency[team.TeamID.toString()];
-        if(!eff) continue;
-        ++count;
-        sumOe += eff.oe;
-        sumDe += eff.de;
-        sumPower += (.56 * eff.oe) - (.44 * eff.de)
-    }
-
-    const _leagueAverages : ontology.LeagueAverageslike = {
-        offensiveEfficiency : sumOe/count,
-        defensiveEfficiency : sumDe/count,
-        powerRating : sumPower/count
-    }
-
-    const homeRadarEntry = _home ? radarTable[_home?.TeamID.toString()] : undefined;
-    let _homePointDistribution : ontology.PointDistributionlike | undefined = undefined;
-    if(homeRadarEntry) _homePointDistribution = {
-        offense : {
-            freeThrow : homeRadarEntry.offense.FreeThrowsMade,
-            twoPoint : homeRadarEntry.offense.TwoPointersMade * 2,
-            threePoint : homeRadarEntry.offense.ThreePointersMade * 3
-        },
-        defense : {
-            freeThrow : homeRadarEntry.defense.FreeThrowsMade,
-            twoPoint : homeRadarEntry.defense.TwoPointersMade * 2,
-            threePoint : homeRadarEntry.defense.ThreePointersMade * 3
-        }
-    }
-
-    const awayRadarEntry = _away ? radarTable[_away.TeamID.toString()] : undefined;
-    let _awayPointDistribution : ontology.PointDistributionlike | undefined = undefined;
-    if(awayRadarEntry) _awayPointDistribution = {
-        offense : {
-            freeThrow : awayRadarEntry.offense.FreeThrowsMade,
-            twoPoint : awayRadarEntry.offense.TwoPointersMade * 2,
-            threePoint : awayRadarEntry.offense.ThreePointersMade * 3
-        },
-        defense : {
-            freeThrow : awayRadarEntry.defense.FreeThrowsMade,
-            twoPoint : awayRadarEntry.defense.TwoPointersMade * 2,
-            threePoint : awayRadarEntry.defense.ThreePointersMade * 3
-        }
-    }
-
-
-    const __projectedGames : ontology.ProjectedGamelike[] = [];
-    for(const game of Object.values(games))
-        if(
-            efficiency[game.HomeTeamID.toString()] 
-            && efficiency[game.AwayTeamID.toString()]
-            && new Date(game.DateTimeUTC||0).getTime() > monthAgo.getTime()
-        )
-            __projectedGames.push({
-            game,
-            gameProjection : projectionTable[game.GameID]||MockProjection,
-            home : teams[game.HomeTeamID.toString()],
-            away : teams[game.AwayTeamID.toString()]
-        });
-    
-    const _projectedGames = __projectedGames.sort((gameA, gameB)=>{
-        return new Date(gameB.game.DateTimeUTC||0).getTime()
-        - new Date(gameA.game.DateTimeUTC||0).getTime()
-    });
-
-    const _homeGameProjections : ontology.ProjectedGamelike[] = [];
-    const _awayGameProjections : ontology.ProjectedGamelike[] = [];
-    let _projectedGame : ontology.ProjectedGamelike | undefined = undefined;
-    for(const projectedGame of _projectedGames){
-
-        if(projectedGame.game.GameID.toString()===id) 
-            _projectedGame = projectedGame;
-
-        if(
-            game && 
-            ( 
-                projectedGame.game.HomeTeamID === game.HomeTeamID
-                || projectedGame.game.AwayTeamID === game.HomeTeamID
-            )
-        ) _homeGameProjections.push(projectedGame);
-
-        if(
-            game && 
-            ( 
-                projectedGame.game.HomeTeamID === game.AwayTeamID
-                || projectedGame.game.AwayTeamID === game.AwayTeamID
-            )
-        ) _awayGameProjections.push(projectedGame);
-
-    }
-
-    const _homeEff = _home ? efficiency[_home.TeamID.toString()] : undefined;
-    const _awayEff = _away ? efficiency[_away.TeamID.toString()] : undefined;
+    let away = undefined;
+    if(projectedGame && teams) away = teams[projectedGame.away.TeamID.toString()];
+    const awayDistro = away && getPointDistribution(away);
+    const awayEff = away && efficiency && efficiency[away.TeamID.toString()];
+    const awayGames = away && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, away);
 
     if(!user && !loading) navigate("/");
 
@@ -244,16 +127,16 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
         }}
         onMatchupClick={handleMatchupClick}
         onTeamClick={handleTeamClick}
-        game={game}
-        leagueAverages={_leagueAverages}
-        gameProjection={_projectedGame?.gameProjection}
-        home={_home}
-        homeDistro={_homePointDistribution}
-        homeEfficiency={_homeEff}
-        away={_away}
-        awayDistro={_awayPointDistribution}
-        awayEfficiency={_awayEff}
-        homeGameProjections={_homeGameProjections}
-        awayGameProjections={_awayGameProjections}/>
+        game={projectedGame?.game}
+        leagueAverages={getLeagueAverages()}
+        gameProjection={projectedGame?.gameProjection}
+        home={home}
+        homeDistro={homeDistro}
+        homeEfficiency={homeEff}
+        away={away}
+        awayDistro={awayDistro}
+        awayEfficiency={awayEff}
+        homeGameProjections={homeGames && Object.values(homeGames)}
+        awayGameProjections={awayGames && Object.values(awayGames)}/>
     )
 };

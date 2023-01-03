@@ -17,6 +17,9 @@ import {
   } from "firebase/auth";
   import { useNavigate } from 'react-router-dom';
   import { useAuthState } from 'react-firebase-hooks/auth';
+import { useEfficiency } from '../logic/processing/react/useEfficiency';
+import { useTeams } from '../logic/processing/react/useTeams';
+import { useTopTeams } from '../logic/processing/react/useTopTeams';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -56,144 +59,36 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     const navigate = useNavigate();
     const [user, loading, error] = useAuthState(auth);
 
-    const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}>({});
-    useEffect(()=>{
+    const {
+        getEfficiencyTable
+    } = useEfficiency();
+    const efficiency = getEfficiencyTable();
 
-        getGamesInNextWeekTable(new Date())
-        .then((data)=>{
-            setGames(data);
-        });
+    const {
+        getTeamsTable
+    } = useTeams();
+    const teams = getTeamsTable();
 
-    }, []);
-
-    const [teams, setTeams] = useState<{
-        [key : string] : ontology.Teamlike
-    }>({});
-    useEffect(()=>{
-
-        getTeamsTable()
-        .then((data)=>{
-            setTeams(data);
-        });
-
-    }, []);
-
-    const [efficiency, setEfficiency] = useState<{
-        [key : string] : ontology.EfficiencyEntrylike
-    }>({});
-    useEffect(()=>{
-
-        getEfficiencyTable()
-        .then((data)=>{
-            setEfficiency(data);
-        });
-
-    }, []);
-
-    const [projectionTable, setProjectionTable] = useState<ontology.ProjectionTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getProjectionTable()
-        .then((data)=>{
-            setProjectionTable(data);
-        });
-
-    }, []);
-
-
-    const _apTop25Teams = 
-    Object.values(teams)
-    .filter(team=>(team.ApRank||Number.MAX_SAFE_INTEGER) < 26)
-    .sort((teamA, teamB)=>(teamA.ApRank||Number.MIN_SAFE_INTEGER)-(teamB.ApRank||Number.MIN_SAFE_INTEGER));
-    const _apTop25RankedTeams : ontology.RankTrendTeamlike[] = [];
-    for(const team of _apTop25Teams)
-        _apTop25RankedTeams.push({
-            team,
-            rank : team.ApRank||25,
-            trend : ontology.Trend.NOCHANGE,
-            efficiency : efficiency[team.TeamID]
-        })
-
-    const _top25TeamIds =
-    new Set(_apTop25Teams.map((team)=>team.TeamID));
-
-    const _gdgTop25Teams = 
-    Object.values(teams)
-    .sort((teamA, teamB)=>{ 
-
-        return (
-            ((.56 * efficiency[teamB.TeamID]?.oe||0) - (.44 * efficiency[teamB.TeamID]?.de||0)) -
-           ((.56 * efficiency[teamA.TeamID]?.oe||0) - (.44 * efficiency[teamA.TeamID]?.de||0)) 
-        )
-
-    })
-    .filter((team, i)=>(i < 25))
-    const _gdgTop25RankedTeams : ontology.RankTrendTeamlike[] = _gdgTop25Teams
-    .map((team, i)=>{
-        return (
-            {
-                team,
-                rank : i + 1,
-                trend : ontology.Trend.NOCHANGE,
-                efficiency : efficiency[team.TeamID]
-            }
-        )
-    });
-
-    const _top25Games =
-    Object.values(games)
-    .filter(game=>_top25TeamIds.has(game.AwayTeamID)||_top25TeamIds.has(game.HomeTeamID));
-
-    const _top25ProjectedGames : ontology.ProjectedGamelike[] = [];
-    for(const game of _top25Games)
-        _top25ProjectedGames.push({
-            game,
-            gameProjection : projectionTable[game.GameID]||MockProjection,
-            home : teams[game.HomeTeamID],
-            away : teams[game.AwayTeamID]
-        })
-
-    const _gameOfTheDay =
-    _top25ProjectedGames.sort((a, b)=>{
-        return (
-            a.gameProjection.home_team_score
-            + a.gameProjection.away_team_score
-        ) - (
-            b.gameProjection.home_team_score
-            + b.gameProjection.away_team_score
-        )
-    })[0];
-
-    const _topDefensiveTeams = Object.values(efficiency)
-    .sort((a, b)=>a.de - b.de)
-    .map((val)=>{
-        return teams[val.team_id.toString()]
-    })
-    .filter((team)=>team)
-    .filter((val, i)=>i < 25);
-    const _topDefensiveTeamsStats = _topDefensiveTeams
+    const {
+        getTopDefensiveTeams,
+        getTopOffensiveTeams
+    } = useTopTeams()
+    
+    const topDefensiveTeams = getTopDefensiveTeams();
+    const topDefensiveTeamsStats = topDefensiveTeams && topDefensiveTeams
     .map((team)=>{
 
-        if(!team) return undefined;
+        if(!team||!efficiency) return undefined;
 
         return <>
             {efficiency[team.TeamID.toString()]?.de.toFixed(1)} DE
         </>
     })
 
-    const _topOffensiveTeams = Object.values(efficiency)
-    .sort((a, b)=>b.oe - a.oe)
-    .map((val)=>{
-        return teams[val.team_id]
-    })
-    .filter((team)=>team)
-    .filter((val, i)=>i < 25);
-
-    const _topOffensiveTeamsStats = _topOffensiveTeams
+    const topOffensiveTeams = getTopOffensiveTeams();
+    const topOffensiveTeamsStats = topOffensiveTeams && topOffensiveTeams
     .map((team)=>{
-        if(!team) return undefined;
+        if(!team||!efficiency) return undefined;
         return <>
             {efficiency[team.TeamID.toString()]?.oe.toFixed(1)} OE
         </>
@@ -221,11 +116,11 @@ export const Teams : FC<TeamsProps>  = (props) =>{
         onMatchupClick={handleMatchupClick}
         onTeamClick={handleTeamClick}
         onBuildMatchup={handleBuildMatchup}
-        topDefensiveTeams={_topDefensiveTeams}
-        topDefensiveTeamsStats={_topDefensiveTeamsStats}
-        topOffensiveTeams={_topOffensiveTeams}
-        topOffensiveTeamsStats={_topOffensiveTeamsStats}
-        tableEntries={Object.values(efficiency)}
+        topDefensiveTeams={topDefensiveTeams}
+        topDefensiveTeamsStats={topDefensiveTeamsStats}
+        topOffensiveTeams={topOffensiveTeams}
+        topOffensiveTeamsStats={topOffensiveTeamsStats}
+        tableEntries={efficiency && Object.values(efficiency)}
         teams={teams}/>
     )
 };

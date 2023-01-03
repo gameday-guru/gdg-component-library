@@ -18,6 +18,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { DateComparison } from '../util/date';
+import { useOnceProcessor } from '../logic/processing/react/reactProcessor';
+import { useMultiPowerStore } from '../logic/processing/react/useMultiPowerStore';
+import { GamesByDateMultiCache } from '../logic/data/domain/gamesByDate';
+import { useGames } from '../logic/processing/react/useGames';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -57,156 +61,19 @@ export const Home : FC<HomeProps>  = (props) =>{
 
     const navigate = useNavigate();
     const [user, loading, error] = useAuthState(auth);
+    const date = new Date();
 
-    const [games, setGames] = useState<{[key : string] : ontology.GameByDatelike}|undefined>(undefined);
-    useEffect(()=>{
+    const {
+        getGames, 
+        getGdgTop25Teams,
+        getApTop25Teams,
+        getTop25Games,
+        getGameOfTheDay
+    } = useOnceProcessor();
+    console.log(getGames(date), getGdgTop25Teams(), getApTop25Teams(), getTop25Games(date), getGameOfTheDay(date));
 
-        getGamesInNextWeekTable(new Date())
-        .then((data)=>{
-            setGames(data);
-        });
-
-    }, []);
-
-    const [teams, setTeams] = useState<{
-        [key : string] : ontology.Teamlike
-    }>({});
-    useEffect(()=>{
-
-        getTeamsTable()
-        .then((data)=>{
-            setTeams(data);
-        });
-
-    }, []);
-
-    const [efficiency, setEfficiency] = useState<{
-        [key : string] : ontology.EfficiencyEntrylike
-    }>({});
-    useEffect(()=>{
-
-        getEfficiencyTable()
-        .then((data)=>{
-            setEfficiency(data);
-        });
-
-    }, []);
-
-    const [projectionTable, setProjectionTable] = useState<ontology.ProjectionTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getProjectionTable()
-        .then((data)=>{
-            setProjectionTable(data);
-        });
-
-    }, []);
-
-    const [trendTable, setTrendTable] = useState<ontology.TrendTablelike>(
-        {}
-    );
-    useEffect(()=>{
-
-        getTrendTable()
-        .then((data)=>{
-            setTrendTable(data);
-        });
-
-    }, []);
-
-
-    const _apTop25Teams = 
-    games && Object.values(teams)
-    .filter(team=>(team.ApRank||Number.MAX_SAFE_INTEGER) < 26)
-    .sort((teamA, teamB)=>(teamA.ApRank||Number.MIN_SAFE_INTEGER)-(teamB.ApRank||Number.MIN_SAFE_INTEGER));
-    const _apTop25RankedTeams : ontology.RankTrendTeamlike[] = [];
-    if(_apTop25Teams) for(const team of _apTop25Teams){
-
-        _apTop25RankedTeams.push({
-            team,
-            rank : team.ApRank||25,
-            trend : ontology.getTrend(
-                trendTable[team.TeamID]?.ap.current_rank,
-                trendTable[team.TeamID]?.ap.last_rank
-            ),
-            efficiency : efficiency[team.TeamID]
-        });
-
-    }
-
-    const _top25TeamIds =
-    _apTop25Teams && new Set(_apTop25Teams.map((team)=>team.TeamID));
-
-    const _gdgTop25Teams = 
-    teams && Object.values(teams)
-    .sort((teamA, teamB)=>{ 
-
-        const trendTableEntryA = trendTable[teamA.TeamID.toString()];
-        const trendTableEntryB = trendTable[teamB.TeamID.toString()];
-        
-        return (trendTableEntryA?.gdg_power_rating.current_rank !== undefined ?
-            trendTableEntryA.gdg_power_rating.current_rank + 1 
-            : Number.MAX_SAFE_INTEGER)
-        - (trendTableEntryB?.gdg_power_rating.current_rank !== undefined ?
-            trendTableEntryB.gdg_power_rating.current_rank + 1 
-            : Number.MAX_SAFE_INTEGER);
-
-
-    })
-    .filter((team, i)=>(i < 25));
-    const _gdgTop25RankedTeams : ontology.RankTrendTeamlike[] = _gdgTop25Teams
-    .map((team, i)=>{
-        const trendTableEntry : ontology.TrendEntrylike = trendTable[team.TeamID.toString()];
-        return (
-            {
-                team,
-                rank : i + 1,
-                trend : ontology.getTrend(
-                    trendTableEntry?.gdg_power_rating.current_rank,
-                    trendTableEntry?.gdg_power_rating.last_rank,
-                ),
-                efficiency : efficiency[team.TeamID]
-            }
-        )
-    });
-
-    const _top25Games =
-    games && _top25TeamIds && Object.values(games)
-    .filter(game=>_top25TeamIds.has(game.AwayTeamID)||_top25TeamIds.has(game.HomeTeamID))
-    .sort((a, b)=>{
-        return new Date(a.DateTimeUTC||0).getTime() 
-        - new Date(b.DateTimeUTC||0).getTime()
-    });
-
-    const _top25ProjectedGames : ontology.ProjectedGamelike[] | undefined = _top25Games && [];
-    if(_top25Games && _top25ProjectedGames) for(const game of _top25Games)
-        _top25ProjectedGames.push({
-            game,
-            gameProjection : projectionTable[game.GameID]||MockProjection,
-            home : teams[game.HomeTeamID],
-            away : teams[game.AwayTeamID]
-        })
-
-    const _gameOfTheDay =
-    _top25ProjectedGames && _top25ProjectedGames
-    .filter(game=>{
-        console.log(game);
-        return DateComparison.sameDate(
-            new Date(game.game.Day||0),
-            new Date()
-        )
-    })
-    .sort((a, b)=>{
-        return (
-            a.gameProjection.home_team_score
-            + a.gameProjection.away_team_score
-        ) - (
-            b.gameProjection.home_team_score
-            + b.gameProjection.away_team_score
-        )
-    })[0];
+    // getGdgTop25Teams();
+   
 
     if(!user && !loading) navigate("/");
 
@@ -225,9 +92,9 @@ export const Home : FC<HomeProps>  = (props) =>{
         }}
         onTeamClick={handleTeamClick}
         onMatchupClick={handleMatchupClick}
-        gdgTop25Teams={_gdgTop25RankedTeams}
-        apTop25Teams={_apTop25RankedTeams}
-        top25Games={_top25ProjectedGames}
-        gameOfTheDay={_gameOfTheDay}/>
+        gdgTop25Teams={getGdgTop25Teams()}
+        apTop25Teams={getApTop25Teams()}
+        top25Games={getTop25Games(date)}
+        gameOfTheDay={getGameOfTheDay(date)}/>
     )
 };
