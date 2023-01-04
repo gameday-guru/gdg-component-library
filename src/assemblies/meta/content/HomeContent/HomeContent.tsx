@@ -28,6 +28,8 @@ export type HomeContentProps = {
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    headerProjectedGames ? : ontology.ProjectedGamelike[];
+    headerTeams ? : ontology.Teamlike[];
 };
 
 export const HomeContent : FC<HomeContentProps>  = (props) =>{
@@ -42,8 +44,10 @@ export const HomeContent : FC<HomeContentProps>  = (props) =>{
             style={{...!props.overrideStyle ? HOME_CONTENT_INNER_STYLE : {}, ...props.style}}>
                 <div>
                     <MensCollegeBasketballHeader
-                    teams={props.apTop25Teams?.map(team=>team.team)}
-                    projectedGames={props.top25Games}/>
+                    onTeamClick={props.onTeamClick}
+                    onMatchupClick={props.onMatchupClick}
+                    teams={props.headerTeams}
+                    projectedGames={props.headerProjectedGames}/>
                 </div>
                 <div>
                     <NcaabMensOverview

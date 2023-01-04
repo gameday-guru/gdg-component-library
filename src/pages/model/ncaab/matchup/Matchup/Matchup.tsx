@@ -38,6 +38,8 @@ export type MatchupProps = {
     game ? : ontology.GameByDatelike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    headerProjectedGames ? : ontology.ProjectedGamelike[];
+    headerTeams ? : ontology.Teamlike[];
 };
 
 export const Matchup : FC<MatchupProps>  = (props) =>{
@@ -63,6 +65,8 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
                 overflow : 'scroll'
             }}>
                 <MatchupContent
+                headerProjectedGames={props.headerProjectedGames}
+                headerTeams={props.headerTeams}
                 onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
                 game={props.game}

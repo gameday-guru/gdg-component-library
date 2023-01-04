@@ -62,6 +62,7 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
     const [user, loading, error] = useAuthState(auth);
 
     const {
+        getTeams,
         getProjectedGamesTable,
         getProjectedGamesInNextMonthTable,
         getProjectedGamesInNextWeekTable
@@ -97,11 +98,16 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
 
     });
 
+    const headerTeams = getTeams()
+    const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
+
 
     return (
         <MatchupsPage onWhich={async (which)=>{
             navigate("/" + which);
         }}
+        headerTeams={headerTeams}
+        headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         onTeamClick={handleTeamClick}
         onMatchupClick={handleMatchupClick}
         allUpcomingGames={weeksGamesSorted}

@@ -68,7 +68,9 @@ export const Home : FC<HomeProps>  = (props) =>{
         getGdgTop25Teams,
         getApTop25Teams,
         getTop25Games,
-        getGameOfTheDay
+        getGameOfTheDay,
+        getProjectedGamesInNextWeekTable,
+        getTeams
     } = useOnceProcessor();
    
 
@@ -90,6 +92,9 @@ export const Home : FC<HomeProps>  = (props) =>{
         - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
 
     });
+
+    const headerTeams = getTeams()
+    const headerProjectedGames = getProjectedGamesInNextWeekTable(date);
     
 
     return (
@@ -97,6 +102,8 @@ export const Home : FC<HomeProps>  = (props) =>{
         onWhich={async (which)=>{
             navigate("/" + which);
         }}
+        headerTeams={headerTeams}
+        headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         onTeamClick={handleTeamClick}
         onMatchupClick={handleMatchupClick}
         gdgTop25Teams={getGdgTop25Teams()}

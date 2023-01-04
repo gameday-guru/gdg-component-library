@@ -75,6 +75,7 @@ export const Team : FC<TeamProps>  = (props) =>{
     } = useLeagueAverages();
 
     const {
+        getProjectedGamesInNextWeekTable,
         getProjectedGamesTableBetween,
         getProjectedGamesTableBetweenForTeam
     } = useProjectedGames();
@@ -122,8 +123,13 @@ export const Team : FC<TeamProps>  = (props) =>{
         navigate(`/matchup/${gameId}`)
     };
 
+    const headerTeams = teams && Object.values(teams);
+    const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
+
     return (
         <MensNcaabTeam
+        headerTeams={headerTeams}
+        headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         players={players}
         onMatchupClick={handleMatchupClick}
         onTeamClick={handleTeamClick}

@@ -26,6 +26,8 @@ export type MatchupsContentProps = {
     allUpcomingGames ? : ontology.ProjectedGamelike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    headerProjectedGames ? : ontology.ProjectedGamelike[];
+    headerTeams ? : ontology.Teamlike[];
 }
 
 export const MatchupsContent : FC<MatchupsContentProps>  = (props) =>{
@@ -39,7 +41,11 @@ export const MatchupsContent : FC<MatchupsContentProps>  = (props) =>{
             className={[...!props.overrideClasses ? MATCHUPS_CONTENT_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? MATCHUPS_CONTENT_INNER_STYLE : {}, ...props.style}}>
                 <div>
-                    <MensCollegeBasketballHeader/>
+                    <MensCollegeBasketballHeader
+                    onTeamClick={props.onTeamClick}
+                    onMatchupClick={props.onMatchupClick}
+                    teams={props.headerTeams}
+                    projectedGames={props.headerProjectedGames}/>
                 </div>
                 <div>
                     <Matchups

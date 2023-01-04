@@ -25,7 +25,8 @@ export type WrapperProps = {
     invert ? : boolean;
     /** */
     hoverAnimate ? : boolean;
-    onClick ? : ()=>void
+    onClick ? : ()=>void;
+    innerProps ? : React.HTMLProps<HTMLDivElement>;
 };
 
 export const Wrapper : FC<WrapperProps>  = (props) =>{
@@ -43,6 +44,7 @@ export const Wrapper : FC<WrapperProps>  = (props) =>{
 
     return (
         <div
+        {...props.innerProps}
         onClick={props.onClick}
         className={[
             ...!props.overrideClasses ? WRAPPER_CLASSNAMES : [],

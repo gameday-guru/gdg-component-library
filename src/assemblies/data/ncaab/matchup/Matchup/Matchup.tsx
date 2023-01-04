@@ -42,6 +42,8 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
         style={{...!props.overrideStyle ? MATCHUP_STYLE : {}, ...props.style}}>
             <div>
                 <MatchupComparison
+                onTeamClick={props.onTeamClick}
+                onMatchupClick={props.onMatchupClick}
                 game={props.game}
                 home={props.home}
                 homeDistro={props.homeDistro}

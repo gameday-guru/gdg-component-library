@@ -76,7 +76,8 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
 
     const {
         getProjectedGamesTableBetween,
-        getProjectedGamesTableBetweenForTeam
+        getProjectedGamesTableBetweenForTeam,
+        getProjectedGamesInNextWeekTable
     } = useProjectedGames();
 
     const gamesTable = getProjectedGamesTableBetween(monthAgo, weekFromNow);
@@ -84,7 +85,7 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
     if(id && gamesTable) projectedGame = gamesTable[id];
 
     const {
-        getTeamsTable
+        getTeamsTable,
     } = useTeams();
     const teams = getTeamsTable();
 
@@ -133,10 +134,15 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
         navigate(`/matchup/${gameId}`)
     };
 
+    const headerTeams = teams && Object.values(teams);
+    const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
+
     return (
         <MatchupPage onWhich={async (which)=>{
             navigate("/" + which);
         }}
+        headerTeams={headerTeams}
+        headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         onMatchupClick={handleMatchupClick}
         onTeamClick={handleTeamClick}
         game={projectedGame?.game}

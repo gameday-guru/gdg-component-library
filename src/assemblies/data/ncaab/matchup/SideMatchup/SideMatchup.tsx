@@ -10,8 +10,7 @@ export const SIDE_MATCHUP_CLASSNAMES : string[] = [
     "grid"
 ];
 export const SIDE_MATCHUP_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "1fr",
-    gridTemplateRows : "1fr 10fr",
+    gridTemplateColumns : "1fr"
 };
 
 export type SideMatchupProps = {
@@ -25,7 +24,11 @@ export type SideMatchupProps = {
     home ? : ontology.Teamlike;
     away ? : ontology.Teamlike;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    onTeamClick ? : (teamId : string)=>Promise<void>;
+
     short ? : boolean;
+    inlineVisitorStatus ? : boolean;
+
     viusage ? : Viusagelike;
     stack ? : boolean;
     size ? : number;
@@ -44,6 +47,8 @@ export const SideMatchup : FC<SideMatchupProps>  = (props) =>{
     const _awaySideTeam = <MockOver
         Content={<SideTeam
             away
+            onTeamClick={props.onTeamClick}
+            inlineVisitorStatus={props.inlineVisitorStatus}
             size={props.size}
             short={props.short}
             viusage='backdrop'
@@ -55,6 +60,8 @@ export const SideMatchup : FC<SideMatchupProps>  = (props) =>{
             style={{ 
                 direction : !props.stack ? 'rtl' : undefined
             }}
+            onTeamClick={props.onTeamClick}
+            inlineVisitorStatus={props.inlineVisitorStatus}
             size={props.size}
             short={props.short}
             viusage='backdrop'

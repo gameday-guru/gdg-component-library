@@ -28,7 +28,8 @@ export type HomeProps = {
     onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
-
+    headerProjectedGames ? : ontology.ProjectedGamelike[];
+    headerTeams ? : ontology.Teamlike[];
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -54,6 +55,8 @@ export const Home : FC<HomeProps>  = (props) =>{
                 overflowY : "scroll"
             }}>
                 <HomeContent 
+                headerProjectedGames={props.headerProjectedGames}
+                headerTeams={props.headerTeams}
                 onTeamClick={props.onTeamClick}
                 onMatchupClick={props.onMatchupClick}
                 gameOfTheDay={props.gameOfTheDay}

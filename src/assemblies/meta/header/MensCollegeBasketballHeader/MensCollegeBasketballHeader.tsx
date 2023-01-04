@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useState} from 'react';
+import React, {FC, ReactElement, useEffect, useState} from 'react';
 import { Wrapper } from '../../../../components';
 import { ontology, viusage } from '../../../../util';
 import { LeftRight } from '../../../../components/output/containers/general';
@@ -22,6 +22,8 @@ export const MENS_COLLEGE_BASKETBALL_HEADER_INNER_STYLE : React.CSSProperties = 
     
 };
 
+
+
 export type MensCollegeBasketballHeaderProps = {
      children ? : React.ReactNode;
     style ? : React.CSSProperties;
@@ -33,45 +35,69 @@ export type MensCollegeBasketballHeaderProps = {
     projectedGames ? : ontology.ProjectedGamelike[];
     teams ? : ontology.Teamlike[];
     count ? : number;
+    onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
+};
+
+export const getLevDistance = (search : string, comp : string) : number =>{
+    return levenshtein.get(search.toLowerCase(), comp.toLowerCase());
 };
 
 export const getTeamLevDistance = (search : string, team : ontology.Teamlike) : number => {
 
     return Math.min(
-        levenshtein.get(search, team.Name),
-        levenshtein.get(search, team.School)
+        getLevDistance(search, team.Name),
+        getLevDistance(search, team.School),
+        3 * getLevDistance(search, team.Conference||"")
     );
 
 }
 
 export const getGameLevDistance = (search : string, game : ontology.ProjectedGamelike) : number => {
 
+    const homeLev = getTeamLevDistance(search, game.home);
+    const awayLev = getTeamLevDistance(search, game.away);
+
     return Math.min(
-        levenshtein.get(search, `${game.home.Name}${game.away.Name}`),
-        levenshtein.get(search, `${game.home.Name}${game.away.School}`),
-        levenshtein.get(search, `${game.home.School}${game.away.Name}`),
-        levenshtein.get(search, `${game.home.School}${game.away.School}`)
+        getLevDistance(search, `${game.home.Name}${game.away.Name}`),
+        getLevDistance(search, `${game.home.Name}${game.away.School}`),
+        getLevDistance(search, `${game.home.School}${game.away.Name}`),
+        getLevDistance(search, `${game.home.School}${game.away.School}`),
+        getLevDistance(search, `${game.away.Name}${game.home.Name}`),
+        getLevDistance(search, `${game.away.Name}${game.home.School}`),
+        getLevDistance(search, `${game.away.School}${game.home.Name}`),
+        getLevDistance(search, `${game.away.School}${game.home.School}`),
+        2 * homeLev,
+        2 * awayLev,
+        (homeLev + awayLev)/2
     );
 
 }
 
 export const MensCollegeBasketballHeader : FC<MensCollegeBasketballHeaderProps>  = (props) =>{
 
-    const _count = props.count||5;
+    const _count = props.count||10;
     const _projecteGames = props.projectedGames||Array(25).fill(ontology.MockProjectedGame);
     const _teams = props.teams||Array(25).fill(ontology.MockHome);
 
     // TODO: pull search management into top level
     const [searchTerm, setSearchTerm] = useState<string|undefined>(undefined);
+    const [lastTerm, setLastSearchTerm] = useState<string|undefined>(undefined);
+    // const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout|undefined>(undefined);
 
     const onSearchBarChange = (e : React.ChangeEvent)=>{
         const target = e.target as HTMLInputElement;
         if(target.value.length < 1) setSearchTerm(undefined);
         setSearchTerm(target.value);
+        setLastSearchTerm(target.value);
     };
 
-    const onSearchBarBlur = (e : React.FocusEvent)=>{
+    const onSearchBarHoverOut = (e : React.MouseEvent)=>{
         setSearchTerm(undefined);
+    }
+
+    const onSearchBarHoverOver = (e : React.MouseEvent)=>{
+        setSearchTerm(lastTerm);
     }
 
     // TODO: pull all of this out into top-level
@@ -89,10 +115,17 @@ export const MensCollegeBasketballHeader : FC<MensCollegeBasketballHeaderProps> 
         return teamA[1] - teamB[1];
     })
     .slice(0, _count)
-    .map(([team, distance])=>{
+    .map(([team, distance], i)=>{
         return [
             <MockOver
+                key={`${team.School}x${i}`}
                 Content={<SideTeam
+                    style={{
+                        width : "100%",
+                        fontSize : 10,
+                        textAlign : "left"
+                    }}
+                    onTeamClick={props.onTeamClick}
                     size={20}
                     hideVisitorStatus
                     viusage='backdrop'
@@ -117,15 +150,18 @@ export const MensCollegeBasketballHeader : FC<MensCollegeBasketballHeaderProps> 
         return gameA[1] - gameB[1];
     })
     .slice(0, _count)
-    .map(([game, distance])=>{
+    .map(([game, distance], i)=>{
         return [
             <MockOver
                 Content={<SideMatchup
+                    key={`${game.game.GameID}x${i}`}
                     style={{
                         fontSize : 10
                     }}
+                    onTeamClick={props.onTeamClick}
+                    onMatchupClick={props.onMatchupClick}
                     size={20}
-                    short
+                    inlineVisitorStatus
                     stack
                     // viusage='backdrop'
                     home={game.home}
@@ -166,7 +202,10 @@ export const MensCollegeBasketballHeader : FC<MensCollegeBasketballHeaderProps> 
                     Right={<Snu 
                             searchBarInputProps={{
                                 onChange : onSearchBarChange,
-                                onBlur : onSearchBarBlur
+                            }}
+                            searchBarEntriesWrapperProps={{
+                                onMouseLeave : onSearchBarHoverOut,
+                                onMouseEnter : onSearchBarHoverOver
                             }}
                         SearchBarEntries={searchEntries}
                     />}/>

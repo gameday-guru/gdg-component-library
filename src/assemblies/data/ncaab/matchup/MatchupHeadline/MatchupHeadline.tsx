@@ -34,6 +34,7 @@ export type MatchupHeadlineProps = {
     gameProjection ? : ontology.ProjectionEntrylike;
     game ? : ontology.GameByDatelike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 export const MatchupHeadline : FC<MatchupHeadlineProps>  = (props) =>{
@@ -53,6 +54,7 @@ export const MatchupHeadline : FC<MatchupHeadlineProps>  = (props) =>{
                 <TeamSemiDetailedMatchup 
                     viusage={'backdrop'}
                     onTeamClick={props.onTeamClick}
+                    onMatchupClick={props.onMatchupClick}
                     home={_home}
                     away={_away}
                     game={props.game}

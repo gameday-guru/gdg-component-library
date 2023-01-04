@@ -74,6 +74,7 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     } = useLeagueAverages();
 
     const {
+        getProjectedGamesInNextWeekTable,
         getProjectedGamesTableBetween,
         getProjectedGamesTableBetweenForTeam
     } = useProjectedGames();
@@ -131,10 +132,16 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
         navigate(`/matchup/${gameId}`)
     };
 
+    const headerTeams = teams && Object.values(teams);
+    const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
+
+
     return (
         <MockMatchupPage onWhich={async (which)=>{
             navigate("/" + which);
         }}
+        headerTeams={headerTeams}
+        headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         onMatchupClick={handleMockMatchupClick}
         onTeamClick={handleTeamClick}
         game={projectedGame?.game}

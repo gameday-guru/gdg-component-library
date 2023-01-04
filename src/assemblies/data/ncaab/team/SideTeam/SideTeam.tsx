@@ -27,6 +27,9 @@ export type SideTeamProps = {
     size ? : number;
     short ? : boolean;
     reverse ? : boolean;
+
+    // ENUM these two
+    inlineVisitorStatus ? : boolean;
     hideVisitorStatus ? : boolean;
 };
 
@@ -44,9 +47,9 @@ export const SideTeam : FC<SideTeamProps>  = (props) =>{
     const text = <div>
         <h2 className='text'>
             {props.short ? team.ShortDisplayName : team.School}
-            {props.short && !props.hideVisitorStatus && <span>&nbsp;{props.away ? "(A)" : "(H)"}</span>}
+            {props.inlineVisitorStatus && !props.hideVisitorStatus && <span>&nbsp;{props.away ? "(A)" : "(H)"}</span>}
         </h2>
-        {!props.short && !props.hideVisitorStatus && <h2 className='text-sm'>{props.away ? "Away" : "Home"}</h2>}
+        {!props.inlineVisitorStatus && !props.hideVisitorStatus && <h2 className='text-sm'>{props.away ? "Away" : "Home"}</h2>}
     </div>
 
     return (

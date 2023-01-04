@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { SearchBar } from '../../../../components/input/text/SearchBar';
 import { Bell, PersonCircle } from 'react-bootstrap-icons';
 import { SearchBarWithEntries } from '../../../../components/input/text/SearchBarWithEntries';
+import { WrapperProps } from '../../../../components';
 
 export const SNU_CLASSNAMES : string[] = [
     "flex",
@@ -20,6 +21,7 @@ export type SnuProps = {
     size ? : number;
     SearchBarEntries ? : React.ReactNode[];
     searchBarInputProps ? : React.InputHTMLAttributes<HTMLInputElement>;
+    searchBarEntriesWrapperProps ? : WrapperProps["innerProps"]
 };
 
 export const Snu : FC<SnuProps>  = (props) =>{
@@ -29,6 +31,8 @@ export const Snu : FC<SnuProps>  = (props) =>{
         className={[...!props.overrideClasses ? SNU_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? SNU_STYLE : {}, ...props.style}}>
             <SearchBarWithEntries 
+                entriesWrapperProps={props.searchBarEntriesWrapperProps}
+                entriesHeight={300}
                 inputProps={props.searchBarInputProps}
                 Entries={props.SearchBarEntries}
                 classNames={["rounded-full", "text-sm"]}/>

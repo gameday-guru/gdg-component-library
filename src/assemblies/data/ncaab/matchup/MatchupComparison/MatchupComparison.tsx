@@ -32,6 +32,8 @@ export type MatchupComparisonProps = {
     gameProjections ? : ontology.ProjectionEntrylike[];
     leagueAverages ? : ontology.LeagueAverageslike;
     game ? : ontology.GameByDatelike;
+    onTeamClick ? : (teamId : string)=>Promise<void>;
+    onMatchupClick ? : (gameId : string)=>Promise<void>;
 };
 
 export const MatchupComparison : FC<MatchupComparisonProps>  = (props) =>{
@@ -44,6 +46,8 @@ export const MatchupComparison : FC<MatchupComparisonProps>  = (props) =>{
         style={{...!props.overrideStyle ? MATCHUP_COMPARISON_STYLE : {}, ...props.style}}>
             <div>
                 <MatchupHeadline 
+                onTeamClick={props.onTeamClick}
+                onMatchupClick={props.onMatchupClick}
                 game={props.game}
                 home={props.home}
                 away={props.away}

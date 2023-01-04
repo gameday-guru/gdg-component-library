@@ -20,6 +20,7 @@ import {
 import { useEfficiency } from '../logic/processing/react/useEfficiency';
 import { useTeams } from '../logic/processing/react/useTeams';
 import { useTopTeams } from '../logic/processing/react/useTopTeams';
+import { useProjectedGames } from '../logic/processing/react/useProjectedGames';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -56,6 +57,7 @@ export type TeamsProps = {
 
 export const Teams : FC<TeamsProps>  = (props) =>{
 
+    const now = new Date();
     const navigate = useNavigate();
     const [user, loading, error] = useAuthState(auth);
 
@@ -73,6 +75,10 @@ export const Teams : FC<TeamsProps>  = (props) =>{
         getTopDefensiveTeams,
         getTopOffensiveTeams
     } = useTopTeams()
+
+    const {
+        getProjectedGamesInNextWeekTable
+    } = useProjectedGames()
     
     const topDefensiveTeams = getTopDefensiveTeams();
     const topDefensiveTeamsStats = topDefensiveTeams && topDefensiveTeams
@@ -107,6 +113,9 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     const handleMatchupClick = async (gameId : string)=>{
         navigate(`/matchup/${gameId}`)
     };
+
+    const headerTeams = getTeams()
+    const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
 
     return (
         <MensNcaabTeams
