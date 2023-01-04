@@ -86,7 +86,9 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
 
     });
 
-    const weeksGames = getProjectedGamesInNextWeekTable(now);
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    const weeksGames = getProjectedGamesInNextWeekTable(tomorrow);
     const weeksGamesSorted = weeksGames && Object.values(weeksGames)
     .sort((gameA, gameB)=>{
 
