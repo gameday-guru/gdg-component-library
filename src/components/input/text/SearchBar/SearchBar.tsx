@@ -1,5 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { Search } from 'react-bootstrap-icons';
+import { Viusagelike } from '../../../../util/viusage/primary';
+import { Wrapper } from '../../../output';
 
 export const SEARCH_BAR_CLASSNAMES : string[] = [ 
     "flex",
@@ -24,14 +26,16 @@ export type SearchBarProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
-    inputProps ? : React.InputHTMLAttributes<HTMLInputElement>
+    inputProps ? : React.InputHTMLAttributes<HTMLInputElement>;
+    viusage ? : Viusagelike;
 };
 
 export const SearchBar : FC<SearchBarProps>  = (props) =>{
 
     return (
-        <div
-        className={[...!props.overrideClasses ? SEARCH_BAR_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
+        <Wrapper
+        viusage={props.viusage||"wrap"}
+        classNames={[...!props.overrideClasses ? SEARCH_BAR_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? SEARCH_BAR_STYLE : {}, ...props.style}}>
             <div>
                 {props.Icon || <Search/>}
@@ -42,6 +46,6 @@ export const SearchBar : FC<SearchBarProps>  = (props) =>{
             }}
             onFocus={(e)=>{e.preventDefault(); e.stopPropagation();}}
             className="outline-none" type={"text"} {...props.inputProps}></input>
-        </div>
+        </Wrapper>
     )
 };

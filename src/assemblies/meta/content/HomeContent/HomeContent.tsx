@@ -41,7 +41,9 @@ export const HomeContent : FC<HomeContentProps>  = (props) =>{
             className={[...!props.overrideClasses ? HOME_CONTENT_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? HOME_CONTENT_INNER_STYLE : {}, ...props.style}}>
                 <div>
-                    <MensCollegeBasketballHeader/>
+                    <MensCollegeBasketballHeader
+                    teams={props.apTop25Teams?.map(team=>team.team)}
+                    projectedGames={props.top25Games}/>
                 </div>
                 <div>
                     <NcaabMensOverview

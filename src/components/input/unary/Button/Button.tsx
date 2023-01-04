@@ -50,6 +50,7 @@ export type ButtonProps = {
     classNames ? : string[];
     /** Whether or not to overrid the classes  */
     overrideClasses ? : boolean;
+    div ? : boolean;
 };
 
 export const Button : FC<ButtonProps>  = (props) =>{
@@ -97,7 +98,53 @@ export const Button : FC<ButtonProps>  = (props) =>{
         primaryEmphasis = secondaryEmphasis;
         secondaryEmphasis = temp;
     };
-    const [textColor, textEmphasis] = getReadableTextColor([primaryColor, primaryEmphasis])
+    const [textColor, textEmphasis] = getReadableTextColor([primaryColor, primaryEmphasis]);
+
+    if(props.div) return (
+        <div
+        // pass through
+        {...props}
+        // used props
+        onClick={handleClick}
+        className={[
+            ...!props.overrideClasses ? BUTTON_CLASSNAMES : [],
+            ...props.classNames||[],
+            ...[
+                // `border-${primaryColor}-${secondaryEmphasis}`,
+                `bg-${primaryColor}-${primaryEmphasis}`,
+                `hover:bg-${primaryColor}-${primaryEmphasis - 200}`,
+                `text-${textColor}-${textEmphasis}`,
+                `hover:text-${textColor}-${textEmphasis + 100}`,
+                `fill-${primaryColor}-${secondaryEmphasis}`
+            ]
+        ].join(" ")}
+        style={{...BUTTON_STYLE, ...props.style}}>
+            { props.children }
+            { (
+                vistate === "loading"
+                || vistate === "err"
+                || vistate === "success"
+             ) && <div 
+             className={`text-${primaryColor}-${secondaryEmphasis}`}
+             style={{
+                display : "flex",
+                alignContent : "center",
+                justifyContent : "center",
+                alignItems : "center",
+                justifyItems : "center",
+                position : "absolute",
+                height : "100%",
+                width : "100%",
+                background : "#ffffff99",
+                left : 0,
+                top : 0
+            }}>
+                { vistate === "loading" && <MoonLoader size="20px"/> }
+                { vistate === "err" && <AnimatedError size={40}/> }
+                { vistate === "success" && <AnimatedCheck size={40}/> }
+            </div>}
+        </div>
+    )
 
     return (
         <button
