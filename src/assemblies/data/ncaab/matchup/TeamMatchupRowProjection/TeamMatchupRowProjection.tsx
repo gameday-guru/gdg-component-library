@@ -9,7 +9,8 @@ import { MockOver } from '../../../../../components/output/MockOver';
 
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ 
     "p-4",
-    "rounded-lg"
+    "rounded-lg",
+    "gap-2"
 ];
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : React.CSSProperties = {
 };
@@ -19,7 +20,8 @@ export const TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : string[] = [
     "gap-2"
 ];
 export const TEAM_MATCHUP_ROW_PROJECTION_INNER_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "3fr 1fr"
+    gridTemplateColumns : "3fr 1fr",
+    gridTemplateRows : "1fr"
 };
 
 export type TeamMatchupRowProjectionProps = {
@@ -36,12 +38,13 @@ export type TeamMatchupRowProjectionProps = {
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (matchupId : string)=>Promise<void>;
     gamblers ? : boolean;
+    stackedGamblers ? : boolean;
 };
 
 export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (props) =>{
 
-    const _game = props.game||ontology.MockHome;
-    const _gameProjection = props.gameProjection||ontology.MockProjectedGame;
+    const _game = props.game||ontology.MockGame;
+    const _gameProjection = props.gameProjection||ontology.MockProjectedGame.gameProjection;
 
     const handleMatchupClick = async ()=>{
         if(props.game) 
@@ -50,12 +53,18 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
 
     const _gamblersTuple = <MockOver
         Content={ <GamblersTuple 
-            game={props.game}
-            gameProjection={props.gameProjection}
+            stacked={props.stackedGamblers}
+            game={_game}
+            gameProjection={_gameProjection}
             style={{
-                height : "100%"
+                height : "100%",
+                fontSize : props.stackedGamblers ? 14 : 12
             }}/>}
         dependencies={[_game, _gameProjection]}/>
+
+    const _dateString = <MockOver
+        Content={<DateString date={new Date(_game.DateTimeUTC ? (_game.DateTimeUTC + "Z") : _game.Day)}/>}
+        dependencies={[_game]}/>
 
     return (
         <Button
@@ -64,17 +73,19 @@ export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (pr
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : {}, ...props.style}}>
             <div>
-                <DateString date={new Date((props.game as any)?.DateTime||0)}/>
-                <br/>
+                {_dateString}
             </div>
             <div
             className={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? {
-                gridTemplateColumns : props.gamblers !== false ? "3fr 1fr" : "1fr"
+                width : "100%",
+                gridTemplateColumns : props.gamblers !== false ? props.stackedGamblers ? "3fr 2fr" :  "3fr 1fr" : "1fr"
             } : {}, ...props.style}}>
                 <div>   
                     <StackedProjection 
-                        
+                        style={{
+                            width : "100%"
+                        }}
                         onTeamClick={props.onTeamClick}
                         home={props.home}
                         away={props.away}

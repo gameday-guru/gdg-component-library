@@ -11,5 +11,6 @@ export declare type GamblersTupleProps = {
     responsive?: boolean;
     game?: ontology.GameByDatelike;
     gameProjection?: ontology.ProjectionEntrylike;
+    stacked?: boolean;
 };
 export declare const GamblersTuple: FC<GamblersTupleProps>;

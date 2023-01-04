@@ -31,7 +31,8 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
     const _awayScore = props.awayScore||63;
 
     return (
-        <Wrapper  viusage='backdrop' classNames={["rounded-lg", "p-4", "text-xs"]}>
+        <Wrapper  viusage='backdrop' classNames={["rounded-lg", "p-4", "text-xs"]}
+            style={props.style}>
             <div
             className={[...!props.overrideClasses ? PROJECTION_ZERO_SUM_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? PROJECTION_ZERO_SUM_STYLE : {}, ...props.style}}>
@@ -71,7 +72,6 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
                         </div>
                     </div>
                 </div>
-                <br/>
                 <div style={{
                     textAlign : "left",
                     fontSize : 10

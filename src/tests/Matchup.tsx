@@ -102,14 +102,26 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
     const homeDistro = home && getPointDistribution(home);
     const homeEff = home && efficiency && efficiency[home.TeamID.toString()];
     const homeGames = home && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, home);
+    const homeGamesSorted = homeGames && Object.values(homeGames)
+    .sort((gameA, gameB)=>{
 
-    // console.log(gamesTable, home, projectedGame, homeDistro, homeEff, homeGames);
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
 
     let away = undefined;
     if(projectedGame && teams) away = teams[projectedGame.away.TeamID.toString()];
     const awayDistro = away && getPointDistribution(away);
     const awayEff = away && efficiency && efficiency[away.TeamID.toString()];
     const awayGames = away && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, away);
+    const awayGamesSorted = awayGames && Object.values(awayGames)
+    .sort((gameA, gameB)=>{
+
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
 
     if(!user && !loading) navigate("/");
 
@@ -136,7 +148,7 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
         away={away}
         awayDistro={awayDistro}
         awayEfficiency={awayEff}
-        homeGameProjections={homeGames && Object.values(homeGames)}
-        awayGameProjections={awayGames && Object.values(awayGames)}/>
+        homeGameProjections={homeGamesSorted}
+        awayGameProjections={awayGamesSorted}/>
     )
 };

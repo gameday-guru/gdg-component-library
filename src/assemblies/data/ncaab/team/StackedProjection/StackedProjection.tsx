@@ -9,6 +9,7 @@ export const STACKED_PROJECTION_CLASSNAMES : string[] = [
 ];
 export const STACKED_PROJECTION_STYLE : React.CSSProperties = {
     gridTemplateRows : "10fr 1fr 10fr",
+    gridTemplateColumns : "1fr",
     justifyItems : "center",
     justifyContent : "center",
     alignContent : "center",
@@ -32,12 +33,21 @@ export type StackedProjectionProps = {
 
 export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
 
+    console.log(props.game);
+
     return (
         <div
         className={[...!props.overrideClasses ? STACKED_PROJECTION_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? STACKED_PROJECTION_STYLE : {}, ...props.style}}>
-            <div>
+            <div style={{
+                width : "100%"
+            }}>
                 <RowProjection
+                    style={{
+                        padding : 4,
+                        width : "100%"
+                    }}
+                    // classNames={["p-0"]}
                     onTeamClick={props.onTeamClick}
                     team={props.away}
                     game={props.game}
@@ -63,8 +73,14 @@ export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
 
                 </div>
             </div>
-            <div>
+            <div  style={{
+                width : "100%"
+            }}>
                 <RowProjection
+                    style={{
+                        padding : 4,
+                        width : "100%"
+                    }}
                     onTeamClick={props.onTeamClick}
                     team={props.home}
                     game={props.game}

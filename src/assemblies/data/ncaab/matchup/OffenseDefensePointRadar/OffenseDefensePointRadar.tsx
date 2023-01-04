@@ -83,7 +83,22 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
             <RadarChart 
                 height={300} width={300} 
                 outerRadius="80%" data={data}>
-                <Tooltip/>
+                <Tooltip 
+                contentStyle={{
+                    background : 'black',
+                    border : 'none',
+                    outline : 'none'
+                }}
+                itemStyle={{
+                    background : 'black'
+                }}
+                wrapperStyle={{
+                    background : 'black',
+                    border : 'none',
+                    outline : '1px solid white',
+                    borderRadius : 4
+                }}
+                formatter={(value)=>`${(Number.parseFloat(value as any) * 100).toFixed(1)}%`}/>
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />
                 <PolarRadiusAxis />

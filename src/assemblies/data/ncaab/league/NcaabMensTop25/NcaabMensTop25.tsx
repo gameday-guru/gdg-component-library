@@ -39,7 +39,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
     const [which, setWhich] = useState<"ap"|"gdg">(props.which||"ap");
 
     const _apTop25 = (
-        !props.gdgTop25||props.gdgTop25?.length < 1 ? Array(25).fill(ontology.MockRankTrendTeam) : props.gdgTop25
+        !props.apTop25||props.apTop25?.length < 1 ? Array(25).fill(ontology.MockRankTrendTeam) : props.apTop25
     )
     .map((entry)=>{
         return (

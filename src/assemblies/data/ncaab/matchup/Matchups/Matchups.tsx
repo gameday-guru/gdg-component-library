@@ -32,16 +32,16 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
         className={[...!props.overrideClasses ? MATCHUPS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? MATCHUPS_STYLE : {}, ...props.style}}>
             <div>
-                <WeekMatchupCarousel
-                onMatchupClick={props.onMatchupClick}
-                onTeamClick={props.onTeamClick}
-                gamesThisWeek={props.gamesThisWeek}/>
-            </div>
-            <div>
                 <NcaabMensAllUpcomingGames
                 onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
-                allUpcomingGames={props.allUpcomingGames}/>
+                allUpcomingGames={props.gamesThisWeek}/>
+            </div>
+            <div>
+                <WeekMatchupCarousel
+                onMatchupClick={props.onMatchupClick}
+                onTeamClick={props.onTeamClick}
+                gamesThisWeek={props.allUpcomingGames}/>
             </div>
         </div>
     )

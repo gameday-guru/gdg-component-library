@@ -62,6 +62,7 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
     const [user, loading, error] = useAuthState(auth);
 
     const {
+        getProjectedGamesTable,
         getProjectedGamesInNextMonthTable,
         getProjectedGamesInNextWeekTable
     } = useOnceProcessor();
@@ -76,8 +77,23 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
         navigate(`/matchup/${gameId}`)
     };
 
+    const todaysGames = getProjectedGamesTable(now);
+    const todaysGamesSorted = todaysGames && Object.values(todaysGames)
+    .sort((gameA, gameB)=>{
+
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
+
     const weeksGames = getProjectedGamesInNextWeekTable(now);
-    const monthsGames = getProjectedGamesInNextMonthTable(now);
+    const weeksGamesSorted = weeksGames && Object.values(weeksGames)
+    .sort((gameA, gameB)=>{
+
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
 
 
     return (
@@ -86,7 +102,7 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
         }}
         onTeamClick={handleTeamClick}
         onMatchupClick={handleMatchupClick}
-        allUpcomingGames={monthsGames && Object.values(monthsGames)}
-        gamesThisWeek={weeksGames && Object.values(weeksGames)}/>
+        allUpcomingGames={weeksGamesSorted}
+        gamesThisWeek={todaysGamesSorted}/>
     )
 };

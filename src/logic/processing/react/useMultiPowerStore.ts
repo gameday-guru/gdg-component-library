@@ -21,6 +21,11 @@ export interface Subscriberslike {
     [key : symbol] : ()=>void;
 }
 
+export const StoreMap : WeakMap<MultiPowerStorelike<any, any>, StoreMapContextlike['context']> = new WeakMap();
+export const StoreContextMap : WeakMap<MultiPowerStorelike<any, any>, Context<StoreMapContextlike>> = new WeakMap();
+export const StoreSubscribers : WeakMap<MultiPowerStorelike<any, any>, Subscriberslike> = new WeakMap();
+export const FetchProgress : WeakMap<MultiPowerStorelike<any, any>, {[key : string] : boolean}> = new WeakMap();
+
 export const gorcStore = (store : MultiPowerStorelike<any, any>) : StoreMapContextlike['context'] =>{
     const context = StoreMap.get(store);
     if(!context) StoreMap.set(store, {});
@@ -81,10 +86,6 @@ export const unsubscribeStore = (
 
 };*/
 
-export const StoreMap : WeakMap<MultiPowerStorelike<any, any>, StoreMapContextlike['context']> = new WeakMap();
-export const StoreContextMap : WeakMap<MultiPowerStorelike<any, any>, Context<StoreMapContextlike>> = new WeakMap();
-export const StoreSubscribers : WeakMap<MultiPowerStorelike<any, any>, Subscriberslike> = new WeakMap();
-export const FetchProgress : WeakMap<MultiPowerStorelike<any, any>, {[key : string] : boolean}> = new WeakMap();
 
 export const useMultiPowerStore = <A, T>(
     store : MultiPowerStorelike<A, T>,
@@ -96,9 +97,7 @@ export const useMultiPowerStore = <A, T>(
 }=>{
 
     const [symbol] = useState(Symbol());
-    const [tick, increment] = useReducer((x)=>{
-        return x + 1;
-    }, 0);
+    const [tick, increment] = useReducer((x)=>x+1, 0);
 
     /*const globalContext = gorcStoreContext(store);
 
@@ -143,7 +142,7 @@ export const useMultiPowerStore = <A, T>(
         // all of the others will use the Eager fetch
         let fetchPolicy : FetchPolicy = FetchPolicy.DRACE;
 
-        // check that the resource has not been requested
+        // check that the resource has not already been requested
         const argStr = toArgString(arg)
         if(fetchProgress.current[argStr]) return getStore[argStr];
         fetchProgress.current[argStr] = true;

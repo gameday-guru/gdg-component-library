@@ -103,6 +103,13 @@ export const Team : FC<TeamProps>  = (props) =>{
     if(id && teams) team = teams[id];
     const teamDistro = team && getPointDistribution(team);
     const teamGames = team && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, team);
+    const teamGamesSorted = teamGames && Object.values(teamGames)
+    .sort((gameA, gameB)=>{
+
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
 
 
     if(!user && !loading) navigate("/");
@@ -126,7 +133,7 @@ export const Team : FC<TeamProps>  = (props) =>{
         efficiency={id && efficiency ? efficiency[id] : undefined}
         pointDistribution={teamDistro}
         leagueAverages={getLeagueAverages()}
-        games={teamGames && Object.values(teamGames)}
+        games={teamGamesSorted}
         team={team}
         tableEntries={efficiency && Object.values(efficiency)}/>
     )

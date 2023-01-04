@@ -44,10 +44,10 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
 
     const _home = props.home||ontology.MockHome;
     const _away = props.away||ontology.MockAway;
+    const _game = props.game||ontology.MockGame;
     const _gameProjection = props.gameProjection||ontology.MockProjectedGame.gameProjection;
 
     const handleMatchupClick = async ()=>{
-        console.log(props.game);
         if(props.game) props.onMatchupClick && props.onMatchupClick(props.game.GameID.toString())
     }
 
@@ -64,6 +64,10 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
             gameProjection={_gameProjection}/>}
             dependencies={[_home, _away, _gameProjection]}/>
 
+    const _dateString = <MockOver
+        Content={<DateString date={new Date(_game.DateTimeUTC ? (_game.DateTimeUTC + "Z") : _game.Day)}/>}
+        dependencies={[_game]}/>
+
     return (
         <Button
             onClick={handleMatchupClick}
@@ -75,7 +79,7 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
                 justifyContent : "center",
                 justifyItems : "center"
             }}>
-                <DateString date={new Date((props.game as any)?.DateTime||0)}/>
+                {_dateString}
             </div> : <div>
                 <h2 className="text-gdg-500 text-lg">Projection Only</h2>    
             </div>}

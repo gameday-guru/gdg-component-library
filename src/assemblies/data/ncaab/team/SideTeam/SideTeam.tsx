@@ -42,7 +42,7 @@ export const SideTeam : FC<SideTeamProps>  = (props) =>{
         classNames={[...!props.overrideClasses ? SIDE_TEAM_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? SIDE_TEAM_STYLE : {}, ...props.style}}>
             <div>
-                <img width={60} src={team.TeamLogoUrl}/>
+                <img width={45} src={team.TeamLogoUrl}/>
             </div>
             <div>
                 <h2 className='text'>{team.School}</h2>

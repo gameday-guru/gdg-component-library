@@ -4,6 +4,7 @@ import { Processorlike } from "../processor";
 import { ontology } from "../../../util";
 import { DateComparison } from "../../../util/date";
 import { useMultiPowerStore } from "./useMultiPowerStore";
+import { useEfficiency } from "./useEfficiency";
 
 export const useGames = () : {
 
@@ -18,14 +19,35 @@ export const useGames = () : {
 }=>{
 
     const {
-        get : getGames
+        getEfficiencyTable
+    } = useEfficiency();
+
+    const {
+        get : _getGames
     } = useMultiPowerStore(
         MainDatabase.multiListeners.gamesByDate,
         (date)=>DateComparison.dateString(date)
     );
 
-    const getGamesTable = (date : Date) : { [key : string] : ontology.GameByDatelike } | undefined =>{
+    const getGames = (date : Date) : ontology.GameByDatelike[] | undefined =>{
         
+        const efficiency = getEfficiencyTable();
+
+        if(!efficiency) return undefined;
+
+        const gamesOnDate = _getGames(date);
+
+        return gamesOnDate && gamesOnDate
+        .filter((game)=>{
+            return efficiency[game.AwayTeamID.toString()]
+            && efficiency[game.HomeTeamID.toString()];
+
+        });
+        
+    }
+
+    const getGamesTable = (date : Date) : { [key : string] : ontology.GameByDatelike } | undefined =>{
+
         const gamesOnDate = getGames(date);
         if(!gamesOnDate) return undefined;
 
@@ -56,7 +78,7 @@ export const useGames = () : {
     const getGamesInNextWeekTable = (date : Date) : { [key : string] : ontology.GameByDatelike } | undefined =>{
 
         const end = new Date(date);
-        end.setDate(end.getDate() + 1);
+        end.setDate(end.getDate() + 7);
         return getGamesTableBetween(date, end);
 
     }

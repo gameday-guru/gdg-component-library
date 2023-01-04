@@ -18,5 +18,6 @@ export declare type TeamMatchupRowProjectionProps = {
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (matchupId: string) => Promise<void>;
     gamblers?: boolean;
+    stackedGamblers?: boolean;
 };
 export declare const TeamMatchupRowProjection: FC<TeamMatchupRowProjectionProps>;

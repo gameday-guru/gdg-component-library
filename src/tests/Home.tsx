@@ -70,9 +70,6 @@ export const Home : FC<HomeProps>  = (props) =>{
         getTop25Games,
         getGameOfTheDay
     } = useOnceProcessor();
-    console.log(getGames(date), getGdgTop25Teams(), getApTop25Teams(), getTop25Games(date), getGameOfTheDay(date));
-
-    // getGdgTop25Teams();
    
 
     if(!user && !loading) navigate("/");
@@ -85,6 +82,16 @@ export const Home : FC<HomeProps>  = (props) =>{
         navigate(`/matchup/${gameId}`)
     };
 
+    const top25Games = getTop25Games(date);
+    const top25GamesSorted = top25Games && Object.values(top25Games)
+    .sort((gameA, gameB)=>{
+
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
+    
+
     return (
         <HomePage
         onWhich={async (which)=>{
@@ -94,7 +101,7 @@ export const Home : FC<HomeProps>  = (props) =>{
         onMatchupClick={handleMatchupClick}
         gdgTop25Teams={getGdgTop25Teams()}
         apTop25Teams={getApTop25Teams()}
-        top25Games={getTop25Games(date)}
+        top25Games={top25GamesSorted}
         gameOfTheDay={getGameOfTheDay(date)}/>
     )
 };

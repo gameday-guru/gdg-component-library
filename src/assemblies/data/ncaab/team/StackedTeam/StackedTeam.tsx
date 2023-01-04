@@ -40,8 +40,7 @@ export const StackedTeam : FC<StackedTeamProps>  = (props) =>{
         {...props}
         classNames={[...!props.overrideClasses ? STACKED_TEAM_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? STACKED_TEAM_STYLE : {}, ...props.style}}>
-            <img width={60} src={_home.TeamLogoUrl}/>
-            <br/>
+            <img width={45} src={_home.TeamLogoUrl}/>
             {_home.School}
         </Button>
     )

@@ -22,5 +22,6 @@ export declare type UpcomingGamesProps = {
     presets?: {
         [key: string]: (table: ontology.ProjectedGamelike[]) => Promise<ontology.ProjectedGamelike[]>;
     };
+    stackedGamblers?: boolean;
 };
 export declare const UpcomingGames: FC<UpcomingGamesProps>;

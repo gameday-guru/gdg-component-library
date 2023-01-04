@@ -76,7 +76,22 @@ export const TeamGaguruStatsBarChart : FC<TeamGaguruStatsBarChartProps>  = (prop
                 <YAxis 
                 fontSize={10}
                 dataKey="name" type='category' />
-                <Tooltip />
+                <Tooltip 
+                    contentStyle={{
+                        background : 'black',
+                        border : 'none',
+                        outline : 'none'
+                    }}
+                    itemStyle={{
+                        background : 'black'
+                    }}
+                    wrapperStyle={{
+                        background : 'black',
+                        border : 'none',
+                        outline : '1px solid white',
+                        borderRadius : 4
+                    }}
+                    formatter={(value)=>Number.parseFloat(value as any).toFixed(1)}/>
                 <Bar 
                     radius={5}
                     width={50} dataKey="team" fill={COLORS[0]} />

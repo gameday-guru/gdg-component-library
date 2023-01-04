@@ -9,7 +9,7 @@ export const ROW_TUPLE_STYLE : React.CSSProperties = {
     gridTemplateRows : "1fr",
     // gridTemplateColumns : "1fr 1fr 1fr",
     alignContent : "center",
-    alignItems : "center"
+    alignItems : "center",
 };
 
 export type RowTupleProps = {
@@ -41,25 +41,29 @@ export const RowTuple : FC<RowTupleProps>  = (props) =>{
         }}}>
             <StackedPostblock
                 style={{
-                    height : "100%"
+                    height : "100%",
+                    fontSize : 12
                 }}
                 Label={"Line"}
                 Value={_line > 0 ? `+${_line}` : _line}/>
             <StackedPostblock
                 style={{
-                    height : "100%"
+                    height : "100%",
+                    fontSize : 12
                 }}
                 Label={"Odds"}
                 Value={_odds}/>
             <StackedPostblock
                 style={{
-                    height : "100%"
+                    height : "100%",
+                    fontSize : 12
                 }}
-                Label={"Projected Score"}
+                Label={"Proj. Score"}
                 Value={_projectedScore}/>
             {props.actualScore && <StackedPostblock
                 style={{
-                    height : "100%"
+                    height : "100%",
+                    fontSize : 12
                 }}
                 Label={"Score"}
                 Value={props.actualScore.toFixed(0)}/>}

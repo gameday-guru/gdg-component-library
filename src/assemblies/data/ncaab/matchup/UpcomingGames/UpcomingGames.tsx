@@ -36,6 +36,7 @@ export type UpcomingGamesProps = {
     presets ? : {
         [key : string] : (table : ontology.ProjectedGamelike[])=>Promise<ontology.ProjectedGamelike[]>
     }
+    stackedGamblers ? : boolean;
 };
 
 export const UpcomingGames : FC<UpcomingGamesProps>  = (props) =>{
@@ -51,9 +52,10 @@ export const UpcomingGames : FC<UpcomingGamesProps>  = (props) =>{
     .map((entry, i)=>{
         return (
             <TeamMatchupRowProjection 
+                stackedGamblers={props.stackedGamblers}
                 onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
-                key={entry.game.GameID + `${i}`}
+                key={entry.game.GameID + `x${i}`}
                 home={entry.home}
                 away={entry.away}
                 game={entry.game}

@@ -50,6 +50,9 @@ export const RowProjection : FC<RowProjectionProps>  = (props) =>{
     const sideTeam = <MockOver
         Content={<SideTeam
             viusage='backdrop'
+            style={{
+                fontSize : 14
+            }}
             onTeamClick={props.onTeamClick}
             team={props.team}
             away={props.away}/>}

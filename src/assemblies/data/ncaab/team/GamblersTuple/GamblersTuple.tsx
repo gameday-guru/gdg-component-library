@@ -5,7 +5,8 @@ export const GAMBLERS_TUPLE_CLASSNAMES : string[] = [
     "grid",
     "gap-2",
     "rounded-lg",
-    "p-2"
+    "p-2",
+    "text-sm"
 ];
 export const GAMBLERS_TUPLE_STYLE : React.CSSProperties = {
     gridTemplateRows : "1fr 1fr",
@@ -23,6 +24,7 @@ export type GamblersTupleProps = {
     responsive ? : boolean;
     game ? : ontology.GameByDatelike;
     gameProjection ? : ontology.ProjectionEntrylike;
+    stacked ? : boolean;
 };
 
 export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
@@ -36,7 +38,13 @@ export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
     return (
         <div
         className={[...!props.overrideClasses ? GAMBLERS_TUPLE_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? GAMBLERS_TUPLE_STYLE : {}, ...props.style}}>
+        style={{...!props.overrideStyle ? {
+            ...GAMBLERS_TUPLE_STYLE,
+            ...props.stacked && {
+                gridTemplateRows : "1fr",
+                gridTemplateColumns : "1fr 1fr 1fr"
+            }
+        } : {}, ...props.style}}>
             <div 
             className='rounded-lg'
             style={{
@@ -48,10 +56,10 @@ export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
             }}>
                 <h2 style={{
                     color : "#ffffff44"
-                }}>Projected Total</h2>
+                }}>Proj. Total</h2>
                 {_projectedTotal}
             </div>
-            <div 
+            {!props.stacked && <div 
             className='rounded-lg'
             style={{
                 height : "100%",
@@ -68,15 +76,43 @@ export const GamblersTuple : FC<GamblersTupleProps>  = (props) =>{
                     }}>Total</h2>
                     O/U {_ou}
                 </div>
-                <div style={{
+                {!props.stacked && <div style={{
                     textAlign : "center"
                 }}>
                     <h2 style={{
                         color : "#ffffff44"
                     }}>Odds</h2>
                     {_odds}
-                </div>
-            </div>
+                </div>}
+            </div>}
+            {props.stacked && <div 
+            className='rounded-lg'
+            style={{
+                display : "grid",
+                height : "100%",
+                background : "#33A9FE44",
+                textAlign : "center",
+                alignContent : "center"
+            }}>
+                <h2 style={{
+                    color : "#ffffff44",
+                }}>Total</h2>
+                O/U {_ou}
+            </div>}
+            {props.stacked && <div 
+            className='rounded-lg'
+            style={{
+                display : "grid",
+                height : "100%",
+                background : "#33A9FE44",
+                textAlign : "center",
+                alignContent : "center"
+            }}>
+                <h2 style={{
+                    color : "#ffffff44"
+                }}>Odds</h2>
+                {_odds}
+            </div>}
         </div>
     )
 };
