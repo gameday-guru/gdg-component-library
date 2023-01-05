@@ -16,7 +16,7 @@ export interface Mockable {
 export const getMockStatus = (mock : Mockable) : MockMode =>{
 
     if( // if we're not in mock mode, but it says to mock
-        !import.meta.env.MOCK
+        !import.meta.env.VITE_MOCK
         && mock.__mock === MockMode.MOCK
     ) return MockMode.LOADING; // make this loading
 

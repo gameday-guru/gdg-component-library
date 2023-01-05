@@ -1,4 +1,3 @@
-import './App.css';
 // import "./assets/gdg.css"
 import { Login } from "./Login";
 import { Home } from "./Home";
@@ -21,6 +20,7 @@ import { Matchups } from './Matchups';
 import { Matchup } from './Matchup';
 import { MockMatchup } from './MockMatchup';
 import 'react-loading-skeleton/dist/skeleton.css'
+import { Tos } from "./Tos";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -50,6 +50,7 @@ export function App(style : any) {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>}/>
+          <Route path="/tos" element={<Tos/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/team" element={<Teams/>}/>

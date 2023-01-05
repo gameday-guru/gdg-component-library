@@ -1,1 +1,1 @@
-export { App as NcaabDemoAp } from "./App";
+export { App as NcaabDemoApp } from "./App";

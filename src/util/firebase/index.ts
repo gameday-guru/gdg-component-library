@@ -42,6 +42,10 @@ export const modelGet = httpsCallable<{
     path : string
 }>(functions, "modelGet");
 
+export const confirmTosPost = httpsCallable<string,boolean>(functions, "confirmTos");
+
+export const getTosConfirmedGet = httpsCallable<string,boolean>(functions, "confirmTos");
+
 /**
  * 
  * @param date 
@@ -169,5 +173,17 @@ export const getPlayers = async (team : ontology.Teamlike) : Promise<ontology.Pl
         path : `v3/cbb/scores/json/Players/${team.Key}`
     })).data as ontology.Playerlike[];
 
+
+}
+
+export const confirmTos = async (id : string) : Promise<boolean> =>{
+
+    return (await confirmTosPost(id)).data;
+
+}
+
+export const getConfirmedTos = async (id : string) : Promise<boolean> =>{
+
+    return (await getTosConfirmedGet(id)).data;
 
 }

@@ -1,10 +1,13 @@
 import { ontology } from "../../../util"
+import { BlogArticlesMultiCache } from "../domain/blogs";
+import { ConfirmedTosMultiCache } from "../domain/confirmedTos";
 import { EfficiencyMultiCache } from "../domain/efficiency";
 import { GamesByDateMultiCache } from "../domain/gamesByDate";
 import { TeamsMultiCache } from "../domain/ncaabTeams/caches";
 import { PlayersMultiCache } from "../domain/players";
 import { ProjectionMultiCache } from "../domain/projection";
 import { RadarMultiCache } from "../domain/radar";
+import { TosesMultiCache } from "../domain/tos";
 import { TrendMultiCache } from "../domain/trend";
 import { MultiPowerStorelike } from "../operations";
 
@@ -16,6 +19,9 @@ export interface DataMultiPowerStoreslike {
     trend : MultiPowerStorelike<undefined, ontology.TrendTablelike>;
     projection : MultiPowerStorelike<undefined, ontology.ProjectionTablelike>;
     radar : MultiPowerStorelike<undefined, ontology.RadarTablelike>;
+    blogs : MultiPowerStorelike<undefined, ontology.BlogArticlelike[]>;
+    tos : MultiPowerStorelike<undefined, ontology.Toslike[]>;
+    confirmedTos : MultiPowerStorelike<string, boolean>;
 }
 
 export const DEFAULT_MULTI_LISTENERS : DataMultiPowerStoreslike = {
@@ -25,7 +31,10 @@ export const DEFAULT_MULTI_LISTENERS : DataMultiPowerStoreslike = {
     efficiency : EfficiencyMultiCache,
     trend : TrendMultiCache,
     projection : ProjectionMultiCache,
-    radar : RadarMultiCache
+    radar : RadarMultiCache,
+    blogs : BlogArticlesMultiCache,
+    tos : TosesMultiCache,
+    confirmedTos : ConfirmedTosMultiCache
 }
 
 export interface Databaselike {
