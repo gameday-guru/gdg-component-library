@@ -3,6 +3,7 @@ import { Wrapper } from '../../../components';
 import { ConfirmTos } from '../../../assemblies/user/tos/ConfirmTos/ConfirmTos';
 import { Sportsdataio } from '../../../components/output/icons/Sportsdataio/Sportsdataio';
 import { Logo } from '../../../components/output/icons/Logo';
+import { ontology } from '../../../util';
 
 export const LOGIN_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -28,7 +29,8 @@ export type TosProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
-    onTos ? : ()=>Promise<void>;
+    confirmTos ? : ()=>Promise<void>;
+    tos ? : ontology.Toslike;
 };
 
 export const Tos : FC<TosProps>  = (props) =>{
@@ -43,7 +45,9 @@ export const Tos : FC<TosProps>  = (props) =>{
                     width : 200
                 }}/>
                 <Sportsdataio/>
-                <ConfirmTos/>
+                <ConfirmTos 
+                confirmTos={props.confirmTos}
+                tos={props.tos}/>
         </Wrapper>
     )
 };

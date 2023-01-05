@@ -25,6 +25,8 @@ export type NcaabMensOverviewProps = {
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    blogs ? : ontology.BlogArticlelike[];
+    onBlogClick ? : (id : string)=>Promise<void>;
 };
 
 export const NcaabMensOverview : FC<NcaabMensOverviewProps>  = (props) =>{
@@ -35,6 +37,8 @@ export const NcaabMensOverview : FC<NcaabMensOverviewProps>  = (props) =>{
         style={{...!props.overrideStyle ? NCAAB_MENS_OVERVIEW_STYLE : {}, ...props.style}}>
             <div>
                 <NcaabMensOverviewStack
+                    blogs={props.blogs}
+                    onBlogClick={props.onBlogClick}
                     onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}
                     top25Games={props.top25Games}

@@ -65,10 +65,12 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
         getTeams,
         getProjectedGamesTable,
         getProjectedGamesInNextMonthTable,
-        getProjectedGamesInNextWeekTable
+        getProjectedGamesInNextWeekTable,
+        getTosConfirmed
     } = useOnceProcessor();
 
     if(!user && !loading) navigate("/");
+    if(!getTosConfirmed(user?.uid||"")) navigate("/tos");
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)

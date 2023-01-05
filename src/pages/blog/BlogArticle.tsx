@@ -1,6 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { BlogArticleContent } from '../../assemblies/meta/content/BlogArticleContent';
 import { BlogArticleHeader } from '../../assemblies/meta/header/BlogArticleHeader/BlogArticleHeader';
+import { ontology } from '../../util';
 
 export const HOME_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -22,6 +23,7 @@ export type BlogArticleProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
+    blogArticle ? : ontology.BlogArticlelike;
 };
 
 export const BlogArticle : FC<BlogArticleProps>  = (props) =>{
@@ -34,7 +36,8 @@ export const BlogArticle : FC<BlogArticleProps>  = (props) =>{
                 <BlogArticleHeader/>
             </div>
             <div>
-                <BlogArticleContent/>
+                <BlogArticleContent
+                blogArticle={props.blogArticle}/>
             </div>
         </div>
     )

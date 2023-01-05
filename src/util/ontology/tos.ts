@@ -28,3 +28,7 @@ Gameday Guru, Inc has not reviewed all of the sites linked to its Internet web s
 Gameday Guru, Inc may revise these terms of use for its web site at any time without notice. By using this web site, you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
 `
 })
+
+export interface TosTablelike {
+    [key : string] : Toslike
+}

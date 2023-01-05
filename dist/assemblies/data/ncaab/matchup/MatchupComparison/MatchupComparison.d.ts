@@ -19,5 +19,7 @@ export declare type MatchupComparisonProps = {
     gameProjections?: ontology.ProjectionEntrylike[];
     leagueAverages?: ontology.LeagueAverageslike;
     game?: ontology.GameByDatelike;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
 };
 export declare const MatchupComparison: FC<MatchupComparisonProps>;

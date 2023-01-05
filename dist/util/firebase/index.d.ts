@@ -7,6 +7,8 @@ export declare const sportsdataioGet: import("@firebase/functions").HttpsCallabl
 export declare const modelGet: import("@firebase/functions").HttpsCallable<{
     path: string;
 }, unknown>;
+export declare const confirmTosPost: import("@firebase/functions").HttpsCallable<string, boolean>;
+export declare const getTosConfirmedGet: import("@firebase/functions").HttpsCallable<string, boolean>;
 /**
  *
  * @param date
@@ -51,3 +53,5 @@ export declare const getTeamsTable: () => Promise<{
     [key: string]: ontology.Teamlike;
 }>;
 export declare const getPlayers: (team: ontology.Teamlike) => Promise<ontology.Playerlike[]>;
+export declare const confirmTos: (id: string) => Promise<boolean>;
+export declare const getConfirmedTos: (id: string) => Promise<boolean>;

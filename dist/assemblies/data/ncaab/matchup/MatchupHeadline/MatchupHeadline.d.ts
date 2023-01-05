@@ -18,5 +18,6 @@ export declare type MatchupHeadlineProps = {
     gameProjection?: ontology.ProjectionEntrylike;
     game?: ontology.GameByDatelike;
     onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
 };
 export declare const MatchupHeadline: FC<MatchupHeadlineProps>;

@@ -10,6 +10,9 @@ export interface DataMultiPowerStoreslike {
     trend: MultiPowerStorelike<undefined, ontology.TrendTablelike>;
     projection: MultiPowerStorelike<undefined, ontology.ProjectionTablelike>;
     radar: MultiPowerStorelike<undefined, ontology.RadarTablelike>;
+    blogs: MultiPowerStorelike<undefined, ontology.BlogArticleTablelike>;
+    tos: MultiPowerStorelike<undefined, ontology.TosTablelike>;
+    confirmedTos: MultiPowerStorelike<string, boolean>;
 }
 export declare const DEFAULT_MULTI_LISTENERS: DataMultiPowerStoreslike;
 export interface Databaselike {

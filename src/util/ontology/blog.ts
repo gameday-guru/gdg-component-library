@@ -10,13 +10,15 @@ export interface BlogArticlelike extends Mockable {
     summary ? : string;
     thumbnail ? : string;
     thumbnailLink ? : string;
+    uid : string;
 }
 
 export const MockBlogArticle : BlogArticlelike = mock<BlogArticlelike>({
+    uid  : '1',
     title : "Mock Article",
     publicationDate : new Date().toUTCString(),
     tags : ["mock", "article"],
-    content : 
+    content :
 `
 ### Terms
 By accessing this web site, you are agreeing to be bound by these web site Terms of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.
@@ -39,3 +41,7 @@ Gameday Guru, Inc may revise these terms of use for its web site at any time wit
     authorship : "John Mock Doe",
     summary : `By accessing this web site, you are agreeing to be bound by these web site Terms of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.`,
 });
+
+export interface BlogArticleTablelike {
+    [key : string] : BlogArticlelike;
+}

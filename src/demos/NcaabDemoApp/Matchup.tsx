@@ -24,6 +24,7 @@ import { useProjectedGames } from '../../logic/processing/react/useProjectedGame
 import { useTeams } from '../../logic/processing/react/useTeams';
 import { usePointDistribution } from '../../logic/processing/react/usePointDistribution';
 import { useEfficiency } from '../../logic/processing/react/useEfficiency';
+import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -73,6 +74,10 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
     const { 
         getLeagueAverages
     } = useLeagueAverages();
+
+    const {
+        getTosConfirmed
+    } = useOnceProcessor();
 
     const {
         getProjectedGamesTableBetween,
@@ -125,6 +130,7 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
     });
 
     if(!user && !loading) navigate("/");
+    if(!getTosConfirmed(user?.uid||"")) navigate("/tos");
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)

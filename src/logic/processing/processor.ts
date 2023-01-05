@@ -50,7 +50,14 @@ export interface Processorlike {
     getLeagueAverages() : ontology.LeagueAverageslike | undefined;
 
     // point distribution
-    getPointDistribution(team : ontology.Teamlike) : ontology.PointDistributionlike | undefined
+    getPointDistribution(team : ontology.Teamlike) : ontology.PointDistributionlike | undefined;
+
+    // tos 
+    getToses() : ontology.TosTablelike | undefined;
+    getTosConfirmed(id : string) : boolean | undefined;
+
+    // blog articles
+    getBlogArticles() : ontology.BlogArticleTablelike | undefined;
 
 }
 

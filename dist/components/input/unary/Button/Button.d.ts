@@ -31,6 +31,7 @@ export declare type ButtonProps = {
     classNames?: string[];
     /** Whether or not to overrid the classes  */
     overrideClasses?: boolean;
+    div?: boolean;
 };
 export declare const Button: FC<ButtonProps>;
 /**

@@ -22,6 +22,7 @@ import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
 import { useMultiPowerStore } from '../../logic/processing/react/useMultiPowerStore';
 import { GamesByDateMultiCache } from '../../logic/data/domain/gamesByDate';
 import { useGames } from '../../logic/processing/react/useGames';
+import { MockOver } from '../../components/output/MockOver';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -64,17 +65,22 @@ export const Home : FC<HomeProps>  = (props) =>{
     const date = new Date();
 
     const {
+        getBlogArticles,
         getGames, 
         getGdgTop25Teams,
         getApTop25Teams,
         getTop25Games,
         getGameOfTheDay,
         getProjectedGamesInNextWeekTable,
-        getTeams
+        getTeams,
+        getTosConfirmed
     } = useOnceProcessor();
    
 
     if(!user && !loading) navigate("/");
+    const tos = user && getTosConfirmed(user.uid);
+    if(tos === false) navigate("/tos");
+    console.log(tos);
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)
@@ -95,10 +101,19 @@ export const Home : FC<HomeProps>  = (props) =>{
 
     const headerTeams = getTeams()
     const headerProjectedGames = getProjectedGamesInNextWeekTable(date);
-    
+
+    const blogs = getBlogArticles();
+    const blogsList = blogs && Object.values(blogs);
+
+    const handleBlog = async (blogId : string)=>{
+        window.location.href = `https://blog.gamedayguru.com/${blogId}`
+    }
+
 
     return (
         <HomePage
+        blogs={blogsList}
+        onBlogClick={handleBlog}
         onWhich={async (which)=>{
             navigate("/" + which);
         }}

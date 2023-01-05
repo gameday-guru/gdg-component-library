@@ -54,7 +54,6 @@ export const FilterSet : FC<FilterSetProps>  = (props) =>{
         const handleFilter = async ()=>{
             if(props.setTable){
                 const filteredContent = await filter(props.table||[]);
-                console.log(filteredContent);
                 props.setTable(filteredContent);
             }
             setWhichPreset(displayKey);

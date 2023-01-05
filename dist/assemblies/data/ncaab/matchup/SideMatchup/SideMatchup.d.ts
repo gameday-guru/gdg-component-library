@@ -1,0 +1,24 @@
+import React, { FC } from 'react';
+import { ontology } from '../../../../../util';
+import { Viusagelike } from '../../../../../util/viusage/primary';
+export declare const SIDE_MATCHUP_CLASSNAMES: string[];
+export declare const SIDE_MATCHUP_STYLE: React.CSSProperties;
+export declare type SideMatchupProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    game?: ontology.GameByDatelike;
+    home?: ontology.Teamlike;
+    away?: ontology.Teamlike;
+    onMatchupClick?: (gameId: string) => Promise<void>;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    short?: boolean;
+    inlineVisitorStatus?: boolean;
+    viusage?: Viusagelike;
+    stack?: boolean;
+    size?: number;
+};
+export declare const SideMatchup: FC<SideMatchupProps>;

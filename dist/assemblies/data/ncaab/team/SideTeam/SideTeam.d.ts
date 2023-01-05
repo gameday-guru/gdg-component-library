@@ -14,5 +14,10 @@ export declare type SideTeamProps = {
     away?: boolean;
     onTeamClick?: (teamId: string) => Promise<void>;
     viusage?: Viusagelike;
+    size?: number;
+    short?: boolean;
+    reverse?: boolean;
+    inlineVisitorStatus?: boolean;
+    hideVisitorStatus?: boolean;
 };
 export declare const SideTeam: FC<SideTeamProps>;

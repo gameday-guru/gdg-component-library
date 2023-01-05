@@ -15,5 +15,9 @@ export declare type HomeProps = {
     onWhich?: (which: "home" | "team" | "matchups") => Promise<void>;
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;
+    headerProjectedGames?: ontology.ProjectedGamelike[];
+    headerTeams?: ontology.Teamlike[];
+    blogs?: ontology.BlogArticlelike[];
+    onBlogClick?: (id: string) => Promise<void>;
 };
 export declare const Home: FC<HomeProps>;

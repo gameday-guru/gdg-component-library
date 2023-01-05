@@ -50,6 +50,9 @@ export interface Processorlike {
     getProjectionTable(): ontology.ProjectionTablelike | undefined;
     getLeagueAverages(): ontology.LeagueAverageslike | undefined;
     getPointDistribution(team: ontology.Teamlike): ontology.PointDistributionlike | undefined;
+    getToses(): ontology.TosTablelike | undefined;
+    getTosConfirmed(id: string): boolean | undefined;
+    getBlogArticles(): ontology.BlogArticleTablelike | undefined;
 }
 export interface ProcessorRequirementslike {
 }

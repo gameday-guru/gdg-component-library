@@ -24,5 +24,7 @@ export declare type MensNcaabTeamIndividualContentProps = {
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;
     players?: ontology.Playerlike[];
+    headerProjectedGames?: ontology.ProjectedGamelike[];
+    headerTeams?: ontology.Teamlike[];
 };
 export declare const MensNcaabTeamIndividualContent: FC<MensNcaabTeamIndividualContentProps>;

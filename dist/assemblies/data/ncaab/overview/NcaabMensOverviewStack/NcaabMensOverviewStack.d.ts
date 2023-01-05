@@ -13,5 +13,7 @@ export declare type NcaabMensOverviewStackProps = {
     top25Games?: ontology.ProjectedGamelike[];
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;
+    blogs?: ontology.BlogArticlelike[];
+    onBlogClick?: (id: string) => Promise<void>;
 };
 export declare const NcaabMensOverviewStack: FC<NcaabMensOverviewStackProps>;

@@ -33,8 +33,6 @@ export type StackedProjectionProps = {
 
 export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
 
-    console.log(props.game);
-
     return (
         <div
         className={[...!props.overrideClasses ? STACKED_PROJECTION_CLASSNAMES : [], ...props.classNames||[]].join(" ")}

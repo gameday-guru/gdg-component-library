@@ -19,8 +19,8 @@ export interface DataMultiPowerStoreslike {
     trend : MultiPowerStorelike<undefined, ontology.TrendTablelike>;
     projection : MultiPowerStorelike<undefined, ontology.ProjectionTablelike>;
     radar : MultiPowerStorelike<undefined, ontology.RadarTablelike>;
-    blogs : MultiPowerStorelike<undefined, ontology.BlogArticlelike[]>;
-    tos : MultiPowerStorelike<undefined, ontology.Toslike[]>;
+    blogs : MultiPowerStorelike<undefined, ontology.BlogArticleTablelike>;
+    tos : MultiPowerStorelike<undefined, ontology.TosTablelike>;
     confirmedTos : MultiPowerStorelike<string, boolean>;
 }
 

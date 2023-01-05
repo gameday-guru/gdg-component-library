@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Viusagelike } from '../../../../util/viusage/primary';
 export declare const SEARCH_BAR_CLASSNAMES: string[];
 export declare const SEARCH_BAR_STYLE: React.CSSProperties;
 export declare type SearchBarProps = {
@@ -9,5 +10,6 @@ export declare type SearchBarProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+    viusage?: Viusagelike;
 };
 export declare const SearchBar: FC<SearchBarProps>;

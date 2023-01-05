@@ -16,6 +16,9 @@ import { useTopTeams } from "./useTopTeams";
 import { useLeagueAverages } from "./useLeagueAverages";
 import { useRadars } from "./useRadar";
 import { usePointDistribution } from "./usePointDistribution";
+import { useBlogs } from "./useBlogs";
+import { useTos } from "./useTos";
+import { getTos } from "../../../util/cms/tos";
 
 export const imemoize = <K extends any[], V>(
     func : (...args : K)=>V
@@ -99,6 +102,15 @@ export const useOnceProcessor = () : Processorlike =>{
         getPointDistribution
     } = usePointDistribution();
 
+    const {
+        getBlogArticles
+    } = useBlogs();
+
+    const {
+        getToses,
+        getTosConfirmed
+    } = useTos()
+
     return {
 
         // games
@@ -148,7 +160,14 @@ export const useOnceProcessor = () : Processorlike =>{
         getLeagueAverages,
 
         // point distribution
-        getPointDistribution
+        getPointDistribution,
+
+        // blogs
+        getBlogArticles,
+
+        // toses
+        getToses,
+        getTosConfirmed
 
     };
 

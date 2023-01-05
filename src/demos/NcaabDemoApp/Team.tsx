@@ -25,6 +25,7 @@ import { useTeams } from '../../logic/processing/react/useTeams';
 import { usePointDistribution } from '../../logic/processing/react/usePointDistribution';
 import { useEfficiency } from '../../logic/processing/react/useEfficiency';
 import { usePlayers } from '../../logic/processing/react/usePlayers';
+import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -81,6 +82,10 @@ export const Team : FC<TeamProps>  = (props) =>{
     } = useProjectedGames();
 
     const {
+        getTosConfirmed
+    } = useOnceProcessor();
+
+    const {
         getTeamsTable
     } = useTeams();
     const teams = getTeamsTable();
@@ -114,6 +119,7 @@ export const Team : FC<TeamProps>  = (props) =>{
 
 
     if(!user && !loading) navigate("/");
+    if(!getTosConfirmed(user?.uid||"")) navigate("/tos");
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)

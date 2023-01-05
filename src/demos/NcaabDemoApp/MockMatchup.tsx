@@ -23,6 +23,7 @@ import { useProjectedGames } from '../../logic/processing/react/useProjectedGame
 import { useTeams } from '../../logic/processing/react/useTeams';
 import { usePointDistribution } from '../../logic/processing/react/usePointDistribution';
 import { useEfficiency } from '../../logic/processing/react/useEfficiency';
+import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -76,8 +77,12 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     const {
         getProjectedGamesInNextWeekTable,
         getProjectedGamesTableBetween,
-        getProjectedGamesTableBetweenForTeam
+        getProjectedGamesTableBetweenForTeam,
     } = useProjectedGames();
+
+    const {
+        getTosConfirmed
+    } = useOnceProcessor(); 
 
     const gamesTable = getProjectedGamesTableBetween(monthAgo, weekFromNow);
     let projectedGame = undefined;
@@ -123,6 +128,7 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     } : undefined;
 
     if(!user && !loading) navigate("/");
+    if(!getTosConfirmed(user?.uid||"")) navigate("/tos");
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)

@@ -44,7 +44,7 @@ export const modelGet = httpsCallable<{
 
 export const confirmTosPost = httpsCallable<string,boolean>(functions, "confirmTos");
 
-export const getTosConfirmedGet = httpsCallable<string,boolean>(functions, "confirmTos");
+export const getTosConfirmedGet = httpsCallable<string,boolean>(functions, "getConfirmedTos");
 
 /**
  * 
@@ -178,12 +178,18 @@ export const getPlayers = async (team : ontology.Teamlike) : Promise<ontology.Pl
 
 export const confirmTos = async (id : string) : Promise<boolean> =>{
 
-    return (await confirmTosPost(id)).data;
+    const data = (await confirmTosPost(id)).data
+    console.log("CONFIRM TOS", data);
+    if(!data) return false;
+    else return true;
 
 }
 
 export const getConfirmedTos = async (id : string) : Promise<boolean> =>{
 
-    return (await getTosConfirmedGet(id)).data;
+    const data = (await getTosConfirmedGet(id)).data;
+    console.log("GET TOS", data);
+    if(!data) return false;
+    else return true;
 
 }

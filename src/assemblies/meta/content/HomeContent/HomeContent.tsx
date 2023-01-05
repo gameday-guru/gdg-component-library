@@ -30,6 +30,8 @@ export type HomeContentProps = {
     onMatchupClick ? : (gameId : string)=>Promise<void>;
     headerProjectedGames ? : ontology.ProjectedGamelike[];
     headerTeams ? : ontology.Teamlike[];
+    blogs ? : ontology.BlogArticlelike[];
+    onBlogClick ? : (id : string)=>Promise<void>;
 };
 
 export const HomeContent : FC<HomeContentProps>  = (props) =>{
@@ -51,6 +53,8 @@ export const HomeContent : FC<HomeContentProps>  = (props) =>{
                 </div>
                 <div>
                     <NcaabMensOverview
+                        blogs={props.blogs}
+                        onBlogClick={props.onBlogClick}
                         onTeamClick={props.onTeamClick}
                         onMatchupClick={props.onMatchupClick}
                         gameOfTheDay={props.gameOfTheDay}

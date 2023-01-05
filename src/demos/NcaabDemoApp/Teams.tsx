@@ -21,6 +21,7 @@ import { useEfficiency } from '../../logic/processing/react/useEfficiency';
 import { useTeams } from '../../logic/processing/react/useTeams';
 import { useTopTeams } from '../../logic/processing/react/useTopTeams';
 import { useProjectedGames } from '../../logic/processing/react/useProjectedGames';
+import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -77,6 +78,10 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     } = useTopTeams()
 
     const {
+        getTosConfirmed
+    } = useOnceProcessor()
+
+    const {
         getProjectedGamesInNextWeekTable
     } = useProjectedGames()
     
@@ -105,6 +110,7 @@ export const Teams : FC<TeamsProps>  = (props) =>{
     }
 
     if(!user && !loading) navigate("/");
+    if(!getTosConfirmed(user?.uid||"")) navigate("/tos");
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)

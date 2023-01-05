@@ -20,5 +20,6 @@ export declare type WrapperProps = {
     /** */
     hoverAnimate?: boolean;
     onClick?: () => void;
+    innerProps?: React.HTMLProps<HTMLDivElement>;
 };
 export declare const Wrapper: FC<WrapperProps>;
