@@ -1,15 +1,15 @@
 import React, {FC, ReactElement, useEffect, useState, useRef} from 'react';
-import { MensNcaabTeams, MensNcaabTeam } from "../pages";
-import { ontology } from '../util';
+import { MensNcaabTeams, MensNcaabTeam } from "../../pages";
+import { ontology } from '../../util';
 import { 
     getGamesInNextMonthTable,
     getGamesInNextWeekTable,
     getPlayers,
     getTeams,
     getTeamsTable
-} from '../util/firebase';
-import { MockProjection, PointDistributionlike } from '../util/ontology';
-import { getEfficiencyTable, getProjectionTable, getRadarTable } from '../util/rpc';
+} from '../../util/firebase';
+import { MockProjection, PointDistributionlike } from '../../util/ontology';
+import { getEfficiencyTable, getProjectionTable, getRadarTable } from '../../util/rpc';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -19,12 +19,12 @@ import {
   } from "firebase/auth";
   import { useNavigate, useParams } from 'react-router-dom';
   import { useAuthState } from 'react-firebase-hooks/auth';
-  import { useLeagueAverages } from '../logic/processing/react/useLeagueAverages';
-import { useProjectedGames } from '../logic/processing/react/useProjectedGames';
-import { useTeams } from '../logic/processing/react/useTeams';
-import { usePointDistribution } from '../logic/processing/react/usePointDistribution';
-import { useEfficiency } from '../logic/processing/react/useEfficiency';
-import { usePlayers } from '../logic/processing/react/usePlayers';
+  import { useLeagueAverages } from '../../logic/processing/react/useLeagueAverages';
+import { useProjectedGames } from '../../logic/processing/react/useProjectedGames';
+import { useTeams } from '../../logic/processing/react/useTeams';
+import { usePointDistribution } from '../../logic/processing/react/usePointDistribution';
+import { useEfficiency } from '../../logic/processing/react/useEfficiency';
+import { usePlayers } from '../../logic/processing/react/usePlayers';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   

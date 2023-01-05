@@ -1,9 +1,9 @@
 import './App.css';
 // import "./assets/gdg.css"
-import { Login } from "./demos/NcaabDemoApp/Login";
-import { Home } from "./demos/NcaabDemoApp/Home";
-import { Team } from "./demos/NcaabDemoApp/Team";
-import { Teams } from "./demos/NcaabDemoApp/Teams";
+import { Login } from "./Login";
+import { Home } from "./Home";
+import { Team } from "./Team";
+import { Teams } from "./Teams";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -17,9 +17,9 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import { Matchups } from './demos/NcaabDemoApp/Matchups';
-import { Matchup } from './demos/NcaabDemoApp/Matchup';
-import { MockMatchup } from './demos/NcaabDemoApp/MockMatchup';
+import { Matchups } from './Matchups';
+import { Matchup } from './Matchup';
+import { MockMatchup } from './MockMatchup';
 import 'react-loading-skeleton/dist/skeleton.css'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries

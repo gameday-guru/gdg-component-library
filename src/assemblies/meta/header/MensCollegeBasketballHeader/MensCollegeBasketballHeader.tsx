@@ -67,8 +67,8 @@ export const getGameLevDistance = (search : string, game : ontology.ProjectedGam
         getLevDistance(search, `${game.away.Name}${game.home.School}`),
         getLevDistance(search, `${game.away.School}${game.home.Name}`),
         getLevDistance(search, `${game.away.School}${game.home.School}`),
-        2 * homeLev,
-        2 * awayLev,
+        1.5 * homeLev,
+        1.5 * awayLev,
         (homeLev + awayLev)/2
     );
 

@@ -1,13 +1,13 @@
 import React, {FC, ReactElement, useEffect, useState, useRef} from 'react';
-import { Home as HomePage } from "../pages";
-import { ontology } from '../util';
+import { Home as HomePage } from "../../pages";
+import { ontology } from '../../util';
 import { 
     getGamesInNextWeekTable,
     getTeams,
     getTeamsTable
-} from '../util/firebase';
-import { MockHomeEff, MockProjection } from '../util/ontology';
-import { getEfficiencyTable, getProjectionTable, getTrendTable } from '../util/rpc';
+} from '../../util/firebase';
+import { MockHomeEff, MockProjection } from '../../util/ontology';
+import { getEfficiencyTable, getProjectionTable, getTrendTable } from '../../util/rpc';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -17,11 +17,11 @@ import {
 } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { DateComparison } from '../util/date';
-import { useOnceProcessor } from '../logic/processing/react/reactProcessor';
-import { useMultiPowerStore } from '../logic/processing/react/useMultiPowerStore';
-import { GamesByDateMultiCache } from '../logic/data/domain/gamesByDate';
-import { useGames } from '../logic/processing/react/useGames';
+import { DateComparison } from '../../util/date';
+import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
+import { useMultiPowerStore } from '../../logic/processing/react/useMultiPowerStore';
+import { GamesByDateMultiCache } from '../../logic/data/domain/gamesByDate';
+import { useGames } from '../../logic/processing/react/useGames';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

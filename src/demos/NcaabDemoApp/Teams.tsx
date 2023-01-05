@@ -1,13 +1,13 @@
 import React, {FC, ReactElement, useEffect, useState, useRef} from 'react';
-import { MensNcaabTeams } from "../pages/model";
-import { ontology } from '../util';
+import { MensNcaabTeams } from "../../pages/model";
+import { ontology } from '../../util';
 import { 
     getGamesInNextWeekTable,
     getTeams,
     getTeamsTable
-} from '../util/firebase';
-import { MockProjection } from '../util/ontology';
-import { getEfficiencyTable, getProjectionTable } from '../util/rpc';
+} from '../../util/firebase';
+import { MockProjection } from '../../util/ontology';
+import { getEfficiencyTable, getProjectionTable } from '../../util/rpc';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -17,10 +17,10 @@ import {
   } from "firebase/auth";
   import { useNavigate } from 'react-router-dom';
   import { useAuthState } from 'react-firebase-hooks/auth';
-import { useEfficiency } from '../logic/processing/react/useEfficiency';
-import { useTeams } from '../logic/processing/react/useTeams';
-import { useTopTeams } from '../logic/processing/react/useTopTeams';
-import { useProjectedGames } from '../logic/processing/react/useProjectedGames';
+import { useEfficiency } from '../../logic/processing/react/useEfficiency';
+import { useTeams } from '../../logic/processing/react/useTeams';
+import { useTopTeams } from '../../logic/processing/react/useTopTeams';
+import { useProjectedGames } from '../../logic/processing/react/useProjectedGames';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   

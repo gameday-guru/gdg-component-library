@@ -1,5 +1,5 @@
 import React, {FC, ReactElement} from 'react';
-import { Login as LoginPage } from "../pages";
+import { Login as LoginPage } from "../../pages";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";

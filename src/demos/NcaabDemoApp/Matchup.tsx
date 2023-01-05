@@ -1,15 +1,15 @@
 import React, {FC, ReactElement, useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Matchup as MockMatchupPage } from '../pages/model/ncaab/matchup/Matchup';
-import { ontology } from '../util';
+import { Matchup as MatchupPage } from '../../pages/model/ncaab/matchup/Matchup';
+import { ontology } from '../../util';
 import { 
     getGamesInNextMonthTable,
     getGamesInNextWeekTable,
     getTeams,
     getTeamsTable
-} from '../util/firebase';
-import { MockProjection } from '../util/ontology';
-import { getEfficiencyTable, getProjectionTable, getRadarTable } from '../util/rpc';
+} from '../../util/firebase';
+import { MockProjection } from '../../util/ontology';
+import { getEfficiencyTable, getProjectionTable, getRadarTable } from '../../util/rpc';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -18,11 +18,12 @@ import {
     signInWithEmailAndPassword
   } from "firebase/auth";
   import { useAuthState } from 'react-firebase-hooks/auth';
-  import { useLeagueAverages } from '../logic/processing/react/useLeagueAverages';
-import { useProjectedGames } from '../logic/processing/react/useProjectedGames';
-import { useTeams } from '../logic/processing/react/useTeams';
-import { usePointDistribution } from '../logic/processing/react/usePointDistribution';
-import { useEfficiency } from '../logic/processing/react/useEfficiency';
+import { useGames } from '../../logic/processing/react/useGames';
+import { useLeagueAverages } from '../../logic/processing/react/useLeagueAverages';
+import { useProjectedGames } from '../../logic/processing/react/useProjectedGames';
+import { useTeams } from '../../logic/processing/react/useTeams';
+import { usePointDistribution } from '../../logic/processing/react/usePointDistribution';
+import { useEfficiency } from '../../logic/processing/react/useEfficiency';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -48,7 +49,7 @@ export const MATCHUP_CLASSNAMES : string[] = [ ];
 export const MATCHUP_STYLE : React.CSSProperties = {
 };
 
-export type MockMatchupProps = {
+export type MatchupProps = {
      children ? : React.ReactNode;
     style ? : React.CSSProperties;
     overrideStyle ? : boolean;
@@ -57,7 +58,7 @@ export type MockMatchupProps = {
     responsive ? : boolean;
 };
 
-export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
+export const Matchup : FC<MatchupProps>  = (props) =>{
 
     const now = new Date();
     const {id} = useParams();
@@ -74,9 +75,9 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     } = useLeagueAverages();
 
     const {
-        getProjectedGamesInNextWeekTable,
         getProjectedGamesTableBetween,
-        getProjectedGamesTableBetweenForTeam
+        getProjectedGamesTableBetweenForTeam,
+        getProjectedGamesInNextWeekTable
     } = useProjectedGames();
 
     const gamesTable = getProjectedGamesTableBetween(monthAgo, weekFromNow);
@@ -84,7 +85,7 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     if(id && gamesTable) projectedGame = gamesTable[id];
 
     const {
-        getTeamsTable
+        getTeamsTable,
     } = useTeams();
     const teams = getTeamsTable();
 
@@ -102,25 +103,26 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     const homeDistro = home && getPointDistribution(home);
     const homeEff = home && efficiency && efficiency[home.TeamID.toString()];
     const homeGames = home && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, home);
+    const homeGamesSorted = homeGames && Object.values(homeGames)
+    .sort((gameA, gameB)=>{
 
-    // console.log(gamesTable, home, projectedGame, homeDistro, homeEff, homeGames);
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
 
     let away = undefined;
     if(projectedGame && teams) away = teams[projectedGame.away.TeamID.toString()];
     const awayDistro = away && getPointDistribution(away);
     const awayEff = away && efficiency && efficiency[away.TeamID.toString()];
     const awayGames = away && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, away);
+    const awayGamesSorted = awayGames && Object.values(awayGames)
+    .sort((gameA, gameB)=>{
 
-    const gameProjection : ontology.ProjectionEntrylike | undefined = 
-    home && away
-    && homeEff && awayEff ? {
-        game_id : -1,
-        home_team_id : home.TeamID,
-        away_team_id : away.TeamID,
-        // TODO: update model
-        home_team_score : 30 + (Math.random() * 64),
-        away_team_score : 30 + (Math.random() * 64),
-    } : undefined;
+        return new Date(gameA.game.DateTimeUTC||gameA.game.Day).getTime()
+        - new Date(gameB.game.DateTimeUTC||gameB.game.Day).getTime();
+
+    });
 
     if(!user && !loading) navigate("/");
 
@@ -128,32 +130,31 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
         navigate(`/team/${teamId}`)
     };
 
-    const handleMockMatchupClick = async (gameId : string)=>{
+    const handleMatchupClick = async (gameId : string)=>{
         navigate(`/matchup/${gameId}`)
     };
 
     const headerTeams = teams && Object.values(teams);
     const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
 
-
     return (
-        <MockMatchupPage onWhich={async (which)=>{
+        <MatchupPage onWhich={async (which)=>{
             navigate("/" + which);
         }}
         headerTeams={headerTeams}
         headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
-        onMatchupClick={handleMockMatchupClick}
+        onMatchupClick={handleMatchupClick}
         onTeamClick={handleTeamClick}
         game={projectedGame?.game}
         leagueAverages={getLeagueAverages()}
-        gameProjection={gameProjection}
+        gameProjection={projectedGame?.gameProjection}
         home={home}
         homeDistro={homeDistro}
         homeEfficiency={homeEff}
         away={away}
         awayDistro={awayDistro}
         awayEfficiency={awayEff}
-        homeGameProjections={homeGames && Object.values(homeGames)}
-        awayGameProjections={awayGames && Object.values(awayGames)}/>
+        homeGameProjections={homeGamesSorted}
+        awayGameProjections={awayGamesSorted}/>
     )
 };

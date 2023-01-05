@@ -1,15 +1,15 @@
 import React, {FC, ReactElement, useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Matchups as MatchupsPage } from '../pages/model/ncaab/matchup/Matchups';
-import { ontology } from '../util';
+import { Matchups as MatchupsPage } from '../../pages/model/ncaab/matchup/Matchups';
+import { ontology } from '../../util';
 import { 
     getGamesInNextMonthTable,
     getGamesInNextWeekTable,
     getTeams,
     getTeamsTable
-} from '../util/firebase';
-import { MockProjection } from '../util/ontology';
-import { getEfficiencyTable, getProjectionTable } from '../util/rpc';
+} from '../../util/firebase';
+import { MockProjection } from '../../util/ontology';
+import { getEfficiencyTable, getProjectionTable } from '../../util/rpc';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -18,7 +18,7 @@ import {
     signInWithEmailAndPassword
   } from "firebase/auth";
   import { useAuthState } from 'react-firebase-hooks/auth';
-import { useOnceProcessor } from '../logic/processing/react/reactProcessor';
+import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   

@@ -1,0 +1,1 @@
+export { App as NcaabDemoAp } from "./App";
