@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-export declare const HELP_CLASSNAMES: string[];
-export declare const HELP_STYLE: React.CSSProperties;
-export declare type HelpProps = {
+export declare const FEEDBACK_CLASSNAMES: string[];
+export declare const FEEDBACK_STYLE: React.CSSProperties;
+export declare type FeedbackProps = {
     children?: React.ReactNode;
     style?: React.CSSProperties;
     overrideStyle?: boolean;
@@ -10,4 +10,4 @@ export declare type HelpProps = {
     responsive?: boolean;
     onFeedbackSubmit?: (feedback: string) => Promise<void>;
 };
-export declare const Help: FC<HelpProps>;
+export declare const Feedback: FC<FeedbackProps>;

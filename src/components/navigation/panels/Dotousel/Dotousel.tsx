@@ -47,6 +47,7 @@ export const Dotousel : FC<DotouselProps>  = (props) =>{
         style={{...!props.overrideStyle ? DOTOUSEL_STYLE : {}, ...props.style}}>
             <div style={{
                 height : "100%",   
+                width : "100%",
                 display : "flex",
                 alignContent : "center",
                 alignItems : "center"             

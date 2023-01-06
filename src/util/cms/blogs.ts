@@ -15,13 +15,20 @@ export const getBlogArticle = async (id : string) : Promise<BlogArticlelike> =>{
 
 export const getBlogArticleTable = async () : Promise<BlogArticleTablelike> =>{
 
+    console.log("getting blog articles");
     const blogs : any[] = (await axios.get(
-        `${import.meta.env.VITE_CMS_PATH}/api/blog-articles`,
+        `${import.meta.env.VITE_CMS_PATH}/api/blog-articles?populate=*`,
     )).data["data"];
 
     const table : BlogArticleTablelike = {};
-    for(const article of blogs)
-        table[article["attributes"].uid] = article["attributes"];
+    for(const article of blogs){
+        console.log(article);
+        // console.log(article["thumbnail"]["data"]["attributes"]["url"]);
+        table[article["attributes"].uid] = {
+            ...article["attributes"],
+            thumbnail : article["attributes"]["thumbnail"] && `${import.meta.env.VITE_CMS_PATH}${article["attributes"]["thumbnail"]["data"]["attributes"]["url"]}`
+        };
+    }
     return table;
 
 }

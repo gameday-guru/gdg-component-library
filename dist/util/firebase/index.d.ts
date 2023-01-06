@@ -9,6 +9,11 @@ export declare const modelGet: import("@firebase/functions").HttpsCallable<{
 }, unknown>;
 export declare const confirmTosPost: import("@firebase/functions").HttpsCallable<string, boolean>;
 export declare const getTosConfirmedGet: import("@firebase/functions").HttpsCallable<string, boolean>;
+export declare const submitFeedbackFunc: import("@firebase/functions").HttpsCallable<{
+    uid: string;
+    page: string;
+    feedback: string;
+}, boolean>;
 /**
  *
  * @param date
@@ -55,3 +60,13 @@ export declare const getTeamsTable: () => Promise<{
 export declare const getPlayers: (team: ontology.Teamlike) => Promise<ontology.Playerlike[]>;
 export declare const confirmTos: (id: string) => Promise<boolean>;
 export declare const getConfirmedTos: (id: string) => Promise<boolean>;
+/**
+ * Submits feedback.
+ * @param args
+ * @returns
+ */
+export declare const submitFeedback: (args: {
+    uid: string;
+    page: string;
+    feedback: string;
+}) => Promise<boolean>;

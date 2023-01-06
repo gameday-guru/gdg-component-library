@@ -13,5 +13,6 @@ export declare type MainSidebarProps = {
     viusage?: viusage.primary.Viusagelike;
     which?: "home" | "team" | "matchups";
     onWhich?: (which: "home" | "team" | "matchups") => Promise<void>;
+    onFeedbackSubmit?: (feedback: string) => Promise<void>;
 };
 export declare const MainSidebar: FC<MainSidebarProps>;
