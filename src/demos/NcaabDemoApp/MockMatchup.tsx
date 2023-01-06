@@ -6,7 +6,8 @@ import {
     getGamesInNextMonthTable,
     getGamesInNextWeekTable,
     getTeams,
-    getTeamsTable
+    getTeamsTable,
+    submitFeedback
 } from '../../util/firebase';
 import { MockProjection } from '../../util/ontology';
 import { getEfficiencyTable, getProjectionTable, getRadarTable } from '../../util/rpc';
@@ -141,11 +142,19 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     const headerTeams = teams && Object.values(teams);
     const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
 
+    const handleSubmitFeedback = async (feedback : string)=>{
+        await submitFeedback({
+            feedback,
+            uid : user?.uid||"notloggedin",
+            page : window.location.toString()
+        })
+    }
 
     return (
         <MockMatchupPage onWhich={async (which)=>{
             navigate("/" + which);
         }}
+        onFeedbackSubmit={handleSubmitFeedback}
         headerTeams={headerTeams}
         headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         onMatchupClick={handleMockMatchupClick}

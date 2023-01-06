@@ -46,6 +46,13 @@ export const confirmTosPost = httpsCallable<string,boolean>(functions, "confirmT
 
 export const getTosConfirmedGet = httpsCallable<string,boolean>(functions, "getConfirmedTos");
 
+
+export const submitFeedbackFunc = httpsCallable<{
+    uid : string,
+    page : string,
+    feedback : string 
+},boolean>(functions, "submitFeedback");
+
 /**
  * 
  * @param date 
@@ -191,5 +198,20 @@ export const getConfirmedTos = async (id : string) : Promise<boolean> =>{
     console.log("GET TOS", data);
     if(!data) return false;
     else return true;
+
+}
+
+/**
+ * Submits feedback.
+ * @param args 
+ * @returns 
+ */
+export const submitFeedback = async (args : {
+    uid : string,
+    page : string,
+    feedback : string
+}) : Promise<boolean> =>{
+
+    return (await submitFeedbackFunc(args)).data
 
 }

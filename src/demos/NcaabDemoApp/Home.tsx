@@ -4,7 +4,8 @@ import { ontology } from '../../util';
 import { 
     getGamesInNextWeekTable,
     getTeams,
-    getTeamsTable
+    getTeamsTable,
+    submitFeedback
 } from '../../util/firebase';
 import { MockHomeEff, MockProjection } from '../../util/ontology';
 import { getEfficiencyTable, getProjectionTable, getTrendTable } from '../../util/rpc';
@@ -109,9 +110,17 @@ export const Home : FC<HomeProps>  = (props) =>{
         window.location.href = `https://blog.gamedayguru.com/${blogId}`
     }
 
+    const handleSubmitFeedback = async (feedback : string)=>{
+        await submitFeedback({
+            feedback,
+            uid : user?.uid||"notloggedin",
+            page : window.location.toString()
+        })
+    }
 
     return (
         <HomePage
+        onFeedbackSubmit={handleSubmitFeedback}
         blogs={blogsList}
         onBlogClick={handleBlog}
         onWhich={async (which)=>{

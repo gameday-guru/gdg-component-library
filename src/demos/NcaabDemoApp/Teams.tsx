@@ -4,7 +4,8 @@ import { ontology } from '../../util';
 import { 
     getGamesInNextWeekTable,
     getTeams,
-    getTeamsTable
+    getTeamsTable,
+    submitFeedback
 } from '../../util/firebase';
 import { MockProjection } from '../../util/ontology';
 import { getEfficiencyTable, getProjectionTable } from '../../util/rpc';
@@ -122,9 +123,19 @@ export const Teams : FC<TeamsProps>  = (props) =>{
 
     const headerTeams = getTeams()
     const headerProjectedGames = getProjectedGamesInNextWeekTable(now);
+    const handleSubmitFeedback = async (feedback : string)=>{
+        await submitFeedback({
+            feedback,
+            uid : user?.uid||"notloggedin",
+            page : window.location.toString()
+        })
+    }
 
     return (
         <MensNcaabTeams
+        onFeedbackSubmit={handleSubmitFeedback}
+        headerTeams={headerTeams && Object.values(headerTeams)}
+        headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         onWhich={async (which)=>{
             navigate("/" + which);
         }}
