@@ -40,6 +40,7 @@ export type MatchupProps = {
     onMatchupClick ? : (gameId : string)=>Promise<void>;
     headerProjectedGames ? : ontology.ProjectedGamelike[];
     headerTeams ? : ontology.Teamlike[];
+    onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
 };
 
 export const Matchup : FC<MatchupProps>  = (props) =>{
@@ -53,6 +54,7 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
                 width : '100%'
             }}>
                 <MainSidebar
+                onFeedbackSubmit={props.onFeedbackSubmit}
                 onWhich={props.onWhich}
                  which='matchups'
                  style={{

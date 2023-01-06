@@ -32,6 +32,7 @@ export type HomeProps = {
     headerTeams ? : ontology.Teamlike[];
     blogs ? : ontology.BlogArticlelike[];
     onBlogClick ? : (id : string)=>Promise<void>;
+    onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -45,6 +46,7 @@ export const Home : FC<HomeProps>  = (props) =>{
                 width : '100%'
             }}>
                 <MainSidebar
+                onFeedbackSubmit={props.onFeedbackSubmit}
                 onWhich={props.onWhich} 
                 which='home'
                 style={{

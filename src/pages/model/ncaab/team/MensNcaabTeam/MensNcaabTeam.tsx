@@ -34,6 +34,7 @@ export type MensNcaabTeamIndividualProps = {
     players ? : ontology.Playerlike[];
     headerProjectedGames ? : ontology.ProjectedGamelike[];
     headerTeams ? : ontology.Teamlike[];
+    onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
 };
 
 export const MensNcaabTeam : FC<MensNcaabTeamIndividualProps>  = (props) =>{
@@ -47,6 +48,7 @@ export const MensNcaabTeam : FC<MensNcaabTeamIndividualProps>  = (props) =>{
                 width : '100%'
             }}>
                 <MainSidebar 
+                onFeedbackSubmit={props.onFeedbackSubmit}
                 which='team'
                 onWhich={props.onWhich}
                 style={{

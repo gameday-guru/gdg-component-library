@@ -8,13 +8,13 @@ export const HOME_CLASSNAMES : string[] = [
     "w-screen",
     "grid",
     "justify-items-center",
-    "items-center",
     "text-drk-gray-900",
-    "bg-drk-gray-600",
+    "bg-black-500",
     "p-8"
 ];
 export const HOME_STYLE : React.CSSProperties = {
-    overflowY : "scroll"
+    overflowY : "scroll",
+    alignContent : "start"
 };
 
 export type BlogArticleProps = {
@@ -35,7 +35,9 @@ export const BlogArticle : FC<BlogArticleProps>  = (props) =>{
             <div>
                 <BlogArticleHeader/>
             </div>
-            <div>
+            <div style={{
+                width : "100%"
+            }}>
                 <BlogArticleContent
                 blogArticle={props.blogArticle}/>
             </div>

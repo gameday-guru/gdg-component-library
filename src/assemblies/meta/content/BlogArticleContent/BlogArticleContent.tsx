@@ -24,7 +24,9 @@ export const BlogArticleContent : FC<BlogArticleContentProps>  = (props) =>{
         viusage='backdrop'
         classNames={[...!props.overrideClasses ? BLOG_ARTICLE_CONTENT_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? BLOG_ARTICLE_CONTENT_STYLE : {}, ...props.style}}>
-            <BlogArticle/>
+            <BlogArticle style={{
+                width : "100%"
+            }} blogArticle={props.blogArticle}/>
         </Wrapper>
     )
 };

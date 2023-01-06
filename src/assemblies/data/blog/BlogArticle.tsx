@@ -10,7 +10,8 @@ export const BLOG_ARTICLE_CLASSNAMES : string[] = [
     "gap-2"
  ];
 export const BLOG_ARTICLE_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "1fr"
+    gridTemplateColumns : "1fr",
+    width : "100%"
 };
 
 export type BlogArticleProps = {

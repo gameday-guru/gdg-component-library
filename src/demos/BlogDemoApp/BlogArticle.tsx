@@ -24,8 +24,10 @@ export const BlogArticle : FC<BlogArticleProps>  = (props) =>{
     const {
         getBlogArticles
     } = useOnceProcessor();
+    console.log(getBlogArticles());
 
     const article = id ? getBlogArticles()?.[id] : undefined;
+    console.log(article);
 
     return (
         <BlogArticlePage blogArticle={article}/>

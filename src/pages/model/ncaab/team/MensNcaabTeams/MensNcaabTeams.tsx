@@ -33,6 +33,7 @@ export type MensNcaabTeamsProps = {
     onMatchupClick ? : (gameId : string)=>Promise<void>;
     headerProjectedGames ? : ontology.ProjectedGamelike[];
     headerTeams ? : ontology.Teamlike[];
+    onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
 };
 
 export const MensNcaabTeams : FC<MensNcaabTeamsProps>  = (props) =>{
@@ -46,6 +47,7 @@ export const MensNcaabTeams : FC<MensNcaabTeamsProps>  = (props) =>{
                 width : '100%'
             }}>
                 <MainSidebar
+                onFeedbackSubmit={props.onFeedbackSubmit}
                 onWhich={props.onWhich}
                  which='team'
                  style={{

@@ -29,6 +29,7 @@ export type MainSidebarProps = {
     viusage ? : viusage.primary.Viusagelike;
     which ? : "home" | "team" | "matchups";
     onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
 };
 
 export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
@@ -67,7 +68,7 @@ export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
                 justifyContent : "center",
                 justifyItems : "center"
             }}>
-                <Help/>
+                <Help onFeedbackSubmit={props.onFeedbackSubmit}/>
                 <br/>
                 <br/>
                 <Sportsdataio/>
