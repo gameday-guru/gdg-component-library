@@ -46,7 +46,7 @@ export const TopTeams : FC<TopTeamsProps>  = (props) =>{
         return (
             <MockOver
                 key={_team.TeamID + `${i}`}
-                Content={<TopTeamEntry stat={props.stats?.[i]} onTeamClick={props.onTeamClick} team={_team}/>}
+                Content={<TopTeamEntry rank={i + 1} stat={props.stats?.[i]} onTeamClick={props.onTeamClick} team={_team}/>}
                 dependencies={[_team]}
             />
         )

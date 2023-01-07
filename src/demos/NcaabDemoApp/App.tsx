@@ -53,6 +53,7 @@ export function App(style : any) {
           <Route path="/tos" element={<Tos/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/home" element={<Home/>}/>
+          <Route path="/home/:dateStr" element={<Home/>}/>
           <Route path="/team" element={<Teams/>}/>
           <Route path="/team/:id" element={<Team/>}/>
           <Route path="/matchups" element={<Matchups/>}/>

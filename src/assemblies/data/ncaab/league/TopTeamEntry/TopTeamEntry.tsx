@@ -22,7 +22,7 @@ export const TOP_TEAM_ENTRY_INNER_CLASSNAMES : string[] = [
 export const TOP_TEAM_ENTRY_INNER_STYLE : React.CSSProperties = {
     alignContent : "center",
     alignItems : "center",
-    gridTemplateColumns : "1fr 4fr 3fr"
+    gridTemplateColumns : "1fr 4fr 2fr"
 };
 
 export type TopTeamEntryProps = {
@@ -35,6 +35,7 @@ export type TopTeamEntryProps = {
     team ? : ontology.Teamlike;
     stat ? : React.ReactNode;
     onTeamClick ? : (teamId : string)=>Promise<void>;
+    rank ? : number;
 };
 
 export const TopTeamEntry : FC<TopTeamEntryProps>  = (props) =>{
@@ -54,12 +55,18 @@ export const TopTeamEntry : FC<TopTeamEntryProps>  = (props) =>{
             <div
             className={[...!props.overrideClasses ? TOP_TEAM_ENTRY_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TOP_TEAM_ENTRY_INNER_STYLE : {}, ...props.style}}>
-                <img height={24} width={24} src={_team.TeamLogoUrl}/>
+                <div style={{
+                    display : "flex"
+                }}>
+                    {props.rank && <span>{props.rank}.&nbsp;</span>}
+                    <img height={24} width={24} src={_team.TeamLogoUrl}/>
+                </div>
                 &emsp;
                 {_team.School}
                 <span style={{
-                    opacity : .5
-                }} className='text-sm'>{props.stat}</span>
+                    opacity : .5,
+                    fontSize : 10
+                }}>{props.stat}</span>
             </div>
         </Button>
     )

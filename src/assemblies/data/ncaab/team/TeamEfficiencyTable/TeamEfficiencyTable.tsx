@@ -358,10 +358,15 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
                             "Offensive Efficiency" : ["NUMERIC"],
                             "Defensive Efficiency" : ["NUMERIC"]
                         }}
-                        Title={<h2 className='text-lg underline decoration-gdg-500'>Efficiency</h2>}/>
+                        Title={<h2 className='text-lg'>Efficiency</h2>}/>
                </div>
-               <div className='p-4'>
-                    <Table style={{
+               <hr/>
+               <div>
+                    <Table 
+                    defaultSortBy={{
+                        "Power Rating" : -1
+                    }}
+                    style={{
                         width : "100%"
                     }} table={{
                             hiddenHeads : [

@@ -101,9 +101,7 @@ export const FilterSet : FC<FilterSetProps>  = (props) =>{
             }}>
                 {presetEntries}
             </div></> : <></>}
-            <div>
-                {props.children}
-            </div>
+            
         </div>
     )
 };

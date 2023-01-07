@@ -8,6 +8,7 @@ import { useGames } from "./useGames";
 import { useTeams } from "./useTeams";
 import { useTopTeams } from "./useTopTeams";
 import { useProjections } from "./useProjections";
+import { useProjectedGames } from "./useProjectedGames";
 
 export const useTopGames = () : {
 
@@ -33,6 +34,10 @@ export const useTopGames = () : {
     const {
         getApTop25Teams
     } = useTopTeams();
+
+    const {
+        getProjectedGamesTable
+    } = useProjectedGames()
 
 
     const getTop25Games = (date : Date) : ontology.ProjectedGamelike[]|undefined => {
@@ -72,15 +77,21 @@ export const useTopGames = () : {
 
     const getGameOfTheDay = (date : Date) : ontology.ProjectedGamelike|undefined =>{
 
-        const top25Games = getTop25Games(date);
+        let games = getTop25Games(date);
+        if(!games?.length) {
+            const projectedGames = getProjectedGamesTable(date);
+            games = projectedGames && Object.values(projectedGames);
+        }
 
-        if(!top25Games) return undefined;
+        if(!games) return undefined;
+        console.log(games);
+        
 
-        return top25Games
+        return games
         .filter(game=>{
             return DateComparison.sameDate(
                 new Date(game.game.Day||0),
-                new Date()
+                new Date(date)
             )
         })
         .sort((a, b)=>{

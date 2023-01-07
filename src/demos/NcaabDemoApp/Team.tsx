@@ -120,7 +120,7 @@ export const Team : FC<TeamProps>  = (props) =>{
 
 
     if(!user && !loading) navigate("/");
-    if(!getTosConfirmed(user?.uid||"")) navigate("/tos");
+    if(getTosConfirmed(user?.uid||"") === false) navigate("/tos");
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)

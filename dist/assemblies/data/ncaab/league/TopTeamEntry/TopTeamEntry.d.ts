@@ -14,5 +14,6 @@ export declare type TopTeamEntryProps = {
     team?: ontology.Teamlike;
     stat?: React.ReactNode;
     onTeamClick?: (teamId: string) => Promise<void>;
+    rank?: number;
 };
 export declare const TopTeamEntry: FC<TopTeamEntryProps>;

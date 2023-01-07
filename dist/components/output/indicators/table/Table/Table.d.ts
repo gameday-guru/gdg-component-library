@@ -20,6 +20,9 @@ export declare type TableProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     table: Tablelike;
+    defaultSortBy?: {
+        [key: string]: number;
+    };
 };
 export declare const orderData: (table: Tablelike, sortBy: {
     [key: string]: number;

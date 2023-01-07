@@ -23,6 +23,7 @@ export type TableProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     table : Tablelike;
+    defaultSortBy ? : {[key : string]  : number}
 };
 
 export const orderData = (table : Tablelike, sortBy : {[key : string] : number}) : Tablelike["data"]=>{
@@ -104,7 +105,7 @@ export const Table : FC<TableProps>  = (props) =>{
 
     const [hiddenColumns, setHiddenColumns] = useState<string[]>([]);
     const [hiddenRows, setHiddenRows] = useState<number[]>([]);
-    const [sortBy, setSortBy] = useState<{[key : string]  : number}>({});
+    const [sortBy, setSortBy] = useState<{[key : string]  : number}>(props.defaultSortBy||{});
 
     const columns = getColumns(props.table);
     const sortedData = orderData(props.table, sortBy);
@@ -116,6 +117,7 @@ export const Table : FC<TableProps>  = (props) =>{
         style={{...!props.overrideStyle ? TABEL_STYLE : {}, ...props.style}}>
             <thead>
                 <tr style={{ background: "inherit", opacity : .5}}>
+                    <th></th>
                     {columns.map((col)=>{
                         let Caret : React.ReactNode;
                         if(sortBy[col] > 0) Caret = <CaretDown/>;
@@ -140,7 +142,7 @@ export const Table : FC<TableProps>  = (props) =>{
                         if(props.table.hiddenHeads?.includes(col))
                             return <th key={generate()} scope="col">&emsp;&emsp;</th>
                             
-                        return (<th key={generate()} scope="col p-2">
+                        return (<th key={generate()} scope="col">
                             <div className="flex p-4 items-center content-center text-sm font-medium text-gray-900 text-left">
                                 {col}
                                 <span
@@ -154,11 +156,16 @@ export const Table : FC<TableProps>  = (props) =>{
                 </tr>
             </thead>
             <tbody>
-                {sortedData.map((datum)=>{
+                {sortedData.map((datum, i)=>{
                     return (
                         <tr key={generate()} className="bg-black-100 odd:bg-black-300 cursor-pointer gcr">
+                            <td style={{
+                                textAlign : "center"
+                            }}>{i + 1}.</td>
                             {columns.map((col, i)=>{
-                                return <td key={generate()}>
+                                return <td key={generate()} style={{
+                                    textAlign : "center"
+                                }}>
                                     {props.table.toReact[col] ? props.table.toReact[col](datum[col]): datum[col]}
                                 </td>
                             })}

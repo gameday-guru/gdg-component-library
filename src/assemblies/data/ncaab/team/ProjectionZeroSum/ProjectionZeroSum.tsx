@@ -46,29 +46,29 @@ export const ProjectionZeroSum : FC<ProjectionZeroSumProps>  = (props) =>{
                     fontSize : 10
                 }}>
                     <div>
-                        Home Score
+                        Away Score
                         <br/>
                         <div className='rounded-l-full'
                         style={{
                             width : `${Math.floor((_homeScore/((_homeScore + _awayScore)/2))*100)}%`,
                             justifySelf : "right",
                             padding : "2px",
-                            background : "#00C192"
+                            background : "#0086E6"
                         }}>
-                            &emsp;&emsp;{_homeScore.toFixed(1)}
+                            &emsp;&emsp;{_awayScore.toFixed(1)}
                         </div>
                     </div>
                     <div>
-                        Away Score
+                        Home Score
                         <br/>
                         <div className='rounded-r-full'
                             style={{
                                 width : `${Math.floor((_awayScore/((_homeScore + _awayScore)/2))*100)}%`,
                                 justifySelf : "left",
                                 padding : "2px",
-                                background : "#0086E6"
+                                background : "#00C192"
                             }}>
-                            &emsp;{_awayScore.toFixed(1)}
+                            &emsp;{_homeScore.toFixed(1)}
                         </div>
                     </div>
                 </div>

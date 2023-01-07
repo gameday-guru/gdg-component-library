@@ -43,8 +43,7 @@ export const NcaabMensBlogs : FC<NcaabMensBlogsProps>  = (props) =>{
         const handleBlogClick = async ()=>{
             props.onBlogClick && props.onBlogClick(blog.uid);
         }
-        
-        console.log(blog);
+    
 
         return <div
             key={generate() + `x${blog.uid}`}
@@ -122,6 +121,7 @@ export const NcaabMensBlogs : FC<NcaabMensBlogsProps>  = (props) =>{
                         width : "100%"
                     }} Entries={blogEntries}/>
                     <Wrapper
+                    viusage='success'
                     style={{
                         position : "absolute",
                         left : "3em",
@@ -135,8 +135,7 @@ export const NcaabMensBlogs : FC<NcaabMensBlogsProps>  = (props) =>{
                         justifyContent : "center",
                         justifyItems : "center"
                     }}
-                        viusage='info'
-                        classNames={["rounded", "p-2"]}>
+                    classNames={["rounded", "p-2"]}>
                         <span style={{
                             fontSize : 12
                         }} className='text-sm'>Blog</span>

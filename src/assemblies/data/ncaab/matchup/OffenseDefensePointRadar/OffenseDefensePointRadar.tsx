@@ -122,24 +122,6 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                             alignItems : "center"
                         }}>
                         <div style={{
-                            background : COLORS[0],
-                            height : "10px",
-                            width : "10px",
-                        }}>
-
-                        </div>
-                        &emsp;
-                        <div>
-                        {_offensiveTeam.School} {props.reverse ? "(DEF)" : "(OFF)"}
-                        </div>
-                    </div>
-                    <div style={{
-                            display : "flex",
-                            fontSize : "8px",
-                            alignContent : "center",
-                            alignItems : "center"
-                        }}>
-                        <div style={{
                             background : COLORS[1],
                             height : "10px",
                             width : "10px",
@@ -151,7 +133,27 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                         {_defensiveTeam.School} {props.reverse ? "(OFF)" : "(DEF)"}
                         </div>
                     </div>
+                    <div style={{
+                            display : "flex",
+                            fontSize : "8px",
+                            alignContent : "center",
+                            alignItems : "center"
+                        }}>
+                        <div style={{
+                            background : COLORS[0],
+                            height : "10px",
+                            width : "10px",
+                        }}>
+
+                        </div>
+                        &emsp;
+                        <div>
+                        {_offensiveTeam.School} {props.reverse ? "(DEF)" : "(OFF)"}
+                        </div>
+                    </div>
                 </div>
+                <br/>
+                <h2 className='text-lg'>Point Distribution Radar</h2>
             </Wrapper>
     )
 };

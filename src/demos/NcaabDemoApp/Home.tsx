@@ -16,7 +16,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { DateComparison } from '../../util/date';
 import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
@@ -62,8 +62,9 @@ export type HomeProps = {
 export const Home : FC<HomeProps>  = (props) =>{
 
     const navigate = useNavigate();
+    const { dateStr } = useParams();
     const [user, loading, error] = useAuthState(auth);
-    const date = new Date();
+    const date = new Date(dateStr||new Date());
 
     const {
         getBlogArticles,

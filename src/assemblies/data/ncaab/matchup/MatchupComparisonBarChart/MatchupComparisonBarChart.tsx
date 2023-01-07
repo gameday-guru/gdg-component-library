@@ -100,10 +100,10 @@ export const MatchupComparisonStatsBarChart : FC<MatchupComparisonStatsBarChartP
                     formatter={(value)=>Number.parseFloat(value as any).toFixed(1)}/>
                 <Bar 
                     radius={5}
-                    width={50} dataKey="home" fill={COLORS[0]} />
+                    width={50} dataKey="away" fill={COLORS[1]} />
                 <Bar 
                     radius={5}
-                    width={50} dataKey="away" fill={COLORS[1]} />
+                    width={50} dataKey="home" fill={COLORS[0]} />
             </BarChart>
             <div className='gap-2' style={{
                     display : "grid",
@@ -111,24 +111,6 @@ export const MatchupComparisonStatsBarChart : FC<MatchupComparisonStatsBarChartP
                     alignContent : "center",
                     justifyContent : "center"
                 }}>
-                    <div style={{
-                            display : "flex",
-                            fontSize : "8px",
-                            alignContent : "center",
-                            alignItems : "center"
-                        }}>
-                        <div style={{
-                            background : COLORS[0],
-                            height : "10px",
-                            width : "10px",
-                        }}>
-
-                        </div>
-                        &emsp;
-                        <div>
-                        {_home.School}
-                        </div>
-                    </div>
                     <div style={{
                             display : "flex",
                             fontSize : "8px",
@@ -147,7 +129,27 @@ export const MatchupComparisonStatsBarChart : FC<MatchupComparisonStatsBarChartP
                         {_away.School}
                         </div>
                     </div>
+                    <div style={{
+                            display : "flex",
+                            fontSize : "8px",
+                            alignContent : "center",
+                            alignItems : "center"
+                        }}>
+                        <div style={{
+                            background : COLORS[0],
+                            height : "10px",
+                            width : "10px",
+                        }}>
+
+                        </div>
+                        &emsp;
+                        <div>
+                        {_home.School}
+                        </div>
+                    </div>
                 </div>
+                <br/>
+                <h2 className='text-lg'>Team Efficiency Comparison</h2>
         </Wrapper>
     )
 };
