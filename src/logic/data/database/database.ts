@@ -1,8 +1,10 @@
 import { ontology } from "../../../util"
+import { MockProjectionArgslike } from "../../../util/rpc";
 import { BlogArticlesMultiCache } from "../domain/blogs";
 import { ConfirmedTosMultiCache } from "../domain/confirmedTos";
 import { EfficiencyMultiCache } from "../domain/efficiency";
 import { GamesByDateMultiCache } from "../domain/gamesByDate";
+import { MockProjectionMultiCache } from "../domain/mockProjection/caches";
 import { TeamsMultiCache } from "../domain/ncaabTeams/caches";
 import { PlayersMultiCache } from "../domain/players";
 import { ProjectionMultiCache } from "../domain/projection";
@@ -22,6 +24,7 @@ export interface DataMultiPowerStoreslike {
     blogs : MultiPowerStorelike<undefined, ontology.BlogArticleTablelike>;
     tos : MultiPowerStorelike<undefined, ontology.TosTablelike>;
     confirmedTos : MultiPowerStorelike<string, boolean>;
+    mockProjection : MultiPowerStorelike<MockProjectionArgslike, ontology.ProjectionEntrylike>;
 }
 
 export const DEFAULT_MULTI_LISTENERS : DataMultiPowerStoreslike = {
@@ -34,7 +37,8 @@ export const DEFAULT_MULTI_LISTENERS : DataMultiPowerStoreslike = {
     radar : RadarMultiCache,
     blogs : BlogArticlesMultiCache,
     tos : TosesMultiCache,
-    confirmedTos : ConfirmedTosMultiCache
+    confirmedTos : ConfirmedTosMultiCache,
+    mockProjection : MockProjectionMultiCache
 }
 
 export interface Databaselike {

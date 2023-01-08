@@ -25,6 +25,7 @@ import { useTeams } from '../../logic/processing/react/useTeams';
 import { usePointDistribution } from '../../logic/processing/react/usePointDistribution';
 import { useEfficiency } from '../../logic/processing/react/useEfficiency';
 import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
+import { useMockProjection } from '../../logic/processing/react/useMockProjection';
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -62,7 +63,7 @@ export type MockMatchupProps = {
 export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
 
     const now = new Date();
-    const {id} = useParams();
+    const {home, away} = useParams();
     const navigate = useNavigate();
     const monthAgo = new Date(now);
     monthAgo.setMonth(monthAgo.getMonth() - 1);
@@ -85,9 +86,6 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
         getTosConfirmed
     } = useOnceProcessor(); 
 
-    const gamesTable = getProjectedGamesTableBetween(monthAgo, weekFromNow);
-    let projectedGame = undefined;
-    if(id && gamesTable) projectedGame = gamesTable[id];
 
     const {
         getTeamsTable
@@ -103,30 +101,37 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
     } = useEfficiency();
     const efficiency = getEfficiencyTable();
 
-    let home = undefined;
-    if(projectedGame && teams) home = teams[projectedGame.home.TeamID.toString()];
-    const homeDistro = home && getPointDistribution(home);
-    const homeEff = home && efficiency && efficiency[home.TeamID.toString()];
-    const homeGames = home && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, home);
+    const {
+        getMockProjection
+    } = useMockProjection()
+
+    let homeTeam = undefined;
+    if(home && teams) homeTeam = teams[home];
+    let homeDistro = undefined;
+    if(homeTeam) homeDistro = getPointDistribution(homeTeam);
+    let homeEff = undefined;
+    if(home && efficiency) homeEff = efficiency[home];
+    let homeGames = undefined;
+    if(homeTeam) homeGames = getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, homeTeam);
+
 
     // console.log(gamesTable, home, projectedGame, homeDistro, homeEff, homeGames);
 
-    let away = undefined;
-    if(projectedGame && teams) away = teams[projectedGame.away.TeamID.toString()];
-    const awayDistro = away && getPointDistribution(away);
-    const awayEff = away && efficiency && efficiency[away.TeamID.toString()];
-    const awayGames = away && getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, away);
+    let awayTeam = undefined;
+    if(away && teams) awayTeam = teams[away];
+    let awayDistro = undefined;
+    if(awayTeam) awayDistro = getPointDistribution(awayTeam);
+    let awayEff = undefined;
+    if(away && efficiency) awayEff = efficiency[away];
+    let awayGames = undefined;
+    if(awayTeam) awayGames = getProjectedGamesTableBetweenForTeam(monthAgo, weekFromNow, awayTeam);
 
-    const gameProjection : ontology.ProjectionEntrylike | undefined = 
-    home && away
-    && homeEff && awayEff ? {
-        game_id : -1,
-        home_team_id : home.TeamID,
-        away_team_id : away.TeamID,
-        // TODO: update model
-        home_team_score : 30 + (Math.random() * 64),
-        away_team_score : 30 + (Math.random() * 64),
-    } : undefined;
+    let gameProjection = undefined
+    if(home && away) gameProjection = getMockProjection({
+        home_team_id : home,
+        away_team_id : away,
+        neutral : true
+    });
 
     if(!user && !loading) navigate("/");
     if(getTosConfirmed(user?.uid||"") === false) navigate("/tos");
@@ -159,13 +164,12 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
         headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}
         onMatchupClick={handleMockMatchupClick}
         onTeamClick={handleTeamClick}
-        game={projectedGame?.game}
         leagueAverages={getLeagueAverages()}
         gameProjection={gameProjection}
-        home={home}
+        home={homeTeam}
         homeDistro={homeDistro}
         homeEfficiency={homeEff}
-        away={away}
+        away={awayTeam}
         awayDistro={awayDistro}
         awayEfficiency={awayEff}
         homeGameProjections={homeGames && Object.values(homeGames)}

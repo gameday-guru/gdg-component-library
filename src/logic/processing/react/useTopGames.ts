@@ -84,9 +84,7 @@ export const useTopGames = () : {
         }
 
         if(!games) return undefined;
-        console.log(games);
         
-
         return games
         .filter(game=>{
             return DateComparison.sameDate(

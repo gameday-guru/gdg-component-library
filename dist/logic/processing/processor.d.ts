@@ -1,4 +1,5 @@
 import { ontology } from "../../util";
+import { MockProjectionArgslike } from "../../util/rpc";
 export interface Processorlike {
     getTeams(): ontology.Teamlike[] | undefined;
     getTeamsTable(): {
@@ -53,6 +54,7 @@ export interface Processorlike {
     getToses(): ontology.TosTablelike | undefined;
     getTosConfirmed(id: string): boolean | undefined;
     getBlogArticles(): ontology.BlogArticleTablelike | undefined;
+    getMockProjection(args: MockProjectionArgslike): ontology.ProjectionEntrylike | undefined;
 }
 export interface ProcessorRequirementslike {
 }

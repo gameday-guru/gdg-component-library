@@ -1,4 +1,5 @@
 import { ontology } from "../../util";
+import { MockProjectionArgslike } from "../../util/rpc";
 
 export interface Processorlike {
 
@@ -58,6 +59,9 @@ export interface Processorlike {
 
     // blog articles
     getBlogArticles() : ontology.BlogArticleTablelike | undefined;
+
+    // mock projection
+    getMockProjection(args : MockProjectionArgslike) : ontology.ProjectionEntrylike | undefined;
 
 }
 

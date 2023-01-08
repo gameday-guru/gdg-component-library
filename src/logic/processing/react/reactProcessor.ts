@@ -19,6 +19,7 @@ import { usePointDistribution } from "./usePointDistribution";
 import { useBlogs } from "./useBlogs";
 import { useTos } from "./useTos";
 import { getTos } from "../../../util/cms/tos";
+import { useMockProjection } from "./useMockProjection";
 
 export const imemoize = <K extends any[], V>(
     func : (...args : K)=>V
@@ -109,7 +110,11 @@ export const useOnceProcessor = () : Processorlike =>{
     const {
         getToses,
         getTosConfirmed
-    } = useTos()
+    } = useTos();
+
+    const {
+        getMockProjection
+    } = useMockProjection();
 
     return {
 
@@ -167,7 +172,10 @@ export const useOnceProcessor = () : Processorlike =>{
 
         // toses
         getToses,
-        getTosConfirmed
+        getTosConfirmed,
+
+        // mock projection
+        getMockProjection
 
     };
 

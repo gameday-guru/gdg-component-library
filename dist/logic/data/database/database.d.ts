@@ -1,4 +1,5 @@
 import { ontology } from "../../../util";
+import { MockProjectionArgslike } from "../../../util/rpc";
 import { MultiPowerStorelike } from "../operations";
 export interface DataMultiPowerStoreslike {
     gamesByDate: MultiPowerStorelike<Date, ontology.GameByDatelike[]>;
@@ -13,6 +14,7 @@ export interface DataMultiPowerStoreslike {
     blogs: MultiPowerStorelike<undefined, ontology.BlogArticleTablelike>;
     tos: MultiPowerStorelike<undefined, ontology.TosTablelike>;
     confirmedTos: MultiPowerStorelike<string, boolean>;
+    mockProjection: MultiPowerStorelike<MockProjectionArgslike, ontology.ProjectionEntrylike>;
 }
 export declare const DEFAULT_MULTI_LISTENERS: DataMultiPowerStoreslike;
 export interface Databaselike {

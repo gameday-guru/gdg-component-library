@@ -61,18 +61,18 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
                 gridTemplateColumns : '1fr 1fr'
             }}>
                 <div>
-                    <TeamMatchups
-                    onMatchupClick={props.onMatchupClick}
-                    onTeamClick={props.onTeamClick}
-                    team={props.home}
-                    games={props.homeGameProjections}/>
-                </div>
-                <div>
                     <TeamMatchups 
                     onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}
                     team={props.away}
                     games={props.awayGameProjections}/>
+                </div>
+                <div>
+                    <TeamMatchups
+                    onMatchupClick={props.onMatchupClick}
+                    onTeamClick={props.onTeamClick}
+                    team={props.home}
+                    games={props.homeGameProjections}/>
                 </div>
             </div>
         </div>

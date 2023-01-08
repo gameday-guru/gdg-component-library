@@ -93,9 +93,12 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
         }}/>
     </Wrapper>
 
+    console.log(comparison.left, comparison.right);
+
     const handleBuildMatchup = async ()=>{
-        if(comparison.left && comparison.right) props.onBuildMatchup 
-        && props.onBuildMatchup(comparison.right, comparison.left); // https://github.com/gameday-guru/gameday-guru/issues/16
+        
+        if(comparison.left && comparison.right && props.onBuildMatchup)
+            props.onBuildMatchup(comparison.left, comparison.right); // https://github.com/gameday-guru/gameday-guru/issues/16
     }
 
     // #16
