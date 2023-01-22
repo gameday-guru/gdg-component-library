@@ -34,22 +34,19 @@ export type OffenseDefensePointRadarProps = {
 
 export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (props) =>{
 
+    const _home = props.homeDistro||MockPointDistribution.offense;
+    const _away = props.awayDistro||MockPointDistribution.defense;
+    const _homeTeam = props.home||MockHome;
+    const _awayTeam = props.away||MockAway;
+
     // TODO: change the naming here (legacy)
-    const _offense = props.homeDistro||MockPointDistribution.offense;
-    const _offensiveTeam = props.home||MockHome;
+    const _offense = props.reverse ? _away : _home;
+    const _offensiveTeam = props.reverse ? _awayTeam : _homeTeam;
     const _offenseTotal = _offense.freeThrow + _offense.twoPoint + _offense.threePoint;
 
-    const _defense = props.awayDistro||MockPointDistribution.defense;
-    const _defensiveTeam = props.away||MockAway;
+    const _defense = props.reverse ? _home : _away;
+    const _defensiveTeam = props.reverse ? _homeTeam : _awayTeam;
     const _defenseTotal = _defense.freeThrow + _defense.twoPoint + _defense.threePoint;
-
-    // find the mid points for the hexagon
-    const ftPoint = [0, _offense.freeThrow/_offenseTotal];
-    // 2a^2 = twoPoint
-    // root(twoPoint/2) = a;
-    const twoPointCoord = Math.sqrt(_offense.twoPoint/2);
-    const twoPointPoint = [twoPointCoord, twoPointCoord];
-    const ftTwoMidpoint = _offense.freeThrow/_offenseTotal
 
     const data = [
         {
@@ -73,7 +70,46 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
     const COLORS = [
         "#00C192",
         "#0086E6"
-    ]
+    ]; 
+
+    let labels = [
+        <div style={{
+            display : "flex",
+            fontSize : "8px",
+            alignContent : "center",
+            alignItems : "center"
+        }}>
+            <div style={{
+                background : COLORS[1],
+                height : "10px",
+                width : "10px",
+            }}>
+
+            </div>
+            &emsp;
+            <div>
+            {_awayTeam.School} {props.reverse ? "(OFF)" : "(DEF)"}
+            </div>
+        </div>,
+        <div style={{
+                display : "flex",
+                fontSize : "8px",
+                alignContent : "center",
+                alignItems : "center"
+            }}>
+            <div style={{
+                background : COLORS[0],
+                height : "10px",
+                width : "10px",
+            }}>
+
+            </div>
+            &emsp;
+            <div>
+            {_homeTeam.School} {props.reverse ? "(DEF)" : "(OFF)"}
+            </div>
+        </div>
+    ];
 
     return (
         <Wrapper
@@ -115,42 +151,7 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                     alignContent : "center",
                     justifyContent : "center"
                 }}>
-                    <div style={{
-                            display : "flex",
-                            fontSize : "8px",
-                            alignContent : "center",
-                            alignItems : "center"
-                        }}>
-                        <div style={{
-                            background : COLORS[1],
-                            height : "10px",
-                            width : "10px",
-                        }}>
-
-                        </div>
-                        &emsp;
-                        <div>
-                        {_defensiveTeam.School} {props.reverse ? "(OFF)" : "(DEF)"}
-                        </div>
-                    </div>
-                    <div style={{
-                            display : "flex",
-                            fontSize : "8px",
-                            alignContent : "center",
-                            alignItems : "center"
-                        }}>
-                        <div style={{
-                            background : COLORS[0],
-                            height : "10px",
-                            width : "10px",
-                        }}>
-
-                        </div>
-                        &emsp;
-                        <div>
-                        {_offensiveTeam.School} {props.reverse ? "(DEF)" : "(OFF)"}
-                        </div>
-                    </div>
+                    {labels}
                 </div>
                 <br/>
                 <h2 className='text-lg'>Point Distribution Radar</h2>

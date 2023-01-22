@@ -6,7 +6,9 @@ import { NcaabDemoApp } from './demos/NcaabDemoApp';
 import './index.css'
 import './main.css'
 import './github.css'
+import './App.css'
+import { PlaygroundApp } from './demos/Playground';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-   <NcaabDemoApp/>
+   <PlaygroundApp/>
 )

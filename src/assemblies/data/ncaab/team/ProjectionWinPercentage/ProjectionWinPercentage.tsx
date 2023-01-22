@@ -94,34 +94,17 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
                     display : "grid",
                     gridTemplateColumns : "1fr 1fr",
                     alignContent : "center",
-                    justifyContent : "center"
+                    justifyContent : "center",
+                    // width : "100%"
                 }}>
+                    <div style={{
+                        display : "flex",
+                        fontSize : "8px",
+                        alignContent : "center",
+                        alignItems : "center"
+                    }}>
                         <div style={{
-                                display : "flex",
-                                fontSize : "8px",
-                                alignContent : "center",
-                                alignItems : "center"
-                            }}>
-                                <div style={{
-                                display : "flex",
-                                fontSize : "8px",
-                                alignContent : "center",
-                                alignItems : "center"
-                            }}>
-                            <div style={{
-                                background : COLORS[1],
-                                height : "10px",
-                                width : "10px",
-                            }}>
-
-                            </div>
-                            &emsp;
-                            <div>
-                            {_away.School}
-                            </div>
-                        </div>
-                        <div style={{
-                            background : COLORS[0],
+                            background : COLORS[1],
                             height : "10px",
                             width : "10px",
                         }}>
@@ -129,11 +112,29 @@ export const ProjectionWinPercentage : FC<ProjectionWinPercentageProps>  = (prop
                         </div>
                         &emsp;
                         <div>
-                        {_home.School}
+                        {_away.School}
+                        </div>
+                    </div>
+                    <div style={{
+                            display : "flex",
+                            fontSize : "8px",
+                            alignContent : "center",
+                            alignItems : "center"
+                        }}>
+                            <div style={{
+                                background : COLORS[0],
+                                height : "10px",
+                                width : "10px",
+                            }}>
+
+                            </div>
+                            &emsp;
+                            <div>
+                            {_home.School}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </Wrapper>
     )
 };

@@ -30185,7 +30185,7 @@ const Ipe = ["grid", "p-4"], Npe = {
             fill: d[p % d.length]
           }, m.name))
         })
-      }), /* @__PURE__ */ y("div", {
+      }), /* @__PURE__ */ D("div", {
         className: "gap-2",
         style: {
           display: "grid",
@@ -30193,30 +30193,30 @@ const Ipe = ["grid", "p-4"], Npe = {
           alignContent: "center",
           justifyContent: "center"
         },
-        children: /* @__PURE__ */ D("div", {
+        children: [/* @__PURE__ */ D("div", {
           style: {
             display: "flex",
             fontSize: "8px",
             alignContent: "center",
             alignItems: "center"
           },
-          children: [/* @__PURE__ */ D("div", {
+          children: [/* @__PURE__ */ y("div", {
             style: {
-              display: "flex",
-              fontSize: "8px",
-              alignContent: "center",
-              alignItems: "center"
-            },
-            children: [/* @__PURE__ */ y("div", {
-              style: {
-                background: d[1],
-                height: "10px",
-                width: "10px"
-              }
-            }), "\u2003", /* @__PURE__ */ y("div", {
-              children: n.School
-            })]
-          }), /* @__PURE__ */ y("div", {
+              background: d[1],
+              height: "10px",
+              width: "10px"
+            }
+          }), "\u2003", /* @__PURE__ */ y("div", {
+            children: n.School
+          })]
+        }), /* @__PURE__ */ D("div", {
+          style: {
+            display: "flex",
+            fontSize: "8px",
+            alignContent: "center",
+            alignItems: "center"
+          },
+          children: [/* @__PURE__ */ y("div", {
             style: {
               background: d[0],
               height: "10px",
@@ -30225,7 +30225,7 @@ const Ipe = ["grid", "p-4"], Npe = {
           }), "\u2003", /* @__PURE__ */ y("div", {
             children: t.School
           })]
-        })
+        })]
       })]
     })
   });
@@ -43305,7 +43305,7 @@ const NEe = br(t7), n7 = (e) => {
       },
       children: [/* @__PURE__ */ D("h2", {
         className: "text-lg",
-        children: [t.School, " vs. ", n.School]
+        children: [n.School, " vs. ", t.School]
       }), /* @__PURE__ */ y(q3, {
         viusage: "backdrop",
         onTeamClick: e.onTeamClick,
@@ -43323,21 +43323,56 @@ const NEe = br(t7), n7 = (e) => {
   justifyItems: "center",
   fontSize: 10
 }, JC = (e) => {
-  const t = e.homeDistro || c0.offense, n = e.home || Ie, r = t.freeThrow + t.twoPoint + t.threePoint, i = e.awayDistro || c0.defense, a = e.away || fr, o = i.freeThrow + i.twoPoint + i.threePoint;
-  t.freeThrow / r, Math.sqrt(t.twoPoint / 2), t.freeThrow / r;
-  const s = [{
+  const t = e.homeDistro || c0.offense, n = e.awayDistro || c0.defense, r = e.home || Ie, i = e.away || fr, a = e.reverse ? n : t;
+  e.reverse;
+  const o = a.freeThrow + a.twoPoint + a.threePoint, s = e.reverse ? t : n;
+  e.reverse;
+  const l = s.freeThrow + s.twoPoint + s.threePoint, c = [{
     name: "FT",
-    offense: t.freeThrow / r,
-    defense: i.freeThrow / o
+    offense: a.freeThrow / o,
+    defense: s.freeThrow / l
   }, {
     name: "2pt",
-    offense: t.twoPoint / r,
-    defense: i.twoPoint / o
+    offense: a.twoPoint / o,
+    defense: s.twoPoint / l
   }, {
     name: "3pt",
-    offense: t.threePoint / r,
-    defense: i.threePoint / o
-  }], l = ["#00C192", "#0086E6"];
+    offense: a.threePoint / o,
+    defense: s.threePoint / l
+  }], u = ["#00C192", "#0086E6"];
+  let f = [/* @__PURE__ */ D("div", {
+    style: {
+      display: "flex",
+      fontSize: "8px",
+      alignContent: "center",
+      alignItems: "center"
+    },
+    children: [/* @__PURE__ */ y("div", {
+      style: {
+        background: u[1],
+        height: "10px",
+        width: "10px"
+      }
+    }), "\u2003", /* @__PURE__ */ D("div", {
+      children: [i.School, " ", e.reverse ? "(OFF)" : "(DEF)"]
+    })]
+  }), /* @__PURE__ */ D("div", {
+    style: {
+      display: "flex",
+      fontSize: "8px",
+      alignContent: "center",
+      alignItems: "center"
+    },
+    children: [/* @__PURE__ */ y("div", {
+      style: {
+        background: u[0],
+        height: "10px",
+        width: "10px"
+      }
+    }), "\u2003", /* @__PURE__ */ D("div", {
+      children: [r.School, " ", e.reverse ? "(DEF)" : "(OFF)"]
+    })]
+  })];
   return /* @__PURE__ */ D(_e, {
     viusage: "backdrop",
     classNames: [...e.overrideClasses ? [] : UEe, ...e.classNames || []],
@@ -43349,7 +43384,7 @@ const NEe = br(t7), n7 = (e) => {
       height: 300,
       width: 300,
       outerRadius: "80%",
-      data: s,
+      data: c,
       children: [/* @__PURE__ */ y(Qr, {
         contentStyle: {
           background: "black",
@@ -43365,23 +43400,23 @@ const NEe = br(t7), n7 = (e) => {
           outline: "1px solid white",
           borderRadius: 4
         },
-        formatter: (c) => `${(Number.parseFloat(c) * 100).toFixed(1)}%`
+        formatter: (d) => `${(Number.parseFloat(d) * 100).toFixed(1)}%`
       }), /* @__PURE__ */ y(k1, {}), /* @__PURE__ */ y(ys, {
         dataKey: "name"
       }), /* @__PURE__ */ y(vs, {}), /* @__PURE__ */ y(Jo, {
         dataKey: e.reverse ? "defense" : "offense",
-        stroke: l[0],
-        fill: l[0],
+        stroke: u[0],
+        fill: u[0],
         fillOpacity: 0.5
       }), /* @__PURE__ */ y(Jo, {
         dataKey: e.reverse ? "offense" : "defense",
-        stroke: l[1],
-        fill: l[1],
+        stroke: u[1],
+        fill: u[1],
         fillOpacity: 0.5
       }), /* @__PURE__ */ y(Ot, {
         fontSize: 8
       })]
-    }), /* @__PURE__ */ D("div", {
+    }), /* @__PURE__ */ y("div", {
       className: "gap-2",
       style: {
         display: "grid",
@@ -43389,39 +43424,7 @@ const NEe = br(t7), n7 = (e) => {
         alignContent: "center",
         justifyContent: "center"
       },
-      children: [/* @__PURE__ */ D("div", {
-        style: {
-          display: "flex",
-          fontSize: "8px",
-          alignContent: "center",
-          alignItems: "center"
-        },
-        children: [/* @__PURE__ */ y("div", {
-          style: {
-            background: l[1],
-            height: "10px",
-            width: "10px"
-          }
-        }), "\u2003", /* @__PURE__ */ D("div", {
-          children: [a.School, " ", e.reverse ? "(OFF)" : "(DEF)"]
-        })]
-      }), /* @__PURE__ */ D("div", {
-        style: {
-          display: "flex",
-          fontSize: "8px",
-          alignContent: "center",
-          alignItems: "center"
-        },
-        children: [/* @__PURE__ */ y("div", {
-          style: {
-            background: l[0],
-            height: "10px",
-            width: "10px"
-          }
-        }), "\u2003", /* @__PURE__ */ D("div", {
-          children: [n.School, " ", e.reverse ? "(DEF)" : "(OFF)"]
-        })]
-      })]
+      children: f
     }), /* @__PURE__ */ y("br", {}), /* @__PURE__ */ y("h2", {
       className: "text-lg",
       children: "Point Distribution Radar"
@@ -43539,15 +43542,15 @@ const NEe = br(t7), n7 = (e) => {
       children: /* @__PURE__ */ y(ZC, {
         onMatchupClick: e.onMatchupClick,
         onTeamClick: e.onTeamClick,
-        team: e.home,
-        games: e.homeGameProjections
+        team: e.away,
+        games: e.awayGameProjections
       })
     }), /* @__PURE__ */ y("div", {
       children: /* @__PURE__ */ y(ZC, {
         onMatchupClick: e.onMatchupClick,
         onTeamClick: e.onTeamClick,
-        team: e.away,
-        games: e.awayGameProjections
+        team: e.home,
+        games: e.homeGameProjections
       })
     })]
   })]
