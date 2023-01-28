@@ -21,6 +21,8 @@ import { Matchup } from './Matchup';
 import { MockMatchup } from './MockMatchup';
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Tos } from "./Tos";
+import { SelfOverview } from "./SelfOverview";
+import { PasswordReset } from "./PasswordReset";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -59,6 +61,9 @@ export function App(style : any) {
           <Route path="/matchups" element={<Matchups/>}/>
           <Route path="/matchup/:id" element={<Matchup/>}/>
           <Route path="/mock/matchup/:home/:away" element={<MockMatchup/>}/>
+          <Route path="/self" element={<SelfOverview/>}/>
+          <Route path="/self/overview" element={<SelfOverview/>}/>
+          <Route path="/forgot" element={<PasswordReset/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -9,6 +9,7 @@ export declare type LoginSignupProps = {
     overrideClasses?: boolean;
     responsive?: boolean;
     which?: "login" | "signup";
+    onForgotPassword?: () => Promise<void>;
     onLogin?: (params: {
         username: string;
         password: string;

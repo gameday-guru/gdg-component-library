@@ -46,13 +46,18 @@ export type LoginProps = {
 
 export const Login : FC<LoginProps>  = (props) =>{
 
-  const navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
+    const navigate = useNavigate();
+    const [user, loading] = useAuthState(auth);
 
-  if(user) navigate("/home");
+    if(user) navigate("/home");
+
+    const handleForgotPassword = async ()=>{
+      navigate("/forgot");
+    }
 
     return (
         <LoginPage
+        onForgotPassword={handleForgotPassword}
         onLogin={async ({ username, password })=>{
 
           await signInWithEmailAndPassword(auth, username, password);

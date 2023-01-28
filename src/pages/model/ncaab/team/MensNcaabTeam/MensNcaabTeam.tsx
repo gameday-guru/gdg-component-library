@@ -35,6 +35,7 @@ export type MensNcaabTeamIndividualProps = {
     headerProjectedGames ? : ontology.ProjectedGamelike[];
     headerTeams ? : ontology.Teamlike[];
     onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
+    onAccountClick ? : ()=>Promise<void>;
 };
 
 export const MensNcaabTeam : FC<MensNcaabTeamIndividualProps>  = (props) =>{
@@ -61,6 +62,7 @@ export const MensNcaabTeam : FC<MensNcaabTeamIndividualProps>  = (props) =>{
                 overflow : 'scroll'
             }}>
                 <MensNcaabTeamIndividualContent
+                onAccountClick={props.onAccountClick}
                 headerProjectedGames={props.headerProjectedGames}
                 headerTeams={props.headerTeams}
                 players={props.players}

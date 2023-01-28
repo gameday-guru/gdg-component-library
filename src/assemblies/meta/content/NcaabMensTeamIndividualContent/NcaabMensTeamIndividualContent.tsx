@@ -36,6 +36,7 @@ export type MensNcaabTeamIndividualContentProps = {
     players ? : ontology.Playerlike[];
     headerProjectedGames ? : ontology.ProjectedGamelike[];
     headerTeams ? : ontology.Teamlike[];
+    onAccountClick ? : ()=>Promise<void>;
 };
 
 export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentProps>  = (props) =>{
@@ -50,6 +51,7 @@ export const MensNcaabTeamIndividualContent : FC<MensNcaabTeamIndividualContentP
             style={{...!props.overrideStyle ? MENS_NCAAB_TEAM_INDIVIDUAL_CONTENT_INNER_STYLE : {}, ...props.style}}>
                 <div>
                     <MensCollegeBasketballHeader
+                    onAccountClick={props.onAccountClick}
                     onTeamClick={props.onTeamClick}
                     onMatchupClick={props.onMatchupClick}
                     teams={props.headerTeams}

@@ -26,6 +26,7 @@ export type LoginSignupProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     which ? : "login" | "signup";
+    onForgotPassword ? : ()=>Promise<void>;
     onLogin ? : (params : {username : string, password : string})=>Promise<void>;
     onSignup ? : (params : {username : string, password : string, passwordConfirmation : string})=>Promise<void>;
 };
@@ -69,7 +70,7 @@ export const LoginSignup : FC<LoginSignupProps>  = (props) =>{
                 </div>
             </div>
             <div>
-                {(which === "login") && <Login onLogin={props.onLogin}/>}
+                {(which === "login") && <Login onForgotPassword={props.onForgotPassword} onLogin={props.onLogin}/>}
                 {(which === "signup") && <Signup onSignup={props.onSignup}/>}
             </div>
         </Wrapper>

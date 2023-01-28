@@ -32,6 +32,7 @@ export type HomeContentProps = {
     headerTeams ? : ontology.Teamlike[];
     blogs ? : ontology.BlogArticlelike[];
     onBlogClick ? : (id : string)=>Promise<void>;
+    onAccountClick ? : ()=>Promise<void>;
 };
 
 export const HomeContent : FC<HomeContentProps>  = (props) =>{
@@ -46,6 +47,7 @@ export const HomeContent : FC<HomeContentProps>  = (props) =>{
             style={{...!props.overrideStyle ? HOME_CONTENT_INNER_STYLE : {}, ...props.style}}>
                 <div>
                     <MensCollegeBasketballHeader
+                    onAccountClick={props.onAccountClick}
                     onTeamClick={props.onTeamClick}
                     onMatchupClick={props.onMatchupClick}
                     teams={props.headerTeams}

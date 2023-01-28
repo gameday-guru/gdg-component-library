@@ -23,5 +23,6 @@ export declare type MensNcaabTeamsProps = {
     headerProjectedGames?: ontology.ProjectedGamelike[];
     headerTeams?: ontology.Teamlike[];
     onFeedbackSubmit?: (feedback: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
 };
 export declare const MensNcaabTeams: FC<MensNcaabTeamsProps>;

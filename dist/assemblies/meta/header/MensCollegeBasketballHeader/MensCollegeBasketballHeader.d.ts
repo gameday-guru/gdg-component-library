@@ -18,6 +18,7 @@ export declare type MensCollegeBasketballHeaderProps = {
     count?: number;
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
 };
 export declare const getLevDistance: (search: string, comp: string) => number;
 export declare const getTeamLevDistance: (search: string, team: ontology.Teamlike) => number;

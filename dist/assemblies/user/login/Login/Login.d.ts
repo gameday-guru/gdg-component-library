@@ -8,6 +8,7 @@ export declare type LoginProps = {
     classNames?: string[];
     overrideClasses?: boolean;
     responsive?: boolean;
+    onForgotPassword?: () => Promise<void>;
     onLogin?: (params: {
         username: string;
         password: string;

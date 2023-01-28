@@ -12,5 +12,6 @@ export declare type SnuProps = {
     SearchBarEntries?: React.ReactNode[];
     searchBarInputProps?: React.InputHTMLAttributes<HTMLInputElement>;
     searchBarEntriesWrapperProps?: WrapperProps["innerProps"];
+    onAccountClick?: () => Promise<void>;
 };
 export declare const Snu: FC<SnuProps>;

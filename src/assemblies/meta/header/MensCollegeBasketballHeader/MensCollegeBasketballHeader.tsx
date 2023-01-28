@@ -37,6 +37,7 @@ export type MensCollegeBasketballHeaderProps = {
     count ? : number;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
+    onAccountClick ? : ()=>Promise<void>;
 };
 
 export const getLevDistance = (search : string, comp : string) : number =>{
@@ -200,6 +201,7 @@ export const MensCollegeBasketballHeader : FC<MensCollegeBasketballHeaderProps> 
                         <SportsBasketball/>&emsp;Men's College Basketball
                     </div>}
                     Right={<Snu 
+                            onAccountClick={props.onAccountClick}
                             searchBarInputProps={{
                                 onChange : onSearchBarChange,
                             }}

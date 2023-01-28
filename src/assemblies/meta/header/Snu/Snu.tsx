@@ -21,7 +21,8 @@ export type SnuProps = {
     size ? : number;
     SearchBarEntries ? : React.ReactNode[];
     searchBarInputProps ? : React.InputHTMLAttributes<HTMLInputElement>;
-    searchBarEntriesWrapperProps ? : WrapperProps["innerProps"]
+    searchBarEntriesWrapperProps ? : WrapperProps["innerProps"];
+    onAccountClick ? : ()=>Promise<void>;
 };
 
 export const Snu : FC<SnuProps>  = (props) =>{
@@ -37,7 +38,9 @@ export const Snu : FC<SnuProps>  = (props) =>{
                 Entries={props.SearchBarEntries}
                 classNames={["rounded-full", "text-sm"]}/>
             <Bell size={props.size}/>
-            <PersonCircle size={props.size}/>
+            <PersonCircle style={{
+                cursor : "pointer"
+            }} size={props.size} onClick={props.onAccountClick}/>
         </div>
     )
 };

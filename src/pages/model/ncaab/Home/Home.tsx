@@ -33,6 +33,7 @@ export type HomeProps = {
     blogs ? : ontology.BlogArticlelike[];
     onBlogClick ? : (id : string)=>Promise<void>;
     onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
+    onAccountClick ? : ()=>Promise<void>;
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -59,6 +60,7 @@ export const Home : FC<HomeProps>  = (props) =>{
                 overflowY : "scroll"
             }}>
                 <HomeContent 
+                onAccountClick={props.onAccountClick}
                 blogs={props.blogs}
                 onBlogClick={props.onBlogClick}
                 headerProjectedGames={props.headerProjectedGames}

@@ -20,5 +20,6 @@ export declare type MatchupsProps = {
     headerProjectedGames?: ontology.ProjectedGamelike[];
     headerTeams?: ontology.Teamlike[];
     onFeedbackSubmit?: (feedback: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
 };
 export declare const Matchups: FC<MatchupsProps>;

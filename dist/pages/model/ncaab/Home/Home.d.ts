@@ -20,5 +20,6 @@ export declare type HomeProps = {
     blogs?: ontology.BlogArticlelike[];
     onBlogClick?: (id: string) => Promise<void>;
     onFeedbackSubmit?: (feedback: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
 };
 export declare const Home: FC<HomeProps>;

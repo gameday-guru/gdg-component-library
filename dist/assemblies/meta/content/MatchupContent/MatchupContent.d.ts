@@ -29,5 +29,6 @@ export declare type MatchupContentProps = {
     onMatchupClick?: (gameId: string) => Promise<void>;
     headerProjectedGames?: ontology.ProjectedGamelike[];
     headerTeams?: ontology.Teamlike[];
+    onAccountClick?: () => Promise<void>;
 };
 export declare const MatchupContent: FC<MatchupContentProps>;

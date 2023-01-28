@@ -155,8 +155,14 @@ export const MockMatchup : FC<MockMatchupProps>  = (props) =>{
         })
     }
 
+    const handleAccountClick = async ()=>{
+        navigate("/self/overview");
+    }
+
     return (
-        <MockMatchupPage onWhich={async (which)=>{
+        <MockMatchupPage 
+        onAccountClick={handleAccountClick}
+        onWhich={async (which)=>{
             navigate("/" + which);
         }}
         onFeedbackSubmit={handleSubmitFeedback}

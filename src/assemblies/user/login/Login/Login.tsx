@@ -20,6 +20,7 @@ export type LoginProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     responsive ? : boolean;
+    onForgotPassword ? : ()=>Promise<void>;
     onLogin ? : (params : {username : string, password : string})=>Promise<void>;
 };
 
@@ -72,6 +73,17 @@ export const Login : FC<LoginProps>  = (props) =>{
                 justifyItems : "right",
                 justifyContent : "right"
             }}>
+                <div 
+                onClick={props.onForgotPassword}
+                className='text-info-500'
+                style={{
+                    cursor : 'pointer',
+                    textDecoration : 'underline'
+                }}>
+                    Forgot password?
+                </div>
+                &emsp;
+                &emsp;
                 <Button
                     onClick={onSubmit}
                     viusage='success'>Login</Button>

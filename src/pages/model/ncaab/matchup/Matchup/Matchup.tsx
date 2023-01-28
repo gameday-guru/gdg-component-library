@@ -41,6 +41,7 @@ export type MatchupProps = {
     headerProjectedGames ? : ontology.ProjectedGamelike[];
     headerTeams ? : ontology.Teamlike[];
     onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
+    onAccountClick ? : ()=>Promise<void>;
 };
 
 export const Matchup : FC<MatchupProps>  = (props) =>{
@@ -67,6 +68,7 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
                 overflow : 'scroll'
             }}>
                 <MatchupContent
+                onAccountClick={props.onAccountClick}
                 headerProjectedGames={props.headerProjectedGames}
                 headerTeams={props.headerTeams}
                 onMatchupClick={props.onMatchupClick}

@@ -25,6 +25,7 @@ export type LoginProps = {
     overrideStyle ? : boolean;
     classNames ? : string[];
     overrideClasses ? : boolean;
+    onForgotPassword ? : ()=>Promise<void>;
     onLogin ? : (params : {username : string, password : string})=>Promise<void>;
     onSignup ? : (params : {username : string, password : string, passwordConfirmation : string})=>Promise<void>;
 };
@@ -38,6 +39,7 @@ export const Login : FC<LoginProps>  = (props) =>{
             classNames={[...!props.overrideClasses ? LOGIN_CLASSNAMES : [], ...props.classNames||[]]}
             style={{...!props.overrideStyle ? LOGIN_STYLE : {}, ...props.style}}>
                 <LoginSignup
+                    onForgotPassword={props.onForgotPassword}
                     onLogin={props.onLogin}
                     onSignup={props.onSignup}/>
                 <div style={{

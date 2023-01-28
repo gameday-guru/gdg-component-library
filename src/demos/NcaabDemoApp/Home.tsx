@@ -119,8 +119,13 @@ export const Home : FC<HomeProps>  = (props) =>{
         })
     }
 
+    const handleAccountClick = async ()=>{
+        navigate("/self/overview");
+    }
+
     return (
         <HomePage
+        onAccountClick={handleAccountClick}
         onFeedbackSubmit={handleSubmitFeedback}
         blogs={blogsList}
         onBlogClick={handleBlog}

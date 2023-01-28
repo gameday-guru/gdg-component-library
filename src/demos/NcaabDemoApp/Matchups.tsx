@@ -112,9 +112,14 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
         })
     }
     
+    const handleAccountClick = async ()=>{
+        navigate("/self/overview");
+    }
 
     return (
-        <MatchupsPage onWhich={async (which)=>{
+        <MatchupsPage 
+        onAccountClick={handleAccountClick}
+        onWhich={async (which)=>{
             navigate("/" + which);
         }}
         onFeedbackSubmit={handleSubmitFeedback}

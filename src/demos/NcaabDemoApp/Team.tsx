@@ -140,8 +140,13 @@ export const Team : FC<TeamProps>  = (props) =>{
         })
     }
 
+    const handleAccountClick = async ()=>{
+        navigate("/self/overview");
+    }
+
     return (
         <MensNcaabTeam
+        onAccountClick={handleAccountClick}
         onFeedbackSubmit={handleSubmitFeedback}
         headerTeams={headerTeams}
         headerProjectedGames={headerProjectedGames && Object.values(headerProjectedGames)}

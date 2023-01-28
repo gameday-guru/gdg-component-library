@@ -23,5 +23,6 @@ export declare type HomeContentProps = {
     headerTeams?: ontology.Teamlike[];
     blogs?: ontology.BlogArticlelike[];
     onBlogClick?: (id: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
 };
 export declare const HomeContent: FC<HomeContentProps>;
