@@ -1,0 +1,1 @@
+export type SupportedMedialike = "desktop" | "laptop" | "tablet" | "mobile";
