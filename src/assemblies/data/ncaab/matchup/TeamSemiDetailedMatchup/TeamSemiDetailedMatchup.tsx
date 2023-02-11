@@ -7,6 +7,9 @@ import { ProjectionWinPercentage } from '../../team/ProjectionWinPercentage';
 import { ontology } from '../../../../../util';
 import { Viusagelike } from '../../../../../util/viusage/primary';
 import { MockOver } from '../../../../../components/output/MockOver';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
+import { TeamSemiDetailedMatchupMobile } from './TeamSemiDeatiledMatchupMobile';
+import { TeamSemiDetailedMatchupDesktop } from './TeamSemiDetailedMatchupDesktop';
 
 export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [ ];
 export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {
@@ -42,67 +45,12 @@ export type TeamSemiDetailedMatchupProps = {
 
 export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (props) =>{
 
-    const _home = props.home||ontology.MockHome;
-    const _away = props.away||ontology.MockAway;
-    const _game = props.game||ontology.MockGame;
-    const _gameProjection = props.gameProjection||ontology.MockProjectedGame.gameProjection;
+    const medium = useSupportedMedia();
 
-    const handleMatchupClick = async ()=>{
-        if(props.game) props.onMatchupClick && props.onMatchupClick(props.game.GameID.toString())
+    switch (medium) {
+        case "mobile" :  return <TeamSemiDetailedMatchupMobile {...props}/>;
+        default : return <TeamSemiDetailedMatchupDesktop/> 
     }
 
-    const _rowProjectionZeroSum = <MockOver
-        Content={<ProjectionZeroSum
-            homeScore={_gameProjection.home_team_score}
-            awayScore={_gameProjection.away_team_score}/>}
-        dependencies={[_gameProjection]}/>
 
-    const _projectionWinPercentage = <MockOver
-        Content={<ProjectionWinPercentage 
-            homeTeam={_home}
-            awayTeam={_away}
-            gameProjection={_gameProjection}/>}
-            dependencies={[_home, _away, _gameProjection]}/>
-
-    const _dateString = <MockOver
-        Content={<DateString date={new Date(_game.DateTimeUTC ? (_game.DateTimeUTC + "Z") : _game.Day)}/>}
-        dependencies={[_game]}/>
-
-    return (
-        <Button
-            onClick={handleMatchupClick}
-            viusage={props.viusage||"wrap"}
-            classNames={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
-            style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : {}, ...props.style}}>
-            {props.game ? <div style={{
-                display : "grid",
-                justifyContent : "center",
-                justifyItems : "center"
-            }}>
-                {_dateString}
-            </div> : <div>
-                <h2 className="text-gdg-500 text-lg">Projection Only</h2>    
-            </div>}
-            <br/>
-            <div
-            className={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-            style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_INNER_STYLE : {}, ...props.style}}>
-                <div className='text-sm'>   
-                    <H2H
-                        viusage={props.viusage||"wrap"}
-                        onTeamClick={props.onTeamClick}
-                        Home={props.home}
-                        Away={props.away}/>
-                </div>
-                <div className='gap-2' style={{
-                    display : "grid",
-                    alignContent : "center",
-                    gridTemplateColumns : "1fr 1fr"
-                }}>
-                    {_rowProjectionZeroSum}
-                    {_projectionWinPercentage}
-                </div>
-            </div>
-        </Button>
-    )
 };

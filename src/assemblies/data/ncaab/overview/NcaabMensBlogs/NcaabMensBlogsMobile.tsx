@@ -9,6 +9,7 @@ import { Logo } from '../../../../../components/output/icons/Logo';
 import { Button } from '../../../../../components';
 import { display, padding } from '@mui/system';
 import { FileText } from "react-bootstrap-icons";
+import { ellipsize } from '../../../../../util/text/ellipsize';
 
 export const NCAAB_MENS_BLOGS_MOBILE_CONTAINER_CLASSNAMES : string[] = [ ];
 export const NCAAB_MENS_BLOGS_MOBILE_CONTAINER_STYLE : React.CSSProperties = {
@@ -63,8 +64,7 @@ export const NcaabMensBlogsMobile : FC<NcaabMensBlogsMobileProps>  = (props) =>{
                         justifyContent : "center",
                         justifyItems : "center",
                         gridTemplateColumns : "1fr 6fr",
-                        padding : 0,
-                        textAlign : "left"
+                        padding : 0
                     }}
                         // classNames={['p-4']}
                         viusage='backdrop'
@@ -86,10 +86,9 @@ export const NcaabMensBlogsMobile : FC<NcaabMensBlogsMobileProps>  = (props) =>{
                                 }
                             </div>
                             <div style={{
-                                width : "100%",
-                                textAlign : "left"
+                                width : "100%"
                             }}>
-                                <h2>&emsp;{blog.title||"Gameday Guru Blog"}</h2>
+                                <h2>{ellipsize(blog.title||"Gameday Guru Blog", 28)}</h2>
                             </div>
                     </Button>
                 }
@@ -109,27 +108,6 @@ export const NcaabMensBlogsMobile : FC<NcaabMensBlogsMobileProps>  = (props) =>{
                         height : "100px",
                         width : "100%"
                     }} Entries={blogEntries}/>
-                    <Wrapper
-                    style={{
-                        position : "absolute",
-                        right : "3em",
-                        top : "3em",
-                        height : 30,
-                        width : 40,
-                        padding : 4,
-                        display : "grid",
-                        alignContent : "center",
-                        alignItems : "center",
-                        justifyContent : "center",
-                        justifyItems : "center",
-                        background : "#33333300"
-                    }}
-                        viusage='wrap'
-                        classNames={["rounded", "p-2"]}>
-                        <span style={{
-                            fontSize : 12
-                        }} className='text-sm'><FileText size={24}/></span>
-                    </Wrapper>
                 </div>
         </Wrapper>
     )

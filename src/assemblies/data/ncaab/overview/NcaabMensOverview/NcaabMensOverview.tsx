@@ -2,6 +2,9 @@ import React, {FC, ReactElement} from 'react';
 import { NcaabMensTop25 } from '../../league';
 import { NcaabMensOverviewStack } from '../NcaabMensOverviewStack';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
+import { NcaabMensMobileOverview } from './NcaabMensMobileOverview';
+import { NcaabMensOverviewDesktop } from './NcaabMensOverviewDesktop';
 
 export const NCAAB_MENS_OVERVIEW_CLASSNAMES : string[] = [
     "grid",
@@ -31,26 +34,10 @@ export type NcaabMensOverviewProps = {
 
 export const NcaabMensOverview : FC<NcaabMensOverviewProps>  = (props) =>{
 
-    return (
-        <div
-        className={[...!props.overrideClasses ? NCAAB_MENS_OVERVIEW_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? NCAAB_MENS_OVERVIEW_STYLE : {}, ...props.style}}>
-            <div>
-                <NcaabMensOverviewStack
-                    blogs={props.blogs}
-                    onBlogClick={props.onBlogClick}
-                    onMatchupClick={props.onMatchupClick}
-                    onTeamClick={props.onTeamClick}
-                    top25Games={props.top25Games}
-                    gameOfTheDay={props.gameOfTheDay}/>
-            </div>
-            <div>
-                <NcaabMensTop25 
-                    onTeamClick={props.onTeamClick}
-                    apTop25={props.apTop25Teams}
-                    gdgTop25={props.gdgTop25Teams}
-                    classNames={["rounded-lg"]}/>
-            </div>
-        </div>
-    )
+    const medium = useSupportedMedia();
+    switch (medium) {
+        case "mobile" : return <NcaabMensMobileOverview {...props}/>
+        default : return <NcaabMensOverviewDesktop {...props}/>
+    }
+
 };
