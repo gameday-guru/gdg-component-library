@@ -47,6 +47,7 @@ export const HomeMobileContent : FC<HomeMobileContentProps>  = (props) =>{
             style={{...!props.overrideStyle ? HOME_MOBILE_CONTENT_INNER_STYLE : {}, ...props.style}}>
                 <div>
                     <MensCollegeBasketballHeader
+                    medium='mobile'
                     onAccountClick={props.onAccountClick}
                     onTeamClick={props.onTeamClick}
                     onMatchupClick={props.onMatchupClick}

@@ -24,6 +24,7 @@ import { useMultiPowerStore } from '../../logic/processing/react/useMultiPowerSt
 import { GamesByDateMultiCache } from '../../logic/data/domain/gamesByDate';
 import { useGames } from '../../logic/processing/react/useGames';
 import { MockOver } from '../../components/output/MockOver';
+import { useSupportedMedia } from '../../util/media/useSupportedMedia';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -60,6 +61,8 @@ export type HomeProps = {
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
+
+    const medium = useSupportedMedia();
 
     const navigate = useNavigate();
     const { dateStr } = useParams();
@@ -116,7 +119,7 @@ export const Home : FC<HomeProps>  = (props) =>{
             feedback,
             uid : user?.uid||"notloggedin",
             page : window.location.toString()
-        })
+        });
     }
 
     const handleAccountClick = async ()=>{
@@ -125,6 +128,7 @@ export const Home : FC<HomeProps>  = (props) =>{
 
     return (
         <HomePage
+        medium={medium}
         onAccountClick={handleAccountClick}
         onFeedbackSubmit={handleSubmitFeedback}
         blogs={blogsList}

@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../assemblies/meta';
 import { ontology } from '../../../../util';
 import { HomeMobileContent } from '../../../../assemblies/meta/content/HomeContent/HomeMobileContent';
+import { Logo } from '../../../../components/output/icons/Logo';
 
 export const HOME_MOBILE_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -46,13 +47,7 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                 height : '100%',
                 width : '100%'
             }}>
-                <MainSidebar
-                onFeedbackSubmit={props.onFeedbackSubmit}
-                onWhich={props.onWhich} 
-                which='home'
-                style={{
-                    height : '100%'
-                }}/>
+                <Logo/>
             </div>
             <div style={{
                 height : '100%',

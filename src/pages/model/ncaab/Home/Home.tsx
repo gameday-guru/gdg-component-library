@@ -2,6 +2,9 @@ import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../assemblies/meta';
 import { HomeContent } from '../../../../assemblies/meta/content/HomeContent/HomeContent';
 import { ontology } from '../../../../util';
+import { SupportedMedialike } from '../../../../util/media';
+import { HomeDesktop } from './HomeDesktop';
+import { HomeMobile } from './HomeMobile';
 
 export const HOME_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -34,9 +37,18 @@ export type HomeProps = {
     onBlogClick ? : (id : string)=>Promise<void>;
     onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
     onAccountClick ? : ()=>Promise<void>;
+    medium ? : SupportedMedialike
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
+
+    switch (props.medium) {
+
+        case "mobile" : return <HomeMobile {...props}/>
+
+        default : return <HomeDesktop {...props} />
+
+    }
 
     return (
         <div
