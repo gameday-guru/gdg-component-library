@@ -1,6 +1,6 @@
 {
   "name": "gdg-clib",
-  "version": "0.1.87",
+  "version": "0.1.88",
   "main": "./dist/gdg-clib.umd.js",
   "module": "./dist/gdg-clib.es.js",
   "types": "./dist/index.d.ts",
@@ -49,6 +49,8 @@
     "remark-gfm": "^3.0.1",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
+    "rxdb": "^14.0.0",
+    "rxjs": "^7.8.0",
     "sass-loader": "^12.3.0",
     "semver": "^7.3.5",
     "shortid": "^2.2.16",
