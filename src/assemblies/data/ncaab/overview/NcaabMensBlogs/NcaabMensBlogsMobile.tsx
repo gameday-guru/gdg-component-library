@@ -88,7 +88,7 @@ export const NcaabMensBlogsMobile : FC<NcaabMensBlogsMobileProps>  = (props) =>{
                             <div style={{
                                 width : "100%"
                             }}>
-                                <h2>{ellipsize(blog.title||"Gameday Guru Blog", 28)}</h2>
+                                <h2>{ellipsize(blog.title||"Gameday Guru Blog", 25)}</h2>
                             </div>
                     </Button>
                 }

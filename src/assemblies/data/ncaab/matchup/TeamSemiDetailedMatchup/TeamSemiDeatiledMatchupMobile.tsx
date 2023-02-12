@@ -53,12 +53,18 @@ export const TeamSemiDetailedMatchupMobile : FC<TeamSemiDetailedMatchupMobilePro
 
     const _rowProjectionZeroSum = <MockOver
         Content={<ProjectionZeroSum
+        style={{
+            width : "100%"
+        }}
             homeScore={_gameProjection.home_team_score}
             awayScore={_gameProjection.away_team_score}/>}
         dependencies={[_gameProjection]}/>
 
     const _projectionWinPercentage = <MockOver
         Content={<ProjectionWinPercentage 
+            style={{
+                width : "100%"
+            }}
             homeTeam={_home}
             awayTeam={_away}
             gameProjection={_gameProjection}/>}
@@ -84,6 +90,19 @@ export const TeamSemiDetailedMatchupMobile : FC<TeamSemiDetailedMatchupMobilePro
                 <h2 className="text-gdg-500 text-lg">Projection Only</h2>    
             </div>}
             <br/>
+            <div className='text-sm'>   
+                    <H2H
+                        viusage={props.viusage||"wrap"}
+                        onTeamClick={props.onTeamClick}
+                        Home={props.home}
+                        Away={props.away}/>
+            </div>
+            <div>
+                    {_rowProjectionZeroSum}
+                </div>
+                <div>
+                    {_projectionWinPercentage}
+                </div>
             <div
             className={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
             style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_INNER_STYLE : {}, ...props.style}}>
