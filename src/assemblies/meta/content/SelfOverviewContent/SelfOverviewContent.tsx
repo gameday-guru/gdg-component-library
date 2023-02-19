@@ -1,6 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../components';
 import { viusage } from '../../../../util';
+import { useSupportedMedia } from '../../../../util/media/useSupportedMedia';
 import { ChangePassword } from '../../../data/user';
 import { UserHeader } from '../../header/UserHeader';
 
@@ -37,6 +38,9 @@ export type SelfOverviewContentProps = {
 
 export const SelfOverviewContent : FC<SelfOverviewContentProps>  = (props) =>{
 
+    const medium = useSupportedMedia();
+    const width = medium === "mobile" ? "100%" : "400px"
+
     return (
         <Wrapper
             viusage={props.viusage||"backdrop"}
@@ -50,7 +54,7 @@ export const SelfOverviewContent : FC<SelfOverviewContentProps>  = (props) =>{
                 <hr/>
                 <ChangePassword
                     style={{
-                        width : "400px"
+                        width
                     }} 
                     onChangePasswordSubmit={props.onChangePasswordSubmit}/>
             </div>

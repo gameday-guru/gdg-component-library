@@ -5,6 +5,7 @@ import { Button } from '../../../../components';
 import { Login } from '../Login/Login';
 import { Signup } from '../Signup';
 import { Logo } from '../../../../components/output/icons/Logo';
+import { useSupportedMedia } from '../../../../util/media/useSupportedMedia';
 
 export const LOGIN_SIGNUP_CLASSNAMES : string[] = [
     "grid",
@@ -13,7 +14,6 @@ export const LOGIN_SIGNUP_CLASSNAMES : string[] = [
     "gap-2",
  ];
 export const LOGIN_SIGNUP_STYLE : React.CSSProperties = {
-    width : "500px",
     justifyContent : "center",
     justifyItems : "center"
 };
@@ -34,13 +34,21 @@ export type LoginSignupProps = {
 export const LoginSignup : FC<LoginSignupProps>  = (props) =>{
 
     const [which, setWhich] = useState<"login"|"signup">(props.which||"login");
-
+    const medium = useSupportedMedia();
 
     return (
         <Wrapper
         viusage='wrap'
         classNames={[...!props.overrideClasses ? LOGIN_SIGNUP_CLASSNAMES : [], ...props.classNames||[]]}
-        style={{...!props.overrideStyle ? LOGIN_SIGNUP_STYLE : {}, ...props.style}}>
+        style={{...!props.overrideStyle ? {
+            ...medium === "mobile" ? {
+                width : "360px"
+            } : {
+                width : "500px"
+            },
+            justifyContent : "center",
+            justifyItems : "center"
+        } : {}, ...props.style}}>
             <Logo style={{
                 width : "200px"
             }}/>

@@ -40,7 +40,7 @@ export const GameLog : FC<GameLogProps>  = (props) =>{
         <UpcomingGames
         onMatchupClick={props.onMatchupClick}
         onTeamClick={props.onTeamClick}
-        Title={<h2 className='text-2xl'>Recent and Upcoming Games</h2>}
+        Title={<h2 className='text-xl'>Games</h2>}
         presets={ALL_UPCOMING_GAMES_PRESETS}
         games={props.games}/>
     )

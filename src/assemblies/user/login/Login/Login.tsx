@@ -2,6 +2,8 @@ import React, {FC, ReactElement, useState} from 'react';
 import { Wrapper } from '../../../../components';
 import { TextInput } from '../../../../components/input/text/TextInput';
 import { Button } from '../../../../components';
+import { useSupportedMedia } from '../../../../util/media/useSupportedMedia';
+import { to } from "await-to-js";
 
 export const LOGIN_CLASSNAMES : string[] = [
     "grid",
@@ -26,6 +28,9 @@ export type LoginProps = {
 
 export const Login : FC<LoginProps>  = (props) =>{
 
+    const medium = useSupportedMedia();
+    const [err, setErr] = useState<string|undefined>(undefined);
+
     const [login, setLogin] = useState<{username : string, password : string}>({
         username : "",
         password : ""
@@ -46,14 +51,30 @@ export const Login : FC<LoginProps>  = (props) =>{
     }
 
     const onSubmit = async ()=>{
-        props.onLogin && props.onLogin(login);
+        if(props.onLogin){
+
+            const [err, res] = await to(props.onLogin(login));
+            if(err){
+                setErr(err.message);
+                throw err;
+            }
+            setErr(undefined);
+
+        }
+
     }
 
     return (
         <Wrapper
         viusage='wrap'
         classNames={[...!props.overrideClasses ? LOGIN_CLASSNAMES : [], ...props.classNames||[]]}
-        style={{...!props.overrideStyle ? LOGIN_STYLE : {}, ...props.style}}>
+        style={{...!props.overrideStyle ? {
+            ...medium === "mobile" ?{
+                width : "300px",
+            } : {
+                width : "400px"
+            }
+        } : {}, ...props.style}}>
             <TextInput 
                 onChange={(e)=>{
                     handleUsername(e.target.value)
@@ -87,6 +108,9 @@ export const Login : FC<LoginProps>  = (props) =>{
                 <Button
                     onClick={onSubmit}
                     viusage='success'>Login</Button>
+            </div>
+            <div>
+                <p className='text-error-500'>&nbsp;{err}</p>
             </div>
         </Wrapper>
     )

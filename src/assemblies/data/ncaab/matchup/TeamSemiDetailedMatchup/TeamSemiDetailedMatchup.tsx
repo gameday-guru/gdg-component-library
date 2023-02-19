@@ -49,7 +49,7 @@ export const TeamSemiDetailedMatchup : FC<TeamSemiDetailedMatchupProps>  = (prop
 
     switch (medium) {
         case "mobile" :  return <TeamSemiDetailedMatchupMobile {...props}/>;
-        default : return <TeamSemiDetailedMatchupDesktop/> 
+        default : return <TeamSemiDetailedMatchupDesktop {...props}/> 
     }
 
 

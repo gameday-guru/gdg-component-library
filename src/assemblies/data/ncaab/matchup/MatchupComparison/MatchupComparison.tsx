@@ -1,10 +1,13 @@
 import React, {FC, ReactElement} from 'react';
 import { Wrapper } from '../../../../../components';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 import { MatchupComparisonStatsBarChart } from '../MatchupComparisonBarChart';
 import { MatchupHeadline } from '../MatchupHeadline';
 import { NcaabMensGameOfTheDay } from '../NcaabMensGameOfTheDay';
 import { OffenseDefensePointRadar } from '../OffenseDefensePointRadar';
+import { MatchupComparisonMobile } from './MatchupComparisonMobile';
+import { MatchupComparisonDesktop } from './MatchupComparisonDesktop';
 
 export const MATCHUP_COMPARISON_CLASSNAMES : string[] = [
     "grid",
@@ -38,54 +41,10 @@ export type MatchupComparisonProps = {
 
 export const MatchupComparison : FC<MatchupComparisonProps>  = (props) =>{
 
+    const medium = useSupportedMedia();
+    switch(medium) {
+        case "mobile" : return <MatchupComparisonMobile {...props}/>
+        default : return <MatchupComparisonDesktop {...props}/>
+    }
 
-    return (
-        <Wrapper
-        viusage='wrap'
-        classNames={[...!props.overrideClasses ? MATCHUP_COMPARISON_CLASSNAMES : [], ...props.classNames||[]]}
-        style={{...!props.overrideStyle ? MATCHUP_COMPARISON_STYLE : {}, ...props.style}}>
-            <div>
-                <MatchupHeadline 
-                onTeamClick={props.onTeamClick}
-                onMatchupClick={props.onMatchupClick}
-                game={props.game}
-                home={props.home}
-                away={props.away}
-                gameProjection={props.gameProjection}
-                viusage='backdrop'/>
-            </div>
-            <div 
-            className='gap-4'
-            style={{
-                display : "grid",
-                gridTemplateColumns : "2fr 3fr 2fr"
-            }}>
-                <div>
-                    <OffenseDefensePointRadar 
-                    home={props.home}
-                    homeDistro={props.homeDistro?.offense}
-                    away={props.away}
-                    awayDistro={props.awayDistro?.defense}
-                    />
-                </div>
-                <div>
-                    <MatchupComparisonStatsBarChart 
-                    home={props.home}
-                    homeEfficiency={props.homeEfficiency}
-                    away={props.away}
-                    awayEfficiency={props.awayEfficiency}
-                    leagueAverages={props.leagueAverages}
-                    style={{ height : '100%'}}/>
-                </div>
-                <div>
-                    <OffenseDefensePointRadar 
-                     home={props.home}
-                     homeDistro={props.homeDistro?.defense}
-                     away={props.away}
-                     awayDistro={props.awayDistro?.offense}
-                        reverse/>
-                </div>
-            </div>
-        </Wrapper>
-    )
 };

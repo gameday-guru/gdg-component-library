@@ -1,0 +1,35 @@
+import React, { FC } from 'react';
+import { ontology } from '../../../../../util';
+export declare const MATCHUP_DESKTOPS_CLASSNAMES: string[];
+export declare const MATCHUP_DESKTOPS_STYLE: React.CSSProperties;
+export declare type MatchupDesktopProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    teams?: {
+        [key: string]: ontology.Teamlike;
+    };
+    onWhich?: (which: "home" | "team" | "matchups") => Promise<void>;
+    homeDistro?: ontology.PointDistributionlike;
+    home?: ontology.Teamlike;
+    homeEfficiency?: ontology.EfficiencyEntrylike;
+    awayDistro?: ontology.PointDistributionlike;
+    away?: ontology.Teamlike;
+    awayEfficiency?: ontology.EfficiencyEntrylike;
+    gameProjection?: ontology.ProjectionEntrylike;
+    gameProjections?: ontology.ProjectionEntrylike[];
+    leagueAverages?: ontology.LeagueAverageslike;
+    homeGameProjections?: ontology.ProjectedGamelike[];
+    awayGameProjections?: ontology.ProjectedGamelike[];
+    game?: ontology.GameByDatelike;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
+    headerProjectedGames?: ontology.ProjectedGamelike[];
+    headerTeams?: ontology.Teamlike[];
+    onFeedbackSubmit?: (feedback: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
+};
+export declare const MatchupDesktop: FC<MatchupDesktopProps>;

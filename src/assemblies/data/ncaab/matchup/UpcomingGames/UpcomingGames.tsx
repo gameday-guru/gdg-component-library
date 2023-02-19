@@ -6,6 +6,9 @@ import { MockProjectedGame } from '../../../../../util/ontology';
 import { TeamMatchupRowProjection } from '../TeamMatchupRowProjection';
 import { FilterSet } from '../../../../../components/output/containers/filter';
 import { Viusagelike } from '../../../../../util/viusage/primary';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
+import { UpcomingGamesMobile } from './UpcomingGamesMobile';
+import { UpcomingGamesDesktop } from './UpcomingGamesDesktop';
 
 export const UPCOMING_GAMES_CONTAINER_CLASSNAMES : string[] = [
     "rounded-lg",
@@ -41,53 +44,11 @@ export type UpcomingGamesProps = {
 
 export const UpcomingGames : FC<UpcomingGamesProps>  = (props) =>{
 
-    const [renderCount, setRenderCount] = useState(100);
+    const medium = useSupportedMedia();
 
-    const _gameProjections = (props.games||Array(10).fill(MockProjectedGame));
-
-    const [upcomingGames, setUpcomingGames] = useState(_gameProjections);
-
-    const gameProjections = upcomingGames
-    .slice(0, renderCount)
-    .map((entry, i)=>{
-        return (
-            <TeamMatchupRowProjection 
-                stackedGamblers={props.stackedGamblers}
-                onMatchupClick={props.onMatchupClick}
-                onTeamClick={props.onTeamClick}
-                key={entry.game.GameID + `x${i}`}
-                home={entry.home}
-                away={entry.away}
-                game={entry.game}
-                gameProjection={entry.gameProjection}/>
-        )
-    });
-
-    return (
-     
-        <Wrapper
-        viusage={props.viusage||"wrap"}
-        classNames={[...!props.overrideClasses ? UPCOMING_GAMES_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
-        style={{...!props.overrideStyle ? UPCOMING_GAMES_CONTAINER_STYLE : {}, ...props.style}}>
-        <div
-        className={[...!props.overrideClasses ? UPCOMING_GAMES_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? UPCOMING_GAMES_INNER_STYLE : {}, ...props.style}}>
-             <FilterSet 
-                presets={props.presets}
-                table={_gameProjections}
-                setTable={async (table)=>{
-                    setUpcomingGames(table);
-                }}
-                fieldCase={{}}
-                Title={props.Title}/>
-            <br/>
-            <hr/>
-            <br/>
-            <div className='grid gap-4'>
-                {gameProjections}
-            </div>
-        </div>
-    </Wrapper>
+    switch (medium) {
+        case "mobile" : return <UpcomingGamesMobile {...props}/>
+        default : return <UpcomingGamesDesktop {...props}/>
+    }
     
-    )
 };

@@ -12,6 +12,7 @@ import { SideMatchup } from '../../../data/ncaab/matchup/SideMatchup/SideMatchup
 import { SupportedMedialike } from '../../../../util/media';
 import { MensCollegeBasketballMobileHeader } from './MensCollegeBasketballHeaderMobile';
 import { MensCollegeBasketballDesktopHeader } from './MensCollegeBasketballHeaderDesktop';
+import { useSupportedMedia } from '../../../../util/media/useSupportedMedia';
 
 export const MENS_COLLEGE_BASKETBALL_HEADER_CONTAINER_CLASSNAMES : string[] = [ ];
 export const MENS_COLLEGE_BASKETBALL_HEADER_CONTAINER_STYLE : React.CSSProperties = {
@@ -46,7 +47,9 @@ export type MensCollegeBasketballHeaderProps = {
 
 export const MensCollegeBasketballHeader : FC<MensCollegeBasketballHeaderProps>  = (props) =>{
 
-    switch (props.medium) {
+    const medium = useSupportedMedia();
+
+    switch (props.medium||medium) {
         case "mobile" : return <MensCollegeBasketballMobileHeader/>
         default : return <MensCollegeBasketballDesktopHeader/>
 

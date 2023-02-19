@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { TeamEfficiencyTable, TeamEfficiencyTableEntrylike } from '../TeamEfficiencyTable/TeamEfficiencyTable';
 import { TeamMatchupSelectRow } from '../TeamMatchupSelectRow/TeamMatchupSelectRow';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 
 export const TEAMS_CLASSNAMES : string[] = [
     "grid",
@@ -31,6 +32,8 @@ export type TeamsProps = {
 };
 
 export const Teams : FC<TeamsProps>  = (props) =>{
+
+    const medium = useSupportedMedia();
 
     const _tableEntries = props.tableEntries||[];
     const _teams = props.teams||{};
@@ -65,7 +68,7 @@ export const Teams : FC<TeamsProps>  = (props) =>{
                 topOffensiveTeams={props.topOffensiveTeams}
                 topOffensiveTeamsStats={props.topOffensiveTeamsStats}
                 teams={props.teams}
-                style={{ height : "300px"}}/>
+                style={{ height :  medium !== "mobile" ? "300px" : undefined }}/>
             </div>    
             <div>
                 <TeamEfficiencyTable 

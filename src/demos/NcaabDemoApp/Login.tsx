@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { to } from "await-to-js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,6 +26,7 @@ const firebaseConfig = {
   appId: "1:822423637214:web:5fa27bdc21b3f2e251c64f",
   measurementId: "G-90P3M7PT46"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -60,7 +62,10 @@ export const Login : FC<LoginProps>  = (props) =>{
         onForgotPassword={handleForgotPassword}
         onLogin={async ({ username, password })=>{
 
-          await signInWithEmailAndPassword(auth, username, password);
+          if(username.length < 0 || password.length < 0) throw new Error("Empty credentials");
+
+          const [err, res] = await to(signInWithEmailAndPassword(auth, username, password));
+          if(err) throw new Error("Invalid credentials.");
           navigate("/home");
 
         }}

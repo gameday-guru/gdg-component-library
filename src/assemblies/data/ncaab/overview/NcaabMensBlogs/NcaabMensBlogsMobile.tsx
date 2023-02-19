@@ -11,9 +11,11 @@ import { display, padding } from '@mui/system';
 import { FileText } from "react-bootstrap-icons";
 import { ellipsize } from '../../../../../util/text/ellipsize';
 
-export const NCAAB_MENS_BLOGS_MOBILE_CONTAINER_CLASSNAMES : string[] = [ ];
+export const NCAAB_MENS_BLOGS_MOBILE_CONTAINER_CLASSNAMES : string[] = [ 
+];
 export const NCAAB_MENS_BLOGS_MOBILE_CONTAINER_STYLE : React.CSSProperties = {
-    position : "relative"
+    position : "relative",
+    paddingTop : 10
 };
 
 export const NCAAB_MENS_BLOGS_MOBILE_INNER_CLASSNAMES : string[] = [ ];
@@ -104,6 +106,7 @@ export const NcaabMensBlogsMobile : FC<NcaabMensBlogsMobileProps>  = (props) =>{
                 <div
                 className={[...!props.overrideClasses ? NCAAB_MENS_BLOGS_MOBILE_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
                 style={{...!props.overrideStyle ? NCAAB_MENS_BLOGS_MOBILE_INNER_STYLE : {}, ...props.style}}>
+                    <h2 className='text-xl'>Blogs</h2>
                     <Dotousel classNames={["p-8"]} style={{
                         height : "100px",
                         width : "100%"

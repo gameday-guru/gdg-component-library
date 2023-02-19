@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 import { MatchupComparison } from '../MatchupComparison';
 import { TeamMatchups } from '../TeamMatchups';
 
@@ -9,6 +10,7 @@ export const MATCHUP_CLASSNAMES : string[] = [
     "p-4"
 ];
 export const MATCHUP_STYLE : React.CSSProperties = {
+  
 };
 
 export type MatchupProps = {
@@ -36,6 +38,8 @@ export type MatchupProps = {
 
 export const Matchup : FC<MatchupProps>  = (props) =>{
 
+    const medium = useSupportedMedia();
+
     return (
         <div
         className={[...!props.overrideClasses ? MATCHUP_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
@@ -56,11 +60,13 @@ export const Matchup : FC<MatchupProps>  = (props) =>{
                 leagueAverages={props.leagueAverages}/>
             </div>
             <div 
-            className='grid gap-4 p-4'
+            className='grid gap-4'
             style={{
-                gridTemplateColumns : '1fr 1fr'
+                gridTemplateColumns : medium === "mobile" ? "1fr" : '1fr 1fr'
             }}>
-                <div>
+                <div style={{
+                    width : "100%"
+                }}>
                     <TeamMatchups 
                     onMatchupClick={props.onMatchupClick}
                     onTeamClick={props.onTeamClick}

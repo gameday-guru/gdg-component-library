@@ -6,6 +6,9 @@ import { StackedProjection } from '../../team/StackedProjection';
 import { ontology } from '../../../../../util';
 import { Button } from '../../../../../components';
 import { MockOver } from '../../../../../components/output/MockOver';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
+import { TeamMatchupRowProjectionMobile } from './TeamMatchupRowProjectionMobile';
+import { TeamMatchupRowProjectionDesktop } from './TeamMatchupRowProjectionDesktop';
 
 export const TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : string[] = [ 
     "p-4",
@@ -43,59 +46,11 @@ export type TeamMatchupRowProjectionProps = {
 
 export const TeamMatchupRowProjection : FC<TeamMatchupRowProjectionProps>  = (props) =>{
 
-    const _game = props.game||ontology.MockGame;
-    const _gameProjection = props.gameProjection||ontology.MockProjectedGame.gameProjection;
+    const medium = useSupportedMedia();
 
-    const handleMatchupClick = async ()=>{
-        if(props.game) 
-        props.onMatchupClick && await props.onMatchupClick(props.game.GameID.toString())
+    switch(medium) {
+        case "mobile" : return <TeamMatchupRowProjectionMobile {...props}/>
+        default : return <TeamMatchupRowProjectionDesktop {...props}/>
     }
 
-    const _gamblersTuple = <MockOver
-        Content={ <GamblersTuple 
-            stacked={props.stackedGamblers}
-            game={_game}
-            gameProjection={_gameProjection}
-            style={{
-                height : "100%",
-                fontSize : props.stackedGamblers ? 14 : 12
-            }}/>}
-        dependencies={[_game, _gameProjection]}/>
-
-    const _dateString = <MockOver
-        Content={<DateString date={new Date(_game.DateTimeUTC ? (_game.DateTimeUTC + "Z") : _game.Day)}/>}
-        dependencies={[_game]}/>
-
-    return (
-        <Button
-            onClick={handleMatchupClick}
-            viusage={"backdrop"}
-            classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}
-            style={{...!props.overrideStyle ? TEAM_MATCHUP_ROW_PROJECTION_CONTAINER_STYLE : {}, ...props.style}}>
-            <div>
-                {_dateString}
-            </div>
-            <div
-            className={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-            style={{...!props.overrideStyle ? {
-                width : "100%",
-                gridTemplateColumns : props.gamblers !== false ? props.stackedGamblers ? "3fr 2fr" :  "3fr 1fr" : "1fr"
-            } : {}, ...props.style}}>
-                <div>   
-                    <StackedProjection 
-                        style={{
-                            width : "100%"
-                        }}
-                        onTeamClick={props.onTeamClick}
-                        home={props.home}
-                        away={props.away}
-                        game={props.game}
-                        gameProjection={props.gameProjection}/>
-                </div>
-                <div>
-                    {props.gamblers !== false && _gamblersTuple}
-                </div>
-            </div>
-        </Button>
-    )
 };

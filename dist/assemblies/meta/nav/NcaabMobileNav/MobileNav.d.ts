@@ -1,0 +1,20 @@
+import React, { FC } from 'react';
+import { viusage } from '../../../../util';
+export declare const MOBLIE_NAV_CONTAINER_CLASSNAMES: string[];
+export declare const MOBLIE_NAV_CONTAINER_STYLE: React.CSSProperties;
+export declare const MOBLIE_NAV_INNER_CLASSNAMES: string[];
+export declare const MOBLIE_NAV_INNER_STYLE: React.CSSProperties;
+export declare type MobileNavProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    viusage?: viusage.primary.Viusagelike;
+    which?: "home" | "team" | "matchups";
+    onWhich?: (which: "home" | "team" | "matchups") => Promise<void>;
+    onFeedbackSubmit?: (feedback: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
+};
+export declare const MobileNav: FC<MobileNavProps>;

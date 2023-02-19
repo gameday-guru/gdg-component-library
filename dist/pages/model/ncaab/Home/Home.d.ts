@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { ontology } from '../../../../util';
+import { SupportedMedialike } from '../../../../util/media';
 export declare const HOME_CLASSNAMES: string[];
 export declare const HOME_STYLE: React.CSSProperties;
 export declare type HomeProps = {
@@ -21,5 +22,6 @@ export declare type HomeProps = {
     onBlogClick?: (id: string) => Promise<void>;
     onFeedbackSubmit?: (feedback: string) => Promise<void>;
     onAccountClick?: () => Promise<void>;
+    medium?: SupportedMedialike;
 };
 export declare const Home: FC<HomeProps>;

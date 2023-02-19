@@ -1,0 +1,23 @@
+import React, { FC } from 'react';
+import { ontology } from '../../../../../util';
+export declare const TEAM_MATCHUP_ROW_PROJECTION_DESKTOP_CONTAINER_CLASSNAMES: string[];
+export declare const TEAM_MATCHUP_ROW_PROJECTION_DESKTOP_CONTAINER_STYLE: React.CSSProperties;
+export declare const TEAM_MATCHUP_ROW_PROJECTION_DESKTOP_INNER_CLASSNAMES: string[];
+export declare const TEAM_MATCHUP_ROW_PROJECTION_DESKTOP_INNER_STYLE: React.CSSProperties;
+export declare type TeamMatchupRowProjectionDesktopProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    home?: ontology.Teamlike;
+    away?: ontology.Teamlike;
+    game?: ontology.GameByDatelike;
+    gameProjection?: ontology.ProjectionEntrylike;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (matchupId: string) => Promise<void>;
+    gamblers?: boolean;
+    stackedGamblers?: boolean;
+};
+export declare const TeamMatchupRowProjectionDesktop: FC<TeamMatchupRowProjectionDesktopProps>;

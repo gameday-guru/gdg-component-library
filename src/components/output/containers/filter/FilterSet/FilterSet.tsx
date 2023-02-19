@@ -8,6 +8,7 @@ import { Filter } from '../../../../input/unary/Filter/Filter';
 import { evaluateFilterToken, FieldCase, FilterTerms, FilterToken } from '../../../../../util/filter/filter';
 import { FilterModal } from '../FilterModal';
 import { Pill } from '../../../../input';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 
 export const FILTER_SET_CLASSNAMES : string[] = [
     "rounded-lg",
@@ -38,6 +39,8 @@ export type FilterSetProps = {
 };
 
 export const FilterSet : FC<FilterSetProps>  = (props) =>{
+
+    const medium = useSupportedMedia();
 
     const [whichPreset, setWhichPreset] = useState<string|undefined>(undefined);
 
@@ -96,7 +99,11 @@ export const FilterSet : FC<FilterSetProps>  = (props) =>{
                 Left={props.Title}
                 Right={Right}/>
             </div>
-            {Object.keys(_presets).length ? <><br/><div className='grid gap-2' style={{
+            {Object.keys(_presets).length ? <><br/><div className='grid gap-2' style={medium === "mobile" ? {
+                // height : "100px",
+                overflowY : "scroll",
+                gridTemplateRows : Array(Object.keys(_presets).length).fill("1fr").join(" ")
+            } : {
                 gridTemplateColumns : Array(Object.keys(_presets).length).fill("1fr").join(" ")
             }}>
                 {presetEntries}

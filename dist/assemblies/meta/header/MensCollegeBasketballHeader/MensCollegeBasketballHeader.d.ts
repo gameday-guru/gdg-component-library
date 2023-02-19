@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ontology, viusage } from '../../../../util';
-import { ProjectedGamelike } from '../../../../util/ontology';
+import { SupportedMedialike } from '../../../../util/media';
 export declare const MENS_COLLEGE_BASKETBALL_HEADER_CONTAINER_CLASSNAMES: string[];
 export declare const MENS_COLLEGE_BASKETBALL_HEADER_CONTAINER_STYLE: React.CSSProperties;
 export declare const MENS_COLLEGE_BASKETBALL_HEADER_INNER_CLASSNAMES: string[];
@@ -19,8 +19,6 @@ export declare type MensCollegeBasketballHeaderProps = {
     onTeamClick?: (teamId: string) => Promise<void>;
     onMatchupClick?: (gameId: string) => Promise<void>;
     onAccountClick?: () => Promise<void>;
+    medium?: SupportedMedialike;
 };
-export declare const getLevDistance: (search: string, comp: string) => number;
-export declare const getTeamLevDistance: (search: string, team: ontology.Teamlike) => number;
-export declare const getGameLevDistance: (search: string, game: ontology.ProjectedGamelike) => number;
 export declare const MensCollegeBasketballHeader: FC<MensCollegeBasketballHeaderProps>;

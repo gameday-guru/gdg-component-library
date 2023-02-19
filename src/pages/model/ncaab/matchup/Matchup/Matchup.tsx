@@ -2,6 +2,9 @@ import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../../assemblies/meta';
 import { MatchupContent } from '../../../../../assemblies/meta/content/MatchupContent';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
+import { MatchupDesktop } from './MatchupDesktop';
+import { MatchupMobile } from './MatchupMobile';
 
 export const MATCHUPS_CLASSNAMES : string[] = [
     "h-screen",
@@ -46,46 +49,11 @@ export type MatchupProps = {
 
 export const Matchup : FC<MatchupProps>  = (props) =>{
 
-    return (
-        <div
-        className={[...!props.overrideClasses ? MATCHUPS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? MATCHUPS_STYLE : {}, ...props.style}}>
-            <div style={{
-                height : '100%',
-                width : '100%'
-            }}>
-                <MainSidebar
-                onFeedbackSubmit={props.onFeedbackSubmit}
-                onWhich={props.onWhich}
-                 which='matchups'
-                 style={{
-                    height : '100%'
-                }}/>
-            </div>
-            <div className='overflow-y-scroll' style={{
-                height : '100%',
-                width : '100%',
-                overflow : 'scroll'
-            }}>
-                <MatchupContent
-                onAccountClick={props.onAccountClick}
-                headerProjectedGames={props.headerProjectedGames}
-                headerTeams={props.headerTeams}
-                onMatchupClick={props.onMatchupClick}
-                onTeamClick={props.onTeamClick}
-                game={props.game}
-                home={props.home}
-                homeDistro={props.homeDistro}
-                homeEfficiency={props.homeEfficiency}
-                away={props.away}
-                awayDistro={props.awayDistro}
-                awayEfficiency={props.awayEfficiency}
-                gameProjection={props.gameProjection}
-                gameProjections={props.gameProjections}
-                leagueAverages={props.leagueAverages}
-                homeGameProjections={props.homeGameProjections}
-                awayGameProjections={props.awayGameProjections}/>
-            </div>
-        </div>
-    )
+    const medium = useSupportedMedia();
+
+    switch(medium){
+        case "mobile" : return <MatchupMobile {...props}/>
+        default : return <MatchupDesktop {...props}/>
+    }
+    
 };

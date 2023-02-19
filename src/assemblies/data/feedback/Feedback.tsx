@@ -1,5 +1,6 @@
 import React, {FC, ReactElement, useState} from 'react';
 import { Button } from '../../../components';
+import { useSupportedMedia } from '../../../util/media/useSupportedMedia';
 
 export const FEEDBACK_CLASSNAMES : string[] = [
     "grid",
@@ -24,6 +25,7 @@ export type FeedbackProps = {
 
 export const Feedback : FC<FeedbackProps>  = (props) =>{
 
+    const medium = useSupportedMedia();
     const [feedback, setFeedback] = useState("");
 
     const handleTextChange = async (e : React.ChangeEvent<HTMLTextAreaElement>)=>{
@@ -38,6 +40,7 @@ export const Feedback : FC<FeedbackProps>  = (props) =>{
     }
 
     return (
+
         <form
         onSubmit={(e)=>e.preventDefault()}
         className={[...!props.overrideClasses ? FEEDBACK_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
@@ -45,7 +48,7 @@ export const Feedback : FC<FeedbackProps>  = (props) =>{
             <textarea 
             placeholder='What do you think of this page?'
             style={{
-                width : 600,
+                width : medium === "mobile" ? "100%" : 600,
                 height : 300
             }}
             className='bg-drk-gray-500 text-white-500 border-white-500 p-4'

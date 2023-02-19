@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 import { EfficiencyEntrylike, LeagueAverageslike, PointDistributionlike, PointDistributionMemberlike } from '../../../../../util/ontology';
 import { TeamEfficiencyTableEntrylike } from '../TeamEfficiencyTable/TeamEfficiencyTable';
 import { TeamGaguruStatsBarChart } from '../TeamGaguruStatBarChart';
@@ -10,7 +11,7 @@ export const TEAM_STAT_TRIPLE_ROW_CLASSNAMES : string[] = [
     "gap-4"
  ];
 export const TEAM_STAT_TRIPLE_ROW_STYLE : React.CSSProperties = {
-    gridTemplateColumns : "1fr 1fr 1fr"
+    // gridTemplateColumns : "1fr 1fr 1fr"
 };
 
 export type TeamStatTripleRowProps = {
@@ -28,10 +29,18 @@ export type TeamStatTripleRowProps = {
 
 export const TeamStatTripleRow : FC<TeamStatTripleRowProps>  = (props) =>{
 
+    const medium = useSupportedMedia();
+
     return (
         <div
         className={[...!props.overrideClasses ? TEAM_STAT_TRIPLE_ROW_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? TEAM_STAT_TRIPLE_ROW_STYLE : {}, ...props.style}}>
+        style={{...!props.overrideStyle ? {
+            ...medium === "mobile" ? {
+                gridTemplateColumns : "1fr"
+            } : {
+                gridTemplateColumns : "1fr 1fr 1fr"
+            }
+        } : {}, ...props.style}}>
             <div>
                 <TeamGaguruStatsBarChart
                 team={props.team}

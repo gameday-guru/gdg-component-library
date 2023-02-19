@@ -1,0 +1,25 @@
+import React, { FC } from 'react';
+import { ontology } from '../../../../util';
+export declare const HOME_DESKTOP_CLASSNAMES: string[];
+export declare const HOME_DESKTOP_STYLE: React.CSSProperties;
+export declare type HomeDesktopProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    gameOfTheDay?: ontology.ProjectedGamelike;
+    top25Games?: ontology.ProjectedGamelike[];
+    apTop25Teams?: ontology.RankTrendTeamlike[];
+    gdgTop25Teams?: ontology.RankTrendTeamlike[];
+    onWhich?: (which: "home" | "team" | "matchups") => Promise<void>;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
+    headerProjectedGames?: ontology.ProjectedGamelike[];
+    headerTeams?: ontology.Teamlike[];
+    blogs?: ontology.BlogArticlelike[];
+    onBlogClick?: (id: string) => Promise<void>;
+    onFeedbackSubmit?: (feedback: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
+};
+export declare const HomeDesktop: FC<HomeDesktopProps>;

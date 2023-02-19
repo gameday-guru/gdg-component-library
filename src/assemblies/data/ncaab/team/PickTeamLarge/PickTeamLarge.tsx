@@ -2,6 +2,7 @@ import React, {FC, ReactElement, useState} from 'react';
 import { Wrapper } from '../../../../../components';
 import { TextInput } from '../../../../../components/input/text/TextInput';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 
 export const PICK_TEAM_LARGE_CLASSNAMES : string[] = [
 
@@ -22,6 +23,8 @@ export type PickTeamLargeProps = {
 };
 
 export const PickTeamLarge : FC<PickTeamLargeProps>  = (props) =>{
+
+    const medium = useSupportedMedia();
 
     const _teams = props.teams||[];
     const [filteredTeams, setFilteredTeams] = useState<ontology.Teamlike[]>(_teams)
@@ -60,7 +63,7 @@ export const PickTeamLarge : FC<PickTeamLargeProps>  = (props) =>{
         viusage='wrap'
         hoverAnimate>
         <div>
-            <img src={team.TeamLogoUrl} width="300px"/>
+            <img src={team.TeamLogoUrl} width={medium === "mobile" ? "75px" : "300px"}/>
         </div>
         <div>
             {team.School}
@@ -88,7 +91,7 @@ export const PickTeamLarge : FC<PickTeamLargeProps>  = (props) =>{
             className='gap-4'
             style={{
                 display : 'grid',
-                gridTemplateColumns : '1fr 1fr 1fr',
+                gridTemplateColumns : medium === "mobile" ? '1fr' : '1fr 1fr 1fr',
                 overflowY : 'scroll',
                 height : '300px'
             }}>

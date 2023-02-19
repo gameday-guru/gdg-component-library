@@ -3,6 +3,7 @@ import { MainSidebar } from '../../../../assemblies/meta';
 import { ontology } from '../../../../util';
 import { HomeMobileContent } from '../../../../assemblies/meta/content/HomeContent/HomeMobileContent';
 import { Logo } from '../../../../components/output/icons/Logo';
+import { MobileNav } from '../../../../assemblies/meta/nav/NcaabMobileNav/MobileNav';
 
 export const HOME_MOBILE_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -47,7 +48,11 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                 height : '100%',
                 width : '100%'
             }}>
-                <Logo/>
+                <MobileNav 
+                    onAccountClick={props.onAccountClick}
+                    onFeedbackSubmit={props.onFeedbackSubmit}
+                    onWhich={props.onWhich} 
+                    which='home'/>
             </div>
             <div style={{
                 height : '100%',

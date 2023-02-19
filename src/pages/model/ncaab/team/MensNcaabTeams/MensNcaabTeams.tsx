@@ -2,6 +2,9 @@ import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../../assemblies/meta';
 import { MensNcaabTeamContent } from '../../../../../assemblies/meta/content/NcaabMensTeamContent';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
+import { MensNcaabTeamsDesktop } from './MensNcaabTeamsDesktop';
+import { MensNcaabTeamsMobile } from './MensNcaabTeamsMobile';
 
 export const MENS_NCAAB_TEAMS_CLASSNAMES : string[] = [ 
     "h-screen",
@@ -39,41 +42,11 @@ export type MensNcaabTeamsProps = {
 
 export const MensNcaabTeams : FC<MensNcaabTeamsProps>  = (props) =>{
 
-    return (
-        <div
-        className={[...!props.overrideClasses ? MENS_NCAAB_TEAMS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? MENS_NCAAB_TEAMS_STYLE : {}, ...props.style}}>
-            <div style={{
-                height : '100%',
-                width : '100%'
-            }}>
-                <MainSidebar
-                onFeedbackSubmit={props.onFeedbackSubmit}
-                onWhich={props.onWhich}
-                 which='team'
-                 style={{
-                    height : '100%'
-                }}/>
-            </div>
-            <div className='overflow-y-scroll' style={{
-                height : '100%',
-                width : '100%',
-                overflow : 'scroll'
-            }}>
-                <MensNcaabTeamContent
-                onAccountClick={props.onAccountClick}
-                headerProjectedGames={props.headerProjectedGames}
-                headerTeams={props.headerTeams}
-                onMatchupClick={props.onMatchupClick}
-                onTeamClick={props.onTeamClick}
-                onBuildMatchup={props.onBuildMatchup}
-                topDefensiveTeams={props.topDefensiveTeams}
-                topDefensiveTeamsStats={props.topDefensiveTeamsStats}
-                topOffensiveTeams={props.topOffensiveTeams}
-                topOffensiveTeamsStats={props.topOffensiveTeamsStats}
-                tableEntries={props.tableEntries}
-                teams={props.teams}/>
-            </div>
-        </div>
-    )
+    const medium = useSupportedMedia();
+
+    switch(medium) {
+        case "mobile" : return <MensNcaabTeamsMobile {...props}/>
+        default : return <MensNcaabTeamsDesktop {...props}/>
+    }
+    
 };

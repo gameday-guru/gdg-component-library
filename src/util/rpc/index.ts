@@ -51,8 +51,6 @@ export const getMockProjection = async (args : MockProjectionArgslike) : Promise
         args
     )).data;
 
-    console.log(data);
-
     return data;
 
 }

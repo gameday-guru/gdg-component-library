@@ -186,7 +186,6 @@ export const getPlayers = async (team : ontology.Teamlike) : Promise<ontology.Pl
 export const confirmTos = async (id : string) : Promise<boolean> =>{
 
     const data = (await confirmTosPost(id)).data
-    console.log("CONFIRM TOS", data);
     if(!data) return false;
     else return true;
 
@@ -195,7 +194,6 @@ export const confirmTos = async (id : string) : Promise<boolean> =>{
 export const getConfirmedTos = async (id : string) : Promise<boolean> =>{
 
     const data = (await getTosConfirmedGet(id)).data;
-    console.log("GET TOS", data);
     if(!data) return false;
     else return true;
 

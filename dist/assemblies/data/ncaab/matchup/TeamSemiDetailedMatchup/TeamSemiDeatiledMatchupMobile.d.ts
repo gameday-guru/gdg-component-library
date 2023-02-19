@@ -1,0 +1,23 @@
+import React, { FC } from 'react';
+import { ontology } from '../../../../../util';
+import { Viusagelike } from '../../../../../util/viusage/primary';
+export declare const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES: string[];
+export declare const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE: React.CSSProperties;
+export declare const TEAM_DETAILED_MATCHUP_INNER_CLASSNAMES: string[];
+export declare const TEAM_DETAILED_MATCHUP_INNER_STYLE: React.CSSProperties;
+export declare type TeamSemiDetailedMatchupMobileProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    home?: ontology.Teamlike;
+    away?: ontology.Teamlike;
+    game?: ontology.GameByDatelike;
+    gameProjection?: ontology.ProjectionEntrylike;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
+    viusage?: Viusagelike;
+};
+export declare const TeamSemiDetailedMatchupMobile: FC<TeamSemiDetailedMatchupMobileProps>;

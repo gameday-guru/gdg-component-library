@@ -2,6 +2,9 @@ import React, {FC, ReactElement} from 'react';
 import { MainSidebar } from '../../../../../assemblies/meta';
 import { MatchupsContent } from '../../../../../assemblies/meta/content/MatchupsContent';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
+import { MatchupsDesktop } from './MatchupsDesktop';
+import { MatchupsMobile } from './MatchupsMobile';
 
 export const MATCHUPS_CLASSNAMES : string[] = [
     "h-screen",
@@ -36,36 +39,11 @@ export type MatchupsProps = {
 
 export const Matchups : FC<MatchupsProps>  = (props) =>{
 
-    return (
-        <div
-        className={[...!props.overrideClasses ? MATCHUPS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? MATCHUPS_STYLE : {}, ...props.style}}>
-            <div style={{
-                height : '100%',
-                width : '100%'
-            }}>
-                <MainSidebar
-                onFeedbackSubmit={props.onFeedbackSubmit}
-                onWhich={props.onWhich}
-                 which='matchups'
-                 style={{
-                    height : '100%'
-                }}/>
-            </div>
-            <div className='overflow-y-scroll' style={{
-                height : '100%',
-                width : '100%',
-                overflow : 'scroll'
-            }}>
-                <MatchupsContent
-                onAccountClick={props.onAccountClick}
-                headerProjectedGames={props.headerProjectedGames}
-                headerTeams={props.headerTeams}
-                onMatchupClick={props.onMatchupClick}
-                onTeamClick={props.onTeamClick}
-                allUpcomingGames={props.allUpcomingGames}
-                gamesThisWeek={props.gamesThisWeek}/>
-            </div>
-        </div>
-    )
+    const medium = useSupportedMedia();
+
+    switch(medium){
+        case "mobile" : return <MatchupsMobile {...props}/>
+        default : return <MatchupsDesktop {...props}/>
+    }
+    
 };

@@ -15,14 +15,12 @@ export const getBlogArticle = async (id : string) : Promise<BlogArticlelike> =>{
 
 export const getBlogArticleTable = async () : Promise<BlogArticleTablelike> =>{
 
-    console.log("getting blog articles");
     const blogs : any[] = (await axios.get(
         `${import.meta.env.VITE_CMS_PATH}/api/blog-articles?populate=*`,
     )).data["data"];
 
     const table : BlogArticleTablelike = {};
     for(const article of blogs){
-        console.log(article);
         // console.log(article["thumbnail"]["data"]["attributes"]["url"]);
         table[article["attributes"].uid] = {
             ...article["attributes"],

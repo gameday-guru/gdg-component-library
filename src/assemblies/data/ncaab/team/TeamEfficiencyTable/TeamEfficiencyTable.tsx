@@ -361,13 +361,17 @@ export const TeamEfficiencyTable : FC<TeamEfficiencyTableProps>  = (props) =>{
                         Title={<h2 className='text-lg'>Efficiency</h2>}/>
                </div>
                <hr/>
-               <div>
+               <div style={{
+                width : "100%",
+                overflowX : "scroll"
+               }}>
                     <Table 
                     defaultSortBy={{
                         "Power Rating" : -1
                     }}
                     style={{
-                        width : "100%"
+                        width : "100%",
+                        overflowX : "scroll"
                     }} table={{
                             hiddenHeads : [
                                 'Liked'

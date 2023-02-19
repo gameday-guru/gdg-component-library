@@ -1,0 +1,26 @@
+import React, { FC } from 'react';
+import { ontology, viusage } from '../../../../util';
+import { ProjectedGamelike } from '../../../../util/ontology';
+export declare const MENS_COLLEGE_BASKETBALL_DESKTOP_HEADER_CONTAINER_CLASSNAMES: string[];
+export declare const MENS_COLLEGE_BASKETBALL_DESKTOP_HEADER_CONTAINER_STYLE: React.CSSProperties;
+export declare const MENS_COLLEGE_BASKETBALL_DESKTOP_HEADER_INNER_CLASSNAMES: string[];
+export declare const MENS_COLLEGE_BASKETBALL_DESKTOP_HEADER_INNER_STYLE: React.CSSProperties;
+export declare type MensCollegeBasketballDesktopHeaderProps = {
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
+    overrideStyle?: boolean;
+    classNames?: string[];
+    overrideClasses?: boolean;
+    responsive?: boolean;
+    viusage?: viusage.primary.Viusagelike;
+    projectedGames?: ontology.ProjectedGamelike[];
+    teams?: ontology.Teamlike[];
+    count?: number;
+    onTeamClick?: (teamId: string) => Promise<void>;
+    onMatchupClick?: (gameId: string) => Promise<void>;
+    onAccountClick?: () => Promise<void>;
+};
+export declare const getLevDistance: (search: string, comp: string) => number;
+export declare const getTeamLevDistance: (search: string, team: ontology.Teamlike) => number;
+export declare const getGameLevDistance: (search: string, game: ontology.ProjectedGamelike) => number;
+export declare const MensCollegeBasketballDesktopHeader: FC<MensCollegeBasketballDesktopHeaderProps>;

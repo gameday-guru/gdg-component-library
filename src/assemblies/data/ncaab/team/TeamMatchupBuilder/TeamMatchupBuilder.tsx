@@ -5,6 +5,7 @@ import { Teamlike } from '../../../../../util/ontology';
 import { TeamMatchupBuilderDropzone } from '../TeamMatchupBuilderDropzone';
 import { Modal } from '../../../../../components/output/containers/modal/Modal';
 import { PickTeamLarge } from '../PickTeamLarge/PickTeamLarge';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 
 export const TEAM_MATCHUP_BUILDER_CONTAINER_CLASSNAMES : string[] = [ 
     "rounded-lg",
@@ -36,6 +37,9 @@ export type TeamMatchupBuilderProps = {
 export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
 
     const _teams = props.teams||{};
+    const medium = useSupportedMedia();
+    const wrapperWidth = medium === "mobile" ? '80%' : '600px';
+    const wrapperHeight = medium === "mobile" ? '100%' : '400px';
 
     const [
         comparison,
@@ -54,8 +58,8 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
     viusage='wrap'
     classNames={['p-4', 'rounded']}
     style={{
-        height : '400px',
-        width : '600px',
+        height : wrapperHeight,
+        width : wrapperWidth,
         overflow : 'scroll'
     }}> 
         <PickTeamLarge 
@@ -78,9 +82,9 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
     viusage='wrap'
     classNames={['p-4', 'rounded']}
     style={{
-        height : '400px',
-        width : '600px',
-        overflow : 'scroll'
+        height : wrapperHeight,
+        width : wrapperWidth,
+        overflow : 'scroll',
     }}> 
         <PickTeamLarge 
         teams={Object.values(_teams)}
@@ -92,8 +96,6 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
             setRightModal(false);
         }}/>
     </Wrapper>
-
-    console.log(comparison.left, comparison.right);
 
     const handleBuildMatchup = async ()=>{
         
@@ -117,7 +119,7 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     }}>Team Matchup Projection</h2>
                     <hr/>
                 </div>
-                <div className='grid' style={{
+                <div className='grid gap-4' style={{
                     gridTemplateColumns : "2fr 1fr 2fr",
                     gridTemplateRows : "1fr",
                     alignContent : "center",
@@ -127,7 +129,7 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     <TeamMatchupBuilderDropzone 
                     key={'left'}
                     team={comparison.left ? _teams[comparison.left] : undefined}
-                    Label={<>Pick Away Team</>}
+                    Label={<h2 className='p-4'>Pick Away Team</h2>}
                     onClick={()=>{
                         setRightModal(false);
                         setLeftModal(true);
@@ -157,7 +159,7 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                     <TeamMatchupBuilderDropzone 
                     key={'right'}
                     team={comparison.right ? _teams[comparison.right] : undefined}
-                    Label={<>Pick Home Team</>}
+                    Label={<h2 className='p-4'>Pick Home Team</h2>}
                     onClick={()=>{
                         setLeftModal(false);
                         setRightModal(true);
@@ -169,6 +171,7 @@ export const TeamMatchupBuilder : FC<TeamMatchupBuilderProps>  = (props) =>{
                 </div>
             </div>
             <Modal 
+                className='p-4'
                 style={{
                     display:'flex',
                     alignItems:'center',

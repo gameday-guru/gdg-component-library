@@ -8,7 +8,10 @@ import { ontology } from '../../../../../util';
 import { Viusagelike } from '../../../../../util/viusage/primary';
 import { MockOver } from '../../../../../components/output/MockOver';
 
-export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [ ];
+export const TEAM_DETAILED_MATCHUP_CONTAINER_CLASSNAMES : string[] = [
+    "grid",
+    "gap-4"
+];
 export const TEAM_DETAILED_MATCHUP_CONTAINER_STYLE : React.CSSProperties = {
 };
 
@@ -89,36 +92,18 @@ export const TeamSemiDetailedMatchupMobile : FC<TeamSemiDetailedMatchupMobilePro
             </div> : <div>
                 <h2 className="text-gdg-500 text-lg">Projection Only</h2>    
             </div>}
-            <br/>
             <div className='text-sm'>   
-                    <H2H
-                        viusage={props.viusage||"wrap"}
-                        onTeamClick={props.onTeamClick}
-                        Home={props.home}
-                        Away={props.away}/>
+                <H2H
+                    viusage={props.viusage||"wrap"}
+                    onTeamClick={props.onTeamClick}
+                    Home={props.home}
+                    Away={props.away}/>
             </div>
             <div>
-                    {_rowProjectionZeroSum}
-                </div>
-                <div>
-                    {_projectionWinPercentage}
-                </div>
-            <div
-            className={[...!props.overrideClasses ? TEAM_DETAILED_MATCHUP_INNER_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-            style={{...!props.overrideStyle ? TEAM_DETAILED_MATCHUP_INNER_STYLE : {}, ...props.style}}>
-                <div className='text-sm'>   
-                    <H2H
-                        viusage={props.viusage||"wrap"}
-                        onTeamClick={props.onTeamClick}
-                        Home={props.home}
-                        Away={props.away}/>
-                </div>
-                <div>
-                    {_rowProjectionZeroSum}
-                </div>
-                <div>
-                    {_projectionWinPercentage}
-                </div>
+                {_rowProjectionZeroSum}
+            </div>
+            <div>
+                {_projectionWinPercentage}
             </div>
         </Button>
     )

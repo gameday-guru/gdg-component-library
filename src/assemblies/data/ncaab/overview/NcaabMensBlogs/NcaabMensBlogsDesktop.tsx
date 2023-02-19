@@ -61,19 +61,15 @@ export const NcaabMensBlogsDesktop : FC<NcaabMensBlogsDesktopProps>  = (props) =
                         display : "grid",
                         alignContent : "center",
                         alignItems : "center",
-                        justifyContent : "center",
-                        justifyItems : "center",
-                        gridAutoColumns : "1fr",
                         gridTemplateRows : "4fr 1fr",
                         padding : 0
                     }}
-                        classNames={['p-4']}
                         viusage='backdrop'
                         onClick={handleBlogClick}>
                         <div 
                         className='rounded'
                         style={{
-                             display : "grid",
+                             display : "flex",
                              alignContent : "center",
                              alignItems : "center",
                              justifyContent : "center",
@@ -81,14 +77,13 @@ export const NcaabMensBlogsDesktop : FC<NcaabMensBlogsDesktopProps>  = (props) =
                              overflow : "hidden",
                         }}>
                             {blog.thumbnail ? 
-                            /*<div style={{
-                                background : "pink",
-                                width : "100%",
-                                height : "100%"
-                            }}>
-                                Hello
-                            </div>*/
-                            <img className='rounded'  width={"100%"} src={blog.thumbnail}/>
+                            <img className='rounded'  style={{
+                                minWidth : "100%",
+                                minHeight : "100%",
+                                height : "auto",
+                                width : "auto",
+                                objectFit : "cover"
+                            }} src={blog.thumbnail}/>
                             : <Logo style={{
                                 width : "50%"
                             }}/>
@@ -96,11 +91,12 @@ export const NcaabMensBlogsDesktop : FC<NcaabMensBlogsDesktopProps>  = (props) =
                         </div>
                         <Wrapper
                         style={{
-                            opacity : .8
+                            opacity : .8,
+                            margin : "1em"
                         }}
                         hoverAnimate
                         viusage='wrap'
-                        classNames={['rounded p-2']}>
+                        classNames={['rounded p-4']}>
                             <h2>{blog.title||"Gameday Guru Blog"}</h2>
                         </Wrapper>
                     </Button>

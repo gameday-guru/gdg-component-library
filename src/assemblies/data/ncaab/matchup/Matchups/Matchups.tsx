@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { ontology } from '../../../../../util';
+import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 import { NcaabMensAllUpcomingGames } from '../../overview/NcaabMensAllUpcomingGames/NcaabMensAllUpcomingGames';
 import { WeekMatchupCarousel } from '../WeekMatchupCarousel';
 
@@ -27,6 +28,9 @@ export type MatchupsProps = {
 
 export const Matchups : FC<MatchupsProps>  = (props) =>{
 
+    const medium = useSupportedMedia();
+    const groupBy = medium === "mobile" ? 1 : 4;
+
     return (
         <div
         className={[...!props.overrideClasses ? MATCHUPS_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
@@ -39,6 +43,7 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
             </div>
             <div>
                 <WeekMatchupCarousel
+                groupBy={groupBy}
                 onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
                 gamesThisWeek={props.allUpcomingGames}/>
