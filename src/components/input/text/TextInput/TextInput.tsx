@@ -87,6 +87,29 @@ export const TextInput : FC<TextInputProps>  = (props) =>{
      const handleKeyDown : React.KeyboardEventHandler = (e)=>{
         if(e.key === "Enter") handleSubmit(e);
      }
+
+     const [wasInitiallyAutofilled, setWasInitiallyAutofilled] = useState(false);
+
+    useLayoutEffect(() => {
+            /**
+        * The field can be prefilled on the very first page loading by the browser
+        * By the security reason browser limits access to the field value from JS level and the value becomes available
+        * only after first user interaction with the page
+        * So, even if the Formik thinks that the field is not touched by user and empty,
+        * it actually can have some value, so we should process this edge case in the form logic
+        */
+        const checkAutofilled = () => {
+            const autofilled = !!document.getElementById('field')?.matches('*:-webkit-autofill');
+            setWasInitiallyAutofilled(autofilled);;
+        }
+        // The time when it's ready is not very stable, so check few times
+        setTimeout(checkAutofilled, 500);
+        setTimeout(checkAutofilled, 1000);
+        setTimeout(checkAutofilled, 2000);
+    }, []);
+
+
+    const fieldNotFilledYet = !touched.field && !values.field && !wasInitiallyAutofilled
  
      // style
      const primaryColor = getViusageColor(props.viusage);
