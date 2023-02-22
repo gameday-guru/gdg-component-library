@@ -3,5 +3,6 @@ export {}
 export enum Orientation {
     UP = 0,
     DOWN = 1,
-    NONE = 2
+    NONE = 2,
+    HIDE = 3
 };

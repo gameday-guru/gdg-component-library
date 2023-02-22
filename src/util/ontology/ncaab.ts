@@ -277,7 +277,14 @@ export const MockProjectedGame : ProjectedGamelike = mock({
     away : MockAway,
     game : MockGame,
     gameProjection : MockProjection
-})
+});
+
+export const ReverseMockProjectedGame : ProjectedGamelike = mock({
+    home : MockAway,
+    away : MockHome,
+    game : MockGame,
+    gameProjection : MockProjection
+});
 
 export enum Trend {
     DECREASING = -1,
