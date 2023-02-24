@@ -47,7 +47,7 @@ export type BracketTeamCorrectProps = {
 export const BracketTeamCorrect : FC<BracketTeamCorrectProps>  = (props) =>{
 
     return (
-        <BracketTeamUndecided classNames={["text-success-500"]} {...props}/>
+        <BracketTeamUndecided {...props} classNames={["text-success-500", ...props.classNames||[]]}/>
     )
 
 };

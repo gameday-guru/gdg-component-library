@@ -14,6 +14,7 @@ export const useTopTeams = () : {
 
     getApTop25Teams : Processorlike['getApTop25Teams'];
     getGdgTop25Teams : Processorlike['getGdgTop25Teams'];
+    getGdgTopXTeams : Processorlike['getGdgTopXTeams'];
 
     getTopDefensiveTeams : Processorlike['getTopDefensiveTeams'];
     getTopOffensiveTeams : Processorlike['getTopOffensiveTeams'];
@@ -122,6 +123,51 @@ export const useTopTeams = () : {
 
     };
 
+    const getGdgTopXTeams = (x : number) : ontology.RankTrendTeamlike[]|undefined =>{
+
+        const _teams = getTeams();
+        const _trendTable = getTrendTable();
+        const _efficiency = getEfficiencyTable();
+
+        if(!_teams || !_trendTable || !_efficiency) return undefined;
+
+        const gdgTop25Teams = Object.values(_teams)
+        .sort((teamA, teamB)=>{ 
+
+            const trendTableEntryA = _trendTable[teamA.TeamID.toString()];
+            const trendTableEntryB = _trendTable[teamB.TeamID.toString()];
+            
+            return (trendTableEntryA?.gdg_power_rating.current_rank !== undefined ?
+                trendTableEntryA.gdg_power_rating.current_rank + 1 
+                : Number.MAX_SAFE_INTEGER)
+            - (trendTableEntryB?.gdg_power_rating.current_rank !== undefined ?
+                trendTableEntryB.gdg_power_rating.current_rank + 1 
+                : Number.MAX_SAFE_INTEGER);
+
+
+        })
+        .filter((team, i)=>(i < x));
+
+        const gdgTop25RankedTeams : ontology.RankTrendTeamlike[] = gdgTop25Teams
+        .map((team, i)=>{
+            const trendTableEntry : ontology.TrendEntrylike = _trendTable[team.TeamID.toString()];
+            return (
+                {
+                    team,
+                    rank : i + 1,
+                    trend : ontology.getTrend(
+                        trendTableEntry?.gdg_power_rating.current_rank,
+                        trendTableEntry?.gdg_power_rating.last_rank,
+                    ),
+                    efficiency : _efficiency[team.TeamID]
+                }
+            )
+        })
+
+        return gdgTop25RankedTeams;
+
+    };
+
 
     const getTopDefensiveTeams = ()=>{
 
@@ -161,6 +207,7 @@ export const useTopTeams = () : {
     return {
         getApTop25Teams,
         getGdgTop25Teams,
+        getGdgTopXTeams,
 
         getTopOffensiveTeams,
         getTopDefensiveTeams

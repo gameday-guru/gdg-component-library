@@ -9,6 +9,7 @@ export interface Processorlike {
 
     getApTop25Teams() : ontology.RankTrendTeamlike[] | undefined;
     getGdgTop25Teams() : ontology.RankTrendTeamlike[] | undefined;
+    getGdgTopXTeams(x : number) : ontology.RankTrendTeamlike[] | undefined;
 
     getTopDefensiveTeams: () => ontology.Teamlike[] | undefined;
     getTopOffensiveTeams: () => ontology.Teamlike[] | undefined

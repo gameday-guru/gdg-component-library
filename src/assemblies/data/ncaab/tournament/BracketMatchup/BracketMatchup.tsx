@@ -11,8 +11,7 @@ export const BRACKET_MATCHUP_CLASSNAMES: string[] = [
     "grid"
 ];
 export const BRACKET_MATCHUP_STYLE: React.CSSProperties = {
-    gridTemplateColumns: "1fr 5fr 1fr",
-    gridTemplateRows: "10fr 10fr",
+    // gridTemplateRows: "10fr 1fr 10fr",
 };
 
 export type BracketMatchupProps = {
@@ -27,35 +26,44 @@ export type BracketMatchupProps = {
     matchup ? : BracketCorrectedMatchuplike;
     home?: ontology.Teamlike;
     away?: ontology.Teamlike;
+    teamsAbove ? : {[key : string] : ontology.Teamlike};
+    teams ? : {[key : string] : ontology.Teamlike};
+    teamsBelow ? : {[key : string] : ontology.Teamlike};
+    onTeamsSelect ? : (teams : {
+        topTeamId ? : string,
+        bottomTeamId ? : string
+    })=>Promise<void>;
+    aboveNeedsSelection ? : boolean;
+    belowNeedsSelection ? : boolean;
 };
 
 export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
 
-    const _up = props.up || false;
-    const _inheritance = props.inheritance || false;
+    const mkHandleTeamSelect = (top : boolean)=>async (teamId : string)=>{
+
+        if(props.onTeamsSelect){
+
+            if(top) await props.onTeamsSelect({
+                topTeamId : teamId
+            });
+            else props.onTeamsSelect({
+                bottomTeamId : teamId
+            });
+
+
+        }
+
+    }
 
     return (
         <div
             className={[...!props.overrideClasses ? BRACKET_MATCHUP_CLASSNAMES : [], ...props.classNames || []].join(" ")}
             style={{ ...!props.overrideStyle ? BRACKET_MATCHUP_STYLE : {}, ...props.style }}>
-            <div style={{
-                    ..._inheritance ? {
-                        borderBottom: "3px solid",
-                    } : {
-
-                    }
-                    //  |
-                    //  |--
-                    //  |
-                }}></div>
-            <div style={{
-                display : "grid",
-                alignContent : "end",
-                alignItems : "end",
-                position : "relative",
-                paddingBottom : "10px"
-            }}>
-                <BracketTeam 
+            <div>
+                <BracketTeam
+                    needsSelection={props.aboveNeedsSelection}
+                    onTeamSelect={mkHandleTeamSelect(true)}
+                    teams={props.teamsAbove} 
                     actualTeam={props?.matchup?.actualGame?.home}
                     actualTeamProjectedScore={props?.matchup?.actualGame?.gameProjection?.home_team_score}
                     actualTeamProbability={props?.matchup?.actualGame?.homeProbability}
@@ -64,34 +72,17 @@ export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
                     userTeamProbability={props?.matchup?.userPick?.homeProbability}
                     actualScore={props?.matchup?.actualGame?.game?.HomeTeamScore}
                     top/>
-                <Vs 
-                    style={{
-                        color : "white",
-                        position : "absolute",
-                        height : "20px",
-                        width : "20px",
-                        bottom : "-10px",
-                        zIndex : 1000
-                    }}/>
-            </div>
-            <div style={{
-                ..._up ? {
-                    borderBottom: "3px solid",
-                    borderRight: "3px solid"
-                } : {
-
-                }
-                // _
-                //  |
-            }}>
-
             </div>
             <div>
+                <Wrapper viusage='wrap'>
+                    vs
+                </Wrapper>
             </div>
-            <div style={{
-                paddingTop : "10px"
-            }}>
+            <div>
                 <BracketTeam 
+                    needsSelection={props.belowNeedsSelection}
+                    onTeamSelect={mkHandleTeamSelect(false)}
+                    teams={props.teamsBelow} 
                     actualTeam={props?.matchup?.actualGame?.away}
                     actualTeamProjectedScore={props?.matchup?.actualGame?.gameProjection?.away_team_score}
                     actualTeamProbability={props?.matchup?.actualGame?.awayProbability}
@@ -99,17 +90,6 @@ export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
                     userTeamProjectedScore={props?.matchup?.userPick?.gameProjection?.away_team_score}
                     userTeamProbability={props?.matchup?.userPick?.awayProbability}
                     actualScore={props?.matchup?.actualGame?.game?.AwayTeamScore}/>
-            </div>
-            <div style={{
-                ..._up ? {
-
-                } : {
-                    borderTop: "3px solid",
-                    borderRight: "3px solid"
-                }
-                //  |
-                // -
-            }}>
             </div>
         </div>
     )

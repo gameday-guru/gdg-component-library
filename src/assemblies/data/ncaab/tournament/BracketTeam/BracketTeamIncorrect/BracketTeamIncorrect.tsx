@@ -6,13 +6,14 @@ import { Wrapper } from '../../../../../../components';
 import { spawn } from 'child_process';
 import { BracketTeamCorrect } from '../BracketTeamCorrect/BracketTeamCorrect';
 import { BracketTeamUndecided } from '../BracketTeamUndecided/BracketTeamUndecided';
+import { generate } from 'shortid';
 
 export const BRACKET_TEAM_CORRECT_CLASSNAMES : string[] = [
 
 ];
 export const BRACKET_TEAM_CORRECT_STYLE : React.CSSProperties = {
     display : 'grid',
-    gridTemplateRows : "1fr 1fr"
+    gridTemplateRows : "1fr"
 };
 
 export type BracketTeamIncorrectProps = {
@@ -53,16 +54,31 @@ export const BracketTeamIncorrect : FC<BracketTeamIncorrectProps>  = (props) =>{
 
     const _viusage = props.viusage || "wrap";
 
-    const Correct = <div>
+    const Correct = <div key={generate()}>
         <BracketTeamUndecided  
+            key={generate()}
+            style={{...props.top ? {
+                borderTopLeftRadius : "10px",
+                borderTopRightRadius : "10px"
+            } : {
+                borderBottomLeftRadius : "10px",
+                borderBottomRightRadius : "10px"
+            },
+                position : "absolute",
+                height : "100%",
+                bottom : "100%"
+            }}
             team={props.actualTeam}
             bracketProbability={props.actualTeamProbability}
             userTeamProjectedScore={props.userTeamProjectedScore}
             actualScore={props.actualScore}
             onTeamClick={props.onTeamClick}
-            classNames={props.decided ? ['text-success-500'] : []}/>
+            classNames={[
+                ...props.decided ? ['text-success-500'] : [],
+                ...props.classNames||[]
+            ]}/>
     </div>;
-    const Incorrect =  <div style={{
+    const Incorrect =  <div key={generate()} style={{
         position : "relative"
     }}>
         <BracketTeamUndecided  
@@ -70,7 +86,7 @@ export const BracketTeamIncorrect : FC<BracketTeamIncorrectProps>  = (props) =>{
             bracketProbability={props.userTeamProbability}
             userTeamProjectedScore={props.userTeamProjectedScore}
             onTeamClick={props.onTeamClick}
-            classNames={['text-error-500']}/>
+            classNames={['text-error-500', ...props.classNames||[]]}/>
         <hr style={{
             position : "absolute",
             top : "50%",
@@ -81,11 +97,12 @@ export const BracketTeamIncorrect : FC<BracketTeamIncorrectProps>  = (props) =>{
     const _stack = props.top ? [Correct, Incorrect] : [Incorrect, Correct];
 
     return (
-        <Wrapper
-        viusage={_viusage}
-        classNames={[...!props.overrideClasses ? BRACKET_TEAM_CORRECT_CLASSNAMES : [], ...props.classNames||[]]}
-        style={{...!props.overrideStyle ? BRACKET_TEAM_CORRECT_STYLE : {}, ...props.style}}>
+       <div style={{
+            position : "relative",
+            display : 'grid',
+            gridTemplateRows : "1fr"
+       }}>
             {_stack}
-        </Wrapper>
+        </div>
     )
 };
