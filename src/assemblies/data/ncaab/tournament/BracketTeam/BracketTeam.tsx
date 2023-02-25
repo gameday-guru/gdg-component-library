@@ -59,12 +59,12 @@ export type BracketTeamProps = {
     getMockUserProjection ? : ()=>number | undefined;
     getMockActualProjection ? : ()=>number | undefined;
     getMockUserProjectionWithId ? : (id : string)=>number|undefined;
+    getProbability ? : () => number | undefined;
+    getProbabilityWithId ? : (id : string) => number | undefined;
 
 };
 
 export const BracketTeam : FC<BracketTeamProps>  = (props) =>{
-
-    console.log("OPTIONS RECEIVED INNER", props.teams)
 
     const _userTeam = props.userTeam//||MockHome;
     const _actualTeam = props.actualTeam//||MockAway;
@@ -89,6 +89,7 @@ export const BracketTeam : FC<BracketTeamProps>  = (props) =>{
     else if(!props.actualTeam) stack = [
         ...!props.top ? [<div key={generate()}></div>] : [],
         <BracketTeamPick
+            getProbabilityWithId={props.getProbabilityWithId}
             getMockUserProjectionWithId={props.getMockUserProjectionWithId}
             getMockProjection={props.getMockUserProjection}
             onTeamSelect={props.onTeamSelect}
@@ -142,6 +143,7 @@ export const BracketTeam : FC<BracketTeamProps>  = (props) =>{
     else stack = [
         ...props.top ? [<div key={generate()}></div>] : [],
         <BracketTeamUndecided
+            getProbability={props.getProbability}
             getMockProjection={props.getMockActualProjection}
             classNames={["p-2"]}
             style={props.top ? {

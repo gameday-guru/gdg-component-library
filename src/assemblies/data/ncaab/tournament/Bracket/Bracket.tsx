@@ -30,13 +30,23 @@ export type BracketProps = {
         home_team_id : string,
         away_team_id : string,
         neutral : boolean
-    })=>ontology.ProjectionEntrylike | undefined
+    })=>ontology.ProjectionEntrylike | undefined;
+    getProbability ? : (args : {
+        home_team_id : string,
+        away_team_id : string,
+        pos : {
+            rowNo : number,
+            colNo : number
+        }
+    })=>{
+        homeProbability ? : number,
+        awayProbability ? : number, 
+    }
 };
 
 export const Bracket: FC<BracketProps> = (props) => {
 
     const _bracket = props.bracket || ontology.Mock4TeamBracket;
-    console.log("RECEIVED BRACKET", _bracket);
 
     // based on the dimensions of the bracket and some display paramters,
     // you will need to compute the number of grid columns and rows
@@ -114,7 +124,6 @@ export const Bracket: FC<BracketProps> = (props) => {
 
             }
 
-            console.log("OPTIONS", bracketEntry, above, below, teamOptionsAbove, teamOptionsBelow);
 
             const handleMatchupUpdate = async (
                 update : (matchup : ontology.BracketCorrectedMatchuplike)=>Promise<ontology.BracketCorrectedMatchuplike>
@@ -139,7 +148,29 @@ export const Bracket: FC<BracketProps> = (props) => {
 
             }
 
+            const _getProbability = (args : {
+                home_team_id : string,
+                away_team_id : string,
+            }) : {
+                homeProbability ? : number,
+                awayProbability ? : number, 
+            }=>{
+
+
+                if(!props.getProbability) return {};
+
+                return props.getProbability({
+                    ...args,
+                    pos : {
+                        rowNo,
+                        colNo
+                    }
+                });
+
+            }
+
             return <BracketEntry 
+                getProbability={_getProbability}
                 getMockProjection={props.getMockProjection}
                 aboveNeedsSelection={colNo > 0 && !above?.userPick && !above?.actualGame}
                 belowNeedsSelection={colNo > 0 && !below?.userPick && !below?.actualGame}

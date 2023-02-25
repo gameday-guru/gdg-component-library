@@ -39,7 +39,14 @@ export type BracketMatchupProps = {
         home_team_id : string,
         away_team_id : string,
         neutral : boolean
-    })=>ontology.ProjectionEntrylike | undefined
+    })=>ontology.ProjectionEntrylike | undefined;
+    getProbability ? : (args : {
+        home_team_id : string,
+        away_team_id : string,
+    })=>{
+        homeProbability ? : number,
+        awayProbability ? : number, 
+    }
 };
 
 export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
@@ -157,6 +164,92 @@ export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
         return getMockProjectionActual()?.away_team_score;
 
     }
+ 
+    const getHomeProbability = () : number | undefined =>{
+
+        const home = props.matchup?.actualGame?.home 
+        || props.matchup?.userPick?.home;
+        const away = props.matchup?.actualGame?.away
+        || props.matchup?.userPick?.away
+
+        if(!(
+            props.getProbability
+            && home
+            && away
+        )) return undefined;
+
+        const prob = props.getProbability({
+            home_team_id : home.TeamID.toString(),
+            away_team_id : away.TeamID.toString()
+        });
+
+        return prob.homeProbability;
+
+    }
+
+    const getAwayProbability = () : number | undefined =>{
+
+        const home = props.matchup?.actualGame?.home 
+        || props.matchup?.userPick?.home;
+        const away = props.matchup?.actualGame?.away
+        || props.matchup?.userPick?.away
+
+        if(!(
+            props.getProbability
+            && home
+            && away
+        )) return undefined;
+
+        const prob = props.getProbability({
+            home_team_id : home.TeamID.toString(),
+            away_team_id : away.TeamID.toString()
+        });
+
+        return prob.awayProbability;
+
+    }
+
+    const getHomeProbabilityWithId = (id : string) : number | undefined =>{
+
+        const away = props.matchup?.actualGame?.away
+        || props.matchup?.userPick?.away
+
+        if(!(
+            props.getProbability
+            && away
+        )) return undefined;
+
+        console.log("Getting home probability with id", id, away.TeamID.toString());
+
+        const prob = props.getProbability({
+            home_team_id : id,
+            away_team_id : away.TeamID.toString()
+        });
+
+        console.log(prob);
+
+        return prob.homeProbability;
+
+    }
+
+    const getAwayProbabilityWithId = (id : string) : number | undefined =>{
+
+        const home = props.matchup?.actualGame?.home 
+        || props.matchup?.userPick?.home;
+
+        if(!(
+            props.getProbability
+            && home
+        )) return undefined;
+
+        const prob = props.getProbability({
+            home_team_id : home.TeamID.toString(),
+            away_team_id : id
+        });
+
+        return prob.awayProbability;
+
+    }
 
     return (
         <div
@@ -164,6 +257,8 @@ export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
             style={{ ...!props.overrideStyle ? BRACKET_MATCHUP_STYLE : {}, ...props.style }}>
             <div>
                 <BracketTeam
+                    getProbabilityWithId={getHomeProbabilityWithId}
+                    getProbability={getHomeProbability}
                     getMockUserProjectionWithId={getMockProjectionUserWithIdHome}
                     getMockActualProjection={getMockProjectionActualHome}
                     getMockUserProjection={getMockProjectionUserHome}
@@ -186,6 +281,8 @@ export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
             </div>
             <div>
                 <BracketTeam 
+                    getProbabilityWithId={getAwayProbabilityWithId}
+                    getProbability={getAwayProbability}
                     getMockUserProjectionWithId={getMockProjectionUserWithIdAway}
                     getMockActualProjection={getMockProjectionActualAway}
                     getMockUserProjection={getMockProjectionUserAway}

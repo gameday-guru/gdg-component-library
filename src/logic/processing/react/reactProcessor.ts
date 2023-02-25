@@ -84,11 +84,12 @@ export const useOnceProcessor = () : Processorlike =>{
 
     const {
         getTop25Games,
-        getGameOfTheDay
+        getGameOfTheDay,
     } = useTopGames()
 
 
     const {
+        getGdgTopXTeams,
         getApTop25Teams,
         getGdgTop25Teams,
         getTopOffensiveTeams,
@@ -142,6 +143,7 @@ export const useOnceProcessor = () : Processorlike =>{
 
         getApTop25Teams,
         getGdgTop25Teams,
+        getGdgTopXTeams,
         getTopOffensiveTeams,
         getTopDefensiveTeams,
 

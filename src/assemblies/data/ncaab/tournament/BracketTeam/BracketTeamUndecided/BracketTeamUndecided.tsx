@@ -40,7 +40,8 @@ export type BracketTeamUndecidedProps = {
     userTeamProjectedScore ? : number;
     actualTeamProjectedScore ? : number;
     actualScore ? : number;
-    getMockProjection ? : ()=>number | undefined
+    getMockProjection ? : ()=>number | undefined;
+    getProbability ? : () => number | undefined;
 
 
 };
@@ -48,7 +49,8 @@ export type BracketTeamUndecidedProps = {
 export const BracketTeamUndecided : FC<BracketTeamUndecidedProps>  = (props) =>{
 
     const _viusage = props.viusage || "wrap";
-    const _bracketProbability = props.bracketProbability||0;
+    const _bracketProbability = props.getProbability 
+    && props.getProbability()||props.bracketProbability||0;
 
     const _userTeamProjectedScore = props.getMockProjection 
     && props.getMockProjection()||props.userTeamProjectedScore||0.0;
@@ -88,7 +90,7 @@ export const BracketTeamUndecided : FC<BracketTeamUndecidedProps>  = (props) =>{
                 padding : 0
             }} hideVisitorStatus viusage={_viusage}/>
             <div>
-                {Math.floor(_bracketProbability * 100)}%
+                {Math.round(_bracketProbability * 100)}%
             </div>
             <div>
                 {ScoreProjection}

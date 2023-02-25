@@ -75,7 +75,9 @@ export const Cropdown : FC<CropdownProps>  = (props) =>{
             <div className='rounded' style={{
                 display : "grid",
                 gridTemplateColumns : "10fr 1fr",
-                overflow : "hidden"
+                overflow : "hidden",
+                alignContent : "center",
+                alignItems : "center"
             }}>
                 <div>
                     {_Selected}

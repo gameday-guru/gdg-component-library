@@ -23,6 +23,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { Tos } from "./Tos";
 import { SelfOverview } from "./SelfOverview";
 import { PasswordReset } from "./PasswordReset";
+import { Playground } from "../Playground/Playground";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -64,6 +65,7 @@ export function App(style : any) {
           <Route path="/self" element={<SelfOverview/>}/>
           <Route path="/self/overview" element={<SelfOverview/>}/>
           <Route path="/forgot" element={<PasswordReset/>}/>
+          <Route path="/_it/demo/bracket" element={<Playground/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -38,15 +38,20 @@ export type BracketEntryProps = {
         home_team_id : string,
         away_team_id : string,
         neutral : boolean
-    })=>ontology.ProjectionEntrylike | undefined
+    })=>ontology.ProjectionEntrylike | undefined;
+    getProbability ? : (args : {
+        home_team_id : string,
+        away_team_id : string,
+    })=>{
+        homeProbability ? : number,
+        awayProbability ? : number, 
+    }
 };
 
 export const BracketEntry: FC<BracketEntryProps> = (props) => {
 
     const _up = props.up || false;
     const _inheritance = props.inheritance || false;
-
-    console.log("OPTIONS RECEIVED", props.matchup, props.teamsAbove, props.teamsBelow);
 
     const handleTeamSelect = async (teams : {
         topTeamId ? : string,
@@ -98,6 +103,7 @@ export const BracketEntry: FC<BracketEntryProps> = (props) => {
                 alignItems : "center"
             }}>
                 <BracketMatchup 
+                    getProbability={props.getProbability}
                     getMockProjection={props.getMockProjection}
                     aboveNeedsSelection={props.aboveNeedsSelection}
                     belowNeedsSelection={props.belowNeedsSelection}

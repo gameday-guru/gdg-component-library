@@ -201,6 +201,7 @@ export interface ProjectedGamelike extends Mockable {
 }
 export declare const MockGame: GameByDatelike;
 export declare const MockProjectedGame: ProjectedGamelike;
+export declare const ReverseMockProjectedGame: ProjectedGamelike;
 export declare enum Trend {
     DECREASING = -1,
     NOCHANGE = 0,

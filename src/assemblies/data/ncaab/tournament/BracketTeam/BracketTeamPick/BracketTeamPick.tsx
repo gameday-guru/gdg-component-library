@@ -47,7 +47,7 @@ export type BracketTeamPickProps = {
     actualScore ? : number;
     getMockProjection ? : ()=>number | undefined;
     getMockUserProjectionWithId ? : (id : string)=>number|undefined;
-
+    getProbabilityWithId ? : (id : string) => number | undefined;
 
 };
 
@@ -60,6 +60,9 @@ export const BracketTeamPick : FC<BracketTeamPickProps>  = (props) =>{
         _Teams[id] = <BracketTeamUndecided  
         getMockProjection={()=>{
             return props.getMockUserProjectionWithId && props.getMockUserProjectionWithId(id)
+        }}
+        getProbability={()=>{
+            return props.getProbabilityWithId && props.getProbabilityWithId(id)
         }}
         team={team}
         classNames={props.classNames?.filter(name=>name.startsWith("text-"))} style={{
