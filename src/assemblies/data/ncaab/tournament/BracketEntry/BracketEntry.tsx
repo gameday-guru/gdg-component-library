@@ -34,6 +34,11 @@ export type BracketEntryProps = {
     )=>Promise<void>;
     aboveNeedsSelection ? : boolean;
     belowNeedsSelection ? : boolean;
+    getMockProjection ? : (args : {
+        home_team_id : string,
+        away_team_id : string,
+        neutral : boolean
+    })=>ontology.ProjectionEntrylike | undefined
 };
 
 export const BracketEntry: FC<BracketEntryProps> = (props) => {
@@ -93,6 +98,7 @@ export const BracketEntry: FC<BracketEntryProps> = (props) => {
                 alignItems : "center"
             }}>
                 <BracketMatchup 
+                    getMockProjection={props.getMockProjection}
                     aboveNeedsSelection={props.aboveNeedsSelection}
                     belowNeedsSelection={props.belowNeedsSelection}
                     onTeamsSelect={handleTeamSelect}

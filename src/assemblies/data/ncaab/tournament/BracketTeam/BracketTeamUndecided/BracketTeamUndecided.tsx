@@ -40,6 +40,7 @@ export type BracketTeamUndecidedProps = {
     userTeamProjectedScore ? : number;
     actualTeamProjectedScore ? : number;
     actualScore ? : number;
+    getMockProjection ? : ()=>number | undefined
 
 
 };
@@ -49,28 +50,29 @@ export const BracketTeamUndecided : FC<BracketTeamUndecidedProps>  = (props) =>{
     const _viusage = props.viusage || "wrap";
     const _bracketProbability = props.bracketProbability||0;
 
-    const _userTeamProjectedScore = props.userTeamProjectedScore||0.0;
+    const _userTeamProjectedScore = props.getMockProjection 
+    && props.getMockProjection()||props.userTeamProjectedScore||0.0;
 
     const _projectedScores = props.actualTeamProjectedScore 
     ? [_userTeamProjectedScore, props.actualTeamProjectedScore]
     : [_userTeamProjectedScore];
-    const _actualScore = 68.4;
+    // const _actualScore = 68.4;
 
     const ScoreProjection = _projectedScores.length > 1 
     ? <>
         <span className='text-error-500' style={{
             textDecoration : "line-through"
         }}>
-            {_projectedScores[0]}
+            {_projectedScores[0].toFixed(1)}
         </span>
         &emsp;
         <span>
-            {_projectedScores[1]}
+            {_projectedScores[1].toFixed(1)}
         </span>
     </> 
     : <>
         <span>
-            {_projectedScores[0]}
+            {_projectedScores[0].toFixed(1)}
         </span>
     </>;
 
@@ -92,7 +94,7 @@ export const BracketTeamUndecided : FC<BracketTeamUndecidedProps>  = (props) =>{
                 {ScoreProjection}
             </div>
             <div>
-                {_actualScore}
+                {props.actualScore || "--"}
             </div>
         </Wrapper>
     )

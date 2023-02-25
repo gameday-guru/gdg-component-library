@@ -56,6 +56,9 @@ export type BracketTeamProps = {
     actualScore ? : number;
     top ? : boolean;
     needsSelection ? : boolean;
+    getMockUserProjection ? : ()=>number | undefined;
+    getMockActualProjection ? : ()=>number | undefined;
+    getMockUserProjectionWithId ? : (id : string)=>number|undefined;
 
 };
 
@@ -86,6 +89,8 @@ export const BracketTeam : FC<BracketTeamProps>  = (props) =>{
     else if(!props.actualTeam) stack = [
         ...!props.top ? [<div key={generate()}></div>] : [],
         <BracketTeamPick
+            getMockUserProjectionWithId={props.getMockUserProjectionWithId}
+            getMockProjection={props.getMockUserProjection}
             onTeamSelect={props.onTeamSelect}
             key={generate()}
             classNames={["p-2"]}
@@ -137,6 +142,7 @@ export const BracketTeam : FC<BracketTeamProps>  = (props) =>{
     else stack = [
         ...props.top ? [<div key={generate()}></div>] : [],
         <BracketTeamUndecided
+            getMockProjection={props.getMockActualProjection}
             classNames={["p-2"]}
             style={props.top ? {
                 borderTopLeftRadius : "10px",

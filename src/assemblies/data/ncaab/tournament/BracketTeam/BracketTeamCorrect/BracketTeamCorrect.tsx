@@ -41,6 +41,7 @@ export type BracketTeamCorrectProps = {
     userTeamProjectedScore ? : number;
     actualTeamProjectedScore ? : number;
     actualScore ? : number;
+    getMockProjection ? : ()=>number | undefined
 
 };
 

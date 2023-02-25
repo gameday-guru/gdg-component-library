@@ -45,6 +45,8 @@ export type BracketTeamPickProps = {
     userTeamProjectedScore ? : number;
     actualTeamProjectedScore ? : number;
     actualScore ? : number;
+    getMockProjection ? : ()=>number | undefined;
+    getMockUserProjectionWithId ? : (id : string)=>number|undefined;
 
 
 };
@@ -55,7 +57,11 @@ export const BracketTeamPick : FC<BracketTeamPickProps>  = (props) =>{
 
     const _Teams : {[key : string] : React.ReactNode} = {};
     for(const [id, team] of Object.entries((props.teams||{})))
-        _Teams[id] = <BracketTeamUndecided  team={team}
+        _Teams[id] = <BracketTeamUndecided  
+        getMockProjection={()=>{
+            return props.getMockUserProjectionWithId && props.getMockUserProjectionWithId(id)
+        }}
+        team={team}
         classNames={props.classNames?.filter(name=>name.startsWith("text-"))} style={{
             fontSize : 10,
             padding : 0

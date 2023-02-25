@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { ontology } from '../../../../../util';
-import { BracketCorrectedMatchuplike } from '../../../../../util/ontology';
+import { BracketCorrectedMatchuplike, ProjectionEntrylike } from '../../../../../util/ontology';
 import { SideTeam } from '../../team/SideTeam';
 import { BracketTeam } from '../BracketTeam/BracketTeam';
 import { Vs } from '../../../../../components/output/indicators/label/Vs';
@@ -35,6 +35,11 @@ export type BracketMatchupProps = {
     })=>Promise<void>;
     aboveNeedsSelection ? : boolean;
     belowNeedsSelection ? : boolean;
+    getMockProjection ? : (args : {
+        home_team_id : string,
+        away_team_id : string,
+        neutral : boolean
+    })=>ontology.ProjectionEntrylike | undefined
 };
 
 export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
@@ -55,12 +60,113 @@ export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
 
     }
 
+    const getMockProjectionUser = () : ProjectionEntrylike | undefined =>{
+
+        if(props.getMockProjection 
+            && props?.matchup?.userPick?.home
+            && props?.matchup?.userPick?.away
+        ){
+
+            return props.getMockProjection({
+                home_team_id : props.matchup.userPick.home.TeamID.toString(),
+                away_team_id : props.matchup.userPick.away.TeamID.toString(),
+                neutral : true
+            });
+
+        }
+
+        return undefined;
+
+    }
+
+    const getMockProjectionUserHome = () : number | undefined => {
+
+        return getMockProjectionUser()?.home_team_score;
+
+    }
+
+    const getMockProjectionUserAway = () : number | undefined =>{
+
+        return getMockProjectionUser()?.away_team_score;
+
+    }
+
+    const getMockProjectionUserWithIdHome = (homeId : string) : number | undefined =>{
+
+        if(props.getMockProjection 
+            && props?.matchup?.userPick?.away
+        ){
+
+            return props.getMockProjection({
+                home_team_id : homeId,
+                away_team_id : props.matchup.userPick.away.TeamID.toString(),
+                neutral : true
+            })?.home_team_score;
+
+        }
+
+        return undefined;
+
+    }
+
+    const getMockProjectionUserWithIdAway = (awayId : string) : number | undefined =>{
+
+        if(props.getMockProjection 
+            && props?.matchup?.userPick?.home
+        ){
+
+            return props.getMockProjection({
+                home_team_id : props.matchup.userPick.home.TeamID.toString(),
+                away_team_id : awayId,
+                neutral : true
+            })?.away_team_score;
+
+        }
+
+        return undefined;
+
+    }
+
+    const getMockProjectionActual = () : ProjectionEntrylike | undefined =>{
+
+        if(props.getMockProjection 
+            && props?.matchup?.actualGame?.home
+            && props?.matchup?.actualGame?.away
+        ){
+
+            return props.getMockProjection({
+                home_team_id : props.matchup.actualGame.home.TeamID.toString(),
+                away_team_id : props.matchup.actualGame.away.TeamID.toString(),
+                neutral : true
+            });
+
+        }
+
+        return undefined;
+
+    }
+
+    const getMockProjectionActualHome = () : number | undefined => {
+
+        return getMockProjectionActual()?.home_team_score;
+
+    }
+
+    const getMockProjectionActualAway = () : number | undefined =>{
+
+        return getMockProjectionActual()?.away_team_score;
+
+    }
+
     return (
         <div
             className={[...!props.overrideClasses ? BRACKET_MATCHUP_CLASSNAMES : [], ...props.classNames || []].join(" ")}
             style={{ ...!props.overrideStyle ? BRACKET_MATCHUP_STYLE : {}, ...props.style }}>
             <div>
                 <BracketTeam
+                    getMockUserProjectionWithId={getMockProjectionUserWithIdHome}
+                    getMockActualProjection={getMockProjectionActualHome}
+                    getMockUserProjection={getMockProjectionUserHome}
                     needsSelection={props.aboveNeedsSelection}
                     onTeamSelect={mkHandleTeamSelect(true)}
                     teams={props.teamsAbove} 
@@ -80,6 +186,9 @@ export const BracketMatchup: FC<BracketMatchupProps> = (props) => {
             </div>
             <div>
                 <BracketTeam 
+                    getMockUserProjectionWithId={getMockProjectionUserWithIdAway}
+                    getMockActualProjection={getMockProjectionActualAway}
+                    getMockUserProjection={getMockProjectionUserAway}
                     needsSelection={props.belowNeedsSelection}
                     onTeamSelect={mkHandleTeamSelect(false)}
                     teams={props.teamsBelow} 

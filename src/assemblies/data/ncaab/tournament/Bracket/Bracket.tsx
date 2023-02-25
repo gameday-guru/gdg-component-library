@@ -25,6 +25,12 @@ export type BracketProps = {
     onBracketUpdate ? : (
         update : (bracket : ontology.SparseBracketlike)=>Promise<ontology.SparseBracketlike>
     )=>Promise<void>;
+    mirror ? : boolean;
+    getMockProjection ? : (args : {
+        home_team_id : string,
+        away_team_id : string,
+        neutral : boolean
+    })=>ontology.ProjectionEntrylike | undefined
 };
 
 export const Bracket: FC<BracketProps> = (props) => {
@@ -134,6 +140,7 @@ export const Bracket: FC<BracketProps> = (props) => {
             }
 
             return <BracketEntry 
+                getMockProjection={props.getMockProjection}
                 aboveNeedsSelection={colNo > 0 && !above?.userPick && !above?.actualGame}
                 belowNeedsSelection={colNo > 0 && !below?.userPick && !below?.actualGame}
                 onMatchupUpdate={handleMatchupUpdate}
