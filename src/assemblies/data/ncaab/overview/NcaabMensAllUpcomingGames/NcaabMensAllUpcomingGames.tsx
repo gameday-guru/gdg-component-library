@@ -79,7 +79,6 @@ export const NcaabMensAllUpcomingGames : FC<NcaabMensAllUpcomingGamesProps>  = (
         onMatchupClick={props.onMatchupClick}
         onTeamClick={props.onTeamClick}
         Title={<h2 className='text-2xl'>Today's Games</h2>}
-        presets={ALL_UPCOMING_GAMES_PRESETS}
         games={props.allUpcomingGames}/>
     )
 };
