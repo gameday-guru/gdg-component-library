@@ -17,19 +17,29 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16'  # Set this to the node version you want to use
+        registry-url: 'https://registry.npmjs.org/'
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
 
     - name: Install Dependencies
       run: npm install --legacy-peer-deps
 
     - name: Bump package version
-      run: npm version patch
+      run: |
+        git checkout main
+        npm version patch
+      env:
+        GIT_COMMITTER_NAME: GitHub Actions
+        GIT_COMMITTER_EMAIL: actions@github.com
 
     - name: Build
       run: npm run build  # Replace this with your build script
 
     - name: Publish to NPM
-      run: |
-        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-        npm publish --access public
+      run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
