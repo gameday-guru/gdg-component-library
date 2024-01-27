@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Important for being able to push back to the repository
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -31,6 +33,7 @@ jobs:
       run: |
         git checkout main
         npm version patch
+        git push
       env:
         GIT_COMMITTER_NAME: GitHub Actions
         GIT_COMMITTER_EMAIL: actions@github.com
@@ -42,4 +45,5 @@ jobs:
       run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 
