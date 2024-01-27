@@ -29,14 +29,16 @@ jobs:
     - name: Install Dependencies
       run: npm install --legacy-peer-deps
 
-    - name: Bump package version
-      run: |
-        git checkout main
-        npm version patch
-        git push
-      env:
-        GIT_COMMITTER_NAME: GitHub Actions
-        GIT_COMMITTER_EMAIL: actions@github.com
+    # todo: add automatic version bumping and push to repo
+    # - name: Bump package version
+    #  run: |
+    #    git checkout main
+    #    npm version patch
+    #    git push
+    
+    #   env:
+    #    GIT_COMMITTER_NAME: GitHub Actions
+    #    GIT_COMMITTER_EMAIL: actions@github.com
 
     - name: Build
       run: npm run build  # Replace this with your build script
