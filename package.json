@@ -1,5 +1,5 @@
 {
-  "name": "gdg-clib",
+  "name": "gdg-component-library",
   "version": "0.1.95",
   "main": "./dist/gdg-clib.umd.js",
   "module": "./dist/gdg-clib.es.js",
