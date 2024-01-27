@@ -40,11 +40,12 @@ jobs:
     #    GIT_COMMITTER_NAME: GitHub Actions
     #    GIT_COMMITTER_EMAIL: actions@github.com
 
-    - name: Build
-      run: npm run build  # Replace this with your build script
 
     - name: Publish to NPM
-      run: npm publish --access public
+      run: |
+        npm install --legacy-peer-deps
+        npm run build 
+        npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
