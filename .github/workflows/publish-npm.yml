@@ -42,6 +42,7 @@ jobs:
       run: |
         npm install --legacy-peer-deps
         npm run build 
+        export VITE_NCAAB_MODEL_PATH=https://prod.rpc.gaguru.net/gdg-ncaab-efficiency
         npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
