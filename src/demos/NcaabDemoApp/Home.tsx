@@ -85,7 +85,6 @@ export const Home : FC<HomeProps>  = (props) =>{
     if(!user && !loading) navigate("/");
     const tos = user && getTosConfirmed(user.uid);
     if(tos === false) navigate("/tos");
-    console.log(tos);
 
     const handleTeamClick = async (teamId : string)=>{
         navigate(`/team/${teamId}`)
