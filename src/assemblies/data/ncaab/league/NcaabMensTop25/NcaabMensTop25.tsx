@@ -42,9 +42,10 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
         !props.apTop25||props.apTop25?.length < 1 ? Array(25).fill(ontology.MockRankTrendTeam) : props.apTop25
     )
     .map((entry)=>{
+        console.log('key: ', `apTop25Item-${entry.team.TeamID}`);
         return (
             <MockOver
-                key={entry.team.TeamId}
+                key={`apTop25Item-${entry.team.TeamID}-`}
                 Content={<NcaabMensTop25Entry 
                     onTeamClick={props.onTeamClick}
                     key={entry.team.TeamID}
@@ -63,7 +64,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
     .map((entry)=>{
         return (
             <MockOver
-                key={entry.team.TeamId}
+                key={`gdgTop25Item-${entry.team.TeamID}`}
                 Content={<NcaabMensTop25Entry 
                     onTeamClick={props.onTeamClick}
                     key={entry.team.TeamID}

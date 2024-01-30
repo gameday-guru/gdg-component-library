@@ -32,8 +32,9 @@ export const TeamMatchups : FC<TeamMatchupsProps>  = (props) =>{
 
     const _games : ontology.ProjectedGamelike[] = props.games||Array(25).fill(MockProjectedGame);
     const matchupEntries = _games
-    .map((game)=>{
+    .map((game, index)=>{
         return <TeamMatchupRowProjection 
+        key={ `matchupProjectionRow-${game.game.GameID}-${index}` }
         onMatchupClick={props.onMatchupClick}
         onTeamClick={props.onTeamClick}
         game={game.game}
