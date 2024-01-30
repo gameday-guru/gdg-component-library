@@ -48,8 +48,7 @@ export const Tos: FC<TosProps> = (props) => {
           width: 200,
         }}
       />
-      <Sportsdataio />
-        <ConfirmTos confirmTos={props.confirmTos} tos={props.tos} />
+      <ConfirmTos confirmTos={props.confirmTos} tos={props.tos} />
     </Wrapper>
   );
 };
