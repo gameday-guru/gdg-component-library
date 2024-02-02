@@ -45,7 +45,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
         console.log('key: ', `apTop25Item-${entry.team.TeamID}`);
         return (
             <MockOver
-                key={`apTop25Item-${entry.team.TeamID}-`}
+                key={entry.team.TeamId}
                 Content={<NcaabMensTop25Entry 
                     onTeamClick={props.onTeamClick}
                     key={entry.team.TeamID}
@@ -64,7 +64,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
     .map((entry)=>{
         return (
             <MockOver
-                key={`gdgTop25Item-${entry.team.TeamID}`}
+                key={entry.team.TeamId}
                 Content={<NcaabMensTop25Entry 
                     onTeamClick={props.onTeamClick}
                     key={entry.team.TeamID}
