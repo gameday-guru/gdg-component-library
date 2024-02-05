@@ -25,8 +25,9 @@ export type WrapperProps = {
     invert ? : boolean;
     /** */
     hoverAnimate ? : boolean;
-    onClick ? : ()=>void;
+    onClick ? : (e : React.MouseEvent)=>void;
     innerProps ? : React.HTMLProps<HTMLDivElement>;
+    onContextMenu ? : (e : React.MouseEvent)=>void;
 };
 
 export const Wrapper : FC<WrapperProps>  = (props) =>{
@@ -45,6 +46,7 @@ export const Wrapper : FC<WrapperProps>  = (props) =>{
     return (
         <div
         {...props.innerProps}
+        onContextMenu={props.onContextMenu}
         onClick={props.onClick}
         className={[
             ...!props.overrideClasses ? WRAPPER_CLASSNAMES : [],

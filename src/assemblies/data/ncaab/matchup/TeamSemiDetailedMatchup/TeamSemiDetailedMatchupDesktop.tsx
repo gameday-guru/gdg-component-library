@@ -70,6 +70,7 @@ export const TeamSemiDetailedMatchupDesktop : FC<TeamSemiDetailedMatchupDesktopP
 
     return (
         <Button
+            div
             onClick={handleMatchupClick}
             viusage={props.viusage||"wrap"}
             classNames={[...!props.overrideClasses ? TEAM_SEMI_DETAILED_MATCHUP_DESKTOP_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}

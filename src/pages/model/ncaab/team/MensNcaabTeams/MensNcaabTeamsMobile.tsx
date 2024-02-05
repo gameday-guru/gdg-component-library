@@ -28,7 +28,7 @@ export type MensNcaabTeamsMobileProps = {
     topOffensiveTeamsStats ? : React.ReactNode[];
     topDefensiveTeams ? : ontology.Teamlike[];
     topDefensiveTeamsStats ? : React.ReactNode[];
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    onWhich ? : (which : "home" | "team" | "matchups" | "bracket")=>Promise<void>;
     onBuildMatchup ? : (home : string, away : string)=>Promise<void>;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;

@@ -9,6 +9,7 @@ export const useTeams = () : {
 
     getTeams : Processorlike['getTeams'],
     getTeamsTable : Processorlike['getTeamsTable'],
+    getTeam : Processorlike['getTeam']
 
 
 }=>{
@@ -23,12 +24,15 @@ export const useTeams = () : {
         return teamsTable && Object.values(teamsTable);
     };
 
+    const getTeam = (id : string)=>getTeamsTable()?.[id];
+
     
 
 
     return {
         getTeams,
-        getTeamsTable
+        getTeamsTable,
+        getTeam
     }
 
 }

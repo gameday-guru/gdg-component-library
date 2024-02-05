@@ -5,6 +5,7 @@ import { LogoedSidebar } from '../LogoedSidebar';
 import { House, PeopleFill, Calendar } from "react-bootstrap-icons";
 import { Help } from '../Help';
 import { Sportsdataio } from '../../../../components/output/icons/Sportsdataio/Sportsdataio';
+import { SportsBasketball } from "@mui/icons-material"
 
 export const SIDEBAR_CONTAINER_CLASSNAMES : string[] = [
     "p-4",
@@ -27,8 +28,8 @@ export type MainSidebarProps = {
     classNames ? : string[];
     overrideClasses ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
-    which ? : "home" | "team" | "matchups";
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    which ? : "home" | "team" | "matchups" | "bracket";
+    onWhich ? : (which : "home" | "team" | "matchups" | "bracket")=>Promise<void>;
     onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
 };
 
@@ -58,7 +59,12 @@ export const MainSidebar : FC<MainSidebarProps>  = (props) =>{
                         display : "flex",
                         alignContent : "center",
                         alignItems : "center"
-                    }}><Calendar/>&emsp;&emsp;Matchup</div>
+                    }}><Calendar/>&emsp;&emsp;Matchup</div>,
+                    "bracket" : <div style={{
+                        display : "flex",
+                        alignContent : "center",
+                        alignItems : "center"
+                    }}><SportsBasketball/>&emsp;&emsp;Bracket</div>
                 }}/>
             </div>
             <div style={{

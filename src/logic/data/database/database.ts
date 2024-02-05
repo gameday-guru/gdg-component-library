@@ -1,6 +1,7 @@
 import { ontology } from "../../../util"
 import { MockProjectionArgslike } from "../../../util/rpc";
 import { BlogArticlesMultiCache } from "../domain/blogs";
+import { BracketsMultiCache, MyBracketsMultiCache } from "../domain/bracket/caches";
 import { ConfirmedTosMultiCache } from "../domain/confirmedTos";
 import { EfficiencyMultiCache } from "../domain/efficiency";
 import { GamesByDateMultiCache } from "../domain/gamesByDate";
@@ -25,6 +26,8 @@ export interface DataMultiPowerStoreslike {
     tos : MultiPowerStorelike<undefined, ontology.TosTablelike>;
     confirmedTos : MultiPowerStorelike<string, boolean>;
     mockProjection : MultiPowerStorelike<MockProjectionArgslike, ontology.ProjectionEntrylike>;
+    bracket : MultiPowerStorelike<string, ontology.IdSparseBracketlike>;
+    myBrackets : MultiPowerStorelike<undefined, string[]>;
 }
 
 export const DEFAULT_MULTI_LISTENERS : DataMultiPowerStoreslike = {
@@ -38,7 +41,9 @@ export const DEFAULT_MULTI_LISTENERS : DataMultiPowerStoreslike = {
     blogs : BlogArticlesMultiCache,
     tos : TosesMultiCache,
     confirmedTos : ConfirmedTosMultiCache,
-    mockProjection : MockProjectionMultiCache
+    mockProjection : MockProjectionMultiCache,
+    bracket : BracketsMultiCache,
+    myBrackets : MyBracketsMultiCache
 }
 
 export interface Databaselike {

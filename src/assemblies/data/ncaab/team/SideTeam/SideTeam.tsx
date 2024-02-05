@@ -2,6 +2,7 @@ import React, {FC, ReactElement} from 'react';
 import { Button } from '../../../../../components';
 import { ontology } from '../../../../../util';
 import { Viusagelike } from '../../../../../util/viusage/primary';
+import { ellipsize } from '../../../../../util/text/ellipsize';
 
 export const SIDE_TEAM_CLASSNAMES : string[] = [
     "grid",
@@ -27,10 +28,10 @@ export type SideTeamProps = {
     size ? : number;
     short ? : boolean;
     reverse ? : boolean;
-
     // ENUM these two
     inlineVisitorStatus ? : boolean;
     hideVisitorStatus ? : boolean;
+    ellipsize ? : number;
 };
 
 export const SideTeam : FC<SideTeamProps>  = (props) =>{
@@ -46,7 +47,7 @@ export const SideTeam : FC<SideTeamProps>  = (props) =>{
     </div>
     const text = <div>
         <h2 className='text'>
-            {props.short ? team.ShortDisplayName : team.School}
+            {ellipsize(props.short ? team.ShortDisplayName : team.School, props.ellipsize||100)}
             {props.inlineVisitorStatus && !props.hideVisitorStatus && <span>&nbsp;{props.away ? "(A)" : "(H)"}</span>}
         </h2>
         {!props.inlineVisitorStatus && !props.hideVisitorStatus && <h2 className='text-sm'>{props.away ? "Away" : "Home"}</h2>}

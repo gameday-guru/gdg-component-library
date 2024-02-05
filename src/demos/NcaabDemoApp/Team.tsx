@@ -144,6 +144,7 @@ export const Team : FC<TeamProps>  = (props) =>{
         navigate("/self/overview");
     }
 
+
     return (
         <MensNcaabTeam
         onAccountClick={handleAccountClick}

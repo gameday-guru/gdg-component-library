@@ -143,7 +143,7 @@ export const Table : FC<TableProps>  = (props) =>{
                             return <th key={generate()} scope="col">&emsp;&emsp;</th>
                             
                         return (<th key={generate()} scope="col">
-                            <div className="flex p-4 items-center content-center text-sm font-medium text-gray-900 text-left">
+                            <div className="flex p-4 items-center content-center font-medium text-gray-900 text-left">
                                 {col}
                                 <span
                                 onClick={handleCaretClick}

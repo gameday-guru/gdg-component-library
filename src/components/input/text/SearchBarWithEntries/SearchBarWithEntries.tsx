@@ -10,7 +10,8 @@ export const SEARCH_BAR_WITH_ENTRIES_CLASSNAMES : string[] = [
 ];
 export const SEARCH_BAR_WITH_ENTRIES_STYLE : React.CSSProperties = {
     gridTemplateColumns : "1fr",
-    position : "relative"
+    position : "relative",
+    opacity : 1.0
 };
 
 export type SearchBarWithEntriesProps = {
@@ -31,16 +32,19 @@ export const SearchBarWithEntries : FC<SearchBarWithEntriesProps>  = (props) =>{
 
     return (
         <Wrapper
+        onClick={(e)=>{
+            e.stopPropagation()
+        }}
         innerProps={props.entriesWrapperProps}
         viusage={props.viusage||"wrap"}
         classNames={[...!props.overrideClasses ? SEARCH_BAR_WITH_ENTRIES_CLASSNAMES : [], ...props.classNames||[]]}
         style={{...!props.overrideStyle ? SEARCH_BAR_WITH_ENTRIES_STYLE : {}, ...props.style}}>
             <div style={{
-                zIndex : 200
+                // zIndex : 200
             }}>
                 <SearchBar 
                 style={{
-                    zIndex : 200
+                    // zIndex : 200
                 }}
                 viusage={props.viusage}
                 inputProps={props.inputProps}/>
@@ -55,7 +59,7 @@ export const SearchBarWithEntries : FC<SearchBarWithEntriesProps>  = (props) =>{
                 top : "100%",
                 width : "100%",
                 left : 0,
-                zIndex : 100,
+                zIndex : 20000,
                 overflow : "scroll",
                 height : props.entriesHeight
             }}>
@@ -63,6 +67,7 @@ export const SearchBarWithEntries : FC<SearchBarWithEntriesProps>  = (props) =>{
                     width : "100%",
                     display : "grid",
                     gridTemplateColumns : "1fr",
+                    zIndex : 20000
                 }}>
                     {props.Entries}
                 </div>

@@ -85,7 +85,8 @@ export const FilterSet : FC<FilterSetProps>  = (props) =>{
             props.table.filter((value)=>{
                 return evaluateFilterToken(value, filters,{})
             })
-        ).catch((err)=>console.log(err));
+        ).then((data)=>console.log(data))
+        .catch((err)=>console.log(err));
         
     }, [filters, JSON.stringify(props.fieldCase), JSON.stringify(props.table)])
 

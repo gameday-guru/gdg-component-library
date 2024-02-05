@@ -1,11 +1,13 @@
 import React, { FC, ReactElement } from 'react';
 import { ontology } from '../../../../../util';
 import { SideTeam } from '../../team/SideTeam';
-import { BracketMatchup } from '../BracketMatchup/BracketMatchup';
 import { Orientation } from '../util';
 import { generate } from 'shortid';
 import { BracketBlank } from '../BracketBlank';
+import { BracketMatchupStackdown } from '../BracketMatchupStackdown/BracketMatchupStackdown';
 import { BracketEntry } from '../BracketEntry/BracketEntry';
+import { shouldBeBracketEntry, shouldLeaderBeUp } from '../../../../../util/ontology';
+import { Wrapper } from '../../../../../components';
 
 export const BRACKET_CLASSNAMES: string[] = [
     "grid"
@@ -22,31 +24,37 @@ export type BracketProps = {
     overrideClasses?: boolean;
     responsive?: boolean;
     bracket?: ontology.SparseBracketlike;
-    onBracketUpdate ? : (
-        update : (bracket : ontology.SparseBracketlike)=>Promise<ontology.SparseBracketlike>
-    )=>Promise<void>;
-    mirror ? : boolean;
-    getMockProjection ? : (args : {
-        home_team_id : string,
-        away_team_id : string,
-        neutral : boolean
-    })=>ontology.ProjectionEntrylike | undefined;
-    getProbability ? : (args : {
-        home_team_id : string,
-        away_team_id : string,
+    getBracketGameView? : (pos : {
+        rowNo : number,
+        colNo : number
+    })=>(ontology.BracketGameViewlike|undefined);
+    setBracketGameWinner ? : (args : {
         pos : {
             rowNo : number,
             colNo : number
-        }
-    })=>{
-        homeProbability ? : number,
-        awayProbability ? : number, 
-    }
+        },
+        id : string
+    })=>Promise<void>;
+    mirror ? : boolean;
+    last ? : "down" | "up" | "end" | "agnostic";
+    centerAll ? : boolean;
+    rowHeight ? : React.CSSProperties["height"];
+    builder ? : boolean;
+    onTeamSelect ? : (args : {
+        pos : {
+            rowNo : number,
+            colNo : number
+        },
+        id : string,
+        top : boolean
+    })=>Promise<void>;
+    teams ? : ontology.Teamlike[];
 };
 
 export const Bracket: FC<BracketProps> = (props) => {
 
     const _bracket = props.bracket || ontology.Mock4TeamBracket;
+    const _rowHeight = props.rowHeight||"100px";
 
     // based on the dimensions of the bracket and some display paramters,
     // you will need to compute the number of grid columns and rows
@@ -54,149 +62,141 @@ export const Bracket: FC<BracketProps> = (props) => {
     // then this should be the dimensions of the sparse matrix
     const height = _bracket.length;
     const width = _bracket[0].length;
-    const rowTemplate: string = Array(_bracket.length).fill("70px").join(" ");
-    const colTemplate: string = Array(_bracket[0].length).fill("1fr").join(" ");
+    const rowTemplate: string = Array(height).fill(_rowHeight).join(" ");
+    const colTemplate: string = Array(width).fill("1fr").join(" ");
     const continuation = Array(width).fill(false);
 
     const bracketEntries = _bracket.map((row, rowNo,) => {
-        
-        return row.map((bracketEntry, colNo) => {
 
-            if (bracketEntry) {
-                continuation[colNo] = !continuation[colNo];
+        const _row = props.mirror ? [...row].reverse() : row;
+        
+        return _row.map((bracketEntry, _colNo) => {
+
+            const colNo = props.mirror ? width - _colNo - 1 : _colNo;
+
+            let up = shouldLeaderBeUp({ rowNo, colNo});
+            let noLeader = false;
+            let continues = continuation[colNo]; 
+            if(colNo === width - 1){
+
+                switch(props.last){
+
+                    case "down" : {
+
+                        up = false;
+                        break;
+
+                    }
+
+                    case "up" : {
+
+                        up = true;
+                        continues = !continues;
+                        break
+
+                    }
+
+                    case "end" : {
+
+                        noLeader = true;
+                        continues = false;
+                        break;
+
+                    }
+
+                    default : {
+                        noLeader = true;
+                        continues = false;
+                        break;
+                    }
+
+                }
+
             }
 
+            if(!shouldBeBracketEntry({rowNo, colNo})) 
+                return <BracketBlank 
+                    reverse={props.mirror}
+                    key={generate()}
+                    style={{
+                        height : "1px",
+                        overflow : "visible"
+                    }} continuation={continues}/>
+            
+
+            continuation[colNo] = !continuation[colNo];
             const offset = colNo > 0 ? 2 ** (colNo - 1) : colNo; 
             const above = _bracket[rowNo - offset]?.[colNo - 1];
             const below = _bracket[rowNo + offset]?.[colNo - 1];
 
-            if(!bracketEntry) {
-                return <BracketBlank 
-                key={generate()}
-                style={{
-                    height : "1px",
-                    overflow : "visible"
-                }} continuation={ continuation[colNo] }/>
-            }
+            const getBracketGameView = () : ontology.BracketGameViewlike|undefined =>{
 
-            const teamOptionsAbove : {[key : string] : ontology.Teamlike} = {
-
-            };
-            const teamOptionsBelow : {[key : string] : ontology.Teamlike} = {
-
-            };
-            if (colNo > 0){
-    
-                if(above?.userPick?.home)
-                    teamOptionsAbove[
-                        above?.userPick?.home.TeamID.toLocaleString()
-                    ] = above?.userPick?.home;
-                if(above?.userPick?.away)
-                    teamOptionsAbove[
-                        above?.userPick?.away.TeamID.toLocaleString()
-                    ] = above?.userPick?.away;
-                if(above?.actualGame?.home)
-                    teamOptionsAbove[
-                        above?.actualGame?.home.TeamID.toLocaleString()
-                    ] = above?.actualGame?.home;
-                if(above?.actualGame?.away)
-                    teamOptionsAbove[
-                        above?.actualGame?.away.TeamID.toLocaleString()
-                    ] = above?.actualGame?.away;
-
-                
-                if(below?.userPick?.home)
-                    teamOptionsBelow[
-                        below?.userPick?.home.TeamID.toLocaleString()
-                    ] = below?.userPick?.home;
-                if(below?.userPick?.away)
-                    teamOptionsBelow[
-                        below?.userPick?.away.TeamID.toLocaleString()
-                    ] = below?.userPick?.away;
-                if(below?.actualGame?.home)
-                    teamOptionsBelow[
-                        below?.actualGame?.home.TeamID.toLocaleString()
-                    ] = below?.actualGame?.home;
-                if(below?.actualGame?.away)
-                    teamOptionsBelow[
-                        below?.actualGame?.away.TeamID.toLocaleString()
-                    ] = below?.actualGame?.away;
-
-            }
-
-
-            const handleMatchupUpdate = async (
-                update : (matchup : ontology.BracketCorrectedMatchuplike)=>Promise<ontology.BracketCorrectedMatchuplike>
-            )=>{
-
-                if(props.onBracketUpdate){
-
-                    await props.onBracketUpdate(async (bracket)=>{
-
-                        if(bracketEntry)
-                            bracket[rowNo][colNo] 
-                            = await update(bracketEntry);
-
-                        return [
-                            ...bracket
-                        ]
-
-                    });
-
-                }
-
-
-            }
-
-            const _getProbability = (args : {
-                home_team_id : string,
-                away_team_id : string,
-            }) : {
-                homeProbability ? : number,
-                awayProbability ? : number, 
-            }=>{
-
-
-                if(!props.getProbability) return {};
-
-                return props.getProbability({
-                    ...args,
-                    pos : {
+                if(props.getBracketGameView)
+                    return props.getBracketGameView({
                         rowNo,
                         colNo
-                    }
-                });
+                    });
+
+                return undefined;
 
             }
 
-            return <BracketEntry 
-                getProbability={_getProbability}
-                getMockProjection={props.getMockProjection}
-                aboveNeedsSelection={colNo > 0 && !above?.userPick && !above?.actualGame}
-                belowNeedsSelection={colNo > 0 && !below?.userPick && !below?.actualGame}
-                onMatchupUpdate={handleMatchupUpdate}
-                teamsAbove={teamOptionsAbove}
-                teamsBelow={teamOptionsBelow}
-                matchup={bracketEntry} 
-                key={generate()} 
+            const setBracketGameWinner = async (id : string)=>{
+
+                if(props.setBracketGameWinner)
+                    await props.setBracketGameWinner({
+                        pos : {
+                            rowNo,
+                            colNo
+                        },
+                        id
+                    })
+
+            }
+
+            const handleTeamSelect = async (id : string, top : boolean)=>{
+                if(props.onTeamSelect)
+                    await props.onTeamSelect({
+                        pos : {
+                            rowNo,
+                            colNo
+                        },
+                        id,
+                        top
+                    })
+            }
+
+            
+            return <BracketEntry
+                builder={colNo === 0 && props.builder}
+                center={props.centerAll}
+                reverse={props.mirror}
+                key={generate()}
                 inheritance={colNo > 0} 
-                up={!continuation[colNo]} />;
+                up={up}
+                noLeader={noLeader}
+                onTeamSelect={handleTeamSelect}
+                onWinnerSelect={setBracketGameWinner}
+                getBracketGameView={getBracketGameView}
+                teams={props.teams}/>
 
         })
 
     }).flat();
 
     return (
-        <div
-            className={[...!props.overrideClasses ? BRACKET_CLASSNAMES : [], ...props.classNames || []].join(" ")}
+        <Wrapper
+            viusage='backdrop'
+            classNames={[...!props.overrideClasses ? BRACKET_CLASSNAMES : [], ...props.classNames || []]}
             style={{
                 ...!props.overrideStyle ? {
                     ...BRACKET_STYLE,
                     gridTemplateColumns: colTemplate,
-                    gridTemplateRows: rowTemplate
+                    gridTemplateRows: rowTemplate,
+                    borderColor : "#333333"
                 } : {}, ...props.style
             }}>
             {bracketEntries}
-        </div>
+        </Wrapper>
     )
 };

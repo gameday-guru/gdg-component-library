@@ -54,3 +54,19 @@ export const getMockProjection = async (args : MockProjectionArgslike) : Promise
     return data;
 
 }
+
+export type BracketByRoundlike = {[key : string] : number | string}[]
+
+
+export const getBracketByRound = async () : Promise<BracketByRoundlike> =>{
+
+    const data =  (await axios.post(
+        `${import.meta.env.VITE_NCAAB_MODEL_PATH}/method/get_bracket_by_round`,
+        {
+            id : 1
+        }
+    )).data;
+
+    return data;
+
+}

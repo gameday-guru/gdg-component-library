@@ -32,8 +32,8 @@ export type MobileNavProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     viusage ? : viusage.primary.Viusagelike;
-    which ? : "home" | "team" | "matchups";
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    which ? : "home" | "team" | "matchups" | "bracket";
+    onWhich ? : (which : "home" | "team" | "matchups" | "bracket")=>Promise<void>;
     onFeedbackSubmit ?  : (feedback : string)=>Promise<void>;
     onAccountClick ? : ()=>Promise<void>;
 };

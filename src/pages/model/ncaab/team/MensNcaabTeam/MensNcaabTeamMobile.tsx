@@ -28,7 +28,7 @@ export type MensNcaabTeamMobileIndividualProps = {
     leagueAverages ? : ontology.LeagueAverageslike;
     pointDistribution ? : ontology.PointDistributionlike;
     games ? : ontology.ProjectedGamelike[];
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    onWhich ? : (which : "home" | "team" | "matchups" | "bracket")=>Promise<void>;
     efficiency ? : ontology.EfficiencyEntrylike;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;

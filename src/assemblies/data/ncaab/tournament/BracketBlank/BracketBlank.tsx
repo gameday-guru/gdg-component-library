@@ -12,14 +12,19 @@ export type BracketBlankProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     continuation ? :boolean;
+    reverse ? : boolean;
 };
 
-export const BracketBlank : FC<BracketBlankProps>  = ({continuation}) =>{
+export const BracketBlank : FC<BracketBlankProps>  = ({continuation, reverse}) =>{
 
     return (
         <div style={
             {
-                borderRight: continuation ? '3px solid' : undefined,
+                ...reverse ? {
+                    borderLeft : continuation ? '3px solid' : undefined,
+                } : {
+                    borderRight: continuation ? '3px solid' : undefined,
+                }
             }
         }></div>
     )

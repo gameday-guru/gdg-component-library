@@ -51,6 +51,7 @@ export type ButtonProps = {
     /** Whether or not to overrid the classes  */
     overrideClasses ? : boolean;
     div ? : boolean;
+    border ? : boolean;
 };
 
 export const Button : FC<ButtonProps>  = (props) =>{
@@ -90,6 +91,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
     }
 
     // style
+    // TODO: refactor this into common helper
     const primaryColor = getViusageColor(props.viusage);
     let primaryEmphasis : Emphasislike = props.emphasis || 500;
     let secondaryEmphasis = getInverseColorEmphasis(primaryEmphasis);
@@ -103,7 +105,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
     if(props.div) return (
         <div
         // pass through
-        {...props}
+        // {...props}
         // used props
         onClick={handleClick}
         className={[
@@ -115,7 +117,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
                 `hover:bg-${primaryColor}-${primaryEmphasis - 200}`,
                 `text-${textColor}-${textEmphasis}`,
                 `hover:text-${textColor}-${textEmphasis + 100}`,
-                `fill-${primaryColor}-${secondaryEmphasis}`
+                `fill-${primaryColor}-${secondaryEmphasis}`,
             ]
         ].join(" ")}
         style={{...BUTTON_STYLE, ...props.style}}>
@@ -149,7 +151,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
     return (
         <button
         // pass through
-        {...props}
+        // {...props}
         // used props
         onClick={handleClick}
         className={[
@@ -161,7 +163,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
                 `hover:bg-${primaryColor}-${primaryEmphasis - 200}`,
                 `text-${textColor}-${textEmphasis}`,
                 `hover:text-${textColor}-${textEmphasis + 100}`,
-                `fill-${primaryColor}-${secondaryEmphasis}`
+                `fill-${primaryColor}-${secondaryEmphasis}`,
             ]
         ].join(" ")}
         style={{...BUTTON_STYLE, ...props.style}}>

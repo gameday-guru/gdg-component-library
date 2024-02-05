@@ -23,7 +23,7 @@ export type MatchupsDesktopProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     teams ? : { [key : string] : ontology.Teamlike };
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    onWhich ? : (which : "home" | "team" | "matchups" | "bracket")=>Promise<void>;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
     gamesThisWeek ? : ontology.ProjectedGamelike[];

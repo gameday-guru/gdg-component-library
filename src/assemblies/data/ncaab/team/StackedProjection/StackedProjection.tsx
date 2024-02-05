@@ -49,7 +49,7 @@ export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
                     onTeamClick={props.onTeamClick}
                     team={props.away}
                     game={props.game}
-                    gameProjection={props.gameProjection}
+                    gameProjection={props.gameProjection?.__mock ? undefined : props.gameProjection}
                     away={true}/>
             </div>
             <div style={{
@@ -82,7 +82,7 @@ export const StackedProjection : FC<StackedProjectionProps>  = (props) =>{
                     onTeamClick={props.onTeamClick}
                     team={props.home}
                     game={props.game}
-                    gameProjection={props.gameProjection}
+                    gameProjection={props.gameProjection?.__mock ? undefined : props.gameProjection}
                     away={false}/>
             </div>
         </div>

@@ -6,6 +6,7 @@ export interface Processorlike {
     // teams
     getTeams() : ontology.Teamlike[] | undefined;
     getTeamsTable() : {[key : string] : ontology.Teamlike} | undefined;
+    getTeam(id : string) : ontology.Teamlike | undefined;
 
     getApTop25Teams() : ontology.RankTrendTeamlike[] | undefined;
     getGdgTop25Teams() : ontology.RankTrendTeamlike[] | undefined;
@@ -63,6 +64,18 @@ export interface Processorlike {
 
     // mock projection
     getMockProjection(args : MockProjectionArgslike) : ontology.ProjectionEntrylike | undefined;
+
+    // brackets
+    getMyBrackets() : ontology.IdSparseBracketlike[];
+
+    /*setBrackets(args : {
+        _id ? : string,
+        bracket : ontology.SparseBracketlike
+    }) : void;*/
+    
+    getBracket(args : ontology.IdLookuplike) : ontology.IdSparseBracketlike | undefined;
+
+
 
 }
 

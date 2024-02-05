@@ -39,7 +39,8 @@ export const useGames = () : {
 
         return gamesOnDate && gamesOnDate
         .filter((game)=>{
-            return efficiency[game.AwayTeamID.toString()]
+            return game.AwayTeamID && game.HomeTeamID 
+            && efficiency[game.AwayTeamID.toString()]
             && efficiency[game.HomeTeamID.toString()];
 
         });

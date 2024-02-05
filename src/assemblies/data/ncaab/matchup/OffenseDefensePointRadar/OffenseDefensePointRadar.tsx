@@ -1,5 +1,6 @@
 import React, {FC, ReactElement} from 'react';
 import { Tooltip, PieChart, Pie, Cell, Legend, RadarChart, PolarGrid, Radar, PolarAngleAxis, PolarRadiusAxis, Label } from "recharts";
+import { generate } from 'shortid';
 import { Wrapper } from '../../../../../components';
 import { ontology } from '../../../../../util';
 import { MockAway, MockHome, MockPointDistribution } from '../../../../../util/ontology';
@@ -139,9 +140,9 @@ export const OffenseDefensePointRadar : FC<OffenseDefensePointRadarProps>  = (pr
                 <PolarAngleAxis dataKey="name" />
                 <PolarRadiusAxis />
                 {/** TODO: move to better verbeage than reverse */}
-                <Radar dataKey={props.reverse ? "defense" : "offense"} stroke={COLORS[0]} 
+                <Radar key={generate()} dataKey={props.reverse ? "defense" : "offense"} stroke={COLORS[0]} 
                     fill={COLORS[0]} fillOpacity={0.5} />
-                <Radar dataKey={props.reverse ? "offense" : "defense"} stroke={COLORS[1]} 
+                <Radar key={generate()} dataKey={props.reverse ? "offense" : "defense"} stroke={COLORS[1]} 
                     fill={COLORS[1]} fillOpacity={0.5} />
                 <Label fontSize={8}/>
             </RadarChart>

@@ -23,7 +23,7 @@ export const LowMedHigh : FC<LowMedHighProps>  = (props) =>{
     switch(props.which || "med") {
 
         case "low" : {
-            backgroundColor= "#FD353529";
+            backgroundColor= "#FD353567";
             break;
         }
 
@@ -33,7 +33,7 @@ export const LowMedHigh : FC<LowMedHighProps>  = (props) =>{
         }
 
         case "high" : {
-            backgroundColor = "#01987529";
+            backgroundColor = "#01987567";
             break;
         }
 

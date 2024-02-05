@@ -24,6 +24,8 @@ import { Tos } from "./Tos";
 import { SelfOverview } from "./SelfOverview";
 import { PasswordReset } from "./PasswordReset";
 import { Playground } from "../Playground/Playground";
+import { BracketPage } from "./BracketPage";
+import { MyBrackets } from "./MyBrackets";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -65,7 +67,10 @@ export function App(style : any) {
           <Route path="/self" element={<SelfOverview/>}/>
           <Route path="/self/overview" element={<SelfOverview/>}/>
           <Route path="/forgot" element={<PasswordReset/>}/>
-          <Route path="/_it/demo/bracket" element={<Playground/>}/>
+          <Route path="/brackets" element={<BracketPage/>}/>
+          <Route path="/brackets/:id" element={<BracketPage/>}/>
+          <Route path="/my/bracket" element={<MyBrackets/>}/>
+          <Route path="/bracket" element={<MyBrackets/>}/>
         </Routes>
       </BrowserRouter>
     </div>

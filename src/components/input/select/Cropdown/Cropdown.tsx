@@ -36,14 +36,17 @@ export const Cropdown : FC<CropdownProps>  = (props) =>{
     const _viusage = props.viusage||"wrap";
 
     const [down, setDown] = useState(false);
+    const [key, setKey] = useState("");
 
     const _Up = props.Up||<ChevronUp/>;
     const _Down = props.Down||<ChevronDown/>;
 
-    const handleToggle = async ()=>setDown(!down);
+    const handleToggle = async ()=>{
+        setDown(!down)
+        setKey(generate());
+    };
 
     const _Selected = props.options?.[props.selected||""];
-
     const _Options = Object.entries(props.options||{}).map(([key, value])=>{
 
         const handleClick = async ()=>{
@@ -75,7 +78,7 @@ export const Cropdown : FC<CropdownProps>  = (props) =>{
             <div className='rounded' style={{
                 display : "grid",
                 gridTemplateColumns : "10fr 1fr",
-                overflow : "hidden",
+                // overflow : "hidden",
                 alignContent : "center",
                 alignItems : "center"
             }}>
@@ -85,8 +88,12 @@ export const Cropdown : FC<CropdownProps>  = (props) =>{
                 <Button viusage={_viusage} div style={{
                     borderRadius : 0,
                     justifyContent : "center",
-                    justifyItems : "center"
-                }} onClick={handleToggle}>
+                    justifyItems : "center",
+                    overflow : "visible"
+                }} onClick={async (e)=>{
+                    e.stopPropagation();
+                    handleToggle()
+                }}>
                     {down ? _Up : _Down}
                 </Button>
             </div>
@@ -100,11 +107,8 @@ export const Cropdown : FC<CropdownProps>  = (props) =>{
                 borderBottomLeftRadius : "8px",
                 borderBottomRightRadius : "8px",
                 maxHeight : "100px",
-                zIndex : 2000
             }}>
-               
-                    {_Options}
-            
+                {_Options}
             </Wrapper>}
         </Wrapper>
     )

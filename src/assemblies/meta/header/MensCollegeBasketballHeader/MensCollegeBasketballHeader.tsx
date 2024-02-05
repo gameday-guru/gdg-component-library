@@ -50,8 +50,8 @@ export const MensCollegeBasketballHeader : FC<MensCollegeBasketballHeaderProps> 
     const medium = useSupportedMedia();
 
     switch (props.medium||medium) {
-        case "mobile" : return <MensCollegeBasketballMobileHeader/>
-        default : return <MensCollegeBasketballDesktopHeader/>
+        case "mobile" : return <MensCollegeBasketballMobileHeader {...props}/>
+        default : return <MensCollegeBasketballDesktopHeader {...props}/>
 
     }
 

@@ -23,7 +23,7 @@ export type MatchupDesktopProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     teams ? : { [key : string] : ontology.Teamlike };
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    onWhich ? : (which : "home" | "team" | "matchups" | "bracket")=>Promise<void>;
     homeDistro ? : ontology.PointDistributionlike;
     home ? : ontology.Teamlike;
     homeEfficiency ? : ontology.EfficiencyEntrylike;

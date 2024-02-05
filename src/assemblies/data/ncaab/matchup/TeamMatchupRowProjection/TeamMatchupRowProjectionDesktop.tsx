@@ -68,6 +68,7 @@ export const TeamMatchupRowProjectionDesktop : FC<TeamMatchupRowProjectionDeskto
 
     return (
         <Button
+            div
             onClick={handleMatchupClick}
             viusage={"backdrop"}
             classNames={[...!props.overrideClasses ? TEAM_MATCHUP_ROW_PROJECTION_DESKTOP_CONTAINER_CLASSNAMES : [], ...props.classNames||[]]}

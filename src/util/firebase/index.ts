@@ -53,6 +53,12 @@ export const submitFeedbackFunc = httpsCallable<{
     feedback : string 
 },boolean>(functions, "submitFeedback");
 
+export const setBracketFunc = httpsCallable<ontology.PartIdSparseBracketlike, ontology.IdSparseBracketlike>(functions, "setBracket");
+
+export const getBracketFunc = httpsCallable<ontology.IdLookuplike,ontology.IdSparseBracketlike>(functions, "getBracket");
+
+export const getMyBracketsFunc = httpsCallable<void,ontology.IdSparseBracketlike[]>(functions, "getMyBrackets");
+
 /**
  * 
  * @param date 
@@ -211,5 +217,40 @@ export const submitFeedback = async (args : {
 }) : Promise<boolean> =>{
 
     return (await submitFeedbackFunc(args)).data
+
+}
+
+/**
+ * Sets a bracket.
+ * @param args 
+ * @returns 
+ */
+export const setBracket = async (args : ontology.PartIdSparseBracketlike) : Promise<ontology.IdSparseBracketlike> =>{
+
+    return (await setBracketFunc(args)).data
+
+}
+
+
+/**
+ * Gets a bracket.
+ * @param args 
+ * @returns 
+ */
+export const getBracket = async (args : ontology.IdLookuplike) : Promise<ontology.IdSparseBracketlike> =>{
+
+    return (await getBracketFunc(args)).data
+
+}
+
+/**
+ * Gets all user brackets.
+ * @param args 
+ * @returns 
+ */
+export const getMyBrackets = async () : Promise<ontology.IdSparseBracketlike[]> =>{
+
+    const data = (await getMyBracketsFunc()).data;
+    return data;
 
 }

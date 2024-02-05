@@ -1,4 +1,5 @@
 import React, {FC, ReactElement} from 'react';
+import { generate } from 'shortid';
 import { Wrapper } from '../../../../../components';
 import { ontology } from '../../../../../util';
 import { SidePlayer } from '../../player';
@@ -37,7 +38,7 @@ export const Players : FC<PlayersProps>  = (props) =>{
     const _Label = props.Label||<>Team Members</>
 
     const _players = props.players||Array(25).fill(ontology.MockPlayer);
-    const playerEntries = _players.map((player)=><SidePlayer player={player}/>)
+    const playerEntries = _players.map((player)=><SidePlayer key={generate()} player={player}/>)
 
     return (
         <Wrapper

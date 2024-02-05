@@ -20,6 +20,7 @@ import { useBlogs } from "./useBlogs";
 import { useTos } from "./useTos";
 import { getTos } from "../../../util/cms/tos";
 import { useMockProjection } from "./useMockProjection";
+import { useBrackets } from "./useBrackets";
 
 export const imemoize = <K extends any[], V>(
     func : (...args : K)=>V
@@ -50,7 +51,8 @@ export const useOnceProcessor = () : Processorlike =>{
 
     const {
         getTeams,
-        getTeamsTable
+        getTeamsTable,
+        getTeam
     } = useTeams();
 
     const {
@@ -117,6 +119,11 @@ export const useOnceProcessor = () : Processorlike =>{
         getMockProjection
     } = useMockProjection();
 
+    const {
+        getBracket,
+        getMyBrackets
+    } = useBrackets()
+
     return {
 
         // games
@@ -140,6 +147,7 @@ export const useOnceProcessor = () : Processorlike =>{
         // teams
         getTeams,
         getTeamsTable,
+        getTeam,
 
         getApTop25Teams,
         getGdgTop25Teams,
@@ -177,7 +185,11 @@ export const useOnceProcessor = () : Processorlike =>{
         getTosConfirmed,
 
         // mock projection
-        getMockProjection
+        getMockProjection,
+
+        // brackets
+        getBracket,
+        getMyBrackets
 
     };
 

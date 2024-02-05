@@ -1,4 +1,5 @@
 import React, {FC, ReactElement} from 'react';
+import { generate } from 'shortid';
 import { Wrapper } from '../../../../../components';
 import { ontology } from '../../../../../util';
 import { MockHome, MockProjectedGame } from '../../../../../util/ontology';
@@ -32,9 +33,9 @@ export const TeamMatchups : FC<TeamMatchupsProps>  = (props) =>{
 
     const _games : ontology.ProjectedGamelike[] = props.games||Array(25).fill(MockProjectedGame);
     const matchupEntries = _games
-    .map((game, index)=>{
+    .map((game)=>{
         return <TeamMatchupRowProjection 
-        key={ `matchupProjectionRow-${game.game.GameID}-${index}` }
+        key={generate()}
         onMatchupClick={props.onMatchupClick}
         onTeamClick={props.onTeamClick}
         game={game.game}

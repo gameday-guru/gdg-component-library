@@ -53,13 +53,16 @@ export const useProjectedGames = () : {
         if( !_games || !_teams || !_projectionTable ) return undefined;
 
         const top25ProjectedGames : {[key : string] : ontology.ProjectedGamelike} = {};
-        for(const game of _games)
+        for(const game of _games){
+
             top25ProjectedGames[game.GameID.toString()] = {
                 game,
                 gameProjection : _projectionTable[game.GameID.toString()]||ontology.MockProjection,
                 home : _teams[game.HomeTeamID.toString()],
                 away : _teams[game.AwayTeamID.toString()]
             };
+        }
+
 
         return top25ProjectedGames;
 

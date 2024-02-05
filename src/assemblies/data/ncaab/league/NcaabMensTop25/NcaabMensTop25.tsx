@@ -4,6 +4,7 @@ import { MockOver } from '../../../../../components/output/MockOver';
 import { ontology, viusage } from '../../../../../util';
 import { DateString } from '../../generic';
 import { NcaabMensTop25Entry } from '../NcaabMensTop25Entry';
+import { generate } from 'shortid';
 
 export const NCAAB_MENS_TOP25_CONTAINER_CLASSNAMES : string[] = [ 
     "p-4"
@@ -42,10 +43,9 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
         !props.apTop25||props.apTop25?.length < 1 ? Array(25).fill(ontology.MockRankTrendTeam) : props.apTop25
     )
     .map((entry)=>{
-        console.log('key: ', `apTop25Item-${entry.team.TeamID}`);
         return (
             <MockOver
-                key={entry.team.TeamId}
+                key={generate()}
                 Content={<NcaabMensTop25Entry 
                     onTeamClick={props.onTeamClick}
                     key={entry.team.TeamID}
@@ -64,7 +64,7 @@ export const NcaabMensTop25 : FC<NcaabMensTop25Props>  = (props) =>{
     .map((entry)=>{
         return (
             <MockOver
-                key={entry.team.TeamId}
+                key={generate()}
                 Content={<NcaabMensTop25Entry 
                     onTeamClick={props.onTeamClick}
                     key={entry.team.TeamID}

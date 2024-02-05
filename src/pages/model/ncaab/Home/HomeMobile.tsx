@@ -27,7 +27,7 @@ export type HomeMobileProps = {
     top25Games ? : ontology.ProjectedGamelike[];
     apTop25Teams ? : ontology.RankTrendTeamlike[];
     gdgTop25Teams ? : ontology.RankTrendTeamlike[];
-    onWhich ? : (which : "home" | "team" | "matchups")=>Promise<void>;
+    onWhich ? : (which : "home" | "team" | "matchups" | "bracket")=>Promise<void>;
     onTeamClick ? : (teamId : string)=>Promise<void>;
     onMatchupClick ? : (gameId : string)=>Promise<void>;
     headerProjectedGames ? : ontology.ProjectedGamelike[];
