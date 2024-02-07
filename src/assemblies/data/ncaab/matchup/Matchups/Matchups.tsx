@@ -2,7 +2,6 @@ import React, {FC, ReactElement} from 'react';
 import { ontology } from '../../../../../util';
 import { useSupportedMedia } from '../../../../../util/media/useSupportedMedia';
 import { NcaabMensAllUpcomingGames } from '../../overview/NcaabMensAllUpcomingGames/NcaabMensAllUpcomingGames';
-import { WeekMatchupCarousel } from '../WeekMatchupCarousel';
 
 export const MATCHUPS_CLASSNAMES : string[] = [
     "grid",
@@ -29,7 +28,6 @@ export type MatchupsProps = {
 export const Matchups : FC<MatchupsProps>  = (props) =>{
 
     const medium = useSupportedMedia();
-    const groupBy = medium === "mobile" ? 1 : 4;
 
     return (
         <div
@@ -40,13 +38,6 @@ export const Matchups : FC<MatchupsProps>  = (props) =>{
                 onMatchupClick={props.onMatchupClick}
                 onTeamClick={props.onTeamClick}
                 allUpcomingGames={props.gamesThisWeek}/>
-            </div>
-            <div>
-                <WeekMatchupCarousel
-                groupBy={groupBy}
-                onMatchupClick={props.onMatchupClick}
-                onTeamClick={props.onTeamClick}
-                gamesThisWeek={props.allUpcomingGames}/>
             </div>
         </div>
     )
