@@ -21,6 +21,7 @@ import { Matchups } from './demos/NcaabDemoApp/Matchups';
 import { Matchup } from './demos/NcaabDemoApp/Matchup';
 import { MockMatchup } from './demos/NcaabDemoApp/MockMatchup';
 import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-datepicker/dist/react-datepicker.css';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
