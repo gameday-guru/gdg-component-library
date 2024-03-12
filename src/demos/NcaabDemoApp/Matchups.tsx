@@ -20,7 +20,6 @@ import {
   } from "firebase/auth";
   import { useAuthState } from 'react-firebase-hooks/auth';
 import { useOnceProcessor } from '../../logic/processing/react/reactProcessor';
-import 'react-datepicker/dist/react-datepicker.css';
 
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
