@@ -258,8 +258,10 @@ export const NcaaMarchMadnessTemplatedBracket : FC<NcaaMarchMadnessTemplatedBrac
         }
     }, {})
 
+    const currentYear = (new Date). getFullYear();
+
     const _templateOptions = props.templateOptions||{
-        "bBO5lfVkACwWY9ZO6ufk" : "2023 Bracket Round of 64"
+        "bBO5lfVkACwWY9ZO6ufk" : `${currentYear} Bracket Round of 64`
     };
 
     const Options : {[key : string] : React.ReactNode} = {};
@@ -281,7 +283,7 @@ export const NcaaMarchMadnessTemplatedBracket : FC<NcaaMarchMadnessTemplatedBrac
         className={[...!props.overrideClasses ? NCAA_MARCH_MADNESS_TEMPLATED_BRACKET_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? NCAA_MARCH_MADNESS_TEMPLATED_BRACKET_STYLE : {}, ...props.style}}>
             <div>
-                <h2 className='text-2xl'>NCAAB Men's 2023 Tournament</h2>
+                <h2 className='text-2xl'>NCAAB Men's {currentYear} Tournament</h2>
             </div>
             <br/>
             <div style={{
