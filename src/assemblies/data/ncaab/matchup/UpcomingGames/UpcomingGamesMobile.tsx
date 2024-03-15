@@ -6,6 +6,9 @@ import { MockProjectedGame } from '../../../../../util/ontology';
 import { TeamMatchupRowProjection } from '../TeamMatchupRowProjection';
 import { FilterSet } from '../../../../../components/output/containers/filter';
 import { Viusagelike } from '../../../../../util/viusage/primary';
+import { useOnceProcessor } from "../../../../../logic/processing/react/reactProcessor";
+import { formatDate } from '../../generic/FormatDate/formatDate';
+import MatchupCalendar from '../MatchupCalendar/MatchupCalendar';
 
 export const UPCOMING_GAMES_MOBILE_CONTAINER_CLASSNAMES : string[] = [
     "rounded-lg",
@@ -40,10 +43,31 @@ export type UpcomingGamesMobileProps = {
 };
 
 export const UpcomingGamesMobile : FC<UpcomingGamesMobileProps>  = (props) =>{
+  let userSelectedGames = null;
+  const { getProjectedGamesTable } = useOnceProcessor();
+  const [selectedDate, setSelectedDate] = useState<string>("");
+
+  const handleDateSelect = (date: string) => {
+    setSelectedDate(date);
+
+    // Get the projected games for the selected date
+    userSelectedGames = getProjectedGamesTable(new Date(date));
+
+    const sortedGames =
+      userSelectedGames &&
+      Object.values(userSelectedGames).sort((gameA, gameB) => {
+        return (
+          new Date(gameA.game.DateTimeUTC || gameA.game.Day).getTime() -
+          new Date(gameB.game.DateTimeUTC || gameB.game.Day).getTime()
+        );
+      });
+    // Update the upcoming games
+    setUpcomingGamesMobile(sortedGames || []);
+  };
 
     const [renderCount, setRenderCount] = useState(100);
 
-    const _gameProjections = (props.games||Array(10).fill(MockProjectedGame));
+    const _gameProjections = userSelectedGames || props.games || Array(10).fill(MockProjectedGame);
 
     const [upcomingGames, setUpcomingGamesMobile] = useState(_gameProjections);
 
@@ -82,11 +106,18 @@ export const UpcomingGamesMobile : FC<UpcomingGamesMobileProps>  = (props) =>{
                     "Team Name" : ["TEXT"]
                 }}
                 Title={props.Title}/>
+                {/* Use the MatchupCalendar component to allow the user to select a date */}
+          <div className="flex items-center mb-4">
+            <h1 className="text-xl" style={{ marginRight: "20px" }}>
+              {formatDate(selectedDate ? selectedDate : new Date().toString())}
+            </h1>
+            <MatchupCalendar onDateSelect={handleDateSelect} />
+          </div>
             <br/>
             <hr/>
             <br/>
             <div className='grid gap-4'>
-                {gameProjections}
+                {gameProjections.length > 0 ? gameProjections : "No games available for selected date."}
             </div>
         </div>
     </Wrapper>
