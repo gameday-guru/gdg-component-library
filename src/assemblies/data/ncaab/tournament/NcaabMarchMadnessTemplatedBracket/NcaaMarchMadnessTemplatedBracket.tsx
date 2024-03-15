@@ -274,7 +274,7 @@ export const NcaaMarchMadnessTemplatedBracket : FC<NcaaMarchMadnessTemplatedBrac
         style={{
             width : "300px"
         }}
-        selected='bBO5lfVkACwWY9ZO6ufk'
+        selected='bBO5lfVkACwWY9ZO6ufk' // change to zObp37IyAJ2SOEcAkV2A for Anthony
         handleOptionSelect={props.onTemplateSelect}
         options={Options}/>
 

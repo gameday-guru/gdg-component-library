@@ -59,7 +59,7 @@ export type BracketByRoundlike = {[key : string] : number | string}[]
 
 
 export const getBracketByRound = async () : Promise<BracketByRoundlike> =>{
-
+    console.log('path: ', `${import.meta.env.VITE_NCAAB_MODEL_PATH}/method/get_bracket_by_round`);
     const data =  (await axios.post(
         `${import.meta.env.VITE_NCAAB_MODEL_PATH}/method/get_bracket_by_round`,
         {

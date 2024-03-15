@@ -44,20 +44,45 @@ export type MyBracketsContentProps = {
 };
 
 export const MyBracketsContent : FC<MyBracketsContentProps>  = (props) =>{
+    const handleDeleteBracket = async (id: string) => {
+        // Implement deletion logic here
+        // For example, you might make an API call to delete the bracket
+        console.log(`Deleting bracket with ID: ${id}`);
+    };
+    console.log('props.brackets: ', props.brackets);
+    const bracketEntries = (props.brackets||[]).map((bracket, index)=>{
 
-    const bracketEntries = (props.brackets||[]).map((bracket)=>{
-
-        return <Button viusage={'navigate'} style={{
-            // textAlign : "left"
-        }} onClick={async ()=>{
-            if(props.onBracketIdClick){
-                await props.onBracketIdClick(bracket._id);
-            }
-        }}>
-            {bracket.champion && props.teams?.[bracket.champion] 
-            ? `${props.teams?.[bracket.champion].School} wins!`
-            : "No winner"} ({bracket._id})
-        </Button>
+        return (
+            <div className="flex items-center justify-between gap-2" key={bracket._id}>
+                <div>
+                    <Button
+                        viusage={'navigate'}
+                        style={{
+                            width: '700px'
+                        }}
+                        onClick={async () => {
+                            if (props.onBracketIdClick) {
+                                await props.onBracketIdClick(bracket._id);
+                            }
+                        }}
+                    >
+                        Bracket #{index + 1} Prediction: {bracket.champion && props.teams?.[bracket.champion]
+                            ? `${props.teams?.[bracket.champion].School} wins!`
+                            : "No winner selected"}
+                    </Button>
+                </div>
+                <div>
+                    <Button
+                        style={{ backgroundColor: 'red' }}
+                        onClick={async () => {
+                            await handleDeleteBracket(bracket._id);
+                        }}
+                    >
+                        Delete
+                    </Button>
+                </div>
+            </div>
+        );
 
     });
 
@@ -80,7 +105,23 @@ export const MyBracketsContent : FC<MyBracketsContentProps>  = (props) =>{
                 <div className='p-4' style={{
                     textAlign : "left"
                 }}>
+
+            <div className="flex justify-between items-center p-4">
+                <div>
                     <h2 className='text-2xl'>My Brackets</h2>
+                </div>
+                <div className="right-align" style={{marginLeft: '30px'}}>
+                    <Button
+                        viusage={'navigate'}
+                        onClick={async () => {
+                            window.location.href = "/brackets";
+                        }}
+                    >
+                        Create New Bracket
+                    </Button>
+                </div>
+            </div>
+                    
                     <hr/>
                     <br/>
                     <div className='gap-2' style={{
