@@ -300,7 +300,7 @@ export type BracketPageProps = {
 
 export const BracketPage : FC<BracketPageProps>  = (props) =>{
 
-    const defaultTemplate = "bBO5lfVkACwWY9ZO6ufk";
+    const defaultTemplate = "zObp37IyAJ2SOEcAkV2A";
 
     const medium = useSupportedMedia();
 
