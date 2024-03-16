@@ -55,6 +55,7 @@ export interface IdSparseBracketlike {
     rightFinalFour : SparseBracketlike;
     championship : SparseBracketlike;
     champion ? : string;
+    deleting? : boolean;
 }
 export type PartIdSparseBracketlike = IdSparseBracketlike & {
     _id ? : string,
