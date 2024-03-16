@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, ReactElement, useState} from 'react';
 import { Wrapper } from '../../../../components';
 import { viusage } from '../../../../util';
 import { MensCollegeBasketballHeader } from '../../header';
@@ -8,6 +8,9 @@ import { NcaabTournamentBracket } from '../../../data/ncaab/tournament/NcaabTour
 import { NcaaMarchMadnessTemplatedBracket } from '../../../data/ncaab/tournament/NcaabMarchMadnessTemplatedBracket/NcaaMarchMadnessTemplatedBracket';
 import { BracketByRoundlike } from '../../../../util/rpc';
 import { Button } from '../../../../components';
+import { deleteBracket } from '../../../../util/firebase';
+import { notEqual } from 'assert';
+import { useOnceProcessor } from '../../../../logic/processing/react/reactProcessor';
 
 export const HOME_CONTENT_CONTAINER_CLASSNAMES : string[] = [ ];
 export const HOME_CONTENT_CONTAINER_STYLE : React.CSSProperties = {
@@ -45,11 +48,8 @@ export type MyBracketsContentProps = {
 
 export const MyBracketsContent : FC<MyBracketsContentProps>  = (props) =>{
     const handleDeleteBracket = async (id: string) => {
-        // Implement deletion logic here
-        // For example, you might make an API call to delete the bracket
-        console.log(`Deleting bracket with ID: ${id}`);
+        deleteBracket({_id: id})
     };
-    console.log('props.brackets: ', props.brackets);
     const bracketEntries = (props.brackets||[]).map((bracket, index)=>{
 
         return (

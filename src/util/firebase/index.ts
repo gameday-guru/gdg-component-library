@@ -59,6 +59,8 @@ export const getBracketFunc = httpsCallable<ontology.IdLookuplike,ontology.IdSpa
 
 export const getMyBracketsFunc = httpsCallable<void,ontology.IdSparseBracketlike[]>(functions, "getMyBrackets");
 
+export const deleteBracketFunc = httpsCallable<ontology.IdLookuplike,void>(functions, "deleteBracket");
+
 /**
  * 
  * @param date 
@@ -252,5 +254,16 @@ export const getMyBrackets = async () : Promise<ontology.IdSparseBracketlike[]> 
 
     const data = (await getMyBracketsFunc()).data;
     return data;
+
+}
+
+/**
+ * Deletes a bracket.
+ * @param args 
+ * @returns 
+ */
+export const deleteBracket = async (args : ontology.IdLookuplike) : Promise<void> =>{
+
+    return (await deleteBracketFunc(args)).data
 
 }
