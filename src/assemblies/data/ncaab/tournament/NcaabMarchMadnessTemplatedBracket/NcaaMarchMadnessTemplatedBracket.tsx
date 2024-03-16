@@ -261,7 +261,7 @@ export const NcaaMarchMadnessTemplatedBracket : FC<NcaaMarchMadnessTemplatedBrac
     const currentYear = (new Date). getFullYear();
 
     const _templateOptions = props.templateOptions||{
-        "bBO5lfVkACwWY9ZO6ufk" : `${currentYear} Bracket Round of 64`
+        "zObp37IyAJ2SOEcAkV2A" : `${currentYear} Bracket Round of 64`
     };
 
     const Options : {[key : string] : React.ReactNode} = {};
@@ -274,7 +274,7 @@ export const NcaaMarchMadnessTemplatedBracket : FC<NcaaMarchMadnessTemplatedBrac
         style={{
             width : "300px"
         }}
-        selected='bBO5lfVkACwWY9ZO6ufk' // change to zObp37IyAJ2SOEcAkV2A for Anthony
+        selected='zObp37IyAJ2SOEcAkV2A'
         handleOptionSelect={props.onTemplateSelect}
         options={Options}/>
 
