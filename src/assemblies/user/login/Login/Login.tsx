@@ -80,13 +80,15 @@ export const Login : FC<LoginProps>  = (props) =>{
                     handleUsername(e.target.value)
                 }}
                 onSubmit={onSubmit}
-                placeholder='email' fill viusage='backdrop'/>
+                placeholder='email' fill viusage='backdrop'
+                data-test='email'/>
             <TextInput 
                 onChange={(e)=>{
                     handlePassword(e.target.value)
                 }}
                 onSubmit={onSubmit}
-                type='password' placeholder='password' fill viusage='backdrop'/>
+                type='password' placeholder='password' fill viusage='backdrop'
+                data-test='password'/>
             <div style={{
                 display : "flex",
                 alignItems : "center",
@@ -107,7 +109,8 @@ export const Login : FC<LoginProps>  = (props) =>{
                 &emsp;
                 <Button
                     onClick={onSubmit}
-                    viusage='success'>Login</Button>
+                    viusage='success'
+                    dataTestValue='login'>Login</Button>
             </div>
             <div>
                 <p className='text-error-500'>&nbsp;{err}</p>

@@ -52,6 +52,7 @@ export type ButtonProps = {
     overrideClasses ? : boolean;
     div ? : boolean;
     border ? : boolean;
+    dataTestValue ? : string;
 };
 
 export const Button : FC<ButtonProps>  = (props) =>{
@@ -153,6 +154,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
         // pass through
         // {...props}
         // used props
+        data-test={props.dataTestValue}
         onClick={handleClick}
         className={[
             ...!props.overrideClasses ? BUTTON_CLASSNAMES : [],
