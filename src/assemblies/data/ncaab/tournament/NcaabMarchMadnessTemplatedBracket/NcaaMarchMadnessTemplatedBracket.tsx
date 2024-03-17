@@ -296,7 +296,7 @@ export const NcaaMarchMadnessTemplatedBracket : FC<NcaaMarchMadnessTemplatedBrac
             <br/>
             <br/>
             <br/>
-            <NcaabTournamentByRoundByRegion teams={teamsTable} classNames={["p-4"]} bracketByRound={props.bracketByRound}/>
+            {/* <NcaabTournamentByRoundByRegion teams={teamsTable} classNames={["p-4"]} bracketByRound={props.bracketByRound}/> */}
         </div>
     )
 };
