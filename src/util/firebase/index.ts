@@ -68,7 +68,7 @@ export const deleteBracketFunc = httpsCallable<ontology.IdLookuplike,void>(funct
  */
 export const getGamesByDate =  async (date : Date) : Promise<ontology.GameByDatelike[]> =>{
 
-    const path = `v3/cbb/scores/json/GamesByDate/${date.getFullYear()}-${months[date.getMonth()]}-${date.getDate()}`;
+    const path = `v3/cbb/scores/json/GamesByDateFinal/${date.getFullYear()}-${months[date.getMonth()]}-${date.getDate()}`;
     return (await sportsdataioGet({ path })).data as ontology.GameByDatelike[];
 
 }
